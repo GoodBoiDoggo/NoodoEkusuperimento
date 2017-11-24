@@ -1,0 +1,70 @@
+<html ng-app="app">
+	<head>
+		
+		<% include ./genHead.ejs %>
+		<script src="boi/crudPageController.js"></script>
+		
+	</head>
+	<body ng-controller="crudPageController as vm">
+		<div id="whitespace" class="row"></div>
+		
+		<div class="container">
+		
+			<div class="jumbotron">
+				<h1> L^I^S^T^^O^F^^T^O^D^O</h1>
+				
+			</div>
+			{{vm.boi}}
+			<table class="table">
+				
+				<thead>
+					<tr>
+						<td>
+							USERNAME
+						</td>
+						<td>
+							TODO
+						</td>
+						<td>
+							ISDONE
+						</td>
+						<td>
+							HASATTACHMENT
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in vm.todos">
+						<td>
+							{{x.username}}
+						</td>
+						<td>
+							{{x.todo}}
+						</td>
+						<td>
+							<input type="checkbox" ng-model="x.isDone">
+						</td>
+						<td id="hasA">
+							{{x.hasAttachment}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="jumbotron">
+				<h1> Add a new to do</h1>
+			
+				Username: 
+				<input type="text" ng-model="vm.username"><br>
+				To do: 
+				<input type="text" ng-model="vm.todo"><br>
+				
+				<button type="button" ng-click="vm.addTodo(vm.username, vm.todo)"> Add</button>
+				
+			
+				
+			</div>
+			
+		</div>
+		
+	</body>
+</html>
