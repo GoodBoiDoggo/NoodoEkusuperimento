@@ -6,39 +6,24 @@
 		Kariteun: Catalog
 	</title>
 	<script src="boi/catalogController.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body ng-app="app" ng-controller="catalogController as vm">
-{{vm.boi}}
-<br>
 
-
-<table class="table">
-	<thead>
-		<tr>
-			<td>
-				Product Image
-			</td>
-			<td>
-				Details
-			</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="item in vm.catalogItems">
-			<td>
-				<img src="pic/{{item.imgname}}">
-			</td>
-			<td>
-				Name: {{item.prodname}}<br>
-				Type: {{item.prodtype}}<br>
-				Price: {{item.prodprice}}<br>
+<div class="container">
+	<h1>CATALOG</h1>
+	<div>
+		<div class="item" ng-repeat="item in vm.catalogItems">
+			<a class="item img-thumbnail">
+				<img class="itemimg" src="pic/{{item.imgname}}"><br>
+				<b>{{item.prodname}}</b><br>
+				<i>{{item.prodtype}}</i><br>
+				Php {{item.prodprice}}<br>
 				<!-- Available: {{if(item.isavailable){'Yes'}else{'No'}}} -->
-			</td>
-		</tr>
-		
-	</tbody>
-</table>
+			</a>
+		</div>
+	</div>
+</div>
 
-{{vm.catalogItems}}
 </body>

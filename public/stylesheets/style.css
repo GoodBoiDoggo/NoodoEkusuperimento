@@ -1,10 +1,15 @@
+
 body {
-  
+	text-align:center;
+}
+h1{
+	text-align:center;
 }
 
 a {
   color: #00B7FF;
 }
+
 
 #whitespace {
 	height:50px;
@@ -21,3 +26,32 @@ a {
 #boi3{
 	background-color:greem;
 }
+@media only screen and (max-width: 480px){
+	.item{
+	max-width:150px;
+	height: 300px;
+	float:left;
+	}
+	
+	#itemsContainer{
+	
+		margin:auto;
+	}
+	
+	.itemimg{
+		display: block;
+	  max-width:140px;
+	  max-height:100%;
+	  width: auto;
+	  height: auto;
+	}
+}
+
+/* @media only screen and (max-device-width: 480px) */
+/* xsmall:     (max-width: 479px),
+small:      (max-width: 599px),
+medium:     (max-width: 767px),
+large:      (max-width: 1024px),
+largeOnly:  (min-width: 768px) and (max-width: 1024px),
+xxl:        (min-width: 1200px),
+tall:       (min-height: 780px), */

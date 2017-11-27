@@ -71,7 +71,7 @@ module.exports = function(app){
 //				{
 //					prodname: 'iPhone XXX Ultra Thin',
 //					prodtype: 'Smartphone',
-//					prodeprice: 500000,
+//					prodprice: 500000,
 //					isavailable: true,
 //					imgname: 'product5.png',
 //					tags:['thin', 'iPhone', 'expensive'],
@@ -81,7 +81,7 @@ module.exports = function(app){
 //				{
 //					prodname: 'Samsvng Galaxy S500',
 //					prodtype: 'Smartphone',
-//					prodeprice: 10000,
+//					prodprice: 10000,
 //					isavailable: true,
 //					imgname: 'product6.png',
 //					tags:['vintage', 'samsvng', 'screenless','voice control'],
@@ -91,7 +91,7 @@ module.exports = function(app){
 //				{
 //					prodname: 'Samsung Shoephone X',
 //					prodtype: 'Shoephone',
-//					prodeprice: 17000,
+//					prodprice: 17000,
 //					isavailable: true,
 //					imgname: 'product7.png',
 //					tags:['hi-tech', 'samsvng', 'shoephone'],
@@ -102,7 +102,7 @@ module.exports = function(app){
 //				{
 //					prodname: 'Kariteun Hologram Phone',
 //					prodtype: 'Smartphone',
-//					prodeprice: 500000,
+//					prodprice: 500000,
 //					isavailable: true,
 //					imgname: 'product8.png',
 //					tags:['hologram', 'hi-tech', 'kariteun','bluescreen'],
