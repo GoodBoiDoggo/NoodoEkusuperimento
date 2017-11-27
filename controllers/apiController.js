@@ -2,6 +2,7 @@
  * http://usejsdoc.org/
  */
 var Todos = require('../models/todoModel');
+var Catalog = require('../models/catalogModel');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
@@ -42,6 +43,12 @@ module.exports = function(app){
 		})
 		res.render('../views/CRUDPage.ejs');
 	})
+	
+	app.get('/catalog/all',function (req,res){
+		Catalog.find(function(err,results){
+			res.send(results);
+		})
+	});
 	
 	
 	

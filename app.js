@@ -29,6 +29,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/boi', express.static(path.join(__dirname, 'controllers')));
+app.use('/pic', express.static(path.join(__dirname, 'images')));
 //sdsdsfsdfsd
 // development only
 if ('development' == app.get('env')) {

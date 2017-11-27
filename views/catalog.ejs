@@ -1,0 +1,44 @@
+
+<head>
+<link rel=icon href=pic/kariteun-logo.png>
+	<% include ./genHead.ejs %>
+	<title>
+		Kariteun: Catalog
+	</title>
+	<script src="boi/catalogController.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="catalogController as vm">
+{{vm.boi}}
+<br>
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<td>
+				Product Image
+			</td>
+			<td>
+				Details
+			</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in vm.catalogItems">
+			<td>
+				<img src="pic/{{item.imgname}}">
+			</td>
+			<td>
+				Name: {{item.prodname}}<br>
+				Type: {{item.prodtype}}<br>
+				Price: {{item.prodprice}}<br>
+				<!-- Available: {{if(item.isavailable){'Yes'}else{'No'}}} -->
+			</td>
+		</tr>
+		
+	</tbody>
+</table>
+
+{{vm.catalogItems}}
+</body>

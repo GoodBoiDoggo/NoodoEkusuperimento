@@ -17,4 +17,7 @@ module.exports = function(app){
 	app.get('/crud', function(req,res){
 		res.render('../views/CRUDPage.ejs');
 	});
+	app.get('/catalog', function (req, res){
+		res.render('../views/catalog.ejs');
+	});
 }
