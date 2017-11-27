@@ -1,6 +1,6 @@
 
 body {
-	text-align:center;
+	
 }
 h1{
 	text-align:center;
@@ -18,31 +18,42 @@ a {
 .jumbotron{
 	background-color: lightblue;
 }
+#itemsContainer{
 
+	text-align:center;
+	
+
+}
 #boi0{
 	background-color:red;
 }
 
 #boi3{
-	background-color:greem;
+	background-color:green;
 }
-@media only screen and (max-width: 480px){
-	.item{
-	max-width:150px;
-	height: 300px;
-	float:left;
+/*For Catalog page*/
+@media only screen and (max-width: 599px){
+	div.item{
+	max-width:50%;
+/* 	max-height: 300px;  */
+	display:inline-block;
+	vertical-align:top;
+
+	/* float:left; */
 	}
-	
-	#itemsContainer{
-	
-		margin:auto;
+	a.item{
+		height: 70vw;
 	}
-	
+
+	p{
+		font-size:3vw;
+	}
 	.itemimg{
 		display: block;
-	  max-width:140px;
+	  max-width:230px;
 	  max-height:100%;
-	  width: auto;
+	  width:40vw;
+	   /* width: auto; */
 	  height: auto;
 	}
 }

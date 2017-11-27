@@ -13,14 +13,16 @@
 
 <div class="container">
 	<h1>CATALOG</h1>
-	<div>
+	<div id="itemsContainer">
 		<div class="item" ng-repeat="item in vm.catalogItems">
 			<a class="item img-thumbnail">
 				<img class="itemimg" src="pic/{{item.imgname}}"><br>
-				<b>{{item.prodname}}</b><br>
-				<i>{{item.prodtype}}</i><br>
-				Php {{item.prodprice}}<br>
-				<!-- Available: {{if(item.isavailable){'Yes'}else{'No'}}} -->
+				<p>
+					<b>{{item.prodname}}</b><br>
+					<i>{{item.prodtype}}</i><br>
+					Php {{item.prodprice}}<br>
+					<!-- Available: {{if(item.isavailable){'Yes'}else{'No'}}} -->
+				</p>
 			</a>
 		</div>
 	</div>
