@@ -12,7 +12,13 @@ var catalogSchema = new Schema({
 	    type: String
 	}],
 	ratercount: Number,
-	rateavg: Number
+	rateavg: Number,
+	salerate: Number,
+	reviews: [{
+		type: String
+	}],
+	proddesc: String
+	
 },{ collection : 'catalogdata' });
 
 var Catalog = mongoose.model('Catalog', catalogSchema);

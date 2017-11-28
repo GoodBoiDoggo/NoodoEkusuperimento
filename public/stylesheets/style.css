@@ -2,35 +2,42 @@
 body {
 	
 }
+.rating{
+	font-size:30px;
+	color:blue;
+}
 h1{
 	text-align:center;
 }
-
 a {
   color: #00B7FF;
 }
-
-
 #whitespace {
 	height:50px;
 }
-
 .jumbotron{
 	background-color: lightblue;
 }
-#itemsContainer{
-
+.itemsContainer{
 	text-align:center;
-	
-
 }
 #boi0{
 	background-color:red;
 }
-
+.price{
+	font-size:23px;
+	color:green;
+}
 #boi3{
 	background-color:green;
 }
+.availabletrue{
+	color: green !important;
+}
+.availablefalse{
+	color: red !important;
+}
+
 /*For Catalog page*/
 @media only screen and (max-width: 599px){
 	div.item{
@@ -38,7 +45,6 @@ a {
 /* 	max-height: 300px;  */
 	display:inline-block;
 	vertical-align:top;
-
 	/* float:left; */
 	}
 	a.item{

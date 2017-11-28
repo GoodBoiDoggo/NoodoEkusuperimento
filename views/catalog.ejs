@@ -11,21 +11,50 @@
 
 <body ng-app="app" ng-controller="catalogController as vm">
 
-<div class="container">
+<div ng-show="!vm.showItem" class="container">
 	<h1>CATALOG</h1>
-	<div id="itemsContainer">
+	<div class="itemsContainer">
 		<div class="item" ng-repeat="item in vm.catalogItems">
-			<a class="item img-thumbnail">
-				<img class="itemimg" src="pic/{{item.imgname}}"><br>
+			<a class="item img-thumbnail" ng-click="vm.viewItem(item)">
+				<img class="img-responsive" src="pic/{{item.imgname}}"><br>
 				<p>
 					<b>{{item.prodname}}</b><br>
 					<i>{{item.prodtype}}</i><br>
-					Php {{item.prodprice}}<br>
-					<!-- Available: {{if(item.isavailable){'Yes'}else{'No'}}} -->
+					Php <span ng-show="item.salerate > 0"><del>{{item.prodprice}}</del> {{item.prodprice - (item.prodprice * item.salerate)}}</span>
+						<span ng-show="item.salerate == 0">{{item.prodprice}}</span>
+					<br>
+					<span class="available{{item.isavailable}}">
+						{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
+					</span>
+					
 				</p>
 			</a>
+			
 		</div>
 	</div>
+</div>
+
+<div ng-show="vm.showItem" class="container">
+	<button type="button" class="btn btn-primary" ng-click="vm.showItem = false">Back to Catalog</button>
+	<div class="row"></div>
+	<div class="itemsContainer img-thumbnail">
+		<h2>{{vm.itemData.prodname}}</h2>
+		<br>
+		<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
+		<br>
+		
+	</div>
+	<h3>Item Details</h3>
+	<span class="price">PHP </span>
+	<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
+	<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
+	<br>
+	{{vm.itemData.proddesc}}
+	<h4>
+		<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} voters)</small>
+	</h4>
+	<button type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
+	
 </div>
 
 </body>
