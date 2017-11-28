@@ -54,7 +54,14 @@
 		<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} voters)</small>
 	</h4>
 	<button type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
-	
+	<button type="button" class="btn btn-primary" ng-click="vm.backToCatalog()">Back to Catalog</button>
+	<button type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews</button>
+	<div id="revHash" ng-hide="vm.hideReviews">
+		<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
+			<h4>Anonymous</h4>
+			{{review}}
+		</div>
+	</div>
 </div>
 
 </body>
