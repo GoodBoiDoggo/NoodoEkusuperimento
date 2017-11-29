@@ -35,7 +35,7 @@
 </div>
 
 <div ng-show="vm.showItem" class="container">
-	<button type="button" class="btn btn-primary" ng-click="vm.showItem = false">Back to Catalog</button>
+	
 	<div class="row"></div>
 	<div class="itemsContainer img-thumbnail">
 		<h2>{{vm.itemData.prodname}}</h2>
@@ -43,6 +43,10 @@
 		<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
 		<br>
 		
+	</div>
+	<div data-spy="affix" data-offset="75">
+		<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">Catalog</button>
+		<button type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
 	</div>
 	<h3>Item Details</h3>
 	<span class="price">PHP </span>
@@ -53,8 +57,8 @@
 	<h4>
 		<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} voters)</small>
 	</h4>
-	<button type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
-	<button type="button" class="btn btn-primary" ng-click="vm.backToCatalog()">Back to Catalog</button>
+	
+	
 	<button type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews</button>
 	<div id="revHash" ng-hide="vm.hideReviews">
 		<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
@@ -62,6 +66,11 @@
 			{{review}}
 		</div>
 	</div>
+	
 </div>
+
+
+
+
 
 </body>
