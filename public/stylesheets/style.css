@@ -2,11 +2,7 @@
 body {
 	
 }
-.affix {
-	 top: 20px;
-     z-index: 9999 !important;
-		
-	}
+
 .rating{
 	font-size:30px;
 	color:blue;
@@ -17,7 +13,7 @@ h1{
 a {
   color: #00B7FF;
 }
-#whitespace {
+.whitespace {
 	height:50px;
 }
 .jumbotron{
@@ -48,8 +44,8 @@ a {
 	color: red !important;
 }
 .affixedButton{
-	    height:25vw;
-		width:25vw;
+	    height:50px;
+		width:105px;
 		font-size:4vw;
 	}
 /*For Catalog page*/
@@ -79,19 +75,25 @@ a {
 	  height: auto;
 	}
 	.affix {
-	 top: 20px;
+	 top: 1px;
      z-index: 9999 !important;
-		
 	}
 	.affix > .child{
-	    height:25vw;
-		width:25vw;
-		font-size:4vw;
+
+	}
+	.bottomCon{
+		background-color:#1f2f68;
+		height: 50px;
+		margin-top:3em;
 	}
 	
 }
 @media only screen and (min-device-width: 501px){
-
+	.affix {
+	 top: 20px;
+     z-index: 9999 !important;
+		
+	}
 }
 /* @media only screen and (max-device-width: 480px) */
 /* xsmall:     (max-width: 479px),

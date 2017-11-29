@@ -11,7 +11,7 @@
 
 <body ng-app="app" ng-controller="catalogController as vm">
 
-<div ng-show="!vm.showItem" class="container">
+<div ng-show="!vm.showItem" class="container-fluid">
 	<h1>CATALOG</h1>
 	<div class="itemsContainer">
 		<div class="item" ng-repeat="item in vm.catalogItems">
@@ -34,20 +34,23 @@
 	</div>
 </div>
 
-<div ng-show="vm.showItem" class="container">
+<div ng-show="vm.showItem" class="container-fluid">
 	
-	<div class="row"></div>
+	<div class="row whitespace">
+		
+	</div>
+	<div ng-show="vm.showItem" data-spy="affix">
+			<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">View Catalog</button>
+			<button type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
+	</div>
 	<div class="itemsContainer img-thumbnail">
 		<h2>{{vm.itemData.prodname}}</h2>
 		<br>
 		<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
 		<br>
-		
+
 	</div>
-	<div data-spy="affix" data-offset="75">
-		<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">Catalog</button>
-		<button type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
-	</div>
+	
 	<h3>Item Details</h3>
 	<span class="price">PHP </span>
 	<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
@@ -55,7 +58,7 @@
 	<br>
 	{{vm.itemData.proddesc}}
 	<h4>
-		<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} voters)</small>
+		<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
 	</h4>
 	
 	
@@ -67,7 +70,10 @@
 		</div>
 	</div>
 	
+	
 </div>
+<div class="bottomCon container-fluid">
+	
 
 
 
