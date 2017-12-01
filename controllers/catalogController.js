@@ -7,6 +7,7 @@ catalogController.$inject = ['$http','$anchorScroll','$location','$filter'];
 
 function catalogController($http,$anchorScroll,$location,$filter){
 	var vm = this;
+	vm.loggedIn = false;
 	vm.boi = "BOIII";
 	vm.showItem = false;
 	vm.hideReviews = true;
@@ -20,7 +21,7 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	
 	vm.customFilter = function (obj) {
         vm.re = new RegExp(vm.searchParam, 'i');
-        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.type);
+        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype);
     };
     
 	 function loadItems(){

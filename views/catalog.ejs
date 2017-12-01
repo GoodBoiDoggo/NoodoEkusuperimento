@@ -42,7 +42,8 @@
 	</div>
 	<div ng-show="vm.showItem" data-spy="affix">
 			<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">View Catalog</button>
-			<button type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
+			<button ng-show="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
+			<button ng-hide="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.gotoLogin()">Log in</button>
 	</div>
 	<div class="itemsContainer img-thumbnail">
 		<h2>{{vm.itemData.prodname}}</h2>
@@ -61,14 +62,25 @@
 	<h4>
 		<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
 	</h4>
-	
-	
-	<button type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews</button>
-	<div id="revHash" ng-hide="vm.hideReviews">
-		<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
-			<h4>Anonymous</h4>
-			{{review}}
+	Tags: <br>
+	<div id="tagContainer" class="container-fluid">
+		<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
+			<span class="tagSpan">{{tag}}</span>
 		</div>
+	</div>
+	<br>
+	
+	<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
+	
+	<span class="text-info" ng-hide="vm.itemData.reviews.length"> This item has no user reviews yet. Be the first one!</span>
+	
+	<div id="revHash" ng-hide="vm.hideReviews">
+		<div>
+			<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
+				<h4>Anonymous</h4>
+				{{review}}
+		</div>
+		
 	</div>
 	
 	
