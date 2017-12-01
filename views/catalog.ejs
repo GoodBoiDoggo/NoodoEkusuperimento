@@ -13,8 +13,9 @@
 
 <div ng-show="!vm.showItem" class="container-fluid">
 	<h1>CATALOG</h1>
+	<input id="catalogSearch" type="text" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
 	<div class="itemsContainer">
-		<div class="item" ng-repeat="item in vm.catalogItems">
+		<div class="item" ng-repeat="item in vm.catalogItems | filter:vm.customFilter">
 			<a class="item img-thumbnail" ng-click="vm.viewItem(item)">
 				<img class="img-responsive" src="pic/{{item.imgname}}"><br>
 				<p>
@@ -72,8 +73,8 @@
 	
 	
 </div>
-<div class="bottomCon container-fluid">
-	
+
+<div class="bottomCon container-fluid"></div>
 
 
 

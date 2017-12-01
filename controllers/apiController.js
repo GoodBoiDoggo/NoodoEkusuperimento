@@ -45,7 +45,9 @@ module.exports = function(app){
 	})
 	
 	app.get('/catalog/all',function (req,res){
+		
 		Catalog.find(function(err,results){
+			if(err) throw err;
 			res.send(results);
 		})
 	});

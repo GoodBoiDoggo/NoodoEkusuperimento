@@ -82,9 +82,14 @@ a {
 
 	}
 	.bottomCon{
-		background-color:#1f2f68;
+		/* background-color:#1f2f68; */
 		height: 50px;
 		margin-top:3em;
+		width:100%;
+		position:absolute;
+	}
+	#catalogSearch{
+		margin-bottom: 3em;
 	}
 	
 }

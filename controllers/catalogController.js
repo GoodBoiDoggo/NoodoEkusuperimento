@@ -3,9 +3,9 @@ angular.module('app', []);
 angular.module('app')
 .controller('catalogController', catalogController);
 
-catalogController.$inject = ['$http','$anchorScroll','$location'];
+catalogController.$inject = ['$http','$anchorScroll','$location','$filter'];
 
-function catalogController($http,$anchorScroll,$location){
+function catalogController($http,$anchorScroll,$location,$filter){
 	var vm = this;
 	vm.boi = "BOIII";
 	vm.showItem = false;
@@ -15,19 +15,26 @@ function catalogController($http,$anchorScroll,$location){
 	vm.viewItem = viewItem;
 	vm.toggleReview = toggleReview;
 	vm.backToCatalog = backToCatalog;
+//	vm.filter = filter;
 	loadItems();
 	
-	
+	vm.customFilter = function (obj) {
+        vm.re = new RegExp(vm.searchParam, 'i');
+        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.type);
+    };
+    
 	 function loadItems(){
 		 $http.get('/catalog/all')
 		 .then(function(response){
 			 vm.catalogItems = response.data;
+			 
 		 })
 	 }
 	 
 	 function viewItem(data){
 		 vm.showItem = true;
 		 vm.itemData = data;
+		 vm.searchParam = "";
 		 $anchorScroll();
 	 }
 	 
@@ -52,5 +59,11 @@ function catalogController($http,$anchorScroll,$location){
 		 vm.showItem = false;
 		 $location.hash('');
 	 }
+	 
+//	 function filter(){
+//		 vm.filteredCatalogItems = angular.copy(vm.catalogItems);
+//		 vm.filteredCatalogItems = angular.copy($filter('filter')(vm.filteredCatalogItems,{prodname:vm.searchParam}));
+	 
+//	 }
 	 
 }
