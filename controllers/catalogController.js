@@ -16,6 +16,7 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	vm.viewItem = viewItem;
 	vm.toggleReview = toggleReview;
 	vm.backToCatalog = backToCatalog;
+	vm.avStyle = avStyle;
 //	vm.filter = filter;
 	loadItems();
 	
@@ -61,6 +62,11 @@ function catalogController($http,$anchorScroll,$location,$filter){
 		 $location.hash('');
 	 }
 	 
+	 function avStyle(){
+		 if(vm.loggedIn && !vm.itemData.isavailable){
+			 return {opacity : 0.5};
+		 }
+	 }
 //	 function filter(){
 //		 vm.filteredCatalogItems = angular.copy(vm.catalogItems);
 //		 vm.filteredCatalogItems = angular.copy($filter('filter')(vm.filteredCatalogItems,{prodname:vm.searchParam}));

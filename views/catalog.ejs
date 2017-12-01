@@ -10,7 +10,6 @@
 </head>
 
 <body ng-app="app" ng-controller="catalogController as vm">
-
 <div ng-show="!vm.showItem" class="container-fluid">
 	<h1>CATALOG</h1>
 	<input id="catalogSearch" type="text" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
@@ -36,24 +35,29 @@
 </div>
 
 <div ng-show="vm.showItem" class="container-fluid">
-	
-	<div class="row whitespace">
-		
-	</div>
+	<div class="row whitespace"></div>
 	<div ng-show="vm.showItem" data-spy="affix">
-			<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">View Catalog</button>
-			<button ng-show="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
-			<button ng-hide="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.gotoLogin()">Log in</button>
+	
+		<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">View Catalog</button>
+		<button ng-style="vm.avStyle()" ng-show="vm.loggedIn" ng-disabled="!vm.itemData.isavailable" type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
+		<button ng-hide="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.gotoLogin()">Log in</button>
+	
 	</div>
 	<div class="itemsContainer img-thumbnail">
+	
 		<h2>{{vm.itemData.prodname}}</h2>
 		<br>
-		<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
+			<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
 		<br>
-
+		
 	</div>
+	<h3>Item Details
 	
-	<h3>Item Details</h3>
+		<small class="available{{vm.itemData.isavailable}}">
+			{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
+		</small>
+		
+	</h3>	
 	<span class="price">PHP </span>
 	<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
 	<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
@@ -69,27 +73,17 @@
 		</div>
 	</div>
 	<br>
-	
 	<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
-	
 	<span class="text-info" ng-hide="vm.itemData.reviews.length"> This item has no user reviews yet. Be the first one!</span>
-	
 	<div id="revHash" ng-hide="vm.hideReviews">
 		<div>
 			<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
 				<h4>Anonymous</h4>
 				{{review}}
 		</div>
-		
 	</div>
-	
-	
 </div>
 
 <div class="bottomCon container-fluid"></div>
-
-
-
-
 
 </body>
