@@ -11,6 +11,12 @@ var catalogSchema = new Schema({
 	tags: [{
 	    type: String
 	}],
+	prodcolor: String,
+	prodbrand: String,
+	prodsizes: [{
+	    type: Number
+	}],
+	gender: String,
 	ratercount: Number,
 	rateavg: Number,
 	salerate: Number,

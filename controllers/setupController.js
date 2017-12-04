@@ -27,115 +27,93 @@ module.exports = function(app){
 		
 //		
 	//	For catalog
+		
 //			var catalogItems = [
 //				{
-//					prodname: 'Addadas Running Shoes',
-//					prodtype: 'Shoes',
+//					prodname: 'Addidas Running Shoes',
+//					prodtype: 'running',
 //					prodprice: 4000,
 //					isavailable: true,
 //					imgname: 'product1.png',
-//					tags:['white', 'running shoes', 'slav','addadas'],
+//					tags:['white', 'shock absorb','Addidas','running','cotton top'],
+//					prodcolor: 'white',
+//					prodbrand: 'Addidas',
+//					prodsizes:[4,6,8,9],
+//					gender: 'female',
 //					ratercount: 1,
 //					rateavg: 5,
 //					salerate: 0,
 //					reviews: ['After using this shoe I won against Usain bolt! I give 5/5!'],
-//					proddesc: 'Shoes with cotton surface with the addadas mark. The shoes laces are ceramic.'
+//					proddesc: 'Shoes with cotton surface with the Addidas mark. The shoes laces are ceramic.'
 //				},
 //				{
-//					prodname: 'Knighkee Walking Shoes',
-//					prodtype: 'Shoes',
+//					prodname: 'Nike Walking Shoes',
+//					prodtype: 'walking',
 //					prodprice: 5999,
 //					isavailable: true,
 //					imgname: 'product2.png',
-//					tags:['white', 'walking shoes', 'authentic','knighkee'],
+//					tags:['white', 'walking', 'light','Nike'],
+//					prodcolor: 'white',
+//					prodbrand: 'Nike',
+//					prodsizes:[6,8,9,11],
+//					gender: 'male',
 //					ratercount: 0,
 //					rateavg: 0,
 //					salerate: 0,
 //					reviews: [],
-//					proddesc: 'Walking with this shoe gives too much pleasure that you wont be able to run again.\n'+
-//								'It does this by injecting hormones that make the wearer masochistic then slowly melts the feet.'
+//					proddesc: 'Allows walking at 3mps with ease.'
 //				},
 //				{
-//					prodname: 'Boots of Travel',
-//					prodtype: 'Shoes',
+//					prodname: 'Shoes of Travel',
+//					prodtype: 'casual',
 //					prodprice: 3000,
 //					isavailable: true,
 //					imgname: 'product3.png',
-//					tags:['orange', 'special shoes', 'teleport'],
+//					tags:['orange', 'special shoes', 'teleport','kids','Moose Gear'],
+//					prodcolor: 'orange',
+//					prodbrand: 'Moose Gear',
+//					prodsizes:[6,6.5,7.5,8],
+//					gender: 'male',
 //					ratercount: 0,
 //					rateavg: 0,
 //					salerate: 0.1,
 //					reviews: [],
-//					proddesc: 'Teleport to any friendly buildings.'
+//					proddesc: 'Teleport to any friendly buildings(imagination of kids).'
 //				},
 //				{
-//					prodname: 'Arcane boots',
-//					prodtype: 'Shoes',
+//					prodname: 'Addidas Magic Blue',
+//					prodtype: 'walking',
 //					prodprice: 1300,
 //					isavailable: false,
 //					imgname: 'product4.png',
-//					tags:['blue', 'magic shoes', 'restore', 'mana'],
+//					tags:['blue', 'magic', 'walking', 'Addidas'],
+//					prodcolor: 'blue',
+//					prodbrand: 'Addidas',
+//					prodsizes:[4,8,9,10,12],
+//					gender: 'female',
 //					ratercount: 1,
 //					rateavg: 3,
 //					salerate: 0,
-//					reviews: ['It is too Arcane that I wasnt able to understand how to wear it.'],
-//					proddesc: 'Dispenses Gatorade from your feet.'
+//					reviews: ['It is too blue that it looks like magic.'],
+//					proddesc: 'Blue shoes made from naturally blue materials to maximize aesthetics and comfort as well.'
 //				},
 //				{
-//					prodname: 'iPhone XXX Ultra Thin',
-//					prodtype: 'Smartphone',
+//					prodname: 'Addidas Spikezxc',
+//					prodtype: 'leather',
 //					prodprice: 500000,
 //					isavailable: true,
 //					imgname: 'product5.png',
-//					tags:['thin', 'iPhone', 'expensive'],
-//					ratercount: 0,
-//					rateavg: 0,
+//					tags:['waterproof', 'Addidas', 'leather','porcupine'],
+//					prodcolor: 'brown',
+//					prodbrand: 'Addidas',
+//					prodsizes:[6,8,9,10,12],
+//					gender: 'male',
+//					ratercount: 3,
+//					rateavg: 5,
 //					salerate: 0,
-//					reviews: [],
-//					proddesc: 'As thin as two stacked illustration boards yet as hard as a diamond'
-//				},
-//				{
-//					prodname: 'Samsvng Galaxy S500',
-//					prodtype: 'Smartphone',
-//					prodprice: 10000,
-//					isavailable: false,
-//					imgname: 'product6.png',
-//					tags:['vintage', 'samsvng', 'screenless','voice control'],
-//					ratercount: 0,
-//					rateavg: 0,
-//					salerate: 0,
-//					reviews: [],
-//					proddesc:'Telephone that can contact phones outside Earth. Standard charges apply.\n'+
-//								'Can be controlled using voice.'
-//				},
-//				{
-//					prodname: 'Samsung Shoephone X',
-//					prodtype: 'Shoephone',
-//					prodprice: 17000,
-//					isavailable: true,
-//					imgname: 'product7.png',
-//					tags:['hi-tech', 'samsvng', 'shoephone'],
-//					ratercount: 0,
-//					rateavg: 0,
-//					salerate: 0.3,
-//					reviews: [],
-//					proddesc: 'Never fail in no-calculator exams ever again!'
-//					
-//				},
-//
-//				{
-//					prodname: 'Kariteun Hologram Phone',
-//					prodtype: 'Smartphone',
-//					prodprice: 500000,
-//					isavailable: true,
-//					imgname: 'product8.png',
-//					tags:['hologram', 'hi-tech', 'kariteun','bluescreen'],
-//					ratercount: 1,
-//					rateavg: 1,
-//					salerate: 0,
-//					reviews: ['FAKE! It just glass not hologram!!! Still cool tho. 1/5'],
-//					proddesc:'Better than any phone. You will see when you buy it. No warranties.'
-//				},
+//					reviews: ['It is too good it hurts! Pun intended','Now no one will dare step on my new shoes.','I rated this 5 becoz i love porcupines <3'],
+//					proddesc: 'A leather shoe crafted to perfection using porcupine spikes and leather. Extremely waterproof.'
+//				}				
 //			];
 	//
 //			Todos.create(starterTodos, function(err, results){

@@ -10,88 +10,104 @@
 </head>
 
 <body ng-app="app" ng-controller="catalogController as vm">
-<div ng-show="!vm.showItem" class="container-fluid">
-	<div class="row">
-		<h1>CATALOG</h1>
-		<input id="catalogSearch" type="text" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
-		<div class="itemsContainer">
-			<div class="item" ng-repeat="item in vm.catalogItems | filter:vm.customFilter">
-				<a class="item img-thumbnail" ng-click="vm.viewItem(item)">
-					<img class="img-responsive" src="pic/{{item.imgname}}"><br>
-					<p>
-						<b>{{item.prodname}}</b><br>
-						<i>{{item.prodtype}}</i><br>
-						Php <span ng-show="item.salerate > 0"><del>{{item.prodprice}}</del> {{item.prodprice - (item.prodprice * item.salerate)}}</span>
-							<span ng-show="item.salerate == 0">{{item.prodprice}}</span>
-						<br>
-						<span class="available{{item.isavailable}}">
-							{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
-						</span>
-						
-					</p>
-				</a>
-				
+<div id="bodyContainer">
+	<div ng-show="!vm.showItem" class="container-fluid">
+		<div class="row">
+			<h1>CATALOG</h1>
+			<input id="catalogSearch" type="text" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
+			<span></span>
+			<div id="noMatch" class="text-info" ng-hide="vm.filteredCatalogItems.length">
+				No matches found.
+				You can search products according to
+				name, type or tags.
 			</div>
-		</div>
-	</div>
-</div>
-
-<div ng-show="vm.showItem" class="container-fluid">
-	<div class="row whitespace"></div>
-	<div class="row">
-		<div ng-show="vm.showItem" data-spy="affix">
-		
-			<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">View Catalog</button>
-			<button ng-style="vm.avStyle()" ng-show="vm.loggedIn" ng-disabled="!vm.itemData.isavailable" type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
-			<button ng-hide="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.gotoLogin()">Log in</button>
-		
-		</div>
-		<div class="itemsContainer img-thumbnail">
-		
-			<h2>{{vm.itemData.prodname}}</h2>
-			<br>
-				<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
-			<br>
-			
-		</div>
-		<h3>Item Details
-		
-			<small class="available{{vm.itemData.isavailable}}">
-				{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
-			</small>
-			
-		</h3>	
-		<span class="price">PHP </span>
-		<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
-		<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
-		<br>
-		{{vm.itemData.proddesc}}
-		<h4>
-			<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
-		</h4>
-		Tags: <br>
-		<div id="tagContainer" class="container-fluid">
-			<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
-				<span class="tagSpan">{{tag}}</span>
-			</div>
-		</div>
-		<br>
-		<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
-		<span class="text-info" ng-hide="vm.itemData.reviews.length"> This item has no user reviews yet. Be the first one!</span>
-		<div id="revHash" ng-hide="vm.hideReviews">
-			<div>
-				<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
-					<h4>Anonymous</h4>
-					{{review}}
+			<div class="itemsContainer">
+				<div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter)">
+					<a class="item img-thumbnail" ng-click="vm.viewItem(item)">
+						<img class="img-responsive" src="pic/{{item.imgname}}"><br>
+						<p>
+							<b>{{item.prodname}}</b><br>
+							<i>{{item.prodtype}}</i><br>
+							Php <span ng-show="item.salerate > 0"><del>{{item.prodprice}}</del> {{item.prodprice - (item.prodprice * item.salerate)}}</span>
+								<span ng-show="item.salerate == 0">{{item.prodprice}}</span>
+							<br>
+							<span class="available{{item.isavailable}}">
+								{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
+							</span>
+							
+						</p>
+					</a>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<div ng-show="vm.showItem" class="container-fluid">
+		<div class="row whitespace"></div>
+		<div class="row">
+			<div ng-show="vm.showItem" data-spy="affix">
+			
+				<button type="button" class="child btn btn-primary affixedButton" ng-click="vm.backToCatalog()">View Catalog</button>
+				<button ng-style="vm.avStyle()" ng-show="vm.loggedIn" ng-disabled="!vm.itemData.isavailable" type="button" class="child btn btn-success affixedButton" ng-click="vm.addToCart(vm.itemData)">Add to Cart</button>
+				<button ng-hide="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.gotoLogin()">Log in</button>
+			
+			</div>
+			<div class="itemsContainer img-thumbnail">
+			
+				<h2>{{vm.itemData.prodname}}</h2>
+				<br>
+					<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
+				<br>
+				
+			</div>
+			<h3>Item Details
+			
+				<small class="available{{vm.itemData.isavailable}}">
+					{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
+				</small>
+				
+			</h3>	
+			<span class="price">PHP </span>
+			<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
+			<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
+			<br>
+			{{vm.itemData.proddesc}}
+			<h4>
+				<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
+			</h4>
+			Sizes:
+			<div id="sizeContainer" class="container-fluid">
+				<div class="sizeDiv" ng-repeat="size in vm.itemData.prodsizes">
+					<span class="sizeSpan">{{size}}</span>
+				</div>
+			</div>
+			<br>
+			Tags: <br>
+			<div id="tagContainer" class="container-fluid" >
+				<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
+					<span class="tagSpan">{{tag}}</span>
+				</div>
+			</div>
+			<br>
+			<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
+			<span class="text-info" ng-hide="vm.itemData.reviews.length"> This item has no user reviews yet. Be the first one!</span>
+			<div id="revHash" ng-hide="vm.hideReviews">
+				<div>
+					<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
+						<h4>Anonymous</h4>
+						{{review}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fillerDiv"></div>
 </div>
-
 
 <div class="container-fluid">
 	<div class="row bottomCon">
+		<span id="footMsg">Contact us on: (+63)9420789019</span>
 	</div>
 </div>
 

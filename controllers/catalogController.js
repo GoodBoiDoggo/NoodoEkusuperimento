@@ -22,7 +22,7 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	
 	vm.customFilter = function (obj) {
         vm.re = new RegExp(vm.searchParam, 'i');
-        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype);
+        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor) || vm.re.test(obj.prodbrand)|| vm.re.test(obj.gender);
     };
     
 	 function loadItems(){
@@ -44,8 +44,8 @@ function catalogController($http,$anchorScroll,$location,$filter){
 		 if(vm.hideReviews){
 			 vm.showHide = 'Hide';
 			 vm.hideReviews = false;
-			 $location.hash('revHash');
-			 $anchorScroll();
+//			 $location.hash('revHash');
+//			 $anchorScroll();
 			 
 		 }
 		 else{

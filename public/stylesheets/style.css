@@ -1,8 +1,17 @@
 
-body {
-	
+html, body {
+		height:100%;
 }
-
+#footMsg{
+	color:darkgrey;
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+#noMatch{
+	display:block;
+	text-align:center;
+}
 .rating{
 	font-size:30px;
 	color:blue;
@@ -12,6 +21,10 @@ h1{
 }
 a {
   color: #00B7FF;
+  cursor:pointer;
+}
+a:hover{
+	background-color:#f4f2f2;
 }
 .whitespace {
 	height:100px;
@@ -55,6 +68,13 @@ a {
 	font-size:4vw;
 	padding:4px;
 }
+.sizeSpan{
+	background-color:#1f2f68;
+	color:white;
+	border-radius:2px;
+	font-size:4vw;
+	padding:4px;
+} //stoppped here
 .tagDiv{
 	float:left;
 	display:block;
@@ -67,9 +87,6 @@ a {
 }
 /*For Catalog page*/
 @media only screen and (max-width: 500px){
-	body > .container-fluid{
-		
-	}
 	div.item{
 	max-width:50%;
 /* 	max-height: 300px;  */
@@ -86,37 +103,94 @@ a {
 	}
 	.itemimg{
 		display: block;
-	  max-width:230px;
-	  max-height:100%;
-	  width:40vw;
-	   /* width: auto; */
-	  height: auto;
+		max-width:230px;
+		max-height:100%;
+		width:40vw;
+		/* width: auto; */
+		height: auto;
 	}
 	.affix {
-	margin-top:30px;
-	 top: 1px;
-     z-index: 9999 !important;
+		margin-top:30px;
+		top: 1px;
+	    z-index: 9999 !important;
 	}
 	.affix > .child{
 
 	}
 	.bottomCon{
-		/* background-color:#1f2f68; */
+		background-color:#d1d1d1;
 		height: 50px;
-		margin-top:3em;
+		/* margin-top:3em; */
 		width:100%;
 		position:absolute;
+	}
+	.fillerDiv{
+		/* background-color:#1f2f68; */
+		height: 100px;
+		width:100%;
 	}
 	#catalogSearch{
 		margin-bottom: 3em;
 	}
+	#bodyContainer{
+		margin-left:1em !important;
+		margin-right:1em !important;
+		min-height: 100%;
+	    height: auto !important;
+	    height: 100%;
+	    margin: 0 auto -50px;
+	}
 	
 }
-@media only screen and (min-device-width: 501px){
+@media only screen and (min-width: 501px){
 	.affix {
-	 top: 20px;
-     z-index: 9999 !important;
-		
+		 top: 20px;
+	     z-index: 9999 !important;
+	}
+	#bodyContainer{
+		margin-left: 5em !important;
+		margin-right:5em !important;
+		min-height: 100%;
+	    height: auto !important;
+	    height: 100%;
+	    margin: 0 auto -50px;
+	}
+	div.item{
+		max-width:150px;
+	/* 	max-height: 300px;  */
+		display:inline-block;
+		vertical-align:top;
+		/* float:left; */
+	}
+	a.item{
+		height: 300px;
+	}
+
+	p{
+		font-size:14px;
+	}
+	.itemimg{
+		display: block;
+		max-width:230px;
+		max-height:100%;
+		width:40vw;
+	  /* width: auto; */
+		height: auto;
+	}
+	#catalogSearch{
+		margin-bottom: 3em;
+	}
+	.bottomCon{
+		background-color:#d1d1d1;
+		height: 50px;
+		/* margin-top:3em; */
+		width:100%;
+		position:absolute;
+	}
+	.fillerDiv{
+		/* background-color:#1f2f68; */
+		height: 100px;
+		width:100%;
 	}
 }
 /* @media only screen and (max-device-width: 480px) */
