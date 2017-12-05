@@ -2,6 +2,11 @@
 html, body {
 		height:100%;
 }
+#prodDesc{
+	padding:2px;
+	padding-left:4px;
+	border-left:4px solid #1f2f68;
+}
 #footMsg{
 	color:darkgrey;
 	position:absolute;

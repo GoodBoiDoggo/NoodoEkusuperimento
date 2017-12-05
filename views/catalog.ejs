@@ -68,12 +68,19 @@
 						{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
 					</small>
 					
-				</h3>	
+				</h3>
+				<b>Brand:</b> {{vm.itemData.prodbrand}}
+				<br>
+				<b>Type:</b> {{vm.itemData.prodtype}}
+				<br>
+				<div id="prodDesc">
+					{{vm.itemData.proddesc}}
+				</div>
+				<br>
 				<span class="price">PHP </span>
 				<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
 				<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
 				<br>
-				{{vm.itemData.proddesc}}
 				<h4>
 					<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
 				</h4>
