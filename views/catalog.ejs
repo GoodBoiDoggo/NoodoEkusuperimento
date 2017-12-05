@@ -53,50 +53,56 @@
 				<button ng-hide="vm.loggedIn" type="button" class="child btn btn-success affixedButton" ng-click="vm.gotoLogin()">Log in</button>
 			
 			</div>
-			<div class="itemsContainer img-thumbnail">
+			<div id="soloImage" class="itemsContainer img-thumbnail">
 			
 				<h2>{{vm.itemData.prodname}}</h2>
 				<br>
-					<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
+				<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
 				<br>
 				
 			</div>
-			<h3>Item Details
-			
-				<small class="available{{vm.itemData.isavailable}}">
-					{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
-				</small>
+			<div id="dataDisplay">
+				<h3>Item Details
 				
-			</h3>	
-			<span class="price">PHP </span>
-			<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
-			<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
-			<br>
-			{{vm.itemData.proddesc}}
-			<h4>
-				<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
-			</h4>
-			Sizes:
-			<div id="sizeContainer" class="container-fluid">
-				<div class="sizeDiv" ng-repeat="size in vm.itemData.prodsizes">
-					<span class="sizeSpan">{{size}}</span>
+					<small class="available{{vm.itemData.isavailable}}">
+						{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
+					</small>
+					
+				</h3>	
+				<span class="price">PHP </span>
+				<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
+				<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
+				<br>
+				{{vm.itemData.proddesc}}
+				<h4>
+					<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
+				</h4>
+				<h4>Sizes: <small>({{vm.clickedSize}} is selected)</small></h4>
+				<div id="sizeContainer" class="container-fluid">
+					<div class="sizeDiv" ng-repeat="size in vm.itemData.prodsizes">
+						<span ng-class="vm.sizeClass(size)" ng-click="vm.sizeClick(size)" class="sizeSpan">{{size}}</span>
+					</div>
+				</div>
+				<br>
+				<h4>Tags:</h4>
+				<div id="tagContainer" class="container-fluid" >
+					<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
+						<span class="tagSpan">{{tag}}</span>
+					</div>
 				</div>
 			</div>
 			<br>
-			Tags: <br>
-			<div id="tagContainer" class="container-fluid" >
-				<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
-					<span class="tagSpan">{{tag}}</span>
+			<div id="reviewSection">
+				<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
+				<div id="noReview" ng-hide="vm.itemData.reviews.length">
+					<a class="text-info"> This item has no user reviews yet. Click here to be the first one!</a>
 				</div>
-			</div>
-			<br>
-			<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
-			<span class="text-info" ng-hide="vm.itemData.reviews.length"> This item has no user reviews yet. Be the first one!</span>
-			<div id="revHash" ng-hide="vm.hideReviews">
-				<div>
-					<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
-						<h4>Anonymous</h4>
-						{{review}}
+				<div id="revHash" ng-hide="vm.hideReviews">
+					<div>
+						<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
+							<h4>Anonymous</h4>
+							{{review}}
+						</div>
 					</div>
 				</div>
 			</div>

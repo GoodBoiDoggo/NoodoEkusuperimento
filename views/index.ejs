@@ -29,7 +29,7 @@
 </form>
 
 <div ng-repeat="y in vm.todos">
-	<button id="boi{{$index}}">BOIII</button>
+	<button ng-click="vm.clicky($index)" ng-class="vm.classFunc($index)">BOIII</button>
 </div>
 
 </body>

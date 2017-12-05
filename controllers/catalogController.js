@@ -16,7 +16,10 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	vm.viewItem = viewItem;
 	vm.toggleReview = toggleReview;
 	vm.backToCatalog = backToCatalog;
+	vm.sizeClass = sizeClass;
+	vm.sizeClick = sizeClick;
 	vm.avStyle = avStyle;
+	vm.clickedSize;
 //	vm.filter = filter;
 	loadItems();
 	
@@ -36,6 +39,7 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	 function viewItem(data){
 		 vm.showItem = true;
 		 vm.itemData = data;
+		 vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
 		 vm.searchParam = "";
 		 $anchorScroll();
 	 }
@@ -66,6 +70,19 @@ function catalogController($http,$anchorScroll,$location,$filter){
 		 if(vm.loggedIn && !vm.itemData.isavailable){
 			 return {opacity : 0.5};
 		 }
+	 }
+	 
+	 function sizeClass(data){
+		 if(data == vm.clickedSize){
+			 return 'clkSize';
+		 }
+		 else{
+			 return 'defSize';
+		 }
+	 }
+	 
+	 function sizeClick(data){
+		 vm.clickedSize = data;
 	 }
 //	 function filter(){
 //		 vm.filteredCatalogItems = angular.copy(vm.catalogItems);

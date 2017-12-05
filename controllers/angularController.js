@@ -23,8 +23,9 @@ function angularController($scope) {
     
 	  vm.longlib = longlib;
 	  vm.triggered = triggered;
-	 
-	  
+	  vm.classFunc = classFunc;
+	  vm.clicky = clicky;
+	  vm.chosenOne = '0';
 	  function longlib(data1, data2){
 		  vm.sum = (Number(data1)+Number(data2) || 0);
 		  console.log("BOI");
@@ -37,6 +38,18 @@ function angularController($scope) {
 		  else{
 			  vm.clicked = true;
 		  }
+	  }
+	  
+	  function classFunc(num){
+		  if(num == vm.chosenOne){
+		  return 'boiOne';}
+		  else{
+			  return 'boiNo';
+		  }
+	  }
+	  
+	  function clicky(num){
+		  vm.chosenOne = num;
 	  }
 	 
 }
