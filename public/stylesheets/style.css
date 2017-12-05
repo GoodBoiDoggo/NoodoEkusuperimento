@@ -74,8 +74,13 @@ a:hover{
 	border-radius:2px;
 	font-size:4vw;
 	padding:4px;
-} //stoppped here
+} 
 .tagDiv{
+	float:left;
+	display:block;
+	margin:1.5vw;
+}
+.sizeDiv{
 	float:left;
 	display:block;
 	margin:1.5vw;
@@ -84,6 +89,12 @@ a:hover{
 	padding:3px;
 	border-radius:4px;
 	background-color:#edeeef;
+}
+#sizeContainer{
+	padding:3px;
+	border-radius:4px;
+	background-color:#edeeef;
+	
 }
 /*For Catalog page*/
 @media only screen and (max-width: 500px){
