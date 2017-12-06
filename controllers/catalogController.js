@@ -67,12 +67,10 @@ function catalogController($http,$anchorScroll,$location,$filter){
 		        if(vm.selectedG != 'Any'){
 
 		        	if(vm.selectedG == 'Female'){
-				        vm.gf = new RegExp('female', 'i');
-			        	vm.finalTest = vm.gf.test(obj.gender) && vm.finalTest ;
+			        	vm.finalTest = obj.gender=='female' && vm.finalTest ;
 		        	}
 		        	else{
-				        vm.gf = new RegExp('^(?:female)', 'i');
-		        		vm.finalTest = vm.gf.test(obj.gender) && vm.finalTest ;
+		        		vm.finalTest = obj.gender=='male' && vm.finalTest ;
 		        	}
 
 		        }

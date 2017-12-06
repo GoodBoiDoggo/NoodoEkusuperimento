@@ -2,11 +2,6 @@
 html, body {
 		height:100%;
 }
-#filtersDiv{
-	padding:20px;
-	border-radius:5px;
-	background-color:#dbe8ff;
-}
 #prodDesc{
 	padding:2px;
 	padding-left:4px;
@@ -44,7 +39,6 @@ a:hover{
 }
 .itemsContainer{
 	text-align:center;
-	margin-top:1em;
 }
 .boiNo{
 	background-color:red;

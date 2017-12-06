@@ -1,0 +1,36 @@
+<html ng-app="app">
+<head>
+  <title>Hello Boi in BoiJS</title>
+  
+  <% include ./genHead.ejs%>
+  <script src='boi/angularController.js'></script>
+</head>
+
+<div ng-show="!vm.clicked">
+	<body ng-controller="angularController as vm">
+	
+	<ul>
+	  <li ng-repeat="todo in vm.todos">
+	    <input type="checkbox" ng-model="todo.completed">
+	    {{ todo.name }}
+	  </li>
+	</ul>
+	{{vm.boi}}
+	{{vm.gal}}
+	{{vm.sum}}
+
+</div>
+<div ng-show="vm.clicked">
+	<% include ./testPage.ejs %>
+</div>
+<button type="button" ng-click="vm.triggered()"> Go to Magic</button>
+<form action="/crud" method="get">
+	<button type="submit" > Go to Not Magic</button>
+</form>
+
+<div ng-repeat="y in vm.todos">
+	<button ng-click="vm.clicky($index)" ng-class="vm.classFunc($index)">BOIII</button>
+</div>
+
+</body>
+</html>
