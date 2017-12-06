@@ -2,31 +2,21 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var catalogSchema = new Schema({
-	prodname: String,
-	prodtype: String,
-	prodprice: Number,
-	isavailable: Boolean,
-	imgname: String,
-	tags: [{
-	    type: String
-	}],
-	prodcolor: String,
-	prodbrand: String,
-	prodsizes: [{
-	    type: Number
-	}],
-	gender: String,
-	ratercount: Number,
-	rateavg: Number,
-	salerate: Number,
-	reviews: [{
-		type: String
-	}],
-	proddesc: String
+var userSchema = new Schema({
+	email: {
+	    type: String,
+	    unique: true,
+	    required: true
+	  },
+	  name: {
+	    type: String,
+	    required: true
+	  },
+	  hash: String,
+	  salt: String
 	
 },{ collection : 'catalogdata' });
 
-var Catalog = mongoose.model('Catalog', catalogSchema);
+var User = mongoose.model('User', userSchema);
 
-module.exports = Catalog;
+module.exports = User;
