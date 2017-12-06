@@ -12,6 +12,12 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	vm.showItem = false;
 	vm.hideReviews = true;
 	vm.showHide = 'Show'
+	vm.clickedSize;
+	vm.showAdv = false;
+	vm.enaDis = 'Enable';
+	vm.gOptions = ['Any','Male','Female'];
+    vm.selectedG = vm.gOptions[0];
+	//Functions
 	vm.loaditems = loadItems;
 	vm.viewItem = viewItem;
 	vm.toggleReview = toggleReview;
@@ -19,15 +25,62 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	vm.sizeClass = sizeClass;
 	vm.sizeClick = sizeClick;
 	vm.avStyle = avStyle;
-	vm.clickedSize;
+	vm.showAdvSearch = showAdvSearch;
+	vm.createFilter = createFilter;
+
 //	vm.filter = filter;
 	loadItems();
+	createFilter();
 	
-	vm.customFilter = function (obj) {
-        vm.re = new RegExp(vm.searchParam, 'i');
-        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor) || vm.re.test(obj.prodbrand)|| vm.re.test(obj.gender);
-    };
-    
+	function createFilter(){
+		
+		if(!vm.showAdv){
+			vm.customFilter = function (obj) {
+		        vm.re = new RegExp(vm.searchParam, 'i');
+		        return !vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor) || vm.re.test(obj.prodbrand)|| vm.re.test(obj.gender);
+		    };
+		}
+		else{
+//			if(vm.brandFilter){
+//				vm.customFilter = function (obj) {
+//			        vm.re = new RegExp(vm.searchParam, 'i');
+//			        vm.bf = new RegExp(vm.brandFilter, 'i');
+//			        vm.initTest = (!vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor)|| vm.re.test(obj.gender)) ;
+//			        return (!vm.brandFilter || vm.bf.test(obj.prodbrand)) && vm.initTest ;
+//			    };
+//			}
+			vm.customFilter = function (obj) {
+				vm.re = new RegExp(vm.searchParam, 'i');
+		        vm.finalTest = (!vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor)|| vm.re.test(obj.gender)) ;
+		        if(vm.brandFilter){
+			        vm.bf = new RegExp(vm.brandFilter, 'i');
+		        	vm.finalTest = (!vm.brandFilter || vm.bf.test(obj.prodbrand)) && vm.finalTest ;
+		        }
+		        if(vm.typeFilter){
+			        vm.tf = new RegExp(vm.typeFilter, 'i');
+		        	vm.finalTest = (!vm.typeFilter || vm.tf.test(obj.prodtype)) && vm.finalTest ;
+		        }
+		        if(vm.colorFilter){
+			        vm.cf = new RegExp(vm.colorFilter, 'i');
+		        	vm.finalTest = (!vm.colorFilter || vm.cf.test(obj.prodcolor)) && vm.finalTest ;
+		        }
+		        if(vm.selectedG != 'Any'){
+
+		        	if(vm.selectedG == 'Female'){
+				        vm.gf = new RegExp('female', 'i');
+			        	vm.finalTest = vm.gf.test(obj.gender) && vm.finalTest ;
+		        	}
+		        	else{
+				        vm.gf = new RegExp('^(?:female)', 'i');
+		        		vm.finalTest = vm.gf.test(obj.gender) && vm.finalTest ;
+		        	}
+
+		        }
+		        
+		        return vm.finalTest;
+		    };
+		}
+	}
 	 function loadItems(){
 		 $http.get('/catalog/all')
 		 .then(function(response){
@@ -83,6 +136,20 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	 
 	 function sizeClick(data){
 		 vm.clickedSize = data;
+	 }
+	 
+	 function showAdvSearch(){
+		 createFilter();
+		 if(!vm.showAdv){
+			 vm.showAdv = true;
+			 vm.enaDis = 'Disable';
+		 }
+		 else{
+			 vm.showAdv = false;
+			 vm.enaDis = 'Enable';
+			 createFilter();
+		 }
+		 
 	 }
 //	 function filter(){
 //		 vm.filteredCatalogItems = angular.copy(vm.catalogItems);

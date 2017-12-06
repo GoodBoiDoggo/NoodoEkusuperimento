@@ -124,7 +124,7 @@ a:hover{
 		width:100%;
 	}
 	#catalogSearch{
-		margin-bottom: 3em;
+		margin-bottom: 1em;
 	}
 	#bodyContainer{
 		margin-left:1em !important;
@@ -236,7 +236,7 @@ a:hover{
 		height: auto;
 	}
 	#catalogSearch{
-		margin-bottom: 3em;
+		margin-bottom: 1em;
 	}
 	.bottomCon{
 		background-color:#d1d1d1;
@@ -348,7 +348,7 @@ a:hover{
 		height: auto;
 	}
 	#catalogSearch{
-		margin-bottom: 3em;
+		margin-bottom: 1em;
 	}
 	.bottomCon{
 		background-color:#d1d1d1;
