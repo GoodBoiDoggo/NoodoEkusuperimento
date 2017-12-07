@@ -137,12 +137,14 @@ function catalogController($http,$anchorScroll,$location,$filter){
 	 }
 	 
 	 function showAdvSearch(){
-		 createFilter();
+		
 		 if(!vm.showAdv){
 			 vm.showAdv = true;
 			 vm.enaDis = 'Disable';
+			 createFilter();
 		 }
 		 else{
+			 
 			 vm.showAdv = false;
 			 vm.enaDis = 'Enable';
 			 createFilter();

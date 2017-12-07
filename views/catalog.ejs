@@ -14,13 +14,13 @@
 	<div ng-show="!vm.showItem" class="container-fluid">
 		<div class="row">
 			<h1>CATALOG</h1>
-			<input id="catalogSearch" type="text" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
+			<input id="catalogSearch" type="search" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
 			<div id="Advanced search"></div>
 			<a ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
 			<div id="filtersDiv" ng-show="vm.showAdv">
-				Brand: <input class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
-				Type: <input class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter" placeholder="(leather,casual,running,walking)">
-				Color: <input class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)">
+				Brand: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
+				Type: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter" placeholder="(leather,casual,running,walking)">
+				Color: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)">
 				Gender: <select ng-change="vm.createFilter()" data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
 			</div>
 			<div id="noMatch" class="text-info" ng-hide="vm.filteredCatalogItems.length">
@@ -79,6 +79,8 @@
 				<b>Brand:</b> {{vm.itemData.prodbrand}}
 				<br>
 				<b>Type:</b> {{vm.itemData.prodtype}}
+				<br>
+				<b>Gender:</b> {{vm.itemData.gender}}
 				<br>
 				<div id="prodDesc">
 					{{vm.itemData.proddesc}}
