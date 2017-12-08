@@ -4,13 +4,21 @@
  */
 var setupController = require('../controllers/setupController');
 var apiController = require('../controllers/apiController');
-
+var Todos = require('../models/todoModel');
+var Catalog = require('../models/catalogModel');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 
 module.exports = function(app){
-	app.get('/',function(req,res){
-		res.render('index', { title:'Welcome to Karuteun' });
-	});
+	//API's
+	app.get('/catalog/all',function (req,res){
+			
+			Catalog.find(function(err,results){
+				if(err) throw err;
+				res.send(results);
+			})
+		});
 	app.get('/api2/:id', function(req, res){
 		console.log(req.params.id);
 		res.json({firstname: 'John', lastname: 'Doe', ID: req.params.id});
@@ -26,10 +34,16 @@ module.exports = function(app){
 	app.get('/crud', function(req,res){
 		res.render('../views/CRUDPage.ejs');
 	});
-	app.get('/catalog', function (req, res){
-		res.render('../views/catalog.ejs');
+//	app.get('/catalog', function (req, res){
+//		res.render('../views/catalog.ejs');
+//	});
+	app.get('*',function(req,res){
+		console.log("DETECTED!");
+		res.sendfile('app_client/views/index.html');
 	});
 	
+	
+
 	setupController(app);
 	apiController(app);
 };

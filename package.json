@@ -9,8 +9,9 @@
     "body-parser": "^1.18.2",
     "cloudant": "^1.10.0",
     "ejs": "*",
-    "express": "3.2.6",
-    "mongoose": "^4.13.3"
+    "express": "~4.5.1",
+    "mongoose": "^4.13.3",
+	"method-override" : "~2.0.2"
   },
   "devDependencies": {}
 }

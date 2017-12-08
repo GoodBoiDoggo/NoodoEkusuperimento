@@ -1,19 +1,24 @@
-
+<!-- 
 <head>
 <link rel=icon href=pic/kariteun-logo.png>
+<base href="/">
 	<% include ./genHead.ejs %>
 	<title>
 		Kariteun: Catalog
 	</title>
 	<script src="boi/catalogController.js"></script>
+	<script src='app.module.js'></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+ -->
+<body>
+<!--  ng-app="app" ng-controller="catalogController as vm" -->
+<div>
 
-<body ng-app="app" ng-controller="catalogController as vm">
-<div id="bodyContainer">
 	<div ng-show="!vm.showItem" class="container-fluid">
 		<div class="row">
 			<h1>CATALOG</h1>
+
 			<input id="catalogSearch" type="search" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
 			<div id="Advanced search"></div>
 			<a ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
@@ -124,13 +129,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="fillerDiv"></div>
+
 </div>
 
-<div class="container-fluid">
-	<div class="row bottomCon">
-		<span id="footMsg">Contact us on: (+63)9420789019</span>
-	</div>
-</div>
+
 
 </body>

@@ -44,13 +44,7 @@ module.exports = function(app){
 		res.render('../views/CRUDPage.ejs');
 	})
 	
-	app.get('/catalog/all',function (req,res){
-		
-		Catalog.find(function(err,results){
-			if(err) throw err;
-			res.send(results);
-		})
-	});
+	
 	
 	
 	

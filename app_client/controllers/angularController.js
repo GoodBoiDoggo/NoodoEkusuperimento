@@ -1,6 +1,7 @@
-angular.module('app',[]);
 
-angular.module('app')
+
+
+angular.module('angularController',[])
 .controller('angularController', angularController);
 
 angularController.$inject = ['$scope'];

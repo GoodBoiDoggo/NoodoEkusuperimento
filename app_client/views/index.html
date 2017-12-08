@@ -1,0 +1,49 @@
+
+<html>
+<head>
+	<base href="/">	
+  <title>Hello Boi in BoiJS</title>
+  
+
+  <!-- CSS and Some scripts -->
+  <link rel="stylesheet" href="/stylesheets/style.css"></style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--  ====================================================================================== -->
+  <script src='boi/angularController.js'></script>
+  <script src="boi/catalogController.js"></script>
+  <script src="appRoutes.js"></script>
+  <script src='app.module.js'></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-app="app">
+<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/">Stencil: Node and Angular</a>
+			<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 
+            aria-expanded="false"> <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span></button>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/catalog">catalog</a></li>
+			</ul>
+		</div>
+		
+</nav>
+<div id="bodyContainer">
+ <div ng-view></div>
+ </div>
+<!--  <div class="fillerDiv"></div> -->
+ <div class="container-fluid">
+	<div class="row bottomCon">
+		<span id="footMsg">Contact us on: (+63)9420789019</span>
+	</div>
+</div>
+</body>
+</html>

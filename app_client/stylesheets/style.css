@@ -1,6 +1,8 @@
 /*GENERAL===========================================================================*/
 html, body {
 		height:100%;
+		width:100%;
+		margin:0;
 }
 #filtersDiv{
 	padding:20px;
@@ -362,6 +364,7 @@ a:hover{
 		/* margin-top:3em; */
 		width:100%;
 		position:absolute;
+		padding-bottom:50px;
 	}
 	.fillerDiv{
 		/* background-color:#1f2f68; */
