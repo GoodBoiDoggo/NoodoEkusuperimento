@@ -35,7 +35,8 @@
 			</div>
 			<div class="itemsContainer">
 				<div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter)">
-					<a class="item img-thumbnail" ng-click="vm.viewItem(item)">
+					<a class="item img-thumbnail" ng-href="/item/{{item.prodcode}}">
+					<!-- ng-click="vm.viewItem(item)" -->
 						<img class="img-responsive" src="pic/{{item.imgname}}"><br>
 						<p>
 							<b>{{item.prodname}}</b><br>
@@ -56,7 +57,7 @@
 	</div>
 	
 	<div ng-show="vm.showItem" class="container-fluid">
-		<div class="row whitespace"></div>
+		<!-- <div class="row whitespace"></div>
 		<div class="row">
 			<div ng-show="vm.showItem" data-spy="affix">
 			
@@ -127,7 +128,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 </div>

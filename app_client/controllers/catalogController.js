@@ -3,9 +3,9 @@
 angular.module('catalogController',[])
 .controller('catalogController', catalogController);
 
-catalogController.$inject = ['$http','$anchorScroll','$location','$filter'];
+catalogController.$inject = ['$http','$anchorScroll','$location','$filter','Catalog'];
 
-function catalogController($http,$anchorScroll,$location,$filter){
+function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 	var vm = this;
 	vm.loggedIn = false;
 	vm.boi = "BOIII";
@@ -80,10 +80,9 @@ function catalogController($http,$anchorScroll,$location,$filter){
 		}
 	}
 	 function loadItems(){
-		 $http.get('/catalog/all')
-		 .then(function(response){
-			 vm.catalogItems = response.data;
-			 
+		 Catalog.get().then(function(res){
+			 vm.catalogItems = angular.copy(res.data);
+			 console.log(vm.catalogItems);
 		 })
 	 }
 	 

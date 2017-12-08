@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 
 
 module.exports = function(app){
+//	setupController(app); //use only when creating new sample data
 	//API's
 	app.get('/catalog/all',function (req,res){
 			
@@ -18,7 +19,14 @@ module.exports = function(app){
 				if(err) throw err;
 				res.send(results);
 			})
-		});
+	});
+	app.get('/catalog/:prodcode',function (req,res){
+		
+		Catalog.find({prodcode:req.params.prodcode},function(err,results){
+			if(err) throw err;
+			res.send(results);
+		})
+	});
 	app.get('/api2/:id', function(req, res){
 		console.log(req.params.id);
 		res.json({firstname: 'John', lastname: 'Doe', ID: req.params.id});
@@ -44,6 +52,6 @@ module.exports = function(app){
 	
 	
 
-	setupController(app);
+
 	apiController(app);
 };

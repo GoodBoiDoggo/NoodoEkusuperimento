@@ -15,6 +15,8 @@
   <!--  ====================================================================================== -->
   <script src='boi/angularController.js'></script>
   <script src="boi/catalogController.js"></script>
+  <script src="boi/itemController.js"></script>
+  <script src="services/catalogService.js"></script>
   <script src="appRoutes.js"></script>
   <script src='app.module.js'></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +24,10 @@
 <body ng-app="app">
 <nav class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">Stencil: Node and Angular</a>
+			<a class="navbar-brand" href="/">Kariteun</a>
 			<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" 
             aria-expanded="false"> <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span></button>
 		</div>
@@ -36,10 +39,10 @@
 		</div>
 		
 </nav>
-<div id="bodyContainer">
- <div ng-view></div>
- </div>
-<!--  <div class="fillerDiv"></div> -->
+<div id="bodyContainer" class="row">
+ 	<div class="container-fluid" ng-view></div>
+</div>
+<div class="fillerDiv"></div>
  <div class="container-fluid">
 	<div class="row bottomCon">
 		<span id="footMsg">Contact us on: (+63)9420789019</span>

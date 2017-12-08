@@ -13,7 +13,6 @@ var mongoose = require('mongoose');
 var config = require('./config');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
-
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/app_client/views');
@@ -27,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/boi', express.static(path.join(__dirname,'app_client','controllers')));
 app.use('/pic', express.static(path.join(__dirname,'app_client','images')));
+app.use('/service',express.static(path.join(__dirname,'app_client','services')));
 
 require('./routes')(app);
 
@@ -37,7 +37,6 @@ mongoose.connect(config.getDbConnectionString());
 // development only
 if ('development' == app.get('env')) {
 }
-
 
 
 
