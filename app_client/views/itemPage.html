@@ -1,73 +1,83 @@
 	<div class="row">
 		<div data-spy="affix">
-		
-			
-		
 		</div>
-		<div id="soloImage" class="itemsContainer img-thumbnail">
-		
-			<h2>{{vm.itemData.prodname}}</h2>
-			<br>
-			<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
-			<br>
+		<div id="itemPageContent" ng-show="vm.loaded">
+			<div id="soloImage" class="itemsContainer img-thumbnail">
 			
-		</div>
-		<div id="dataDisplay">
-			<h3>Item Details
-			
-				<small class="available{{vm.itemData.isavailable}}">
-					{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
-				</small>
+				<h2>{{vm.itemData.prodname}}</h2>
+				<br>
+				<img class="img-responsive " src="pic/{{vm.itemData.imgname}}">
+				<br>
 				
-			</h3>
-			<b>Brand:</b> {{vm.itemData.prodbrand}}
-			<br>
-			<b>Type:</b> {{vm.itemData.prodtype}}
-			<br>
-			<b>Gender:</b> {{vm.itemData.gender}}
-			<br>
-			<div id="prodDesc">
-				{{vm.itemData.proddesc}}
 			</div>
-			<br>
-			<span class="price">PHP </span>
-			<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
-			<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
-			<br>
-			
-			<h4>
-				<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
-			</h4>
-			<h4>Select a size: <small>({{vm.clickedSize}} is selected)</small></h4>
-			<div id="sizeContainer" class="container-fluid">
-				<div class="sizeDiv" ng-repeat="size in vm.itemData.prodsizes">
-					<span ng-class="vm.sizeClass(size)" ng-click="vm.sizeClick(size)" class="sizeSpan">{{size}}</span>
+			<div id="dataDisplay">
+				<h3>Item Details
+				
+					<small class="available{{vm.itemData.isavailable}}">
+						{{vm.itemData.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
+					</small>
+					
+				</h3>
+				<b>Brand:</b> {{vm.itemData.prodbrand}}
+				<br>
+				<b>Type:</b> {{vm.itemData.prodtype}}
+				<br>
+				<b>Gender:</b> {{vm.itemData.gender}}
+				<br>
+				<div id="prodDesc">
+					{{vm.itemData.proddesc}}
 				</div>
-			</div>
-			<button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn" type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData,vm.clickedSize)">Add to Cart</button>
-			<p ng-show="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</lead>
-			<p ng-show=" !vm.loggedIn && vm.itemData.isavailable" class="text-danger">You are not logged in.</lead>
-			<br>
-			<h4>Tags:</h4>
-			<div id="tagContainer" class="container-fluid" >
-				<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
-					<span class="tagSpan">{{tag}}</span>
+				<br>
+				<span class="price">PHP </span>
+				<span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
+				<span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
+				<br>
+				
+				<h4>
+					<b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
+				</h4>
+				<h4>Select a size: <small>({{vm.clickedSize}} is selected)</small></h4>
+				<div id="sizeContainer" class="container-fluid">
+					<div class="sizeDiv" ng-repeat="size in vm.itemData.prodsizes">
+						<span ng-class="vm.sizeClass(size)" ng-click="vm.sizeClick(size)" class="sizeSpan">{{size}}</span>
+					</div>
 				</div>
-			</div>
-		</div>
-		<br>
-		<div id="reviewSection">
-			<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
-			<div id="noReview" ng-hide="vm.itemData.reviews.length">
-				<a class="text-info"> This item has no user reviews yet. Click here to be the first one!</a>
-			</div>
-			<div id="revHash" ng-hide="vm.hideReviews">
-				<div>
-					<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
-						<h4>Anonymous</h4>
-						{{review}}
+				<button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn" type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData,vm.clickedSize)">Add to Cart</button>
+				<p ng-show="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</lead>
+				<p ng-show=" !vm.loggedIn && vm.itemData.isavailable" class="text-danger">You are not logged in.</lead>
+				<br>
+				<h4>Tags:</h4>
+				<div id="tagContainer" class="container-fluid" >
+					<div class="tagDiv" ng-repeat="tag in vm.itemData.tags">
+						<span class="tagSpan">{{tag}}</span>
 					</div>
 				</div>
 			</div>
+			<br>
+			<div id="reviewSection">
+				<button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
+				<div id="noReview" ng-hide="vm.itemData.reviews.length">
+					<a class="text-info"> This item has no user reviews yet. Click here to be the first one!</a>
+				</div>
+				<div id="revHash" ng-hide="vm.hideReviews">
+					<div>
+						<div ng-repeat="review in vm.itemData.reviews" class="reviews container">
+							<h4>Anonymous</h4>
+							{{review}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="loadingDiv" ng-show="!vm.loaded && vm.itemFound">
+		Loading...
+		</div>
+		<div id="itemNotFoundDiv" ng-show="!vm.itemFound">
+			    <p class="lead text-center">Darn, the item failed to load.The following are the possible causes:</p>
+			      <ul class="text-center">
+			        <li>The item does not exist.</li>
+			        <li>The url entered is wrong.</li>
+			        <li>Database server is down.</li>
+			      </ul>
 		</div>
 	</div>

@@ -8,30 +8,22 @@ catalogController.$inject = ['$http','$anchorScroll','$location','$filter','Cata
 function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 	var vm = this;
 	vm.loggedIn = false;
-	vm.boi = "BOIII";
-	vm.showItem = false;
 	vm.hideReviews = true;
-	vm.showHide = 'Show'
-	vm.clickedSize;
 	vm.showAdv = false;
 	vm.enaDis = 'Enable';
 	vm.gOptions = ['Any','Male','Female'];
     vm.selectedG = vm.gOptions[0];
+    vm.loaded = false;
+	vm.itemFound = true;
 	//Functions
 	vm.loaditems = loadItems;
-	vm.viewItem = viewItem;
-	vm.toggleReview = toggleReview;
-	vm.backToCatalog = backToCatalog;
-	vm.sizeClass = sizeClass;
-	vm.sizeClick = sizeClick;
-	vm.avStyle = avStyle;
 	vm.showAdvSearch = showAdvSearch;
 	vm.createFilter = createFilter;
 
 //	vm.filter = filter;
 	loadItems();
 	createFilter();
-	
+	$anchorScroll();
 	function createFilter(){
 		
 		if(!vm.showAdv){
@@ -41,14 +33,6 @@ function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 		    };
 		}
 		else{
-//			if(vm.brandFilter){
-//				vm.customFilter = function (obj) {
-//			        vm.re = new RegExp(vm.searchParam, 'i');
-//			        vm.bf = new RegExp(vm.brandFilter, 'i');
-//			        vm.initTest = (!vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor)|| vm.re.test(obj.gender)) ;
-//			        return (!vm.brandFilter || vm.bf.test(obj.prodbrand)) && vm.initTest ;
-//			    };
-//			}
 			vm.customFilter = function (obj) {
 				vm.re = new RegExp(vm.searchParam, 'i');
 		        vm.finalTest = (!vm.searchParam || vm.re.test(obj.prodname) || vm.re.test(obj.tags) || vm.re.test(obj.prodtype) || vm.re.test(obj.prodcolor)|| vm.re.test(obj.gender)) ;
@@ -72,9 +56,7 @@ function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 		        	else{
 		        		vm.finalTest = obj.gender=='male' && vm.finalTest ;
 		        	}
-
 		        }
-		        
 		        return vm.finalTest;
 		    };
 		}
@@ -83,56 +65,14 @@ function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 		 Catalog.get().then(function(res){
 			 vm.catalogItems = angular.copy(res.data);
 			 console.log(vm.catalogItems);
+			 if(vm.catalogItems){
+				 vm.itemFound = true;
+				 vm.loaded = true;
+			 }
+			 else{
+				 vm.itemFound = false;
+			 }
 		 })
-	 }
-	 
-	 function viewItem(data){
-		 vm.showItem = true;
-		 vm.itemData = data;
-		 vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
-		 vm.searchParam = "";
-		 $anchorScroll();
-	 }
-	 
-	 function toggleReview(){
-		 if(vm.hideReviews){
-			 vm.showHide = 'Hide';
-			 vm.hideReviews = false;
-//			 $location.hash('revHash');
-//			 $anchorScroll();
-			 
-		 }
-		 else{
-			 vm.showHide = 'Show';
-			 vm.hideReviews = true;
-			 $location.hash('');
-		 }
-	 }
-	 
-	 function backToCatalog(){
-		 vm.showHide = 'Show';
-		 vm.hideReviews = true;
-		 vm.showItem = false;
-		 $location.hash('');
-	 }
-	 
-	 function avStyle(){
-		 if(vm.loggedIn && !vm.itemData.isavailable){
-			 return {opacity : 0.5};
-		 }
-	 }
-	 
-	 function sizeClass(data){
-		 if(data == vm.clickedSize){
-			 return 'clkSize';
-		 }
-		 else{
-			 return 'defSize';
-		 }
-	 }
-	 
-	 function sizeClick(data){
-		 vm.clickedSize = data;
 	 }
 	 
 	 function showAdvSearch(){
@@ -150,10 +90,5 @@ function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 		 }
 		 
 	 }
-//	 function filter(){
-//		 vm.filteredCatalogItems = angular.copy(vm.catalogItems);
-//		 vm.filteredCatalogItems = angular.copy($filter('filter')(vm.filteredCatalogItems,{prodname:vm.searchParam}));
-	 
-//	 }
 	 
 }

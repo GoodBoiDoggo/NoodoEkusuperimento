@@ -20,7 +20,7 @@ module.exports = function(app){
 				res.send(results);
 			})
 	});
-	app.get('/catalog/:prodcode',function (req,res){
+	app.get('/item/:prodcode',function (req,res){
 		
 		Catalog.find({prodcode:req.params.prodcode},function(err,results){
 			if(err) throw err;

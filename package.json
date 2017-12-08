@@ -11,7 +11,7 @@
     "ejs": "*",
     "express": "~4.5.1",
     "mongoose": "^4.13.3",
-	"method-override" : "~2.0.2"
+    "method-override": "~2.0.2"
   },
   "devDependencies": {}
 }

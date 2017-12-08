@@ -1,47 +1,44 @@
-
-
 angular.module('itemController',[])
 .controller('itemController', itemController);
 
-itemController.$inject = ['$http','Catalog','$routeParams'];
+itemController.$inject = ['$http','Catalog','$routeParams','$anchorScroll'];
 
-function itemController($http,Catalog,$routeParams){
+function itemController($http,Catalog,$routeParams,$anchorScroll){
 	var vm = this;
 	vm.loggedIn = false;
 	vm.boi = "BOIII";
 	vm.hideReviews = true;
 	vm.showHide = 'Show'
 	vm.clickedSize;
-	vm.showAdv = false;
-	vm.enaDis = 'Enable';
-	vm.gOptions = ['Any','Male','Female'];
+	vm.loaded = false;
+	vm.itemFound = true;
 	//Functions
 	vm.loaditem = loadItem;
 	vm.toggleReview = toggleReview;
 	vm.sizeClass = sizeClass;
 	vm.sizeClick = sizeClick;
-
-//	vm.filter = filter;
 	loadItem();
-
-	
+	$anchorScroll();
 	
 	 function loadItem(){
 		 Catalog.getItem($routeParams.id).then(function(res){
 			 vm.itemData = angular.copy(res.data[0]);
-			 vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
+			 if(vm.itemData){
+				 vm.itemFound = true;
+				 vm.loaded = true;
+				 vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
+			 }
+			 else{
+				 vm.itemFound = false;
+			 }
 		 })
 		 
 	 }
-	 
 	 
 	 function toggleReview(){
 		 if(vm.hideReviews){
 			 vm.showHide = 'Hide';
 			 vm.hideReviews = false;
-//			 $location.hash('revHash');
-//			 $anchorScroll();
-			 
 		 }
 		 else{
 			 vm.showHide = 'Show';
@@ -49,7 +46,6 @@ function itemController($http,Catalog,$routeParams){
 			 $location.hash('');
 		 }
 	 }
-	 
 	 
 	 function sizeClass(data){
 		 if(data == vm.clickedSize){

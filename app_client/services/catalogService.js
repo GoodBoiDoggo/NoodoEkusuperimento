@@ -11,8 +11,8 @@ angular.module('catalogService', []).factory('Catalog', ['$http', function($http
         
         getItem:function(prodcode){
         	console.log("YABOIIII");
-        	console.log($http.get('/catalog/'+prodcode));
-        	return $http.get('/catalog/'+prodcode);
+        	console.log($http.get('/item/'+prodcode));
+        	return $http.get('/item/'+prodcode);
         }
 
                 // these will work when more API routes are defined on the Node side of things

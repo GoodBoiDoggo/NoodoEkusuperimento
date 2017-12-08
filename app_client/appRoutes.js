@@ -1,5 +1,5 @@
 angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-	console.log("Approutes");
+	console.log("App routes");
     $routeProvider
 
         // home page
@@ -17,7 +17,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controllerAs: 'vm'
         })
         
-        .when('/item/:id', {
+        .when('/catalog/:id', {
         	templateUrl: 'views/itemPage.html',
         	controller:'itemController',
         	controllerAs:'vm'
