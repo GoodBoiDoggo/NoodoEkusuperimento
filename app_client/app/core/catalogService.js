@@ -1,5 +1,5 @@
 console.log('CATALOG SERVICE DETECTED!');
-angular.module('catalogService', []).factory('Catalog', catalogService);
+angular.module('app.core').factory('Catalog', catalogService);
 	
 	function catalogService($http) {
 	    return {

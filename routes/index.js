@@ -47,7 +47,7 @@ module.exports = function(app){
 //	});
 	app.get('*',function(req,res){
 		console.log("DETECTED!");
-		res.sendfile('app_client/views/index.html');
+		res.sendfile('app_client/app/index.html');
 	});
 	
 	

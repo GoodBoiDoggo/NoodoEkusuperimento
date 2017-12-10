@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-f
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 //app.use(app.router);
 app.use(express.static(path.join(__dirname, 'app_client')));
+app.use(express.static(path.join(__dirname, 'app_client','app')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/boi', express.static(path.join(__dirname,'app_client','controllers')));
 app.use('/pic', express.static(path.join(__dirname,'app_client','images')));

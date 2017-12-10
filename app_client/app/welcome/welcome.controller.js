@@ -1,12 +1,9 @@
+angular.module('app.welcome')
+.controller('welcomeController', welcomeController);
 
+welcomeController.$inject = ['$scope','User'];
 
-
-angular.module('angularController',[])
-.controller('angularController', angularController);
-
-angularController.$inject = ['$scope','User'];
-
-function angularController($scope,User) {
+function welcomeController($scope,User) {
     var vm = this;
     vm.sum = 2;
     vm.clicked = false;
@@ -32,9 +29,11 @@ function angularController($scope,User) {
 	  
 	  function setty(){
 		  User.setUser("NIPPON STEEL");
+		  $scope.$emit('AUTHENTICATE',User.getUser());
 	  }
 	  function getty(){
-		  console.log(User.getUser());
+		  User.logout();
+		  $scope.$emit('AUTHENTICATE',User.getUser());
 	  }
 	  function longlib(data1, data2){
 		  vm.sum = (Number(data1)+Number(data2) || 0);

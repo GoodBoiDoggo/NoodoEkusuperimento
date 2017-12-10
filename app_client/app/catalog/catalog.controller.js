@@ -1,6 +1,6 @@
 
 
-angular.module('catalogController',[])
+angular.module('app.catalog')
 .controller('catalogController', catalogController);
 
 catalogController.$inject = ['$http','$anchorScroll','$location','$filter','Catalog','User'];

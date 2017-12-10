@@ -1,11 +1,11 @@
-angular.module('itemController',[])
+angular.module('app.item')
 .controller('itemController', itemController);
 
-itemController.$inject = ['$http','Catalog','$routeParams','$anchorScroll'];
+itemController.$inject = ['$http','Catalog','$routeParams','$anchorScroll','User','$scope'];
 
-function itemController($http,Catalog,$routeParams,$anchorScroll){
+function itemController($http,Catalog,$routeParams,$anchorScroll,User,$scope){
 	var vm = this;
-	vm.loggedIn = false;
+	vm.loggedIn = User.getUser();
 	vm.boi = "BOIII";
 	vm.hideReviews = true;
 	vm.showHide = 'Show'
@@ -19,6 +19,20 @@ function itemController($http,Catalog,$routeParams,$anchorScroll){
 	vm.sizeClick = sizeClick;
 	loadItem();
 	$anchorScroll();
+	
+	
+	$scope.$on('AUTHENTICATE', function (event, data) {
+        console.log('AUTHENTICATE:' + data);
+    	if (data) {
+    		console.log("Logged in");
+            vm.loggedIn = true;
+            
+        } else {
+        	console.log("Logged out");
+            vm.loggedIn = false;
+        }
+    });
+	
 	
 	 function loadItem(){
 		 Catalog.getItem($routeParams.id).then(function(res){
