@@ -4,9 +4,9 @@
 angular.module('angularController',[])
 .controller('angularController', angularController);
 
-angularController.$inject = ['$scope'];
+angularController.$inject = ['$scope','User'];
 
-function angularController($scope) {
+function angularController($scope,User) {
     var vm = this;
     vm.sum = 2;
     vm.clicked = false;
@@ -25,12 +25,23 @@ function angularController($scope) {
 	  vm.longlib = longlib;
 	  vm.triggered = triggered;
 	  vm.classFunc = classFunc;
+	  vm.setty = setty;
+	  vm.getty = getty;
 	  vm.clicky = clicky;
 	  vm.chosenOne = '0';
+	  
+	  function setty(){
+		  User.setUser("NIPPON STEEL");
+	  }
+	  function getty(){
+		  console.log(User.getUser());
+	  }
 	  function longlib(data1, data2){
 		  vm.sum = (Number(data1)+Number(data2) || 0);
 		  console.log("BOI");
 	  }
+	  
+	  
 	  
 	  function triggered(){
 		  if(vm.clicked){

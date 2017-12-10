@@ -3,9 +3,9 @@
 angular.module('catalogController',[])
 .controller('catalogController', catalogController);
 
-catalogController.$inject = ['$http','$anchorScroll','$location','$filter','Catalog'];
+catalogController.$inject = ['$http','$anchorScroll','$location','$filter','Catalog','User'];
 
-function catalogController($http,$anchorScroll,$location,$filter,Catalog){
+function catalogController($http,$anchorScroll,$location,$filter,Catalog,User){
 	var vm = this;
 	vm.loggedIn = false;
 	vm.hideReviews = true;
@@ -19,11 +19,14 @@ function catalogController($http,$anchorScroll,$location,$filter,Catalog){
 	vm.loaditems = loadItems;
 	vm.showAdvSearch = showAdvSearch;
 	vm.createFilter = createFilter;
-
+	vm.getty = getty;
 //	vm.filter = filter;
 	loadItems();
 	createFilter();
 	$anchorScroll();
+	function getty(){
+		console.log(User.getUser());
+	}
 	function createFilter(){
 		
 		if(!vm.showAdv){

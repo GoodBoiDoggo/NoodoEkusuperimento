@@ -5,6 +5,7 @@ console.log("APP MODULE REACHED!");
 		'angularController',
 		'catalogController',
 		'itemController',
-		'catalogService'
+		'catalogService',
+		'userService'
 		]);
 

@@ -43,7 +43,7 @@ function itemController($http,Catalog,$routeParams,$anchorScroll){
 		 else{
 			 vm.showHide = 'Show';
 			 vm.hideReviews = true;
-			 $location.hash('');
+			 
 		 }
 	 }
 	 

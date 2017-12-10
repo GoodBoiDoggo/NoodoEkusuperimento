@@ -31,8 +31,11 @@ app.use('/service',express.static(path.join(__dirname,'app_client','services')))
 require('./routes')(app);
 
 
+try{mongoose.connect(config.getDbConnectionString());}
+catch(err){
+	console.log("Mongo Connection Failed");
+}
 
-mongoose.connect(config.getDbConnectionString());
 //sdsdsfsdfsd
 // development only
 if ('development' == app.get('env')) {
