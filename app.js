@@ -8,7 +8,7 @@ var express = require('express')
   , path = require('path');
 
 var app = express();
-
+var crypto = require('crypto');
 var mongoose = require('mongoose');
 var config = require('./config');
 var methodOverride = require('method-override');

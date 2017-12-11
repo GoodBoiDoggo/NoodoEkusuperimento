@@ -10,8 +10,7 @@ angular.module('app.core').factory('Catalog', catalogService);
 	        },
 	        
 	        getItem:function(prodcode){
-	        	console.log("YABOIIII");
-	        	console.log($http.get('/item/'+prodcode));
+	        	console.log("Fetch item: " + prodcode);
 	        	return $http.get('/item/'+prodcode);
 	        }
 	

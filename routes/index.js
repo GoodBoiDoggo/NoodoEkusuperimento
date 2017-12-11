@@ -25,6 +25,7 @@ module.exports = function(app){
 		Catalog.find({prodcode:req.params.prodcode},function(err,results){
 			if(err) throw err;
 			res.send(results);
+			console.log("Item sent");
 		})
 	});
 	app.get('/api2/:id', function(req, res){

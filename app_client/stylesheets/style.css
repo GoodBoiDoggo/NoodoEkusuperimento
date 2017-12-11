@@ -5,6 +5,11 @@ html, body {
 		
 		
 }
+.affix {
+      top: 0;
+      width: 100%;
+      z-index: 9999 !important;
+}
 #logo{
 	margin-left:1em;
 	width:50px;
@@ -55,7 +60,7 @@ a:hover{
 	background-color:#f4f2f2;
 }
 .whitespace {
-	height:100px;
+	height:75px;
 }
 .jumbotron{
 	background-color: lightblue;
@@ -85,13 +90,6 @@ a:hover{
 .availablefalse{
 	color: red !important;
 }
-.affixedButton{
-    height:50px;
-	width:105px;
-	font-size:4vw;
-}
-	
-	
 
 /*For sizeSpan=================*/
 .clkSize{
@@ -126,14 +124,6 @@ a:hover{
 		width:40vw;
 		/* width: auto; */
 		height: auto;
-	}
-	.affix {
-		margin-top:30px;
-		top: 1px;
-	    z-index: 9999 !important;
-	}
-	.affix > .child{
-
 	}
 	.bottomCon{
 		background-color:#d1d1d1;
@@ -223,10 +213,6 @@ a:hover{
 	}
 	#reviewSection{
 		clear:both;
-	}
-	.affix {
-		 top: 20px;
-	     z-index: 9999 !important;
 	}
 	#bodyContainer{
 		margin-left: 5em !important;
@@ -336,10 +322,6 @@ a:hover{
 	}
 	#reviewSection{
 		clear:both;
-	}
-	.affix {
-		 top: 20px;
-	     z-index: 9999 !important;
 	}
 	#bodyContainer{
 		margin-left: 10vw !important;
