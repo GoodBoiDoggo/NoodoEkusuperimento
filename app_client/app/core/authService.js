@@ -7,7 +7,7 @@ authService.$inject=['$q', '$timeout', '$http']
 
     // create user variable
     var user = null;
-
+    console.log('00AUTH1!');
     // return available functions for use in the controllers
     return ({
       isLoggedIn: isLoggedIn,
@@ -16,16 +16,19 @@ authService.$inject=['$q', '$timeout', '$http']
       logout: logout,
       register: register
     });
-
     function isLoggedIn() {
+    	
       if(user) {
+      	console.log("logged in " + user);
         return true;
       } else {
+      	console.log("not logged in" + user);
         return false;
       }
     }
 
     function getUserStatus() {
+    	console.log('00AUTH3!');
       $http.get('/user/status')
       // handle success
       .then(function (data) {

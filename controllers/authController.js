@@ -49,7 +49,7 @@ module.exports = function(app){
 	  });
 	});
 	
-	app.get('/status', function(req, res) {
+	app.get('/:user/status', function(req, res) {
 		console.log("status found");
 	  if (!req.isAuthenticated()) {
 	    return res.status(200).json({

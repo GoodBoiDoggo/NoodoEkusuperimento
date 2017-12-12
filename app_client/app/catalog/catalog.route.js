@@ -9,7 +9,7 @@ angular.module('app.catalog')
 	            templateUrl: 'catalog/catalog.html',
 	            controller: 'catalogController',
 	            controllerAs: 'vm',
-	            access:{restricted: false}
+	            access:{restricted: true}
 	        })
             .otherwise({ redirectTo: '/catalog' });
     }

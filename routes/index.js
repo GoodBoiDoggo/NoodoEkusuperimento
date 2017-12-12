@@ -48,8 +48,21 @@ module.exports = function(app){
 //		res.render('../views/catalog.ejs');
 //	});
 	app.get('/*',function(req,res){
-		console.log("NON API DETECTED!");
-		res.sendfile('app_client/app/index.html');
+		console.log("Index file served.");
+		//res.sendfile('app_client/app/index.html');
+		var options = {
+		    root: './app_client/app',
+		    headers: {
+		        'Content-Type': 'text/html',
+		    }
+		  };
+		 res.sendFile('index.html', options, function (err) {
+		    if (err) {
+		      console.log(err);
+		    } else {
+		      console.log('Sent: index.html');
+		    }
+		  });
 	});
 	
 	
