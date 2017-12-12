@@ -8,7 +8,8 @@ angular.module('app.item')
 	        .when('/catalog/:id', {
 	            templateUrl: 'item/item.html',
 	            controller: 'itemController',
-	            controllerAs: 'vm'
+	            controllerAs: 'vm',
+	            access:{restricted: false}
 	        })
             .otherwise({ redirectTo: '/catalog' });
     }

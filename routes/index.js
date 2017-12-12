@@ -8,11 +8,12 @@ var Todos = require('../models/todoModel');
 var Catalog = require('../models/catalogModel');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+var authController = require('../controllers/authController');
 
 module.exports = function(app){
 //	setupController(app); //use only when creating new sample data
 	//API's
+	authController(app);
 	app.get('/catalog/all',function (req,res){
 			
 			Catalog.find(function(err,results){
@@ -46,8 +47,8 @@ module.exports = function(app){
 //	app.get('/catalog', function (req, res){
 //		res.render('../views/catalog.ejs');
 //	});
-	app.get('*',function(req,res){
-		console.log("DETECTED!");
+	app.get('/*',function(req,res){
+		console.log("NON API DETECTED!");
 		res.sendfile('app_client/app/index.html');
 	});
 	
