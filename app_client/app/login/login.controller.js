@@ -4,28 +4,28 @@ angular.module('app.login')
   login.$inject=['$scope', '$location', 'AuthService'];
   
   function login($scope, $location, AuthService) {
-
-    $scope.login = function () {
-
+	  var vm = this;
+    vm.login = function () {
+    	
       // initial values
-      $scope.error = false;
-      $scope.disabled = true;
+      vm.error = false;
+      //vm.disabled = true;
 
       // call login from service
-      AuthService.login($scope.loginForm.username, $scope.loginForm.password)
+      AuthService.login(vm.loginForm.username, vm.loginForm.password)
         // handle success
         .then(function () {
-          $location.path('/');
-          $scope.disabled = false;
-          $scope.loginForm = {};
+          vm.path('/');
+          vm.disabled = false;
+          vm.loginForm = {};
         })
         // handle error
-        .catch(function () {
-          $scope.error = true;
-          $scope.errorMessage = "Invalid username and/or password";
-          $scope.disabled = false;
-          $scope.loginForm = {};
-        });
+        ,function () {
+          vm.error = true;
+          vm.errorMessage = "Invalid username and/or password";
+          vm.disabled = false;
+          vm.loginForm = {};
+        };
 
     };
 
