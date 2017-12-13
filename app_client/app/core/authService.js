@@ -22,28 +22,32 @@ authService.$inject=['$q', '$timeout', '$http']
       	console.log("logged in " + user);
         return true;
       } else {
-      	console.log("not logged in" + user);
+      	console.log("not logged in " + user);
         return false;
       }
     }
 
     function getUserStatus() {
     	console.log('00AUTH3!');
-      $http.get('/user/status')
+      $http.get('/status')
       // handle success
-      .then(function (data) {
-        if(data.status){
+      .then(function (res) {
+        if(res.data.status){
           user = true;
         } else {
           user = false;
         }
+        console.log('data:');
+        console.log(res.data);
+        console.log('data.status:');
+        console.log(res.data.status);
       })
       // handle error
       ,function (data) {
         user = false;
       };
       
-      return $http.get('/user/status')
+      return $http.get('/status')
     }
 
     function login(username, password) {
@@ -52,7 +56,7 @@ authService.$inject=['$q', '$timeout', '$http']
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/user/login',
+      $http.post('/login',
         {username: username, password: password})
         // handle success
         .then(function (data, status) {
@@ -81,7 +85,7 @@ authService.$inject=['$q', '$timeout', '$http']
       var deferred = $q.defer();
 
       // send a get request to the server
-      $http.get('/user/logout')
+      $http.get('/logout')
         // handle success
         .then(function (data) {
           user = false;
@@ -104,7 +108,7 @@ authService.$inject=['$q', '$timeout', '$http']
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/user/register',
+      $http.post('/register',
         {username: username, password: password})
         // handle success
         .then(function (data, status) {

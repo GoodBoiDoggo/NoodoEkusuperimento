@@ -20,6 +20,7 @@
 				<li><a ng-show="vmNav.currentUser" href="/profile">{{vmNav.currentUser}}</a>
 				<li><a ng-show="vmNav.currentUser" ng-click="vmNav.logout()">Log out</a>
 				<li><a ng-hide="vmNav.currentUser" ng-click="vmNav.login()">Log In</a>
+				<li><a ng-hide="vmNav.currentUser" href="/register">Register</a>
 			</ul>
 		</div>
 		

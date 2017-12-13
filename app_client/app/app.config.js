@@ -12,16 +12,10 @@ angular.module('app')
 		          console.log('restricted?: ' + next.access.restricted);
 		    	  console.log(event);
 		    	  console.log(next);
-		    	  console.log(current);
 		        if (next.access.restricted && !AuthService.isLoggedIn()){
 	
-		        	if(next.templateUrl == 'catalog/catalog.html'){
-		        		console.log("already going to catalog.");
-		        	}
-		        	else{
-			          $location.path('/catalog');
+			          $location.path('/catalog/I00001');
 			          $route.reload();
-		        	}
 		        }
 	    	  } 
 	      }),function(err){

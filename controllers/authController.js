@@ -1,6 +1,7 @@
 var passport = require('passport');
-
+var express = require('express');
 var User = require('../models/userModel.js');
+var router = express.Router();
 module.exports = function(app){
 	app.post('/register', function(req, res) {
 	  User.register(new User({ username: req.body.username }),
@@ -49,8 +50,10 @@ module.exports = function(app){
 	  });
 	});
 	
-	app.get('/:user/status', function(req, res) {
+	app.get('/status', function(req, res) {
 		console.log("status found");
+		console.log('Is authenticated? :' + req.isAuthenticated());
+		
 	  if (!req.isAuthenticated()) {
 	    return res.status(200).json({
 	      status: false

@@ -17,7 +17,9 @@ var appModule =
         /* Feature Modules */
   //      'app.welcome',
         'app.catalog',
-        'app.item'
+        'app.item',
+        'app.register',
+        'app.login'
     ]);
     appModule.config(['$locationProvider', function ($locationProvider) {
         $locationProvider.html5Mode({

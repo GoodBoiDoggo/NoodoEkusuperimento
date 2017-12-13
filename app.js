@@ -15,8 +15,17 @@ var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
 //db
-mongoose.connect(config.getDbConnectionString());
-
+//mongoose.connect(config.getDbConnectionString());
+var promise = mongoose.connect(config.getDbConnectionString(), {
+	  useMongoClient: true
+	});
+promise.then(function(db) {
+	connection.openUri(config.getDbConnectionString());
+});
+	  /* Use `db`, for instance `db.model()`
+	});
+	// Or, if you already have a connection*/
+	
 //auth
 var hash = require('bcrypt-nodejs');
 var passport = require('passport');
@@ -41,9 +50,9 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/app_client/views');
 //app.set('view engine', 'ejs');
 app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+//	app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
-app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
+//app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 //app.use(app.router);
 app.use(express.static(path.join(__dirname, 'app_client')));
 app.use(express.static(path.join(__dirname, 'app_client','app')));
@@ -52,8 +61,9 @@ app.use('/boi', express.static(path.join(__dirname,'app_client','controllers')))
 app.use('/pic', express.static(path.join(__dirname,'app_client','images')));
 app.use('/service',express.static(path.join(__dirname,'app_client','services')));
 
+var routes = require('./routes')(app);
 require('./routes')(app);
-
+app.use(express.Router());
 
 
 
