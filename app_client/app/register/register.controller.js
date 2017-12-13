@@ -1,32 +1,34 @@
 angular.module('app.register')
-.controller('registerController', registerController);
+.controller('registerController', register);
 
-  registerController.$inject=['$scope', '$location', 'AuthService'];
-  
-  function registerController($scope, $location, AuthService) {
+register.$inject = ['$location', 'authentication','$scope'];
 
-    $scope.register = function () {
+function register($location, authentication,$scope) {
+  var vm = this;
+  vm.showError = false;
+  vm.credentials = {
+    name : "",
+    email : "",
+    password : ""
+  };
 
-      // initial values
-      $scope.error = false;
-      $scope.disabled = true;
-
-      // call register from service
-      AuthService.register($scope.registerForm.username, $scope.registerForm.password)
-        // handle success
-        .then(function () {
-          $location.path('/login');
-          $scope.disabled = false;
-          $scope.registerForm = {};
-        })
-        // handle error
-        .catch(function () {
-          $scope.error = true;
-          $scope.errorMessage = "Something went wrong!";
-          $scope.disabled = false;
-          $scope.registerForm = {};
-        });
-
-    };
+  vm.onSubmit = function () {
+    console.log('Submitting registration');
+    authentication
+      .register(vm.credentials)
+      .then(function(res){
+    	  console.log("whoag");
+    	  if(res){
+    		  vm.showError = true;
+    	  }
+    	  else{
+    		  $scope.$emit('AUTHENTICATE');
+    	        $location.path('/profile');
+    	  }
+    	
+      },function(err){
+    	  vm.showError = true;
+      });
+  };
 
 }

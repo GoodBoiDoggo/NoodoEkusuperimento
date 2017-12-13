@@ -3,23 +3,19 @@ angular.module('app.core').factory('User',userService);
 	userService.$inject=['$window'];
 	function userService(win) {
 	var vm = this;
-	vm.userName="";
+	vm.loggedIn = false;
 	    return {
 	        // call to get all catalog items
-	        setUser : function(uName) {//LOGIN
-	        	console.log('setUser('+ uName +')');
-	        		vm.userName = uName;
-	        },
-	        
-	         getUser:function(){
-	        	console.log("getUser()");
-	        	return vm.userName;
-	        },
-	        
-	        logout: function(){//LOGOUT
-	        	vm.userName = "";
-		        console.log('Log out('+ vm.userName +')');
-	        }
+	        isLoggedIn : isLoggedIn,
+	        setStatus : setStatus
 	    }       
+	    
+	    function setStatus(status){
+	    	vm.loggedIn = status;
+	    }
+	    
+	    function isLoggedIn() {//LOGIN
+        	return vm.loggedIn;
+        }
 
 	}

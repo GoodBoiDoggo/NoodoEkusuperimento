@@ -5,7 +5,7 @@ itemController.$inject = ['$http','Catalog','$routeParams','$anchorScroll','User
 
 function itemController($http,Catalog,$routeParams,$anchorScroll,User,$scope){
 	var vm = this;
-	vm.loggedIn = User.getUser();
+	vm.loggedIn = User.isLoggedIn();
 	vm.boi = "BOIII";
 	vm.hideReviews = true;
 	vm.showHide = 'Show'
@@ -19,19 +19,6 @@ function itemController($http,Catalog,$routeParams,$anchorScroll,User,$scope){
 	vm.sizeClick = sizeClick;
 	loadItem();
 	$anchorScroll();
-	
-	
-	$scope.$on('AUTHENTICATE', function (event, data) {
-        console.log('AUTHENTICATE:' + data);
-    	if (data) {
-    		console.log("Logged in");
-            vm.loggedIn = true;
-            
-        } else {
-        	console.log("Logged out");
-            vm.loggedIn = false;
-        }
-    });
 	
 	
 	 function loadItem(){

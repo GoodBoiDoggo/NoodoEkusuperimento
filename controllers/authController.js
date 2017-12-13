@@ -1,66 +1,21 @@
-var passport = require('passport');
 var express = require('express');
-var User = require('../models/userModel.js');
 var router = express.Router();
-module.exports = function(app){
-	app.post('/register', function(req, res) {
-	  User.register(new User({ username: req.body.username }),
-	    req.body.password, function(err, account) {
-	    if (err) {
-	      return res.status(500).json({
-	        err: err
-	      });
-	    }
-	    passport.authenticate('local')(req, res, function () {
-	      return res.status(200).json({
-	        status: 'Registration successful!'
-	      });
-	    });
-	  });
-	});
+var jwt = require('express-jwt');
+var auth = jwt({
+  secret: 'MY_SECRET',
+  userProperty: 'payload'
+});
+
+var ctrlProfile = require('./profile');
+var ctrlAuth = require('./authentication');
+
+	module.exports= function(app){
+	// profile
+	app.get('/api/profile', auth, ctrlProfile.profileRead);
 	
-	app.post('/login', function(req, res, next) {
-		console.log("login processed");
-	  passport.authenticate('local', function(err, user, info) {
-	    if (err) {
-	      return next(err);
-	    }
-	    if (!user) {
-	      return res.status(401).json({
-	        err: info
-	      });
-	    }
-	    req.logIn(user, function(err) {
-	      if (err) {
-	        return res.status(500).json({
-	          err: 'Could not log in user'
-	        });
-	      }
-	      res.status(200).json({
-	        status: 'Login successful!'
-	      });
-	    });
-	  })(req, res, next);
-	});
+	// authentication
+	app.post('/register', ctrlAuth.register);
+	app.post('/login', ctrlAuth.login);
 	
-	app.get('/logout', function(req, res) {
-	  req.logout();
-	  res.status(200).json({
-	    status: 'Bye!'
-	  });
-	});
-	
-	app.get('/status', function(req, res) {
-		console.log("status found");
-		console.log('Is authenticated? :' + req.isAuthenticated());
-		
-	  if (!req.isAuthenticated()) {
-	    return res.status(200).json({
-	      status: false
-	    });
-	  }
-	  res.status(200).json({
-	    status: true
-	  });
-	});
-}
+
+};

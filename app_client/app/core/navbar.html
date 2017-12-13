@@ -16,11 +16,11 @@
 		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a ng-show="vmNav.currentUser" href="/cart">View cart</a></li>
-				<li><a ng-show="vmNav.currentUser" href="/profile">{{vmNav.currentUser}}</a>
-				<li><a ng-show="vmNav.currentUser" ng-click="vmNav.logout()">Log out</a>
-				<li><a ng-hide="vmNav.currentUser" href="/login" ng-click="vmNav.login()">Log In</a>
-				<li><a ng-hide="vmNav.currentUser" href="/register">Register</a>
+				<li><a ng-show="vmNav.isLoggedIn" href="/cart">View cart</a></li>
+				<li><a ng-hide="vmNav.isLoggedIn" href="/register">Register</a>
+				<li ng-hide="vmNav.isLoggedIn"><a href="/login">Log in</a></li>
+        		<li ng-show="vmNav.isLoggedIn"><a href="/profile">{{ vmNav.currentUser.name }}</a></li>
+        		<li><a ng-show="vmNav.isLoggedIn" href="/logout" ng-click="vmNav.logout()">Logout</a></li>
 			</ul>
 		</div>
 		

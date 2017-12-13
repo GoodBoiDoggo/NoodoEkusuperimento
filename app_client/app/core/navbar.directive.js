@@ -10,47 +10,38 @@
             };
         });
 
-    kariteunNavbar.$inject = ['$anchorScroll', '$location', '$scope', '$timeout','User'];
+    kariteunNavbar.$inject = ['$anchorScroll', '$location', '$scope', '$timeout','authentication','User'];
 
-    function kariteunNavbar($anchorScroll, $location, $scope, $timeout,User) {
+    function kariteunNavbar($anchorScroll, $location, $scope, $timeout,authentication,User) {
     	 
         var vmNav = this;
+
+        vmNav.updateUser = updateUser;
         vmNav.login = login;
         vmNav.logout = logout;
-//        function scrollTo(id) {
-//            if ($location.path() !== '/') {
-//                $location.path('/');
-//            }
-//            $timeout(function () {
-//                $location.hash(id);
-//                $anchorScroll.yOffset = 50;
-//                $anchorScroll();
-//            });
+        updateUser();
+//        function login(){
+//        	User.setUser("NIPPON STEEL");
+//  		  	//$scope.$emit('AUTHENTICATE',User.getUser());
+//  		  	$scope.$broadcast('AUTHENTICATE',User.getUser());
 //        }
-//
-        $scope.$on('AUTHENTICATE', function (event, data) {
-            console.log('AUTHENTICATE:' + data);
-        	if (data) {
-        		console.log("Logged in");
-                vmNav.authenticated = true;
-                vmNav.currentUser = data;
-                
-            } else {
-            	console.log("Logged out");
-                vmNav.authenticated = false;
-                vmNav.currentUser = data;
-            }
-        });
-
-        function login(){
-        	User.setUser("NIPPON STEEL");
-  		  	//$scope.$emit('AUTHENTICATE',User.getUser());
-  		  	$scope.$broadcast('AUTHENTICATE',User.getUser());
+        function updateUser(){
+            vmNav.isLoggedIn = authentication.isLoggedIn();
+            vmNav.currentUser = authentication.currentUser();
+            User.setStatus(vmNav.isLoggedIn);
         }
+        $scope.$on('AUTHENTICATE', function(event,args){
+        	updateUser();
+        });
         
         function logout(){
-        	User.logout();
-        	$scope.$broadcast('AUTHENTICATE',User.getUser());
+
+        	authentication.logout();
+
+        	updateUser();
+        }
+        function login(){
+        	
         }
 
     }

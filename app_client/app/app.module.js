@@ -19,7 +19,8 @@ var appModule =
         'app.catalog',
         'app.item',
         'app.register',
-        'app.login'
+        'app.login',
+        'app.profile'
     ]);
     appModule.config(['$locationProvider', function ($locationProvider) {
         $locationProvider.html5Mode({
@@ -28,3 +29,13 @@ var appModule =
         });
     }]);
 	
+    function run($rootScope, $location, authentication) {
+        $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+          if ($location.path() === '/profile' && !authentication.isLoggedIn()) {
+            $location.path('/login');
+          }
+          
+        });
+      }
+      
+        appModule.run(['$rootScope', '$location', 'authentication', run]);

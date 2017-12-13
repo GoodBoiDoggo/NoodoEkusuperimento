@@ -1,32 +1,28 @@
 angular.module('app.login')
 .controller('loginController', login);
 
-  login.$inject=['$scope', '$location', 'AuthService'];
+  login.$inject=['$location', 'authentication','$scope'];
   
-  function login($scope, $location, AuthService) {
-	  var vm = this;
-    vm.login = function () {
-    	
-      // initial values
-      vm.error = false;
-      //vm.disabled = true;
+  function login($location, authentication, $scope) {
+	    var vm = this;
+	    vm.showError = false;
+	    vm.credentials = {
+	      email : "",
+	      password : ""
+	    };
 
-      // call login from service
-      AuthService.login(vm.loginForm.username, vm.loginForm.password)
-        // handle success
-        .then(function () {
-          vm.path('/');
-          vm.disabled = false;
-          vm.loginForm = {};
-        })
-        // handle error
-        ,function () {
-          vm.error = true;
-          vm.errorMessage = "Invalid username and/or password";
-          vm.disabled = false;
-          vm.loginForm = {};
-        };
+	    vm.onSubmit = function () {
+	      authentication
+	        .login(vm.credentials)
+	        .then(function(){
+	        	$scope.$emit('AUTHENTICATE');
+	          $location.path('/profile');
+	          
+	        },function(err){
+	          vm.showError = true;
+	        });
+	    };
 
-    };
+	  }
+  
 
-}
