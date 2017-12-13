@@ -12,7 +12,8 @@ var mongoose = require('mongoose');
 var config = require('./config');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
-
+var expressSession = require('express-session');
+var cookieParser = require('cookie-parser');
 //db
 mongoose.connect(config.getDbConnectionString());
 

@@ -7,21 +7,23 @@ angular.module('app')
 	
 	      AuthService.getUserStatus()
 	      .then(function(){
-	    	  console.log("AUTHHHHHHHHH");
-	          console.log('restricted?: ' + next.access.restricted);
-	    	  console.log(event);
-	    	  console.log(next);
-	    	  console.log(current);
-	        if (next.access.restricted && !AuthService.isLoggedIn()){
-
-	        	if(next.templateUrl == 'catalog/catalog.html'){
-	        		console.log("already going to catalog.");
-	        	}
-	        	else{
-		          $location.path('/catalog');
-		          $route.reload();
-	        	}
-	        }
+	    	  if(next.access != undefined){
+		    	  console.log("AUTHHHHHHHHH");
+		          console.log('restricted?: ' + next.access.restricted);
+		    	  console.log(event);
+		    	  console.log(next);
+		    	  console.log(current);
+		        if (next.access.restricted && !AuthService.isLoggedIn()){
+	
+		        	if(next.templateUrl == 'catalog/catalog.html'){
+		        		console.log("already going to catalog.");
+		        	}
+		        	else{
+			          $location.path('/catalog');
+			          $route.reload();
+		        	}
+		        }
+	    	  } 
 	      }),function(err){
 	    	  console.log("Error encountered.")
 	      };
