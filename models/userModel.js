@@ -35,6 +35,8 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  loginsession:Date().valueOf(),
+  fbid: String,
   hash: String,
   salt: String
 },{collection:'userdata'});
