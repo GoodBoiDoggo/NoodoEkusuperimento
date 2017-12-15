@@ -35,7 +35,7 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  loginsession:Date().valueOf(),
+  loginsession:String,
   fbid: String,
   hash: String,
   salt: String

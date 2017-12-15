@@ -1,70 +1,73 @@
-
 <!DOCTYPE html>
+
 <head>
-	<base href="/">	
-  <title>Kariteun</title>
-  
+    <base href="/">
+    <title>Kariteun</title>
 
-  <!-- CSS and Some scripts -->
-  <link rel=icon href=pic/kariteun-logo.png>
-  <link rel="stylesheet" href="/stylesheets/style.css"></style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <!--  ====================================================================================== -->
 
- 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8"/>
-  
-  
-  
+    <!-- CSS and Some scripts -->
+    <link rel=icon href=pic/kariteun-logo.png>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--  ====================================================================================== -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+
+
+
 </head>
-<body ng-app="app">
 
-<kariteun-navbar  data-spy="affix"></kariteun-navbar>
-<div class="whitespace"></div>
+<body ng-app="app" ng-controller="indexController as vm">
 
-<div id="bodyContainer" class="row">
- 	<div class="container-fluid" ng-view></div>
-</div>
-<div class="fillerDiv"></div>
- <div class="container-fluid">
-	<div class="row bottomCon">
-		<span id="footMsg">Contact us on: (+63)9420789019</span>
-	</div>
-</div>
+    <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
+    <div class="whitespace"></div>
+    {{vm.test}}
+    <div id="bodyContainer" class="row">
+        <div class="container-fluid" ng-view></div>
+    </div>
+    <div class="fillerDiv"></div>
+    <div class="container-fluid">
+        <div class="row bottomCon">
+            <span id="footMsg">Contact us on: (+63)9420789019</span>
+        </div>
+    </div>
 
 
 
-<!-- angular scripts -->
-  <script src='app.module.js'></script>
-  <script src="core/core.module.js"></script>
-  <script src='welcome/welcome.module.js'></script>
-  <script src="item/item.module.js"></script>
-  <script src="register/register.module.js"></script>
-  <script src="login/login.module.js"></script>
-  <script src="profile/profile.module.js"></script>
-  <script src="profile/profile.controller.js"></script>
-  <script src="profile/profile.route.js"></script>
-  <script src="login/login.controller.js"></script>
-  <script src="login/login.route.js"></script>
-  <script src="register/register.controller.js"></script>
-  <script src="register/register.route.js"></script>
-  <script src="catalog/catalog.module.js"></script>
-  <script src='welcome/welcome.controller.js'></script>
-  <script src='welcome/welcome.route.js'></script>
-  <script src="catalog/catalog.controller.js"></script>
-  <script src="catalog/catalog.route.js"></script>
-  <script src="item/item.controller.js"></script>
-  <script src="item/item.route.js"></script>
-  <script src="core/catalogService.js"></script>
-  <script src="core/userService.js"></script>
-  <script src="core/navbar.directive.js"></script>
-  <script src="core/authentication.service.js"></script>
-  <script src="core/data.service.js"></script>
-
+    <!-- angular scripts -->
+    <script src='app.module.js'></script>
+    <script src="core/core.module.js"></script>
+    <script src='welcome/welcome.module.js'></script>
+    <script src="item/item.module.js"></script>
+    <script src="register/register.module.js"></script>
+    <script src="login/login.module.js"></script>
+    <script src="profile/profile.module.js"></script>
+    <script src="profile/profile.controller.js"></script>
+    <script src="profile/profile.route.js"></script>
+    <script src="login/login.controller.js"></script>
+    <script src="login/login.route.js"></script>
+    <script src="register/register.controller.js"></script>
+    <script src="register/register.route.js"></script>
+    <script src="catalog/catalog.module.js"></script>
+    <script src='welcome/welcome.controller.js'></script>
+    <script src='welcome/welcome.route.js'></script>
+    <script src="catalog/catalog.controller.js"></script>
+    <script src="catalog/catalog.route.js"></script>
+    <script src="item/item.controller.js"></script>
+    <script src="item/item.route.js"></script>
+    <script src="core/catalogService.js"></script>
+    <script src="core/userService.js"></script>
+    <script src="core/navbar.directive.js"></script>
+    <script src="core/authentication.service.js"></script>
+    <script src="core/data.service.js"></script>
+    <script src="index.controller.js"></script>
 </body>
+
 </html>

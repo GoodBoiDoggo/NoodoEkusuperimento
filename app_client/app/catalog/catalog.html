@@ -1,53 +1,46 @@
 <div>
-	<div ng-show="vm.loaded" class="container-fluid">
-		<div class="row">
-			<h1>CATALOG</h1>
+    <div ng-show="vm.loaded" class="container-fluid">
+        <div class="row">
+            <h1>CATALOG</h1>
 
-			<input id="catalogSearch" type="search" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
-			<div id="Advanced search"></div>
-			<a ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
-			<div id="filtersDiv" ng-show="vm.showAdv">
-				Brand: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
-				Type: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter" placeholder="(leather,casual,running,walking)">
-				Color: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)">
-				Gender: <select ng-change="vm.createFilter()" data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
-			</div>
-			<div id="noMatch" class="text-info" ng-hide="vm.filteredCatalogItems.length">
-				No matches found.
-				You can search shoes according to
-				name, type, brand or tags.
-			</div>
-			<div class="itemsContainer">
-				<div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter)">
-					<a class="item img-thumbnail" ng-href="/catalog/{{item.prodcode}}">
-					<!-- ng-click="vm.viewItem(item)" -->
-						<img class="img-responsive" src="pic/{{item.imgname}}"><br>
-						<p>
-							<b>{{item.prodname}}</b><br>
-							<i>{{item.prodtype}}</i><br>
-							Php <span ng-show="item.salerate > 0"><del>{{item.prodprice}}</del> {{item.prodprice - (item.prodprice * item.salerate)}}</span>
-								<span ng-show="item.salerate == 0">{{item.prodprice}}</span>
-							<br>
-							<span class="available{{item.isavailable}}">
+            <input id="catalogSearch" type="search" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
+            <div id="Advanced search"></div>
+            <a ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
+            <div id="filtersDiv" ng-show="vm.showAdv">
+                Brand: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)"> Type: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter"
+                    placeholder="(leather,casual,running,walking)"> Color: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)"> Gender: <select ng-change="vm.createFilter()"
+                    data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
+            </div>
+            <div id="noMatch" class="text-info" ng-hide="vm.filteredCatalogItems.length">
+                No matches found. You can search shoes according to name, type, brand or tags.
+            </div>
+            <div class="itemsContainer">
+                <div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter)">
+                    <a class="item img-thumbnail" ng-href="/catalog/{{item.prodcode}}{{vm.fbParam}}">
+                        <!-- ng-click="vm.viewItem(item)" -->
+                        <img class="img-responsive" src="pic/{{item.imgname}}"><br>
+                        <p>
+                            <b>{{item.prodname}}</b><br>
+                            <i>{{item.prodtype}}</i><br> Php <span ng-show="item.salerate > 0"><del>{{item.prodprice}}</del> {{item.prodprice - (item.prodprice * item.salerate)}}</span>
+                            <span ng-show="item.salerate == 0">{{item.prodprice}}</span>
+                            <br>
+                            <span class="available{{item.isavailable}}">
 								{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
 							</span>
-							
-						</p>
-					</a>
-					
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div id="loadingDiv" ng-show="!vm.loaded && vm.itemFound">
-		Loading...
-	</div>
-	<div id="itemNotFoundDiv" ng-show="!vm.itemFound">
-		    <p class="lead text-center">Darn, the item catalog failed to load. Try refreshing the page. If the problem persists, please try again later.</p>
-	</div>
+
+                        </p>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingDiv" ng-show="!vm.loaded && vm.itemFound">
+        Loading...
+    </div>
+    <div id="itemNotFoundDiv" ng-show="!vm.itemFound">
+        <p class="lead text-center">Darn, the item catalog failed to load. Try refreshing the page. If the problem persists, please try again later.</p>
+    </div>
 
 </div>
-
-
-

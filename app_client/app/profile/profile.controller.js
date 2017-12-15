@@ -1,17 +1,27 @@
   angular
-    .module('app.profile')
-    .controller('profileController', profile);
+      .module('app.profile')
+      .controller('profileController', profile);
 
   profile.$inject = ['$location', 'meanData'];
+
   function profile($location, meanData) {
-    var vm = this;
+      var vm = this;
+      vm.fbid = $location.search().fbid;
+      vm.user = {};
+      vm.pageInit = pageInit;
 
-    vm.user = {};
+      function pageInit() {
+          if (vm.fbid) {
+              //fbcode
+          } else {
+              //pc code
+              meanData.getProfile()
+                  .then(function(res) {
+                      vm.user = res.data;
+                  }, function(e) {
+                      console.log(e);
+                  });
+          }
+      }
 
-    meanData.getProfile()
-      .then(function(res) {
-        vm.user = res.data;
-      },function (e) {
-        console.log(e);
-      });
   }
