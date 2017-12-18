@@ -1,76 +1,87 @@
   angular
-    .module('app.core')
-    .service('authentication', authentication);
+      .module('app.core')
+      .service('authentication', authentication);
 
   authentication.$inject = ['$http', '$window'];
-  function authentication ($http, $window) {
 
-    var saveToken = function (token) {
-      $window.localStorage['mean-token'] = token;
-    };
+  function authentication($http, $window) {
 
-    var getToken = function () {
-      return $window.localStorage['mean-token'];
-    };
+      var saveToken = function(token) {
+          $window.localStorage['mean-token'] = token;
+      };
 
-    var isLoggedIn = function() {
-      var token = getToken();
-      var payload;
+      var getToken = function() {
+          return $window.localStorage['mean-token'];
+      };
 
-      if(token){
-        payload = token.split('.')[1];
-        payload = $window.atob(payload);
-        payload = JSON.parse(payload);
+      var isLoggedIn = function() {
+          var token = getToken();
+          var payload;
 
-        return payload.exp > Date.now() / 1000;
-      } else {
-        return false;
+          if (token) {
+              payload = token.split('.')[1];
+              payload = $window.atob(payload);
+              payload = JSON.parse(payload);
+
+              return payload.exp > Date.now() / 1000;
+          } else {
+              return false;
+          }
+      };
+
+      var fbLoggedIn = function(fbid) {
+          $http({
+              url: '/fbloggedin/' + fbid,
+              method: "GET"
+
+          }).then(function(res) {
+              console.log(res.data);
+          }, function(err) {
+              console.log(err);
+          });
       }
-    };
 
-    var currentUser = function() {
-      if(isLoggedIn()){
-        var token = getToken();
-        var payload = token.split('.')[1];
-        payload = $window.atob(payload);
-        payload = JSON.parse(payload);
-        return {
-          email : payload.email,
-          name : payload.name
-        };
-      }
-    };
+      var currentUser = function() {
+          if (isLoggedIn()) {
+              var token = getToken();
+              var payload = token.split('.')[1];
+              payload = $window.atob(payload);
+              payload = JSON.parse(payload);
+              return {
+                  email: payload.email,
+                  name: payload.name
+              };
+          }
+      };
 
-    register = function(user) {
-      return $http.post('/register', user).then(function(res){
-    	if(res.data.token===undefined){
-    		return res.data.errorMsg;
-    	} 
-    	else{
-    		saveToken(res.data.token);
-    	}
-      });
-    };
+      register = function(user) {
+          return $http.post('/register', user).then(function(res) {
+              if (res.data.token === undefined) {
+                  return res.data.errorMsg;
+              } else {
+                  saveToken(res.data.token);
+              }
+          });
+      };
 
-    login = function(user) {
-      return $http.post('/login', user).then(function(res) {
-        saveToken(res.data.token);
-      });
-    };
+      login = function(user) {
+          return $http.post('/login', user).then(function(res) {
+              saveToken(res.data.token);
+          });
+      };
 
-    logout = function() {
-      $window.localStorage.removeItem('mean-token');
-    };
+      logout = function() {
+          $window.localStorage.removeItem('mean-token');
+      };
 
-    return {
-      currentUser : currentUser,
-      saveToken : saveToken,
-      getToken : getToken,
-      isLoggedIn : isLoggedIn,
-      register : register,
-      login : login,
-      logout : logout
-    };
+      return {
+          currentUser: currentUser,
+          saveToken: saveToken,
+          getToken: getToken,
+          isLoggedIn: isLoggedIn,
+          fbLoggedIn: fbLoggedIn,
+          register: register,
+          login: login,
+          logout: logout
+      };
   }
-
-

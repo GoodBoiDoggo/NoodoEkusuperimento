@@ -45,6 +45,7 @@ function register($location, authentication, $scope) {
                     .register(vm.credentials)
                     .then(function(res) {
                         console.log("whoag");
+                        console.log(res);
                         if (res) {
                             vm.showError = true;
                         } else {

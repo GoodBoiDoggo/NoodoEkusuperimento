@@ -33,8 +33,13 @@ function run($rootScope, $location, authentication) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if ($location.path() === '/profile') {
             if ($location.search().fbid) {
+                console.log($location.search().fbid);
                 //fbcode
+
                 console.log('messenger auth process');
+                if (!authentication.fbLoggedIn($location.search().fbid)) {
+                    $location.path('/login');
+                }
             } else if (!authentication.isLoggedIn()) {
                 $location.path('/login');
             }

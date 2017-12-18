@@ -7,7 +7,7 @@ function index($location) {
     vm = this;
     vm.fbid = $location.search().fbid;
     vm.initNav = initNav;
-
+    vm.loggedIn = false;
 
     initNav();
 

@@ -9,6 +9,7 @@
       vm.fbid = $location.search().fbid;
       vm.user = {};
       vm.pageInit = pageInit;
+      pageInit();
 
       function pageInit() {
           if (vm.fbid) {
