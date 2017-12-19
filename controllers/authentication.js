@@ -26,7 +26,8 @@ module.exports.register = function(req, res) {
             console.log('registered');
             user.name = req.body.name;
             user.email = req.body.email;
-
+            user.fbid = "";
+            user.loginsession = "";
             user.setPassword(req.body.password);
 
             user.save(function(err) {
@@ -44,7 +45,38 @@ module.exports.register = function(req, res) {
 
 
 };
+module.exports.registerfb = function(req, res) {
 
+
+    var user = new User();
+    console.log(req.body.email);
+    User.find({ email: req.body.email }, function(err, results) {
+        if (err) throw err;
+        console.log('results:');
+        console.log(results);
+        if (results.length == 0) {
+            console.log('registered');
+            user.name = req.body.name;
+            user.email = req.body.email;
+            if (req.body.fbid) {
+                user.fbid = req.body.fbid;
+                user.loginsession = Date().valueOf();
+            }
+            user.fbid = "";
+            user.setPassword(req.body.password);
+
+            user.save(function(err) {
+                res.status(200);
+                res.send('Register complete');
+                console.log("REGISTER COMPLETE")
+            });
+        } else {
+            res.json({ "errorMsg": "User already exists!" });
+        }
+    })
+
+
+};
 module.exports.login = function(req, res) {
 
     // if(!req.body.email || !req.body.password) {

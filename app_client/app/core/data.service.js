@@ -14,7 +14,12 @@
           });
       };
 
+      var getFbProfile = function(fbid) {
+          return $http.get('/api/fbprofile/' + fbid);
+      };
+
       return {
-          getProfile: getProfile
+          getProfile: getProfile,
+          getFbProfile: getFbProfile
       };
   }

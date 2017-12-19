@@ -39,6 +39,21 @@ function register($location, authentication, $scope) {
         if (checkFields()) {
             if (vm.fbid) {
                 //fb code
+                authentication
+                    .registerfb(vm.credentials)
+                    .then(function(res) {
+                        console.log("whoag");
+                        console.log(res);
+                        if (res) {
+                            vm.showError = true;
+                        } else {
+                            $scope.$emit('AUTHENTICATE');
+                            $location.path('/profile');
+                        }
+
+                    }, function(err) {
+                        vm.showError = true;
+                    });
                 console.log('fb register process');
             } else {
                 authentication

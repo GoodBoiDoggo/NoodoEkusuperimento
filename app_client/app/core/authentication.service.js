@@ -55,6 +55,7 @@
       };
 
       register = function(user) {
+
           return $http.post('/register', user).then(function(res) {
               if (res.data.token === undefined) {
                   return res.data.errorMsg;
