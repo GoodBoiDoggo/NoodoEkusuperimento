@@ -32,5 +32,19 @@ var fbLoggedIn = function(req, res) {
     }
 }
 
+var getProfile = function(req, res) {
+    console.log('Fetching profile...');
+
+    function findProfile(err, results) {
+        if (err) throw err;
+        if (results._id) {
+            res.status(200);
+            res.send(results);
+        }
+    }
+    User.find({ fbid: req.params.fbid }, findProfile);
+}
+
 
 module.exports.isLoggedIn = fbLoggedIn;
+module.exports.profileRead = getProfile;
