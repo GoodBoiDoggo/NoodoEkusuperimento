@@ -25,7 +25,8 @@
 </head>
 
 <body ng-app="app" ng-controller="indexController as vm">
-
+    (function(d, s, id){ var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "//connect.facebook.com/en_US/messenger.Extensions.js"; fjs.parentNode.insertBefore(js, fjs); }(document,
+    'script', 'Messenger'));
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <div class="whitespace"></div>
     <div data-spy="affix" ng-show="!vm.showNav" id="affixButton">

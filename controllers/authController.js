@@ -12,7 +12,7 @@ var ctrlFbAuth = require('./fbAuthentication');
 module.exports = function(app) {
     // profile
     app.get('/api/profile', auth, ctrlProfile.profileRead);
-
+    app.get('/api/fbprofile/:fbid', ctrlFbAuth.profileRead);
     // authentication
     app.post('/register', ctrlAuth.register);
     app.post('/login', ctrlAuth.login);
