@@ -37,9 +37,21 @@ function run($rootScope, $location, authentication) {
                 //fbcode
 
                 console.log('messenger auth process');
-                if (!authentication.fbLoggedIn($location.search().fbid)) {
-                    $location.path('/login');
-                }
+                authentication.fbLoggedIn($location.search().fbid)
+                    .then(function(res) {
+                        console.log(res.data[0]);
+                        if (!res.data[0].loginsession) {
+                            console.log(res.data[0].loginsession);
+                            $location.path('/login');
+
+                        }
+                    }, function(err) {
+                        console.log('Fbid not registered.');
+                        $location.path('/login');
+                    });
+                // if (!) {
+                //     $location.path('/login');
+                // }
             } else if (!authentication.isLoggedIn()) {
                 $location.path('/login');
             }

@@ -36,7 +36,10 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     loginsession: String, //Date().valueOf();
-    fbid: String,
+    fbid: {
+        type: String,
+        unique: true
+    },
     hash: String,
     salt: String
 }, { collection: 'userdata' });

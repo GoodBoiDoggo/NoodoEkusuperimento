@@ -16,7 +16,7 @@
               //fbcode
               meanData.getFbProfile(vm.fbid)
                   .then(function(res) {
-                      vm.user = res.data;
+                      vm.user = res.data[0];
                   }, function(e) {
                       console.log(e);
                   });

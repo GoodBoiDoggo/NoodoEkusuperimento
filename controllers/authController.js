@@ -15,6 +15,7 @@ module.exports = function(app) {
     app.get('/api/fbprofile/:fbid', ctrlFbAuth.profileRead);
     // authentication
     app.post('/register', ctrlAuth.register);
+    app.post('/registerfb', ctrlFbAuth.registerfb);
     app.post('/login', ctrlAuth.login);
 
     //fb authentication

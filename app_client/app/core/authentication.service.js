@@ -30,15 +30,21 @@
       };
 
       var fbLoggedIn = function(fbid) {
-          $http({
-              url: '/fbloggedin/' + fbid,
-              method: "GET"
 
-          }).then(function(res) {
-              console.log(res.data);
-          }, function(err) {
-              console.log(err);
-          });
+          //   return $http({
+          //       url: '/fbloggedin/' + fbid,
+          //       method: "GET"
+
+          //   });
+          return $http.get('/fbloggedin/' + fbid);
+          //   .then(function(res) {
+          //     console.log('account found');
+          //     console.log(res.data);
+          //     return res;
+          // }, function(err) {
+          //     return false;
+          // });
+
       }
 
       var currentUser = function() {
@@ -65,6 +71,17 @@
           });
       };
 
+      registerfb = function(user) {
+
+          return $http.post('/registerfb', user).then(function(res) {
+              if (res.data.token === undefined) {
+                  return res.data.errorMsg;
+              } else {
+                  saveToken(res.data.token);
+              }
+          });
+      };
+
       login = function(user) {
           return $http.post('/login', user).then(function(res) {
               saveToken(res.data.token);
@@ -82,6 +99,7 @@
           isLoggedIn: isLoggedIn,
           fbLoggedIn: fbLoggedIn,
           register: register,
+          registerfb: registerfb,
           login: login,
           logout: logout
       };

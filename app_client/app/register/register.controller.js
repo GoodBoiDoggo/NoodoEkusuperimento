@@ -39,10 +39,11 @@ function register($location, authentication, $scope) {
         if (checkFields()) {
             if (vm.fbid) {
                 //fb code
+                vm.credentials.fbid = angular.copy(vm.fbid);
                 authentication
                     .registerfb(vm.credentials)
                     .then(function(res) {
-                        console.log("whoag");
+                        console.log("fb register request ended");
                         console.log(res);
                         if (res) {
                             vm.showError = true;
