@@ -1,5 +1,9 @@
 <div>
-    <a ng-href="/login{{vm.fbParam}}"><button type="button" ng-show="!vm.loggedIn" class="btn btn-primary affixButton">Log in</button></a>
-    <a><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Cart</button></a>
-    <a><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Profile</button></a>
+    <a ng-href="/catalog{{vmWv.fbParam}}"><button type="button" class="btn btn-primary affixButton">Catalog</button></a>
+    <div ng-show="vmWv.loaded" style="display:inline-block">
+        <a ng-href="/login{{vmWv.fbParam}}"><button type="button" ng-show="!vmWv.loggedIn && vmWv.exists" class="btn btn-primary affixButton">Log in</button></a>
+        <a ng-href="/register{{vmWv.fbParam}}"><button type="button" ng-show="!vmWv.exists" class="btn btn-primary affixButton">Register</button></a>
+        <a><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Cart</button></a>
+        <a ng-href="/profile{{vmWv.fbParam}}"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Profile</button></a>
+    </div>
 </div>

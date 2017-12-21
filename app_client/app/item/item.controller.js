@@ -25,7 +25,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         loadItem();
         $anchorScroll();
         if (vm.fbid) {
+            FB.login(vm.fbid)
+                .then(function(res) {
+                    console.log(res);
+                    if (res.exists) {
+                        vm.loggedIn = true;
+                    }
 
+                }, function(err) {
+
+                });
         } else {
             vm.loggedIn = authentication.isLoggedIn();
         }

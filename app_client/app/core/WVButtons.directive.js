@@ -16,26 +16,37 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
 
     var vmWv = this;
 
+    vmWv.fbid = $location.search().fbid;
+    vmWv.fbParam = '?fbid=' + vmWv.fbid;
     vmWv.updateUser = updateUser;
+    vmWv.loggedIn = false;
+    vmWv.exists = false;
     vmWv.login = login;
     vmWv.logout = logout;
-    //updateUser();
+    vmWv.userStatus;
+    vmWv.loaded = false;
+    updateUser();
     //        function login(){
     //        	User.setUser("NIPPON STEEL");
     //  		  	//$scope.$emit('AUTHENTICATE',User.getUser());
     //  		  	$scope.$broadcast('AUTHENTICATE',User.getUser());
     //        }
     function updateUser() {
-        if (!$location.search().fbid) {
+        if (vmWv.fbid) {
+            FB.login(vmWv.fbid)
+                .then(function(res) {
+                    console.log(res);
+                    vmWv.exists = res.exists;
+                    vmWv.loggedIn = res.loggedIn;
+                    vmWv.loaded = true;
+                }, function(err) {
+                    vmWv.loaded = true;
+                });
 
-            // vmNav.isLoggedIn = authentication.isLoggedIn();
-            // vmNav.currentUser = authentication.currentUser();
-        } else {
-            FB.login();
         }
 
     }
-    $scope.$on('AUTHENTICATE', function(event, args) {
+    $scope.$on('FBAUTHENTICATE', function(event, args) {
         updateUser();
     });
 

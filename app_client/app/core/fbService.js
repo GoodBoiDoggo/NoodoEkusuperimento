@@ -1,13 +1,15 @@
 console.log('USER SERVICE DETECTED!');
 angular.module('app.core').factory('FB', fbService);
-fbService.$inject = ['$window', '$http'];
+fbService.$inject = ['$window', '$http', '$q'];
 
-function fbService(win, $http) {
+function fbService(win, $http, $q) {
     var vm = this;
     vm.loaded = false;
     vm.loggedIn = false;
     vm.loginMode;
-    vm.user;
+    vm.exists;
+    vm.loggedIn;
+    vm.deferred = $q.defer();
     return {
         // call to get all catalog items
         isLoggedIn: isLoggedIn,
@@ -17,8 +19,34 @@ function fbService(win, $http) {
         getFbProfile: getProfile
     }
 
-    function login() {
-        vm.loggedIn = true;
+    function login(fbid) {
+
+        $http.get('/fbloggedin/' + fbid)
+            .then(function(res) {
+
+                if (res.data[0].loginsession) {
+                    vm.user = {
+                        exists: 'true',
+                        loggedIn: 'true'
+                    }
+                } else {
+                    vm.user = {
+                        exists: 'true',
+                        loggedIn: 'false'
+                    }
+                }
+                vm.deferred.resolve(vm.user);
+
+            }, function(err) {
+                console.log(err);
+                vm.user = {
+                    exists: 'false',
+                    loggedIn: 'false'
+                }
+                vm.deferred.reject(vm.user);
+
+            });
+        return vm.deferred.promise;
     }
 
     function getProfile(fbid) {
@@ -35,13 +63,14 @@ function fbService(win, $http) {
 
     function registerfb(user) {
 
-        return $http.post('/registerfb', user).then(function(res) {
-            if (res.data.token === undefined) {
-                return res.data.errorMsg;
-            } else {
-                saveToken(res.data.token);
-            }
-        });
+        return $http.post('/registerfb', user)
+            .then(function(res) {
+                if (res.data.token === undefined) {
+                    return res.data.errorMsg;
+                } else {
+                    saveToken(res.data.token);
+                }
+            });
     };
 
     function fbLoggedIn(fbid) {
