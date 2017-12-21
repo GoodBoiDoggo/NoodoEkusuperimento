@@ -15,7 +15,7 @@ function fbService(win, $http, $q) {
         isLoggedIn: isLoggedIn,
         login: login,
         fbLoggedIn: fbLoggedIn,
-        register: registerfb,
+        registerfb: registerfb,
         getFbProfile: getProfile
     }
 
