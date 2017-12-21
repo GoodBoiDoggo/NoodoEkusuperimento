@@ -26,11 +26,7 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
     vmWv.userStatus;
     vmWv.loaded = false;
     updateUser();
-    //        function login(){
-    //        	User.setUser("NIPPON STEEL");
-    //  		  	//$scope.$emit('AUTHENTICATE',User.getUser());
-    //  		  	$scope.$broadcast('AUTHENTICATE',User.getUser());
-    //        }
+
     function updateUser() {
         if (vmWv.fbid) {
             FB.login(vmWv.fbid)
