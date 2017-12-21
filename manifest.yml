@@ -1,5 +1,5 @@
 ---
 applications:
- - name: NoodoProjyekuto
-   host: NoodoProjyekuto
+ - name: kariteun-shopping
+   host: kariteun-shopping
    memory: 128M

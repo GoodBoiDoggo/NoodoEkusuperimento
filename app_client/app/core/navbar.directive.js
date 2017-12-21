@@ -10,9 +10,9 @@
            };
        });
 
-   kariteunNavbar.$inject = ['$anchorScroll', '$location', '$scope', '$timeout', 'authentication', 'FB'];
+   kariteunNavbar.$inject = ['$anchorScroll', '$location', '$scope', '$timeout', 'authentication'];
 
-   function kariteunNavbar($anchorScroll, $location, $scope, $timeout, authentication, FB) {
+   function kariteunNavbar($anchorScroll, $location, $scope, $timeout, authentication) {
 
        var vmNav = this;
 
@@ -31,10 +31,9 @@
                vmNav.isLoggedIn = authentication.isLoggedIn();
                vmNav.currentUser = authentication.currentUser();
                console.log(vmNav.isLoggedIn);
-           } else {
-               FB.login();
-           }
 
+
+           }
        }
        $scope.$on('AUTHENTICATE', function(event, args) {
            updateUser();
