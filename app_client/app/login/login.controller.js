@@ -1,9 +1,9 @@
 angular.module('app.login')
     .controller('loginController', login);
 
-login.$inject = ['$location', 'authentication', '$scope'];
+login.$inject = ['$location', 'authentication', '$scope', 'FB'];
 
-function login($location, authentication, $scope) {
+function login($location, authentication, $scope, FB) {
     var vm = this;
     vm.showError = false;
     vm.credentials = {

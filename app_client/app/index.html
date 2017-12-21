@@ -39,12 +39,9 @@
             'script', 'Messenger'));
     </script>
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
+    <webview-buttons data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton"></webview-buttons>
     <div class="whitespace"></div>
-    <div data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton">
-        <a ng-href="/login{{vm.fbParam}}"><button type="button" ng-show="!vm.loggedIn" class="btn btn-primary affixButton">Log in</button></a>
-        <a><button type="button" ng-show="vm.loggedIn" class="btn btn-success affixButton">Cart</button></a>
-        <a><button type="button" ng-show="vm.loggedIn" class="btn btn-success affixButton">Profile</button></a>
-    </div>
+
     <div id="bodyContainer" class="row">
         <div class="container-fluid" ng-view></div>
     </div>
@@ -55,12 +52,10 @@
         </div>
     </div>
 
-
-
     <!-- angular scripts -->
     <script src='app.module.js'></script>
     <script src="core/core.module.js"></script>
-    <script src='welcome/welcome.module.js'></script>
+    <!--<script src='welcome/welcome.module.js'></script>-->
     <script src="item/item.module.js"></script>
     <script src="register/register.module.js"></script>
     <script src="login/login.module.js"></script>
@@ -72,18 +67,21 @@
     <script src="register/register.controller.js"></script>
     <script src="register/register.route.js"></script>
     <script src="catalog/catalog.module.js"></script>
-    <script src='welcome/welcome.controller.js'></script>
-    <script src='welcome/welcome.route.js'></script>
+    <!--<script src='welcome/welcome.controller.js'></script>-->
+    <!--<script src='welcome/welcome.route.js'></script>-->
     <script src="catalog/catalog.controller.js"></script>
     <script src="catalog/catalog.route.js"></script>
     <script src="item/item.controller.js"></script>
     <script src="item/item.route.js"></script>
     <script src="core/catalogService.js"></script>
-    <script src="core/userService.js"></script>
+    <script src="core/fbService.js"></script>
     <script src="core/navbar.directive.js"></script>
+    <script src="core/WVButtons.directive.js"></script>
     <script src="core/authentication.service.js"></script>
     <script src="core/data.service.js"></script>
     <script src="index.controller.js"></script>
+
+
 </body>
 
 </html>

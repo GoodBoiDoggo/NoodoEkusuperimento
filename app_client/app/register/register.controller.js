@@ -1,9 +1,9 @@
 angular.module('app.register')
     .controller('registerController', register);
 
-register.$inject = ['$location', 'authentication', '$scope'];
+register.$inject = ['$location', 'authentication', '$scope', 'FB'];
 
-function register($location, authentication, $scope) {
+function register($location, authentication, $scope, FB) {
     var vm = this;
     vm.showError = false;
     vm.credentials = {
@@ -40,7 +40,7 @@ function register($location, authentication, $scope) {
             if (vm.fbid) {
                 //fb code
                 vm.credentials.fbid = angular.copy(vm.fbid);
-                authentication
+                FB
                     .registerfb(vm.credentials)
                     .then(function(res) {
                         console.log("fb register request ended");

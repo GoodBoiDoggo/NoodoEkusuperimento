@@ -1,14 +1,14 @@
 angular.module('app.welcome')
-        .config(getRoutes);
+    .config(getRoutes);
 
-    getRoutes.$inject = ['$routeProvider'];
+getRoutes.$inject = ['$routeProvider'];
 
-    function getRoutes($routeProvider) {
-        $routeProvider
-	        .when('/', {
-	            templateUrl: 'welcome/welcome.html',
-	            controller: 'welcomeController',
-	            controllerAs: 'vm'
-	        })
-            .otherwise({ redirectTo: '/catalog' });
-    }
+function getRoutes($routeProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: 'welcome/welcome.html',
+            controller: 'welcomeController',
+            controllerAs: 'vm'
+        })
+        .otherwise({ redirectTo: '/catalog' });
+}

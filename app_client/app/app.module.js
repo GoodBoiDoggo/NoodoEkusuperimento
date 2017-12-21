@@ -29,7 +29,7 @@ appModule.config(['$locationProvider', function($locationProvider) {
     });
 }]);
 
-function run($rootScope, $location, authentication) {
+function run($rootScope, $location, authentication, FB) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if ($location.path() === '/profile') {
             if ($location.search().fbid) {
@@ -37,7 +37,7 @@ function run($rootScope, $location, authentication) {
                 //fbcode
 
                 console.log('messenger auth process');
-                authentication.fbLoggedIn($location.search().fbid)
+                FB.fbLoggedIn($location.search().fbid)
                     .then(function(res) {
                         console.log(res.data[0]);
                         if (!res.data[0].loginsession) {
@@ -60,4 +60,4 @@ function run($rootScope, $location, authentication) {
     });
 }
 
-appModule.run(['$rootScope', '$location', 'authentication', run]);
+appModule.run(['$rootScope', '$location', 'authentication', 'FB', run]);

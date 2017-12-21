@@ -1,9 +1,9 @@
 angular.module('app.catalog')
     .controller('catalogController', catalogController);
 
-catalogController.$inject = ['$http', '$anchorScroll', '$location', '$filter', 'Catalog', 'User', '$scope'];
+catalogController.$inject = ['$http', '$anchorScroll', '$location', '$filter', 'Catalog', 'FB', '$scope'];
 
-function catalogController($http, $anchorScroll, $location, $filter, Catalog, User, $scope) {
+function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB, $scope) {
     var vm = this;
     vm.loggedIn = false;
     vm.hideReviews = true;

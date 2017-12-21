@@ -1,17 +1,17 @@
 angular.module('app')
     .controller('indexController', index);
 
-index.$inject = ['$location','User'];
+index.$inject = ['$location'];
 
-function index($location,User) {
+function index($location) {
     vm = this;
     vm.showWVButtons = false;
     vm.fbid = $location.search().fbid;
     vm.loggedIn = false;
     vm.initNav = initNav;
-    
+
     initNav();
-    
+
     function initNav() {
 
         if (vm.fbid) {
