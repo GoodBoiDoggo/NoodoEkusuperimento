@@ -40,10 +40,10 @@
     </script>
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <div class="whitespace"></div>
-    <div data-spy="affix" ng-show="!vm.showNav" id="affixButton">
-        <button type="button" ng-show="!vm.loggedIn" class="btn btn-primary affixButton">Log in</button>
-        <button type="button" ng-show="vm.loggedIn" class="btn btn-success affixButton">Cart</button>
-        <button type="button" ng-show="vm.loggedIn" class="btn btn-success affixButton">Profile</button>
+    <div data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton">
+        <a ng-href="/login{{vm.fbParam}}"><button type="button" ng-show="!vm.loggedIn" class="btn btn-primary affixButton">Log in</button></a>
+        <a><button type="button" ng-show="vm.loggedIn" class="btn btn-success affixButton">Cart</button></a>
+        <a><button type="button" ng-show="vm.loggedIn" class="btn btn-success affixButton">Profile</button></a>
     </div>
     <div id="bodyContainer" class="row">
         <div class="container-fluid" ng-view></div>

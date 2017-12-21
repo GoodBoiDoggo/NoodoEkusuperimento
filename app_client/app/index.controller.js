@@ -1,20 +1,23 @@
 angular.module('app')
     .controller('indexController', index);
 
-index.$inject = ['$location'];
+index.$inject = ['$location','User'];
 
-function index($location) {
+function index($location,User) {
     vm = this;
+    vm.showWVButtons = false;
     vm.fbid = $location.search().fbid;
-    vm.initNav = initNav;
     vm.loggedIn = false;
-
+    vm.initNav = initNav;
+    
     initNav();
-
+    
     function initNav() {
 
         if (vm.fbid) {
+            vm.showWVButtons = true;
             vm.showNav = false;
+            vm.fbParam = '?fbid=' + vm.fbid;
         } else {
             vm.showNav = true;
         }
