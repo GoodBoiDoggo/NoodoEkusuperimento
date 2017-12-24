@@ -39,7 +39,10 @@
               payload = JSON.parse(payload);
               return {
                   email: payload.email,
-                  name: payload.name
+                  firstname: payload.firstname,
+                  lastname: payload.lastname,
+                  address: payload.address,
+                  postalcode: payload.postalcode
               };
           }
       };
@@ -48,10 +51,14 @@
 
           return $http.post('/register', user).then(function(res) {
               if (res.data.token === undefined) {
+                  console.log('Token undefined');
                   return res.data.errorMsg;
               } else {
                   saveToken(res.data.token);
+                  console.log('Token saved');
               }
+          }, function(err) {
+              return err.data.errorMsg;
           });
       };
 

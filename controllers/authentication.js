@@ -23,22 +23,27 @@ module.exports.register = function(req, res) {
         console.log('results:');
         console.log(results);
         if (results.length == 0) {
-            console.log('registered');
-            user.name = req.body.name;
             user.email = req.body.email;
-            user.fbid = "";
-            user.loginsession = "";
+            user.firstname = req.body.firstname;
+            user.lastname = req.body.lastname;
+            user.address = req.body.address;
+            user.postalcode = req.body.postalcode;
+            // user.fbid = '';
+            // user.loginsession = '';
             user.setPassword(req.body.password);
-
+            console.log(user);
             user.save(function(err) {
                 var token;
                 token = user.generateJwt();
+                console.log('registered');
                 res.status(200);
                 res.json({
                     "token": token
                 });
+
             });
         } else {
+            res.status(400);
             res.json({ "errorMsg": "User already exists!" });
         }
     })

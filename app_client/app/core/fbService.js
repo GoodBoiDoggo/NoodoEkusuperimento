@@ -38,7 +38,7 @@ function fbService(win, $http, $q) {
                 vm.deferred.resolve(vm.user);
 
             }, function(err) {
-                console.log(err);
+                console.log(err.data);
                 vm.user = {
                     exists: 'false',
                     loggedIn: 'false'
@@ -63,14 +63,15 @@ function fbService(win, $http, $q) {
 
     function registerfb(user) {
 
-        return $http.post('/registerfb', user)
-            .then(function(res) {
-                if (res.data.token === undefined) {
-                    return res.data.errorMsg;
-                } else {
-                    saveToken(res.data.token);
-                }
-            });
+        return $http.post('/registerfb', user);
+
+        // .then(function(res) {
+        //     if (res.data.token === undefined) {
+        //         return res.data.errorMsg;
+        //     } else {
+        //         saveToken(res.data.token);
+        //     }
+        // });
     };
 
     function fbLoggedIn(fbid) {

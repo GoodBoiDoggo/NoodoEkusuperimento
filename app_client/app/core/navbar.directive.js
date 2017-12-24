@@ -30,6 +30,7 @@
                console.log("boi");
                vmNav.isLoggedIn = authentication.isLoggedIn();
                vmNav.currentUser = authentication.currentUser();
+               console.log(vmNav.currentUser);
                console.log(vmNav.isLoggedIn);
 
 

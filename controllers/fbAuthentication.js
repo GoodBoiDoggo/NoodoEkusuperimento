@@ -20,7 +20,7 @@ var fbLoggedIn = function(req, res) {
             res.send(results);
             // }
         } else {
-            console.log('Login failed');
+            console.log('User not found.');
             res.status(404);
             res.send(false);
         }
@@ -42,6 +42,10 @@ var getProfile = function(req, res) {
             res.status(200);
             console.log(results);
             res.send(results);
+        } else {
+            res.status(404);
+            res.send('User not found.');
+            console.log('User not found.')
         }
     }
     User.find({ fbid: req.params.fbid }, findProfile);
@@ -59,8 +63,11 @@ var registerfb = function(req, res) {
         console.log(results);
         if (results.length == 0) {
             console.log('registered');
-            user.name = req.body.name;
+            user.firstname = req.body.firstname;
+            user.lastname = req.body.lastname;
             user.email = req.body.email;
+            user.address = req.body.address;
+            user.postalcode = req.body.postalcode;
 
             user.fbid = req.body.fbid;
             user.loginsession = Date().valueOf();
@@ -69,11 +76,12 @@ var registerfb = function(req, res) {
 
             user.save(function(err) {
                 res.status(200);
-                res.send('Register complete');
+                res.json({ 'success': 'Register complete' });
                 console.log("REGISTER COMPLETE")
             });
         } else {
-            res.json({ "errorMsg": "User already exists!" });
+            res.status(400);
+            res.json({ "error": "User already exists!" });
         }
     }
 

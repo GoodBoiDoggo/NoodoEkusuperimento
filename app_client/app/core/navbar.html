@@ -16,8 +16,8 @@
         <ul class="nav navbar-nav">
             <li><a ng-show="vmNav.isLoggedIn" href="/cart">View cart</a></li>
             <li><a ng-hide="vmNav.isLoggedIn" href="/register">Register</a></li>
-            <li ng-hide="vmNav.isLoggedIn"><a href="/login">Log in</a></li>
-            <li ng-show="vmNav.isLoggedIn"><a href="/profile">{{ vmNav.currentUser.name }}</a></li>
+            <li><a ng-hide="vmNav.isLoggedIn" href="/login">Log in</a></li>
+            <li><a ng-show="vmNav.isLoggedIn" href="/profile">{{ vmNav.currentUser.firstname }} {{vmNav.currentUser.lastname }}</a></li>
             <li><a ng-show="vmNav.isLoggedIn" href="/logout" ng-click="vmNav.logout()">Logout</a></li>
         </ul>
     </div>

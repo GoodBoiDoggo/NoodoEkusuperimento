@@ -8,6 +8,7 @@ console.log("APP MODULE REACHED!");
 //		'catalogService',
 //		'userService'
 //		]);
+//      DoggoDoggoFastDoggoMuchProgramSuchWoWMeMeBigBoy
 
 var appModule =
     angular
@@ -47,13 +48,34 @@ function run($rootScope, $location, authentication, FB) {
                         }
                     }, function(err) {
                         console.log('Fbid not registered.');
-                        $location.path('/login');
+                        $location.path('/register');
                     });
-                // if (!) {
-                //     $location.path('/login');
-                // }
+
             } else if (!authentication.isLoggedIn()) {
                 $location.path('/login');
+            }
+        } else if ($location.path() === '/register' || $location.path() === '/login') {
+            if ($location.search().fbid) {
+                console.log($location.search().fbid);
+                //fbcode
+
+                console.log('messenger auth process');
+                FB.fbLoggedIn($location.search().fbid)
+                    .then(function(res) {
+                        console.log(res.data[0]);
+                        if (res.data[0].loginsession) {
+                            console.log(res.data[0].loginsession);
+                            $location.path('/profile');
+
+                        } else {
+                            $location.path('/login')
+                        }
+                    }, function(err) {
+                        console.log('Fbid not registered.');
+                        $location.path('/register');
+                    });
+            } else if (authentication.isLoggedIn()) {
+                $location.path('/profile');
             }
         }
 

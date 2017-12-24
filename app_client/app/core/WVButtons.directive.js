@@ -42,7 +42,7 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
         }
 
     }
-    $scope.$on('FBAUTHENTICATE', function(event, args) {
+    $scope.$on('FBAUTH', function(event, args) {
         updateUser();
     });
 
