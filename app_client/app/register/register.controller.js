@@ -17,7 +17,17 @@ function register($location, authentication, $scope, FB) {
     vm.onSubmit = onSubmit;
     vm.checkFields = checkFields;
     vm.updateProgress = updateProgress;
+    vm.validatePw = validatePw;
     vm.passed = {};
+
+    function validatePw() {
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password && vm.credentials.password.length >= 8 &&
+            vm.credentials.password.length < 30) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     function updateProgress() {
         vm.passwordMatch = false;
@@ -41,20 +51,23 @@ function register($location, authentication, $scope, FB) {
     }
 
     function checkFields() {
-        if (/^[A-Za-z]+(['\.-]?[\s]?[A-Za-z]+)*$/.test(vm.credentials.firstname)) {
+        vm.pass = true;
+        if (/^[A-Za-z]+(['\.-]?[\s]?[A-Za-z]+)*$/.test(vm.credentials.firstname) && vm.credentials.firstname.length < 20) {
             vm.passed.firstname = true;
         } else {
 
             console.log('did not pass first name');
-            return false;
+            vm.passed.firstname = false;
+            vm.pass = false;
         }
 
-        if (/^[A-Za-z]+(['\.-]?[\s]?[A-Za-z]+)*$/.test(vm.credentials.lastname)) {
+        if (/^[A-Za-z]+(['\.-]?[\s]?[A-Za-z]+)*$/.test(vm.credentials.lastname) && vm.credentials.lastname.length < 20) {
             vm.passed.lastname = true;
         } else {
 
             console.log('did not pass last name');
-            return false;
+            vm.passed.lastname = false;
+            vm.pass = false;
         }
 
         if (/^\w+([#!'\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(vm.credentials.email)) {
@@ -62,15 +75,28 @@ function register($location, authentication, $scope, FB) {
         } else {
 
             console.log('did not pass email');
-            return false;
+            vm.passed.email = false;
+            vm.pass = false;
         }
 
-        return vm.passed;
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password.length >= 8 &&
+            vm.credentials.password.length < 30) {
+            vm.passed.password = true;
+        } else {
+            console.log('Password too short');
+            vm.passed.password = false;
+            vm.pass = false;
+        }
+
+        return vm.pass && vm.passwordMatch;
+
+
     }
 
     function onSubmit() {
         console.log('Submitting registration');
-
+        vm.showError = false;
+        vm.errorMsg = '';
         if (checkFields()) {
             if (vm.fbid) {
                 //fb code
@@ -106,6 +132,18 @@ function register($location, authentication, $scope, FB) {
                         vm.showError = true;
                     });
             }
+        } else {
+            vm.showError = true;
+            if (!vm.passed.firstname || !vm.passed.lastname) {
+                vm.errorMsg = vm.errorMsg + 'Invalid name. ';
+            }
+            if (!vm.passed.email) {
+                vm.errorMsg = vm.errorMsg + 'Invalid email. ';
+            }
+            if (!vm.passed.password) {
+                vm.errorMsg = vm.errorMsg + 'Invalid password.';
+            }
+
         }
 
 
