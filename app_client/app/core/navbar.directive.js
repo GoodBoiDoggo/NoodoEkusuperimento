@@ -5,8 +5,7 @@
                restrict: 'EA',
                templateUrl: 'core/navbar.html',
                controller: kariteunNavbar,
-               controllerAs: 'vmNav',
-               access: { restricted: false }
+               controllerAs: 'vmNav'
            };
        });
 

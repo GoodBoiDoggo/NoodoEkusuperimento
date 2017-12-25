@@ -21,32 +21,32 @@ function fbService(win, $http, $q) {
 
     function login(fbid) {
 
-        $http.get('/fbloggedin/' + fbid)
-            .then(function(res) {
+        return $http.get('/fbloggedin/' + fbid);
+        //     .then(function(res) {
 
-                if (res.data[0].loginsession) {
-                    vm.user = {
-                        exists: 'true',
-                        loggedIn: 'true'
-                    }
-                } else {
-                    vm.user = {
-                        exists: 'true',
-                        loggedIn: 'false'
-                    }
-                }
-                vm.deferred.resolve(vm.user);
+        //         if (res.data[0].loginsession) {
+        //             vm.user = {
+        //                 exists: 'true',
+        //                 loggedIn: 'true'
+        //             }
+        //         } else {
+        //             vm.user = {
+        //                 exists: 'true',
+        //                 loggedIn: 'false'
+        //             }
+        //         }
+        //         vm.deferred.resolve(vm.user);
 
-            }, function(err) {
-                console.log(err.data);
-                vm.user = {
-                    exists: 'false',
-                    loggedIn: 'false'
-                }
-                vm.deferred.reject(vm.user);
+        //     }, function(err) {
+        //         console.log(err.data);
+        //         vm.user = {
+        //             exists: 'false',
+        //             loggedIn: 'false'
+        //         }
+        //         vm.deferred.reject(vm.user);
 
-            });
-        return vm.deferred.promise;
+        //     });
+        // return vm.deferred.promise;
     }
 
     function getProfile(fbid) {

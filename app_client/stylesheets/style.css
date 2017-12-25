@@ -12,6 +12,12 @@ body {
     z-index: 9999 !important;
 }
 
+.progress {
+    border-radius: 0px !important;
+    height: 5px !important;
+    margin-bottom: 5px !important;
+}
+
 .affixButton {
     margin: 5px;
 }
