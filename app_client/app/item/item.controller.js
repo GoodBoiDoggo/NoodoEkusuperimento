@@ -13,6 +13,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.loaded = false;
     vm.itemFound = true;
     vm.fbid = $location.search().fbid;
+    vm.authenticated = false;
     //Functions
     vm.pageInit = pageInit;
     vm.loaditem = loadItem;
@@ -28,12 +29,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             FB.login(vm.fbid)
                 .then(function(res) {
                     console.log(res);
-                    if (res.exists) {
+                    if (res.data['0'].loginsession) {
                         vm.loggedIn = true;
+
+                    } else {
+                        vm.loggedIn = false;
                     }
-
+                    vm.authenticated = true;
                 }, function(err) {
-
+                    vm.loggedIn = false;
+                    vm.authenticated = true;
                 });
         } else {
             vm.loggedIn = authentication.isLoggedIn();

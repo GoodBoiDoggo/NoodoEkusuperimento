@@ -2,57 +2,77 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h1>Register</h1>
-            <p class="lead">Already a member? Please <a href="login">log in</a> instead.</p>
+            <h1>REGISTER</h1>
+            <div ng-show="!vm.fbid">
+                <p class="lead">Already a member? Please <a href="login">log in</a> instead.</p>
+            </div>
+            <div>
+                <p class="text-info">Fields with a red asterisk <span class="redified">*</span> are required.</p>
+            </div>
+
             <div ng-show="vm.showError" class="alert alert-danger">
                 {{vm.errorMsg}}
             </div>
+
             <form ng-submit="vm.onSubmit()">
+                <h4>Personal Information</h4>
+                <p class="text-info">Please limit each field to 30 characters.</p>
                 <div class="form-group">
-                    <label for="name">First name</label>
+                    <label for="name">First name <span class="redified">*</span></label>
                     <input type="text" class="form-control" id="firstname" placeholder="e.g. John" ng-model="vm.credentials.firstname" required>
                 </div>
                 <div class="form-group">
-                    <label for="name">Last name</label>
+                    <label for="name">Last name <span class="redified">*</span></label>
                     <input type="text" class="form-control" id="lastname" placeholder="e.g. Doe" ng-model="vm.credentials.lastname" required>
                 </div>
+                <h4>Login Credentials</h4>
                 <div class="form-group">
-                    <label for="email">Email address</label>
+                    <label for="email">Email address <span class="redified">*</span></label>
                     <input type="text" class="form-control" id="email" placeholder="e.g. JDoe@gmail.com" ng-model="vm.credentials.email">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Password <span class="redified">*</span></label>
                     <input type="password" class="form-control" ng-change="vm.updateProgress()" id="password" placeholder="Password" ng-model="vm.credentials.password" required>
                 </div>
-                <div class="form-group">
-                    <label for="password">Confirm Password</label>
-                    <input type="password" class="form-control" ng-change="vm.updateProgress()" id="confirmpassword" placeholder="Confirm Password" ng-model="vm.confirmpassword" required>
-                </div>
                 <div class="progress">
-                    <div ng-if="vm.passwordMatch && vm.validatePw()" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                    <div ng-if="!vm.validatePw()" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                     </div>
-                    <div ng-if="vm.progressValue > 30 && vm.validatePw()" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{vm.progressValue}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progressValue}}%">
+                    <div ng-if="vm.validatePw()" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                     </div>
-                    <div ng-if="vm.progressValue <= 30 && vm.validatePw()" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{vm.progressValue}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progressValue}}%">
+                </div>
+                <p>
+                    <span class="text-warning" ng-if="!vm.validatePw()">The password must be 8 - 50 characters. With at least one uppercase and lowercase character,a number and a special character(!@#$%^&amp;)</span>
+                </p>
+                <div class="form-group">
+                    <label for="password">Confirm Password <span class="redified">*</span></label>
+                    <input ng-disabled="!vm.validatePw()" type="password" class="form-control" ng-change="vm.updateProgress()" id="confirmpassword" placeholder="Confirm Password" ng-model="vm.confirmpassword" required>
+                </div>
+                <div ng-show="vm.validatePw()" class="progress">
+                    <div ng-if="vm.passwordMatch" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                     </div>
-                    <div ng-if="!vm.validatePw()" class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                    <div ng-if="vm.progressValue > 30" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{vm.progressValue}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progressValue}}%">
+                    </div>
+                    <div ng-if="vm.progressValue <= 30" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{vm.progressValue}}" aria-valuemin="0" aria-valuemax="100" style="width:{{vm.progressValue}}%">
                     </div>
 
+
                 </div>
-                <div>
+                <p>
                     <span class="text-success" ng-if="vm.passwordMatch && vm.validatePw()">The passwords match.</span>
                     <span class="text-warning" ng-if="!vm.passwordMatch && vm.validatePw()">The passwords do not match</span>
-                    <span class="text-info" ng-if="!vm.validatePw()">The password must be 8 - 30 characters. With at least one uppercase and lowercase character,a number and a special character(!@#$%^&amp;)</span>
-                </div>
+                </p>
+                <h4>Default Delivery Address <small>optional</small></h4>
+                <p class="text-info">Using a Default Delivery Address(DDA) can make the order process faster if you don't change home address very often. You may change your DDA later.</p>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="e.g. House No, Street, Area/Subdivision, City, Country" ng-model="vm.credentials.address" required>
+                    <input type="text" class="form-control" id="address" placeholder="e.g. House No, Street, Area/Subdivision, City, Country" ng-model="vm.credentials.address">
                 </div>
                 <div class="form-group">
                     <label for="name">Postal Code</label>
-                    <input type="text" class="form-control" id="postalcode" placeholder="e.g. 6000; M1 1AA" ng-model="vm.credentials.postalcode" required>
+                    <input type="text" class="form-control" id="postalcode" placeholder="e.g. 6000; M1 1AA" ng-model="vm.credentials.postalcode">
                 </div>
-                <button type="submit" class="btn btn-default">Register!</button>
+                <button type="submit" class="btn btn-success">Register!</button>
+                <button type="reset" class="btn btn-default">Clear</button>
             </form>
         </div>
     </div>

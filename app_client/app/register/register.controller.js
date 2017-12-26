@@ -1,9 +1,9 @@
 angular.module('app.register')
     .controller('registerController', register);
 
-register.$inject = ['$location', 'authentication', '$scope', 'FB'];
+register.$inject = ['$anchorScroll', '$location', 'authentication', '$scope', 'FB'];
 
-function register($location, authentication, $scope, FB) {
+function register($anchorScroll, $location, authentication, $scope, FB) {
     var vm = this;
     vm.showError = false;
     vm.errorMsg = "";
@@ -52,7 +52,8 @@ function register($location, authentication, $scope, FB) {
 
     function checkFields() {
         vm.pass = true;
-        if (/^[A-Za-z]+(['\.-]?[\s]?[A-Za-z]+)*$/.test(vm.credentials.firstname) && vm.credentials.firstname.length < 20) {
+        ///^[A-Za-z\u00C0-\u017F]+(['\.-]?[\s]?[A-Za-z\u00C0-\u017F]+)*$/
+        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length < 30) {
             vm.passed.firstname = true;
         } else {
 
@@ -61,7 +62,7 @@ function register($location, authentication, $scope, FB) {
             vm.pass = false;
         }
 
-        if (/^[A-Za-z]+(['\.-]?[\s]?[A-Za-z]+)*$/.test(vm.credentials.lastname) && vm.credentials.lastname.length < 20) {
+        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length < 30) {
             vm.passed.lastname = true;
         } else {
 
@@ -70,7 +71,7 @@ function register($location, authentication, $scope, FB) {
             vm.pass = false;
         }
 
-        if (/^\w+([#!'\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(vm.credentials.email)) {
+        if (/^[\w\u00C0-\u017F]+([#!'\.-]?[\w\u00C0-\u017F]+)*@[\w\u00C0-\u017F]+([\.-]?[\w\u00C0-\u017F]+)*(\.\w{2,3})+$/.test(vm.credentials.email)) {
             vm.passed.email = true;
         } else {
 
@@ -80,10 +81,10 @@ function register($location, authentication, $scope, FB) {
         }
 
         if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password.length >= 8 &&
-            vm.credentials.password.length < 30) {
+            vm.credentials.password.length < 50) {
             vm.passed.password = true;
         } else {
-            console.log('Password too short');
+            console.log('Password too weak.');
             vm.passed.password = false;
             vm.pass = false;
         }
@@ -100,6 +101,12 @@ function register($location, authentication, $scope, FB) {
         if (checkFields()) {
             if (vm.fbid) {
                 //fb code
+                if (!vm.credentials.address) {
+                    vm.credentials.address = '';
+                }
+                if (!vm.credentials.postalcode) {
+                    vm.credentials.postalcode = '';
+                }
                 vm.credentials.fbid = angular.copy(vm.fbid);
                 FB
                     .registerfb(vm.credentials)
@@ -142,9 +149,12 @@ function register($location, authentication, $scope, FB) {
             }
             if (!vm.passed.password) {
                 vm.errorMsg = vm.errorMsg + 'Invalid password.';
+            } else if (!vm.passwordMatch) {
+                vm.errorMsg = vm.errorMsg + 'Passwords do not match.';
             }
 
         }
+        $anchorScroll();
 
 
 

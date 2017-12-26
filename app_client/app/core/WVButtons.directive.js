@@ -22,12 +22,16 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
     vmWv.exists = false;
     vmWv.login = login;
     vmWv.logout = logout;
+    vmWv.click = click;
     vmWv.userStatus;
     vmWv.loaded = false;
     updateUser();
 
 
 
+    function click() {
+        $anchorScroll();
+    }
 
     function updateUser() {
         if (vmWv.fbid) {

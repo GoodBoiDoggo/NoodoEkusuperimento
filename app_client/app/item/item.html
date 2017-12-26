@@ -44,7 +44,7 @@
             </div>
             <button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn" type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData,vm.clickedSize)">Add to Cart</button>
             <p ng-show="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</lead>
-                <p ng-show=" !vm.loggedIn && vm.itemData.isavailable" class="text-danger">You are not logged in.</lead>
+                <p ng-show=" !vm.loggedIn && vm.itemData.isavailable && vm.authenticated" class="text-danger">You are not logged in.</lead>
                     <br>
                     <h4>Tags:</h4>
                     <div id="tagContainer" class="container-fluid">

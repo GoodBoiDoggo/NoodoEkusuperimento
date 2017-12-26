@@ -12,6 +12,10 @@ body {
     z-index: 9999 !important;
 }
 
+.redified {
+    color: red;
+}
+
 .progress {
     border-radius: 0px !important;
     height: 5px !important;
@@ -20,6 +24,10 @@ body {
 
 .affixButton {
     margin: 5px;
+}
+
+.form-control {
+    border-radius: 0px!important;
 }
 
 #logo {
@@ -93,10 +101,6 @@ a:hover {
     margin-top: 1em;
 }
 
-.boiNo {
-    background-color: red;
-}
-
 .price {
     font-size: 23px;
     color: green;
@@ -105,10 +109,6 @@ a:hover {
 .reviews {
     background-color: #42adf4;
     border-radius: 10px;
-}
-
-.boiOne {
-    background-color: green;
 }
 
 .availabletrue {

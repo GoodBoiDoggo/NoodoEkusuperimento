@@ -40,12 +40,10 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     address: {
-        type: String,
-        required: true
+        type: String
     },
     postalcode: {
-        type: String,
-        required: true
+        type: String
     },
     loginsession: String, //Date().valueOf();
     fbid: {
