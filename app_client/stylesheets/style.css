@@ -6,6 +6,12 @@ body {
     width: 100%;
 }
 
+.MeMeBigBoy {
+    color: #2e61b2;
+    font-size: 30px;
+    font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .affix {
     top: 0;
     width: 100%;
@@ -14,6 +20,25 @@ body {
 
 .redified {
     color: red;
+}
+
+.centerizer {
+    text-align: center;
+}
+
+.centerizer>div {
+    display: inline-block;
+    text-align: left;
+}
+
+#loginform {}
+
+#registerform {}
+
+#itemPageDiv {}
+
+#profilePageDiv {
+    width: 100%;
 }
 
 .progress {
@@ -97,8 +122,21 @@ a:hover {
 }
 
 .itemsContainer {
+    width: 100%;
     text-align: center;
     margin-top: 1em;
+}
+
+.itemCenter {
+    /* background-color: red; */
+    width: auto;
+    display: inline-block;
+    text-align: left;
+}
+
+.item {
+    display: inline-block;
+    text-align: center;
 }
 
 .price {
@@ -219,17 +257,18 @@ a:hover {
     /*For Catalog/item page =====================*/
     #dataDisplay {
         /* float:left; */
-        display: block;
-        position: relative;
+        display: inline-block;
+        width: 100%;
+        /* position: relative; */
     }
     #soloImage {
-        margin-right: 20px;
+        /* margin-right: 20px; */
         display: inline-block;
-        width: 100vw !important;
-        float: left;
+        width: 100% !important;
+        /* float: left; */
     }
     #soloImage>img {
-        width: 20em !important;
+        /* width: 20em !important; */
         display: inline-block;
     }
     #reviewSection {
@@ -242,6 +281,9 @@ a:hover {
         height: auto !important;
         height: 100%;
         margin: 0 auto -50px;
+    }
+    #registerform {
+        width: 90%;
     }
     div.item {
         max-width: 150px;
@@ -322,24 +364,45 @@ a:hover {
         /* float:left; */
         display: inline-block;
         position: relative;
-        width: 30em;
+        width: 30vw;
     }
     #soloImage {
         margin-right: 20px;
         display: inline-block;
         width: 20em;
-        float: left;
+        /* float: left; */
+    }
+    #profilePageDiv {
+        border-radius: 5px;
+        width: 70% !important;
     }
     #reviewSection {
         clear: both;
     }
+    #registerform {
+        width: 60%;
+    }
     #bodyContainer {
-        margin-left: 10vw !important;
-        margin-right: 5em !important;
+        /* margin-left: 10vw !important;
+        margin-right: 5em !important; */
         min-height: 100%;
         height: auto !important;
         height: 100%;
+        width: 70%;
         margin: 0 auto -50px;
+        display: inline-block;
+    }
+    #leftArea {
+        float: left;
+        margin: 0 auto -50px;
+        width: 15%;
+        height: 100%;
+    }
+    #rightArea {
+        float: right;
+        margin: 0 auto -50px;
+        width: 15%;
+        height: 100%;
     }
     div.item {
         max-width: 150px;

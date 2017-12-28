@@ -41,10 +41,11 @@
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <webview-buttons data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton"></webview-buttons>
     <div class="whitespace"></div>
-
+    <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
         <div class="container-fluid" ng-view></div>
     </div>
+    <div id="rightArea"></div>
     <div class="fillerDiv"></div>
     <div class="container-fluid">
         <div class="row bottomCon">

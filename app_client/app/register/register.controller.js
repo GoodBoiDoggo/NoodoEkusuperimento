@@ -121,6 +121,12 @@ function register($anchorScroll, $location, authentication, $scope, FB) {
                     });
                 console.log('fb register process');
             } else {
+                if (!vm.credentials.address) {
+                    vm.credentials.address = '';
+                }
+                if (!vm.credentials.postalcode) {
+                    vm.credentials.postalcode = '';
+                }
                 authentication
                     .register(vm.credentials)
                     .then(function(res) {

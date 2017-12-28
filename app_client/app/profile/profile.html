@@ -1,32 +1,23 @@
-<div class="container">
-    <div class="row">
-
-        <div class="col-md-6">
-
-            <h1 class="form-signin-heading">Your profile</h1>
+<div class="container-fluid">
+    <div class="row centerizer">
+        <h3 class="form-signin-heading">PROFILE</h3>
+        <div id="profilePageDiv" class="">
             {{vm.message}}
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">First name</label>
-                    <p class="form-control-static">{{ vm.user.firstname }}</p>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Last name</label>
-                    <p class="form-control-static">{{ vm.user.lastname }}</p>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Email</label>
-                    <p class="form-control-static">{{ vm.user.email }}</p>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Address</label>
-                    <p class="form-control-static">{{ vm.user.address }}</p>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Postal Code</label>
-                    <p class="form-control-static">{{ vm.user.postalcode }}</p>
-                </div>
-            </form>
+            <span class="MeMeBigBoy">{{ vm.user.firstname }} {{ vm.user.lastname }} </span>
+            <br>
+            <span>{{ vm.user.email }}</span>
+            <div class="whitespace"></div>
+            <h4>Default Delivery Address (DDA)</h4>
+            <a ng-if="!vm.user.address" ng-click="vm.addDDA" style="cursor:pointer">Add a DDA to your account</a>
+
+            <div ng-if="vm.user.address">
+                <label class="control-label">Address</label>
+                <p class="form-control-static">{{ vm.user.address }}</p>
+                <label class="control-label">Postal Code</label>
+                <p class="form-control-static">{{ vm.user.postalcode }}</p>
+            </div>
+
+
 
         </div>
 
