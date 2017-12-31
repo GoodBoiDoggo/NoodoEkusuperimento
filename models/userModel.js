@@ -72,11 +72,11 @@ userSchema.methods.generateJwt = function() {
 
     return jwt.sign({
         _id: this._id,
-        email: this.email,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        address: this.address,
-        postalcode: this.postalcode,
+        // email: this.email,
+        // firstname: this.firstname,
+        // lastname: this.lastname,
+        // address: this.address,
+        // postalcode: this.postalcode,
         exp: parseInt(expiry.getTime() / 1000),
     }, "MY_SECRET");
 };

@@ -1,9 +1,9 @@
 angular.module('app.register')
     .controller('registerController', register);
 
-register.$inject = ['$anchorScroll', '$location', 'authentication', '$scope', 'FB'];
+register.$inject = ['$anchorScroll', '$location', 'authentication', '$scope', 'FB', '$animate'];
 
-function register($anchorScroll, $location, authentication, $scope, FB) {
+function register($anchorScroll, $location, authentication, $scope, FB, $animate) {
     var vm = this;
     vm.showError = false;
     vm.errorMsg = "";
@@ -18,35 +18,45 @@ function register($anchorScroll, $location, authentication, $scope, FB) {
     vm.checkFields = checkFields;
     vm.updateProgress = updateProgress;
     vm.validatePw = validatePw;
+    vm.pageInit = pageInit;
     vm.passed = {};
+    vm.isValidatedPw = false;
+    pageInit();
+
+    function pageInit() {
+        $animate.enabled(false);
+    }
 
     function validatePw() {
         if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password && vm.credentials.password.length >= 8 &&
             vm.credentials.password.length < 30) {
-            return true;
+            vm.isValidatedPw = true;
         } else {
-            return false;
+            vm.isValidatedPw = false;
         }
     }
 
     function updateProgress() {
+        validatePw();
         vm.passwordMatch = false;
-        //if (vm.credentials.password.length <= vm.confirmpassword.length) {
-        if (new RegExp(vm.credentials.password).exec(vm.confirmpassword)) {
-            vm.regex = new RegExp(vm.credentials.password);
-            vm.progressValue = parseFloat(vm.regex.exec(vm.confirmpassword)[0].length / vm.regex.exec(vm.confirmpassword).input.length) * 100;
-            vm.regex = null;
+        if (vm.isValidatedPw) {
+            //if (vm.credentials.password.length <= vm.confirmpassword.length) {
+            if (new RegExp(vm.credentials.password).exec(vm.confirmpassword)) {
+                vm.regex = new RegExp(vm.credentials.password);
+                vm.progressValue = parseFloat(vm.regex.exec(vm.confirmpassword)[0].length / vm.regex.exec(vm.confirmpassword).input.length) * 100;
+                vm.regex = null;
 
-            //} else if (vm.credentials.password.length > vm.confirmpassword.length) {
-        } else if (new RegExp(vm.confirmpassword).exec(vm.credentials.password)) {
-            vm.regex = new RegExp(vm.confirmpassword);
-            vm.progressValue = parseFloat(vm.regex.exec(vm.credentials.password)[0].length / vm.regex.exec(vm.credentials.password).input.length) * 100;
-            vm.regex = null;
-        } else {
-            vm.progressValue = 0;
-        }
-        if (vm.progressValue === 100) {
-            vm.passwordMatch = true;
+                //} else if (vm.credentials.password.length > vm.confirmpassword.length) {
+            } else if (new RegExp(vm.confirmpassword).exec(vm.credentials.password)) {
+                vm.regex = new RegExp(vm.confirmpassword);
+                vm.progressValue = parseFloat(vm.regex.exec(vm.credentials.password)[0].length / vm.regex.exec(vm.credentials.password).input.length) * 100;
+                vm.regex = null;
+            } else {
+                vm.progressValue = 0;
+            }
+            if (vm.progressValue === 100) {
+                vm.passwordMatch = true;
+            }
         }
     }
 
@@ -136,7 +146,7 @@ function register($anchorScroll, $location, authentication, $scope, FB) {
                             vm.errorMsg = res;
                             vm.showError = true;
                         } else {
-                            $scope.$emit('AUTHENTICATE');
+                            $scope.$emit('AUTHENTICATE', 'login');
                             $location.path('/profile');
                         }
 

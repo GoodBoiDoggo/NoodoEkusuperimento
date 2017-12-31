@@ -14,7 +14,7 @@
    function kariteunNavbar($anchorScroll, $location, $scope, $timeout, authentication) {
 
        var vmNav = this;
-
+       vmNav.currentUser = {};
        vmNav.updateUser = updateUser;
        vmNav.login = login;
        vmNav.logout = logout;
@@ -28,7 +28,17 @@
            if (!$location.search().fbid) {
                console.log("boi");
                vmNav.isLoggedIn = authentication.isLoggedIn();
-               vmNav.currentUser = authentication.currentUser();
+               if (vmNav.isLoggedIn) {
+                   authentication.currentUser()
+                       .then(function(res) {
+                           vmNav.currentUser = res.data;
+                           vmNav.currentUser.status = true;
+                       }, function(e) {
+                           console.log(e);
+                           vmNav.currentUser.status = false;
+                           //lead to a page saying fetching user data failed
+                       });
+               }
                console.log(vmNav.currentUser);
                console.log(vmNav.isLoggedIn);
 
@@ -36,7 +46,10 @@
            }
        }
        $scope.$on('AUTHENTICATE', function(event, args) {
-           updateUser();
+           if (args === 'login') {
+               updateUser();
+           }
+
        });
 
        function logout() {

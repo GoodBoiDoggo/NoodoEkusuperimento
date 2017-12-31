@@ -6,9 +6,46 @@ body {
     width: 100%;
 }
 
+
+/*fade css*/
+
+.doggofade.ng-enter {
+    transition: 0.5s linear all;
+    opacity: 0;
+}
+
+.doggofade.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.doggofade.ng-leave {
+    transition: 0.5s linear all;
+    opacity: 1;
+}
+
+.doggofade.ng-leave.ng-leave-active {
+    opacity: 0;
+}
+
+
+/*remove ngANimate effects*/
+
+
+/* .progress *.ng-animate {
+    --webkit-transition: none;
+    transition: none;
+} */
+
+
+/* 
+.progress *.ng-animate {
+    --webkit-animation: none 0s;
+    animation: none 0s;
+}  */
+
 .MeMeBigBoy {
     color: #2e61b2;
-    font-size: 30px;
+    /* font-size: 30px; */
     font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -20,6 +57,30 @@ body {
 
 .redified {
     color: red;
+}
+
+.DDAFloat {
+    position: absolute;
+    right: 6px;
+}
+
+#profileaddress {
+    width: 100%;
+}
+
+#DDADiv {
+    background-color: #e8e8e8;
+    padding: 2px 10px 10px 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+#profilepostalcode {
+    width: 60%;
+}
+
+#DDAField {
+    position: relative;
 }
 
 .centerizer {
@@ -39,6 +100,14 @@ body {
 
 #profilePageDiv {
     width: 100%;
+}
+
+.message {
+    text-align: center;
+}
+
+.message * {
+    display: inline-block;
 }
 
 .progress {
@@ -171,6 +240,9 @@ a:hover {
 }
 
 @media only screen and (max-width: 500px) {
+    .doggofade {
+        visibility: hidden!important;
+    }
     /*For Catalog/item page =====================*/
     div.item {
         max-width: 50%;

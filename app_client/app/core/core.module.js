@@ -1,1 +1,1 @@
-angular.module('app.core', ['ngRoute']);
+angular.module('app.core', ['ngRoute', 'ngAnimate']);

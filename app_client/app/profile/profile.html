@@ -1,22 +1,37 @@
 <div class="container-fluid">
+
     <div class="row centerizer">
-        <h3 class="form-signin-heading">PROFILE</h3>
-        <div id="profilePageDiv" class="">
-            {{vm.message}}
-            <span class="MeMeBigBoy">{{ vm.user.firstname }} {{ vm.user.lastname }} </span>
-            <br>
-            <span>{{ vm.user.email }}</span>
-            <div class="whitespace"></div>
-            <h4>Default Delivery Address (DDA)</h4>
-            <a ng-if="!vm.user.address" ng-click="vm.addDDA" style="cursor:pointer">Add a DDA to your account</a>
+        <!-- <h3 class="form-signin-heading">PROFILE</h3> -->
 
-            <div ng-if="vm.user.address">
-                <label class="control-label">Address</label>
-                <p class="form-control-static">{{ vm.user.address }}</p>
-                <label class="control-label">Postal Code</label>
-                <p class="form-control-static">{{ vm.user.postalcode }}</p>
+
+        <div id="profilePageDiv" class="" ng-show="vm.loaded">
+            <div ng-show="vm.message" class="alert alert-info message">
+                {{vm.message}}
             </div>
+            <h1 class="text-center MeMeBigBoy">{{ vm.user.firstname }} {{ vm.user.lastname }} </h1>
+            <br>
+            <p class="lead text-center">{{ vm.user.email }}</p>
+            <div class="whitespace"></div>
+            <div id="DDADiv" ng-click="vm.addDDA()" style="cursor:pointer" ng-show="vm.user" ng-mouseover="vm.showFloats = true" ng-mouseleave="vm.showFloats=false">
+                <div ng-if="vm.showFloats && !vm.showForm" class="doggofade">
+                    <p class="lead text-success DDAFloat" ng-if="!vm.user.address && !vm.showForm">SET</p>
+                    <p class="lead text-info DDAFloat" ng-if="vm.user.address">EDIT</p>
+                </div>
+                <h4>Default Delivery Address (DDA)</h4>
+                <p class="text-info" ng-if="!vm.user.address && !vm.showForm">Using a Default Delivery Address(DDA) can make the order process faster if you don't change home address very often. You will be required to manually type your address during order checkout if you don't have a DDA. Click here to set.
+                </p>
 
+                <div id="DDAField" ng-if="vm.user.address || vm.showForm">
+                    <span ng-if="!vm.showForm" class="text-uppercase">{{ vm.user.address }}<br></span>
+                    <span ng-if="vm.showForm"><input type="text" id="profileaddress" class="form-control"  placeholder="Your Address" ng-model="vm.user.address"><br></span>
+                    <button ng-if="vm.showForm" ng-click="vm.formSubmit()" type="submit" class="DDAFloat btn btn-info">SET</button>
+                    <span ng-if="vm.showForm"><input type="text" id="profilepostalcode" class="form-control" placeholder="Postal/ZIP Code" ng-model="vm.user.postalcode"> </span>
+
+                    <span ng-if="!vm.showForm" class="text-info">Postal Code: {{vm.user.postalcode}} </span>
+                    <span ng-if="!vm.showForm && !vm.user.postalcode" class="text-danger"> Not set</span>
+                </div>
+
+            </div>
 
 
         </div>

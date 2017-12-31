@@ -28,10 +28,11 @@ function login($location, authentication, $scope, FB) {
             //fbcode
             console.log('Fb login process');
         } else {
+            console.log('Log in processing...')
             authentication
                 .login(vm.credentials)
                 .then(function() {
-                    $scope.$emit('AUTHENTICATE');
+                    $scope.$emit('AUTHENTICATE', 'login');
                     $location.path('/profile');
 
                 }, function(err) {

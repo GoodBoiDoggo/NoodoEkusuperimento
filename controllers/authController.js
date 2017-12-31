@@ -20,4 +20,6 @@ module.exports = function(app) {
 
     //fb authentication
     app.get('/fbloggedin/:fbid', ctrlFbAuth.isLoggedIn);
+
+
 };

@@ -14,9 +14,14 @@
           });
       };
 
+      var updateDDA = function(user) {
+          return $http.post('/api/updateDDA', user);
+      }
+
 
 
       return {
-          getProfile: getProfile
+          getProfile: getProfile,
+          updateDDA: updateDDA
       };
   }

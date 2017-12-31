@@ -17,7 +17,10 @@
             <li><a ng-show="vmNav.isLoggedIn" href="/cart">View cart</a></li>
             <li><a ng-hide="vmNav.isLoggedIn" href="/register">Register</a></li>
             <li><a ng-hide="vmNav.isLoggedIn" href="/login">Log in</a></li>
-            <li><a ng-show="vmNav.isLoggedIn" href="/profile">{{ vmNav.currentUser.firstname }} {{vmNav.currentUser.lastname }}</a></li>
+            <li>
+                <a ng-show="vmNav.isLoggedIn && vmNav.currentUser" href="/profile">{{ vmNav.currentUser.firstname }} {{vmNav.currentUser.lastname }}</a>
+                <a ng-show="vmNav.isLoggedIn && !vmNav.currentUser">Fetching profile...</a>
+            </li>
             <li><a ng-show="vmNav.isLoggedIn" href="/logout" ng-click="vmNav.logout()">Logout</a></li>
         </ul>
     </div>

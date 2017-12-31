@@ -22,7 +22,9 @@
               payload = token.split('.')[1];
               payload = $window.atob(payload);
               payload = JSON.parse(payload);
-
+              if (!payload.exp > Date.now() / 1000) {
+                  logout();
+              }
               return payload.exp > Date.now() / 1000;
           } else {
               return false;
@@ -33,17 +35,16 @@
 
       var currentUser = function() {
           if (isLoggedIn()) {
-              var token = getToken();
-              var payload = token.split('.')[1];
-              payload = $window.atob(payload);
-              payload = JSON.parse(payload);
-              return {
-                  email: payload.email,
-                  firstname: payload.firstname,
-                  lastname: payload.lastname,
-                  address: payload.address,
-                  postalcode: payload.postalcode
-              };
+              //   var token = getToken();
+              //   var payload = token.split('.')[1];
+              //   payload = $window.atob(payload);
+              //   payload = JSON.parse(payload);
+
+              return $http.get('/api/profile', {
+                  headers: {
+                      Authorization: 'Bearer ' + getToken()
+                  }
+              });
           }
       };
 
@@ -65,7 +66,9 @@
 
 
       login = function(user) {
+          console.log('Login service reached.')
           return $http.post('/login', user).then(function(res) {
+              console.log('Login request done.')
               saveToken(res.data.token);
           });
       };
