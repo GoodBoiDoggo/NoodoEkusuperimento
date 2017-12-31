@@ -22,15 +22,11 @@ If you are a female user, send 5 legit selfies to the project master before clon
 ### Nodemon
 
 You may install software like Nodemon to make life easier.
-This method of installing is deprecated:
+
 ```
-npm install nodemon --save -dev
+npm install nodemon -g
 ```
-Instead, use this method:
-```
-npm install nodemon --save --only=dev
-```
-For some reason, di sha ma save sa package.json as a dev dependecy. Bsin kailangan pa i type manually.
+
 
 ### Running the app with nodemon
 

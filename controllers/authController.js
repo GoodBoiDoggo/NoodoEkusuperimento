@@ -17,8 +17,8 @@ module.exports = function(app) {
     app.post('/register', ctrlAuth.register);
     app.post('/registerfb', ctrlFbAuth.registerfb);
     app.post('/login', ctrlAuth.login);
-
-    //fb authentication
+    app.post('/mergeregister', ctrlFbAuth.mergeregister)
+        //fb authentication
     app.get('/fbloggedin/:fbid', ctrlFbAuth.isLoggedIn);
 
 

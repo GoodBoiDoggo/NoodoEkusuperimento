@@ -95,6 +95,10 @@ body {
     text-align: center;
 }
 
+.finger {
+    cursor: pointer;
+}
+
 .centerizer>div {
     display: inline-block;
     text-align: left;
@@ -103,6 +107,10 @@ body {
 #loginform {}
 
 #registerform {}
+
+#registerselect {
+    text-align: center!important;
+}
 
 #itemPageDiv {}
 

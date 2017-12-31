@@ -1,8 +1,21 @@
 <div class="container-fluid">
-
     <div class="row centerizer">
-        <div id="registerform" class="">
+        <div ng-show="vm.errorMsg" class="alert alert-danger">
+            {{vm.errorMsg}}
+        </div>
+    </div>
+    <div ng-if="vm.registertype=='0'" class="row centerizer">
+        <div id="registerselect">
             <h1>REGISTER</h1>
+            <h2 ng-click="vm.registertype='1'" class="finger">New account</h2>
+            <p class="lead">or</p>
+            <h2 ng-click="vm.registertype='2'" class="finger">Existing Kariteun Account</h2>
+        </div>
+    </div>
+    <div ng-if="vm.registertype=='1'" class="row centerizer">
+        <div id="registerform" class="">
+            <a class="finger" ng-if="vm.fbid" ng-click="vm.registertype='2'">Register using existing account</a>
+            <h1>NEW ACCOUNT</h1>
             <div ng-show="!vm.fbid">
                 <p class="lead">Already a member? Please <a href="login">log in</a> instead.</p>
             </div>
@@ -10,25 +23,23 @@
                 <p class="text-info">Fields with a red asterisk <span class="redified">*</span> are required.</p>
             </div>
 
-            <div ng-show="vm.showError" class="alert alert-danger">
-                {{vm.errorMsg}}
-            </div>
+
 
             <form ng-submit="vm.onSubmit()">
                 <h4>Personal Information</h4>
-                <p class="text-info">Please limit each field to 30 characters.</p>
+                <p class="text-info">Name fields are limited to 30 characters each.</p>
                 <div class="form-group">
                     <label for="name">First name <span class="redified">*</span></label>
-                    <input type="text" class="form-control" id="firstname" placeholder="e.g. John" ng-model="vm.credentials.firstname" required>
+                    <input type="text" class="form-control" id="firstname" placeholder="e.g. John" ng-model="vm.credentials.firstname" required maxlength="30">
                 </div>
                 <div class="form-group">
                     <label for="name">Last name <span class="redified">*</span></label>
-                    <input type="text" class="form-control" id="lastname" placeholder="e.g. Doe" ng-model="vm.credentials.lastname" required>
+                    <input type="text" class="form-control" id="lastname" placeholder="e.g. Doe" ng-model="vm.credentials.lastname" required maxlength="30">
                 </div>
                 <h4>Login Credentials</h4>
                 <div class="form-group">
                     <label for="email">Email address <span class="redified">*</span></label>
-                    <input type="text" class="form-control" id="email" placeholder="e.g. JDoe@gmail.com" ng-model="vm.credentials.email">
+                    <input type="text" class="form-control" id="email" placeholder="e.g. JDoe@gmail.com" ng-model="vm.credentials.email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password <span class="redified">*</span></label>
@@ -41,7 +52,7 @@
                     </div>
                 </div>
                 <p>
-                    <span class="text-warning" ng-show="!vm.isValidatedPw">The password must be 8 - 50 characters. With at least one uppercase and lowercase character,a number and a special character(!@#$%^&amp;)</span>
+                    <span class="text-warning" ng-show="!vm.isValidatedPw">The password must be at least 8 characters. With at least one uppercase and lowercase character,a number and a special character(!@#$%^&amp;)</span>
                 </p>
                 <div class="form-group">
                     <label for="password">Confirm Password <span class="redified">*</span></label>
@@ -74,6 +85,24 @@
                 <button type="submit" class="btn btn-success">Register!</button>
                 <button type="reset" class="btn btn-default">Clear</button>
             </form>
+        </div>
+    </div>
+    <div ng-if="vm.registertype=='2'" class="row centerizer">
+        <div id="registerformB">
+            <a class="finger" ng-click="vm.registertype='1'">Register new account</a>
+            <h1>EXISTING ACCOUNT</h1>
+            <form ng-submit="vm.merge()">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" ng-model="vm.credentials.password" required>
+                </div>
+                <button type="submit" class="btn btn-default">Log in!</button>
+            </form>
+
         </div>
     </div>
 

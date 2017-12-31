@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-
+var passport = require('passport');
 
 var fbLoggedIn = function(req, res) {
     console.log("fb auth running")
@@ -90,6 +90,83 @@ var registerfb = function(req, res) {
 
 };
 
+var mergeregister = function(req, res) {
+    console.log('Running merge API...')
+    passport.authenticate('local', function(err, user, info) {
+
+
+        // If Passport throws/catches an error
+        if (err) {
+            console.log('Passport error!!!')
+            res.status(404).send('Server validation error.');
+            return;
+        }
+
+        // If a user is found
+        if (user) {
+            //MERGE PROCESS
+            console.log(user);
+            console.log(user.fbid);
+            if (user.fbid) {
+
+                res.status(400);
+                res.send('Account already merged!');
+            } else {
+                User.findByIdAndUpdate(user._id, {
+                    fbid: req.body.fbid,
+                    loginsession: Date().valueOf()
+                }, function(err) {
+                    res.status(200);
+                    res.send('Merge successful.')
+                });
+            }
+        } else {
+            // If user is not found
+            console.log('User not found!!!');
+            res.status(401).send('Invalid email/password.');
+        }
+    })(req, res);
+    // var user = new User();
+    // console.log(req.body.email);
+
+    // function register(err, results) {
+    //     if (err) throw err;
+
+    //     console.log('results:');
+    //     console.log(results);
+    //     if (results.length == 0) {
+    //         res.status(400);
+    //         res.send('Merge failed: Account does not exist.');
+    //     } else {
+    //         console.log('Email or fbid exists.');
+    //         if (results[0].fbid) {
+    //             //supposedly unreachable code
+    //             res.status(400);
+    //             res.send('Account already registered!');
+    //         } else {
+
+
+
+
+    //             user.fbid = req.body.fbid;
+    //             user.loginsession = Date().valueOf();
+
+
+
+    //             user.save(function(err) {
+    //                 res.status(200);
+    //                 res.send('Merging successful.');
+    //                 console.log('Merging successful.');
+    //             });
+    //         }
+
+    //     }
+    // }
+
+    // User.find({ $or: [{ email: req.body.email }, { fbid: req.body.fbid }] }, register);
+};
+
 module.exports.isLoggedIn = fbLoggedIn;
 module.exports.profileRead = getProfile;
 module.exports.registerfb = registerfb;
+module.exports.mergeregister = mergeregister;

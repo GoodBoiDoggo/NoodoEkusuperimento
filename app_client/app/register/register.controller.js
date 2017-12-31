@@ -5,19 +5,17 @@ register.$inject = ['$anchorScroll', '$location', 'authentication', '$scope', 'F
 
 function register($anchorScroll, $location, authentication, $scope, FB, $animate) {
     var vm = this;
-    vm.showError = false;
-    vm.errorMsg = "";
-    vm.credentials = {
-        name: "",
-        email: "",
-        password: ""
-    };
+
+    vm.errorMsg = '';
+    vm.credentials = {};
+
     vm.progressValue = 0;
     vm.fbid = $location.search().fbid;
     vm.onSubmit = onSubmit;
     vm.checkFields = checkFields;
     vm.updateProgress = updateProgress;
     vm.validatePw = validatePw;
+    vm.merge = merge;
     vm.pageInit = pageInit;
     vm.passed = {};
     vm.isValidatedPw = false;
@@ -25,11 +23,15 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
 
     function pageInit() {
         $animate.enabled(false);
+        if (vm.fbid) {
+            vm.registertype = '0';
+        } else {
+            vm.registertype = '1';
+        }
     }
 
     function validatePw() {
-        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password && vm.credentials.password.length >= 8 &&
-            vm.credentials.password.length < 30) {
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password && vm.credentials.password.length >= 8) {
             vm.isValidatedPw = true;
         } else {
             vm.isValidatedPw = false;
@@ -90,8 +92,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
             vm.pass = false;
         }
 
-        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password.length >= 8 &&
-            vm.credentials.password.length < 50) {
+        if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password.length >= 8) {
             vm.passed.password = true;
         } else {
             console.log('Password too weak.');
@@ -104,9 +105,31 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
 
     }
 
+    function merge() {
+
+        vm.credentials.fbid = angular.copy(vm.fbid);
+        console.log('Merge processing...')
+        FB
+            .mergeregister(vm.credentials)
+            .then(function(res) {
+                console.log(res.data);
+                $scope.$emit('AUTHENTICATE', 'login');
+                $location.path('/profile');
+
+            }, function(err) {
+                vm.errorMsg = err.data;
+                if (!err.data) {
+                    vm.errorMsg = 'Server has encountered an error. Please try again.';
+                }
+            });
+
+
+
+    }
+
     function onSubmit() {
         console.log('Submitting registration');
-        vm.showError = false;
+
         vm.errorMsg = '';
         if (checkFields()) {
             if (vm.fbid) {
@@ -127,7 +150,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                         $location.path('/profile');
                     }, function(err) {
                         vm.errorMsg = err.data.error;
-                        vm.showError = true;
+
                     });
                 console.log('fb register process');
             } else {
@@ -144,7 +167,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                         console.log(res);
                         if (res) {
                             vm.errorMsg = res;
-                            vm.showError = true;
+
                         } else {
                             $scope.$emit('AUTHENTICATE', 'login');
                             $location.path('/profile');
@@ -152,11 +175,11 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
 
                     }, function(err) {
                         vm.errorMsg = err;
-                        vm.showError = true;
+
                     });
             }
         } else {
-            vm.showError = true;
+
             if (!vm.passed.firstname || !vm.passed.lastname) {
                 vm.errorMsg = vm.errorMsg + 'Invalid name. ';
             }

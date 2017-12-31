@@ -16,37 +16,19 @@ function fbService(win, $http, $q) {
         login: login,
         fbLoggedIn: fbLoggedIn,
         registerfb: registerfb,
-        getFbProfile: getProfile
+        getFbProfile: getProfile,
+        mergeregister: merge
+    }
+
+    function merge(user) {
+
+        return $http.post('/mergeregister', user);
     }
 
     function login(fbid) {
 
         return $http.get('/fbloggedin/' + fbid);
-        //     .then(function(res) {
 
-        //         if (res.data[0].loginsession) {
-        //             vm.user = {
-        //                 exists: 'true',
-        //                 loggedIn: 'true'
-        //             }
-        //         } else {
-        //             vm.user = {
-        //                 exists: 'true',
-        //                 loggedIn: 'false'
-        //             }
-        //         }
-        //         vm.deferred.resolve(vm.user);
-
-        //     }, function(err) {
-        //         console.log(err.data);
-        //         vm.user = {
-        //             exists: 'false',
-        //             loggedIn: 'false'
-        //         }
-        //         vm.deferred.reject(vm.user);
-
-        //     });
-        // return vm.deferred.promise;
     }
 
     function getProfile(fbid) {
