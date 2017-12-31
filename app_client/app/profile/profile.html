@@ -12,7 +12,7 @@
             <br>
             <p class="lead text-center">{{ vm.user.email }}</p>
             <div class="whitespace"></div>
-            <div id="DDADiv" ng-click="vm.addDDA()" style="cursor:pointer" ng-show="vm.user" ng-mouseover="vm.showFloats = true" ng-mouseleave="vm.showFloats=false">
+            <div id="DDADiv" ng-click="vm.addDDA()" ng-class="vm.clickMode()" ng-show="vm.user" ng-mouseover="vm.showFloats = true" ng-mouseleave="vm.showFloats=false">
                 <div ng-if="vm.showFloats && !vm.showForm" class="doggofade">
                     <p class="lead text-success DDAFloat" ng-if="!vm.user.address && !vm.showForm">SET</p>
                     <p class="lead text-info DDAFloat" ng-if="vm.user.address">EDIT</p>

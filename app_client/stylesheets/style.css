@@ -49,6 +49,14 @@ body {
     font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.clickableDDADiv {
+    cursor: pointer;
+}
+
+.unclickableDDADiv {
+    cursor: default;
+}
+
 .affix {
     top: 0;
     width: 100%;

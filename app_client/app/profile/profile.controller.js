@@ -15,7 +15,7 @@
       vm.pageInit = pageInit;
       vm.addDDA = addDDA;
       vm.formSubmit = formSubmit;
-
+      vm.clickMode = clickMode;
       $anchorScroll();
       pageInit();
       //   $scope.$on('PROFILE', function(event, data) {
@@ -23,6 +23,13 @@
       //       vm.user = angular.copy(data);
       //       vm.message = '';
       //   });
+      function clickMode() {
+          if (vm.showForm) {
+              return 'unclickableDDADiv';
+          } else {
+              return 'clickableDDADiv';
+          }
+      }
 
       function formSubmit() {
           console.log('DDA submitted');
@@ -40,11 +47,8 @@
       }
 
       function addDDA() {
-          if (vm.showForm) {
-              vm.showForm = false;
-          } else {
+          if (!vm.showForm) {
               vm.showForm = true;
-
           }
       }
 
