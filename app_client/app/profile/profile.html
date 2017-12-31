@@ -23,9 +23,9 @@
 
                 <div id="DDAField" ng-if="vm.user.address || vm.showForm">
                     <span ng-if="!vm.showForm" class="text-uppercase">{{ vm.user.address }}<br></span>
-                    <span ng-if="vm.showForm"><input type="text" id="profileaddress" class="form-control"  placeholder="Your Address" ng-model="vm.user.address"><br></span>
+                    <span ng-if="vm.showForm"><input tabindex="1" type="text" id="profileaddress" class="form-control"  placeholder="Your Address" ng-model="vm.user.address"><br></span>
                     <button ng-if="vm.showForm" ng-click="vm.formSubmit()" type="submit" class="DDAFloat btn btn-info">SET</button>
-                    <span ng-if="vm.showForm"><input type="text" id="profilepostalcode" class="form-control" placeholder="Postal/ZIP Code" ng-model="vm.user.postalcode"> </span>
+                    <span ng-if="vm.showForm"><input tabindex="2" type="text" id="profilepostalcode" class="form-control" placeholder="Postal/ZIP Code" ng-model="vm.user.postalcode"> </span>
 
                     <span ng-if="!vm.showForm" class="text-info">Postal Code: {{vm.user.postalcode}} </span>
                     <span ng-if="!vm.showForm && !vm.user.postalcode" class="text-danger"> Not set</span>

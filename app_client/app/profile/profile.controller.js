@@ -12,7 +12,6 @@
       vm.showForm = false;
       vm.showFloats = false;
       vm.message = '';
-      vm.formData = {};
       vm.pageInit = pageInit;
       vm.addDDA = addDDA;
       vm.formSubmit = formSubmit;
@@ -42,7 +41,7 @@
 
       function addDDA() {
           if (vm.showForm) {
-              vm.formData = {};
+              vm.showForm = false;
           } else {
               vm.showForm = true;
 
