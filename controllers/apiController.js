@@ -41,9 +41,11 @@ module.exports = function(app) {
                 });
                 res.status(200);
                 if (!account[0].fbid) {
-                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
+                    res.status(200);
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="http://kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
                 } else {
-                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You can log in to the <a href="kariteun-shopping.mybluemix.net">Kariteun Website</a> using the email address and password for this account</p></body></html>');
+                    res.status(200);
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You can log in to the <a href="http://kariteun-shopping.mybluemix.net">Kariteun Website</a> using the email address and password for this account</p></body></html>');
                 }
             } else {
                 res.status(400);
