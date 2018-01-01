@@ -61,8 +61,8 @@ var userSchema = new mongoose.Schema({
     }
 }, { collection: 'userdata' });
 
-userSchema.query.byActivation = function(activation) {
-    return this.find({ activation: new RegExp(activation, 'i') });
+userSchema.statics.findByActivation = function(activation, cb) {
+    return this.find({ activation: new RegExp(activation, 'i') }, cb);
 };
 
 

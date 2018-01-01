@@ -29,9 +29,26 @@ module.exports = function(app) {
 
 
     app.get('/api/activate/:code', function(req, res) {
-        User.find().byName(req.params.code).exec(function(err, account) {
-            res.status(200);
-            res.send(account);
+
+        User.findByActivation(req.params.code, function(err, account) {
+            //sds
+            if (account[0] != undefined) {
+                User.findByIdAndUpdate(account[0]._id, {
+                    active: true,
+                    $unset: { activation: 1 }
+                }, function(err, data) {
+                    if (err) throw err;
+                });
+                res.status(200);
+                if (!account[0].fbid) {
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
+                } else {
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You can log in to the <a href="kariteun-shopping.mybluemix.net">Kariteun Website</a> using the email address and password for this account</p></body></html>');
+                }
+            } else {
+                res.status(400);
+                res.send('Account does not exist/already activated');
+            }
         });
 
     });
