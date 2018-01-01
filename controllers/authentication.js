@@ -1,7 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-
+var mailer = require('./mailController')
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);
@@ -28,12 +28,12 @@ module.exports.register = function(req, res) {
             user.lastname = req.body.lastname;
             user.address = req.body.address;
             user.postalcode = req.body.postalcode;
-            // user.fbid = '';
-            // user.loginsession = '';
+            user.setActivationCode();
             user.setPassword(req.body.password);
             console.log(user);
             user.save(function(err) {
                 var token;
+                mailer.sendVerification(user.email, user.activation);
                 token = user.generateJwt();
                 console.log('registered');
                 res.status(200);

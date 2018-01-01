@@ -53,9 +53,23 @@ var userSchema = new mongoose.Schema({
         sparse: true
     },
     hash: String,
-    salt: String
+    salt: String,
+    active: Boolean,
+    activation: {
+        type: String,
+        unique: true
+    }
 }, { collection: 'userdata' });
 
+userSchema.query.byActivation = function(activation) {
+    return this.find({ activation: new RegExp(activation, 'i') });
+};
+
+
+
+userSchema.methods.setActivationCode = function() {
+    this.activation = crypto.randomBytes(16).toString('hex');
+}
 userSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');

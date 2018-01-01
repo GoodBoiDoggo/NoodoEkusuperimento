@@ -27,6 +27,17 @@ module.exports = function(app) {
     //     res.render('../views/CRUDPage.ejs');
     // })
 
+
+    app.get('/api/activate/:code', function(req, res) {
+        User.find().byName(req.params.code).exec(function(err, account) {
+            res.status(200);
+            res.send(account);
+        });
+
+    });
+
+
+
     app.post('/api/updateDDA', function(req, res) {
         User.findByIdAndUpdate(req.body._id, {
             address: req.body.address,
@@ -61,6 +72,7 @@ module.exports = function(app) {
             }
             // res.end();
         });
+
     });
 
 
