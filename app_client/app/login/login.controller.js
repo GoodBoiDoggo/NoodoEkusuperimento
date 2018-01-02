@@ -5,7 +5,7 @@ login.$inject = ['$location', 'authentication', '$scope', 'FB'];
 
 function login($location, authentication, $scope, FB) {
     var vm = this;
-    vm.showError = false;
+    vm.error = '';
     vm.credentials = {
         email: "",
         password: ""
@@ -26,17 +26,27 @@ function login($location, authentication, $scope, FB) {
     function onSubmit() {
         if (vm.fbid) {
             //fbcode
+            vm.credentials.fbid = angular.copy(vm.fbid);
             console.log('Fb login process');
+            FB.login(vm.credentials)
+                .then(function(res) {
+                    vm.error = res.data;
+                    $scope.$emit('FBAUTH', 'login');
+                    $location.path('/profile');
+
+                }, function(err) {
+                    vm.error = err.data;
+                });
         } else {
             console.log('Log in processing...')
             authentication
                 .login(vm.credentials)
-                .then(function() {
+                .then(function(res) {
                     $scope.$emit('AUTHENTICATE', 'login');
                     $location.path('/profile');
 
                 }, function(err) {
-                    vm.showError = true;
+                    vm.error = 'Invalid email/password';
                 });
         }
 

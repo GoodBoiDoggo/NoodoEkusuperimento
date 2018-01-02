@@ -20,6 +20,6 @@ module.exports = function(app) {
     app.post('/mergeregister', ctrlFbAuth.mergeregister)
         //fb authentication
     app.get('/fbloggedin/:fbid', ctrlFbAuth.isLoggedIn);
-
+    app.post('/fblogin', ctrlFbAuth.fblogin);
 
 };

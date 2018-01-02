@@ -113,7 +113,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
             .mergeregister(vm.credentials)
             .then(function(res) {
                 console.log(res.data);
-                $scope.$emit('AUTHENTICATE', 'login');
+                $scope.$emit('FBAUTH', 'login');
                 $location.path('/profile');
 
             }, function(err) {

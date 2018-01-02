@@ -25,9 +25,9 @@ function fbService(win, $http, $q) {
         return $http.post('/mergeregister', user);
     }
 
-    function login(fbid) {
+    function login(user) {
 
-        return $http.get('/fbloggedin/' + fbid);
+        return $http.post('/fblogin', user);
 
     }
 

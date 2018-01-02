@@ -6,8 +6,8 @@
 
             <h1 class="form-signin-heading">LOG IN</h1>
             <p class="lead">Not a member? Please <a href="register">register</a> instead.</p>
-            <div ng-show="vm.showError" class="alert alert-danger">
-                Invalid email/password.
+            <div ng-show="vm.error" class="alert alert-danger">
+                {{vm.error}}
             </div>
             <div ng-show="vm.fromBrowser">
                 <form ng-submit="vm.onSubmit()">

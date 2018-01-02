@@ -54,7 +54,7 @@ function run($rootScope, $location, authentication, FB) {
             } else if (!authentication.isLoggedIn()) {
                 $location.path('/login');
             }
-        } else if ($location.path() === '/register' || $location.path() === '/login') {
+        } else if ($location.path() === '/register' /*|| $location.path() === '/login'*/ ) {
             if ($location.search().fbid) {
                 console.log($location.search().fbid);
                 //fbcode

@@ -38,8 +38,9 @@ module.exports = function(app) {
                     $unset: { activation: 1 }
                 }, function(err, data) {
                     if (err) throw err;
+                    console.log('[' + account[0].email + 'Activation successful.');
                 });
-                res.status(200);
+
                 if (!account[0].fbid) {
                     res.status(200);
                     res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="http://kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
