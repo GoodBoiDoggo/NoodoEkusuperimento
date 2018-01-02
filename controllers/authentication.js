@@ -28,7 +28,7 @@ module.exports.register = function(req, res) {
             user.lastname = req.body.lastname;
             user.address = req.body.address;
             user.postalcode = req.body.postalcode;
-            user.setActivationCode();
+            user.setActivationCode(req.body.email);
             user.setPassword(req.body.password);
             console.log(user);
             user.save(function(err) {

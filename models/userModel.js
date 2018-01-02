@@ -56,8 +56,7 @@ var userSchema = new mongoose.Schema({
     salt: String,
     active: Boolean,
     activation: {
-        type: String,
-        unique: true
+        type: String
     }
 }, { collection: 'userdata' });
 
@@ -67,8 +66,9 @@ userSchema.statics.findByActivation = function(activation, cb) {
 
 
 
-userSchema.methods.setActivationCode = function() {
-    this.activation = crypto.randomBytes(16).toString('hex');
+userSchema.methods.setActivationCode = function(data) {
+    var salter = crypto.randomBytes(16).toString('hex');
+    this.activation = crypto.pbkdf2Sync(data, salter, 1000, 64, 'sha512').toString('hex');
 }
 userSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
