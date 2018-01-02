@@ -3,8 +3,18 @@ var nodemailer = require('nodemailer');
 var verification = function(email, activation) {
     console.log(email);
     console.log(activation);
+    // var transporter = nodemailer.createTransport({
+    //     service: 'Gmail',
+    //     auth: {
+    //         // user: 'marponsie@yahoo.com',
+    //         user: 'muggywarra8732@gmail.com',
+    //         pass: 'Password8732'
+    //     }
+    // });
     var transporter = nodemailer.createTransport({
-        service: 'Gmail',
+        host: 'smtp.gmail.com',
+        port: '465',
+        secure: true,
         auth: {
             // user: 'marponsie@yahoo.com',
             user: 'muggywarra8732@gmail.com',
