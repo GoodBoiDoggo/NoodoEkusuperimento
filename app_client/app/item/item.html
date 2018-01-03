@@ -26,7 +26,9 @@
                         <b>Gender:</b> {{vm.itemData.gender}}
                         <br>
                         <div id="prodDesc">
-                            {{vm.itemData.proddesc}}
+                            <p class="text-justify">
+                                {{vm.itemData.proddesc}}
+                            </p>
                         </div>
                         <br>
                         <span class="price">PHP </span>
@@ -58,14 +60,15 @@
 
                 </div>
                 <br>
-                <div id="reviewSection">
-                    <button ng-show="vm.itemData.reviews.length" type="button" class="btn" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
-                    <div id="noReview" ng-hide="vm.itemData.reviews.length">
-                        <a class="text-info"> This item has no user reviews yet. Click here to be the first one!</a>
-                    </div>
+                <div id="noReview" ng-hide="vm.itemData.reviews.length">
+                    <a class="text-info"> This item has no user reviews yet. Click here to be the first one!</a>
+                </div>
+                <div id="reviewSection" ng-if="vm.itemData.reviews.length>0">
+                    <button ng-show="vm.itemData.reviews.length" type="button" class="btn reviewbutton" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
+
                     <div id="revHash" ng-hide="vm.hideReviews">
                         <div>
-                            <div ng-repeat="review in vm.itemData.reviews" class="reviews container">
+                            <div ng-repeat="review in vm.itemData.reviews" class="reviews container-fluid">
                                 <h4>Anonymous</h4>
                                 {{review}}
                             </div>

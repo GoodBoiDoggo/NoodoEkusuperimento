@@ -4,6 +4,27 @@ html,
 body {
     height: 100%;
     width: 100%;
+    background-color: #5bb79c !important;
+    font-family: 'robotolight' !important;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    border-radius: 0px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: 0px 0px 10px 3px black;
+    font-family: 'robotobold';
+}
+
+#bodyContainer {
+    background-color: white;
+    border-radius: 5px;
+    padding-bottom: 20px;
+}
+
+.navbar-nav li:hover {
+    background-color: #b8edcc;
 }
 
 
@@ -27,26 +48,10 @@ body {
     opacity: 0;
 }
 
-
-/*remove ngANimate effects*/
-
-
-/* .progress *.ng-animate {
-    --webkit-transition: none;
-    transition: none;
-} */
-
-
-/* 
-.progress *.ng-animate {
-    --webkit-animation: none 0s;
-    animation: none 0s;
-}  */
-
 .MeMeBigBoy {
     color: #2e61b2;
     /* font-size: 30px; */
-    font-family: "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "robotobold", "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .clickableDDADiv {
@@ -61,6 +66,10 @@ body {
     top: 0;
     width: 100%;
     z-index: 9999 !important;
+}
+
+#affixButtons {
+    margin: 5px;
 }
 
 .redified {
@@ -132,9 +141,7 @@ body {
     margin-bottom: 5px !important;
 }
 
-.affixButton {
-    margin: 5px;
-}
+.affixButton {}
 
 .form-control {
     border-radius: 0px!important;
@@ -159,7 +166,7 @@ body {
 #filtersDiv {
     padding: 20px;
     border-radius: 5px;
-    background-color: #dbe8ff;
+    background-color: #5bb79c;
 }
 
 #prodDesc {
@@ -194,8 +201,9 @@ a {
     cursor: pointer;
 }
 
-a:hover {
-    background-color: #f4f2f2;
+a[class*="item"]:hover {
+    background-color: #b8edcc;
+    text-decoration: none !important;
 }
 
 .whitespace {
@@ -229,9 +237,33 @@ a:hover {
     color: green;
 }
 
+.btn {
+    border-radius: 0px !important;
+}
+
 .reviews {
-    background-color: #42adf4;
-    border-radius: 10px;
+    border-bottom-color: grey;
+    border-bottom-style: solid;
+    border-width: 1px;
+    background-color: white;
+}
+
+#reviewSection {
+    width: 100% !important;
+    background-color: #5bb79c;
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 0px 5px 5px 5px;
+}
+
+.reviewbutton {
+    background-color: white;
+    margin-left: 15px;
+}
+
+.reviewbutton:hover,
+.reviews:hover {
+    background-color: #b8edcc;
 }
 
 .availabletrue {
@@ -359,9 +391,9 @@ a:hover {
         /* width: 20em !important; */
         display: inline-block;
     }
-    #reviewSection {
+    /* #reviewSection {
         clear: both;
-    }
+    } */
     #bodyContainer {
         margin-left: 5em !important;
         margin-right: 5em !important;
@@ -448,6 +480,9 @@ a:hover {
 
 @media only screen and (min-width: 900px) {
     /*For Catalog/item page =====================*/
+    #bodyContainer {
+        padding: 15px !important;
+    }
     #dataDisplay {
         /* float:left; */
         display: inline-block;
@@ -464,9 +499,9 @@ a:hover {
         border-radius: 5px;
         width: 70% !important;
     }
-    #reviewSection {
+    /* #reviewSection {
         clear: both;
-    }
+    } */
     #registerform {
         width: 60%;
     }

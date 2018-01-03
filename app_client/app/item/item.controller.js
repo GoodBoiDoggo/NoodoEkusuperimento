@@ -26,7 +26,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         loadItem();
         $anchorScroll();
         if (vm.fbid) {
-            FB.login(vm.fbid)
+            FB.fbLoggedIn(vm.fbid)
                 .then(function(res) {
                     console.log(res);
                     if (res.data['0'].loginsession) {
@@ -40,6 +40,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     vm.loggedIn = false;
                     vm.authenticated = true;
                 });
+
+
         } else {
             vm.loggedIn = authentication.isLoggedIn();
         }
