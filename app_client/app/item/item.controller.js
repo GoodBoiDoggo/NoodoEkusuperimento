@@ -13,14 +13,27 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.loaded = false;
     vm.itemFound = true;
     vm.fbid = $location.search().fbid;
+    vm.userid;
+    vm.reviewletters = 160;
     vm.authenticated = false;
+    vm.reviewtoadd = '';
     //Functions
     vm.pageInit = pageInit;
     vm.loaditem = loadItem;
     vm.toggleReview = toggleReview;
+    vm.submitReview = submitReview;
+    vm.countletters = countletters;
     vm.sizeClass = sizeClass;
     vm.sizeClick = sizeClick;
     pageInit();
+
+    function countletters() {
+        vm.reviewletters = 160 - vm.reviewtoadd.length;
+    }
+
+    function submitReview() {
+        alert('sapnu puas');
+    }
 
     function pageInit() {
         loadItem();
@@ -30,6 +43,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 .then(function(res) {
                     console.log(res);
                     if (res.data['0'].loginsession) {
+                        vm.userid = res.data['0']._id;
                         vm.loggedIn = true;
 
                     } else {
@@ -43,7 +57,15 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
 
         } else {
-            vm.loggedIn = authentication.isLoggedIn();
+            authentication.currentUser()
+                .then(function(res) {
+                    vm.userid = res.data._id;
+                    vm.loggedIn = true;
+                }, function(e) {
+                    console.log(e);
+
+                });
+
         }
     }
 

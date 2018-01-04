@@ -17,6 +17,10 @@ body {
     font-family: 'robotobold';
 }
 
+div {
+    word-wrap: break-word;
+}
+
 .navLogo {
     height: 50px;
 }
@@ -34,6 +38,23 @@ body {
 
 .navbar-nav li:hover {
     background-color: #b8edcc;
+}
+
+#reviewtextarea {
+    width: 100%;
+    resize: none;
+}
+
+.reviewoptions {
+    float: right;
+}
+
+.reviewoptions a {
+    text-decoration: none !important;
+}
+
+#addreview {
+    margin-top: 20%;
 }
 
 
@@ -131,6 +152,12 @@ body {
 }
 
 #itemPageDiv {}
+
+#itemPageContent div[id="soloImage"],
+#itemPageContent div[id="dataDisplay"] {
+    vertical-align: top;
+    display: inline-block;
+}
 
 #profilePageDiv {
     width: 100%;

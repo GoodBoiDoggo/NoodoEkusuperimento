@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 var authController = require('../controllers/authController');
 
 module.exports = function(app) {
-    //	setupController(app); //use only when creating new sample data
+    //setupController(app); //use only when creating new sample data
     //API's
     authController(app);
     apiController(app);

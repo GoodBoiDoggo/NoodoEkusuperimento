@@ -60,22 +60,61 @@
 
                 </div>
                 <br>
+                <br>
+                <a id="writereview" data-toggle="modal" data-target="#addreview" ng-show="vm.loggedIn">
+                    <span class="glyphicon glyphicon-plus"></span> Write a review
+                </a>
                 <div id="noReview" ng-hide="vm.itemData.reviews.length">
-                    <a class="text-info"> This item has no user reviews yet. Click here to be the first one!</a>
+                    This item has no user reviews yet.
                 </div>
+
                 <div id="reviewSection" ng-if="vm.itemData.reviews.length>0">
                     <button ng-show="vm.itemData.reviews.length" type="button" class="btn reviewbutton" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
 
                     <div id="revHash" ng-hide="vm.hideReviews">
                         <div>
                             <div ng-repeat="review in vm.itemData.reviews" class="reviews container-fluid">
-                                <h4>Anonymous</h4>
-                                {{review}}
+                                <span class="reviewerlabel">{{review.username}}</span>
+                                <span ng-if="vm.userid==review.userid" class="reviewoptions">
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                                &nbsp;
+                                <a>
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                </span>
+                                <br>
+                                <p>{{review.reviewstring}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div id="addreview" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add review</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>What can you say about this product?</p>
+                            <input id="reviewtextarea" ng-model="vm.reviewtoadd" ng-change="vm.countletters()" maxlength="160">
+                            <p>Letters left: {{vm.reviewletters}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.submitReview()">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
             <div id="loadingDiv" ng-show="!vm.loaded && vm.itemFound">
                 Loading...
             </div>
