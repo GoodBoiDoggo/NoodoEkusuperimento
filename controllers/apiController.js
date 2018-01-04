@@ -3,31 +3,14 @@
  */
 
 var Catalog = require('../models/catalogModel');
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+
 module.exports = function(app) {
-
-    // app.use(bodyParser.json());
-    // app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-    // app.post('/api/add', function(req, res) {
-    //     var newTodo = Todos({
-    //         username: req.body.username,
-    //         todo: req.body.todo,
-    //         isDone: false,
-    //         hasAttachment: false
-    //     });
-    //     newTodo.save(function(err) {
-    //         console.log("Success");
-    //     })
-    //     res.render('../views/CRUDPage.ejs');
-    // })
-
-
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.get('/api/activate/:code', function(req, res) {
 
         User.findByActivation(req.params.code, function(err, account) {
@@ -65,7 +48,7 @@ module.exports = function(app) {
         }, function(err, data) {
             if (err) throw err;
             res.status(200);
-            console.log('DDA  Updated!')
+            console.log('DDA Updated!')
             if (!req.body.address) {
                 if (!data.address) {
                     if (data.postalcode == req.body.postalcode) {
@@ -90,7 +73,24 @@ module.exports = function(app) {
             } else {
                 res.send('New DDA has been set.');
             }
-            // res.end();
+
+        });
+
+    });
+
+    app.post('/api/addreview', function(req, res) {
+        console.log('Adding review from ' + req.body.review.username);
+        Catalog.findOneAndUpdate({ prodcode: req.body.prodcode }, {
+            $push: { reviews: req.body.review }
+        }, function(err) {
+            console.log('Review status:');
+            if (err) throw err;
+            else {
+                res.status(200);
+                res.end();
+                console.log('Review added to ' + req.body.prodcode);
+            }
+
         });
 
     });

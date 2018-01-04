@@ -103,11 +103,11 @@
                         <div class="modal-body">
                             <p>What can you say about this product?</p>
                             <input id="reviewtextarea" ng-model="vm.reviewtoadd" ng-change="vm.countletters()" maxlength="160">
-                            <p>Letters left: {{vm.reviewletters}}</p>
+                            <p>Characters left: {{vm.reviewletters}}</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.submitReview()">Submit</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!vm.reviewtoadd" ng-click="vm.submitReview()">Submit</button>
                         </div>
                     </div>
 

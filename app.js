@@ -28,7 +28,7 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/app_client/views');
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'app_client')));
 app.use(express.static(path.join(__dirname, 'app_client', 'app')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
