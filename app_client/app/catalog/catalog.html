@@ -7,9 +7,14 @@
             <div id="Advanced search"></div>
             <a ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
             <div id="filtersDiv" ng-show="vm.showAdv">
-                Brand: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)"> Type: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter"
-                    placeholder="(leather,casual,running,walking)"> Color: <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)"> Gender: <select ng-change="vm.createFilter()"
-                    data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
+                <span class="filterlabel">Brand:</span>
+                <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
+                <span class="filterlabel">Type:</span>
+                <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter" placeholder="(leather,casual,running,walking)">
+                <span class="filterlabel">Color:</span>
+                <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)">
+                <span class="filterlabel">Gender:</span>
+                <select ng-change="vm.createFilter()" data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
             </div>
             <div id="noMatch" class="text-info" ng-hide="vm.filteredCatalogItems.length">
                 No matches found. You can search shoes according to name, type, brand or tags.
