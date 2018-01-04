@@ -57,14 +57,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
 
         } else {
-            authentication.currentUser()
-                .then(function(res) {
-                    vm.userid = res.data._id;
-                    vm.loggedIn = true;
-                }, function(e) {
-                    console.log(e);
+            if (authentication.isLoggedIn()) {
+                authentication.currentUser()
+                    .then(function(res) {
+                        vm.userid = res.data._id;
+                        vm.loggedIn = true;
+                    }, function(e) {
+                        console.log(e);
 
-                });
+                    });
+            }
 
         }
     }
