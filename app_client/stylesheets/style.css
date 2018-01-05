@@ -84,6 +84,12 @@ div {
     font-family: "robotobold", "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.MeMeBigGirl {
+    color: #9c0b0b;
+    /* font-size: 30px; */
+    font-family: "robotobold", "Century Gothic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .clickableDDADiv {
     cursor: pointer;
 }

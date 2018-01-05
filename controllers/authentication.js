@@ -1,7 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var mailer = require('./mailController')
+var mailer = require('./mailController');
 var sendJSONresponse = function(res, status, content) {
     res.status(status);
     res.json(content);

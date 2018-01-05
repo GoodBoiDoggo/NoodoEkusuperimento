@@ -2,9 +2,9 @@
       .module('app.profile')
       .controller('profileController', profile);
 
-  profile.$inject = ['$location', 'meanData', 'FB', '$anchorScroll', '$scope', '$animate'];
+  profile.$inject = ['$location', 'meanData', 'FB', '$anchorScroll', '$scope', '$animate', '$http'];
 
-  function profile($location, meanData, FB, $anchorScroll, $scope, $animate) {
+  function profile($location, meanData, FB, $anchorScroll, $scope, $animate, $http) {
       var vm = this;
       vm.fbid = $location.search().fbid;
       vm.user = {};
@@ -15,19 +15,36 @@
       vm.pageInit = pageInit;
       vm.addDDA = addDDA;
       vm.formSubmit = formSubmit;
+      vm.resend = resend;
+      vm.checkActive = checkActive;
       vm.clickMode = clickMode;
       $anchorScroll();
       pageInit();
-      //   $scope.$on('PROFILE', function(event, data) {
-      //       console.log('profile returned');
-      //       vm.user = angular.copy(data);
-      //       vm.message = '';
-      //   });
+
       function clickMode() {
           if (vm.showForm) {
               return 'unclickableDDADiv';
           } else {
               return 'clickableDDADiv';
+          }
+      }
+
+      function resend() {
+          $http.post('/api/resend', vm.user)
+              .then(function(res) {
+                  vm.mailmessage = res.data;
+                  vm.showWarning = false;
+              }, function(err) {
+                  vm.mailmessage = err.data;
+                  vm.showWarning = false;
+              });
+      }
+
+      function checkActive() {
+          if (vm.active) {
+              return 'MeMeBigBoy';
+          } else {
+              return 'MeMeBigGirl';
           }
       }
 
@@ -55,6 +72,8 @@
       function pageInit() {
           $animate.enabled(true);
           vm.message = 'Loading details...'
+          vm.active = false;
+          vm.showWarning = true;
           if (vm.fbid) {
               //fbcode
               FB.getFbProfile(vm.fbid)
@@ -62,6 +81,10 @@
                       vm.user = res.data[0];
                       vm.message = '';
                       vm.loaded = true;
+                      if (vm.user.active) {
+                          vm.active = true;
+                      }
+
 
                   }, function(e) {
                       console.log(e.data);
@@ -77,6 +100,9 @@
                       console.log(res.data);
                       vm.message = '';
                       vm.loaded = true;
+                      if (vm.user.active) {
+                          vm.active = true;
+                      }
                   }, function(e) {
                       console.log(e);
                       vm.message = 'Loading failed.'

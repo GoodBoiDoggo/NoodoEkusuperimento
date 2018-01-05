@@ -6,7 +6,7 @@ var Catalog = require('../models/catalogModel');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-
+var mailer = require('./mailController');
 
 module.exports = function(app) {
     app.use(bodyParser.json());
@@ -79,22 +79,43 @@ module.exports = function(app) {
     });
 
     app.post('/api/addreview', function(req, res) {
-        console.log('Adding review from ' + req.body.review.username);
+
         Catalog.findOneAndUpdate({ prodcode: req.body.prodcode }, {
             $push: { reviews: req.body.review }
         }, function(err) {
             console.log('Review status:');
             if (err) throw err;
-            else {
-                res.status(200);
-                res.end();
-                console.log('Review added to ' + req.body.prodcode);
-            }
+
+            res.status(200);
+            res.send('Review added');
+            console.log('Review added to ' + req.body.prodcode);
+
 
         });
 
     });
 
+    app.post('/api/resend', function(req, res) {
 
+        User.findOne({ email: req.body.email }, function(err, results) {
+
+            if (err) throw err;
+
+            if (results.length != 0) {
+                if (!results.activation) {
+                    res.status(400);
+                    res.send('Your account is already activated. Please refresh the page.');
+                } else {
+                    mailer.sendVerification(results.email, results.activation);
+                    console.log('Email sent.');
+                    res.status(200);
+                    res.send('Email has been sent.');
+                }
+            } else {
+                res.status(400);
+                res.send('Email sending failed. Please retry later.');
+            }
+        })
+    });
 
 }

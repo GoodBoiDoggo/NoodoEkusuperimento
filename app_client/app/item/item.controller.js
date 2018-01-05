@@ -14,6 +14,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.itemFound = true;
     vm.fbid = $location.search().fbid;
     vm.userid;
+    vm.useractive = false;
     vm.username;
     vm.reviewletters = 160;
     vm.authenticated = false;
@@ -67,6 +68,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     } else {
                         vm.loggedIn = false;
                     }
+                    if (res.data['0'].active) {
+                        vm.useractive = true;
+                    }
                     vm.authenticated = true;
                 }, function(err) {
                     vm.loggedIn = false;
@@ -81,6 +85,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
                         vm.loggedIn = true;
+                        if (res.data.active) {
+                            vm.useractive = true;
+                        }
                     }, function(e) {
                         console.log(e);
 

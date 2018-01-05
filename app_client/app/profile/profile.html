@@ -8,9 +8,12 @@
             <div ng-show="vm.message" class="alert alert-info message">
                 {{vm.message}}
             </div>
-            <h1 class="text-center MeMeBigBoy">{{ vm.user.firstname }} {{ vm.user.lastname }} </h1>
-            <br>
+            <h1 class="text-center" ng-class="vm.checkActive()">{{ vm.user.firstname }} {{ vm.user.lastname }} </h1>
             <p class="lead text-center">{{ vm.user.email }}</p>
+            <p class="text-danger" ng-if="!vm.active && vm.showWarning">
+                Your account is not yet activated. Please check your email for the activation link. Click <a class="finger" ng-click="vm.resend()">here</a> to resend activation email.</a>
+            </p>
+            <p class="text-info" ng-show="vm.mailmessage">{{vm.mailmessage}}</p>
             <div class="whitespace"></div>
             <div id="DDADiv" ng-click="vm.addDDA()" ng-class="vm.clickMode()" ng-show="vm.user" ng-mouseover="vm.showFloats = true" ng-mouseleave="vm.showFloats=false">
                 <div ng-if="vm.showFloats && !vm.showForm" class="doggofade">
