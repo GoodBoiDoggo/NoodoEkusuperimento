@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="row centerizer">
+<div class="container-fluid view-body">
+    <div class="row centerizer container-fluid">
         <div id="itemPageDiv">
             <div id="itemPageContent" ng-show="vm.loaded">
                 <div id="soloImage" class="itemsContainer img-thumbnail">
@@ -109,7 +109,7 @@
                             <p>Characters left: {{vm.reviewletters}}</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="!vm.useractive">Close</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="!vm.reviewtoadd" ng-click="vm.submitReview()">Submit</button>
                         </div>
                     </div>

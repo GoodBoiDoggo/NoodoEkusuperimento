@@ -30,10 +30,18 @@ div {
     display: none;
 }
 
-#bodyContainer {
+
+/* #bodyContainer {
     background-color: white;
     border-radius: 5px;
     padding-bottom: 20px;
+} */
+
+.view-body {
+    background-color: white;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    padding-top: 10px;
 }
 
 .navbar-nav li:hover {
