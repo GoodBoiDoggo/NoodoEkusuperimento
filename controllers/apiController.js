@@ -114,6 +114,32 @@ module.exports = function(app) {
 
     });
 
+    app.put('/api/review/:prodcode', function(req, res) {
+        console.log('Modifying review');
+        Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
+            $pull: { reviews: { _id: { $in: [req.body._id] } } }
+        }, function(err) {
+            console.log('Review status:');
+            if (err) throw err;
+            console.log('Old review deleted. Adding new review...');
+            Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
+                $push: { reviews: req.body }
+            }, function(err) {
+                console.log('Review status:');
+                if (err) throw err;
+
+                res.status(200);
+                res.send('Review added');
+                console.log('Review added to ' + req.params.prodcode);
+
+
+            });
+
+
+
+        });
+
+    });
     app.post('/api/resend', function(req, res) {
 
         User.findOne({ email: req.body.email }, function(err, results) {

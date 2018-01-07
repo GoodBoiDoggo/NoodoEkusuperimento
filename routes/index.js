@@ -46,7 +46,7 @@ module.exports = function(app) {
     //		res.render('../views/catalog.ejs');
     //	});
     app.get('/*', function(req, res) {
-        console.log("Index file served.");
+
         //res.sendfile('app_client/app/index.html');
         var options = {
             root: './app_client/app',
