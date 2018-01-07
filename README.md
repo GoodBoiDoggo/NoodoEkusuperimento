@@ -30,12 +30,12 @@ npm install nodemon -g
 
 ### Running the app with nodemon
 
-To run the project using nodemon, open cmd or the terminal window of eclipse(Monitor icon at the upper left),
+To run the project using nodemon, open cmd
 then run this command:
 ```
-npm start
+nodemon app.js
 ```
-This works kay gichange nako ang "start" na property sa package.json
+
 
 ### Tools
 
