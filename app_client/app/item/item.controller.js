@@ -13,17 +13,23 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.loaded = false;
     vm.itemFound = true;
     vm.fbid = $location.search().fbid;
-    vm.userid;
+    vm.userid = '';
     vm.useractive = false;
-    vm.username;
+    vm.username = '';
     vm.reviewletters = 160;
     vm.authenticated = false;
     vm.newreview = {};
+    vm.modreview = {};
     vm.reviewcredentials = {};
     vm.reviewtoadd = '';
     //Functions
     vm.pageInit = pageInit;
     vm.loaditem = loadItem;
+    vm.clickEdit = clickEdit;
+    vm.clickReview = clickReview;
+    vm.deleteReview = deleteReview;
+    vm.editReview = editReview;
+    vm.countletters2 = countletters2;
     vm.toggleReview = toggleReview;
     vm.submitReview = submitReview;
     vm.countletters = countletters;
@@ -31,8 +37,43 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.sizeClick = sizeClick;
     pageInit();
 
+    function clickEdit(data) {
+        vm.modreview = data;
+        vm.reviewedit = vm.modreview.reviewstring;
+        countletters2();
+    }
+
+    function clickReview() {
+        vm.reviewtoadd = "";
+        countletters();
+    }
+
+    function deleteReview(prodcode, id) {
+        Catalog.delReview(prodcode, id)
+            .then(function(res) {
+                console.log('Successfully deleted review.');
+                loadItem();
+            }, function(err) {
+                console.log('Server error encountered while deleting review.');
+            });
+    }
+
+    function editReview(id) {
+        vm.modreview.reviewstring = angular.copy(vm.reviewedit);
+        Catalog.editReview(vm.itemData.prodcode, vm.modreview)
+            .then(function(res) {
+                console.log('Review successfully edited.');
+            }, function(err) {
+                console.log('Server error encountered while editing review.');
+            });
+    }
+
     function countletters() {
         vm.reviewletters = 160 - vm.reviewtoadd.length;
+    }
+
+    function countletters2() {
+        vm.reviewletters = 160 - vm.reviewedit.length;
     }
 
     function submitReview() {

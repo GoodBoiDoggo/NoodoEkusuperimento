@@ -41,7 +41,7 @@ module.exports = function(app) {
 
 
 
-    app.post('/api/updateDDA', function(req, res) {
+    app.put('/api/updateDDA', function(req, res) {
         User.findByIdAndUpdate(req.body._id, {
             address: req.body.address,
             postalcode: req.body.postalcode
@@ -78,8 +78,10 @@ module.exports = function(app) {
 
     });
 
-    app.post('/api/addreview', function(req, res) {
-
+    app.post('/api/review', function(req, res) {
+        console.log('Adding review');
+        req.body.review._id = new mongoose.Types.ObjectId();
+        console.log('ID created');
         Catalog.findOneAndUpdate({ prodcode: req.body.prodcode }, {
             $push: { reviews: req.body.review }
         }, function(err) {
@@ -89,6 +91,23 @@ module.exports = function(app) {
             res.status(200);
             res.send('Review added');
             console.log('Review added to ' + req.body.prodcode);
+
+
+        });
+
+    });
+
+    app.delete('/api/review/:prodcode/:id', function(req, res) {
+        console.log('Deleting review');
+        Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
+            $pull: { reviews: { _id: { $in: [req.params.id] } } }
+        }, function(err) {
+            console.log('Review status:');
+            if (err) throw err;
+
+            res.status(200);
+            res.send('Review deleted');
+            console.log('Review deleted from ' + req.params.prodcode);
 
 
         });

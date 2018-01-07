@@ -16,8 +16,19 @@ function catalogService($http) {
 
         addReview: function(review) {
             console.log('Adding review...')
-            return $http.post('/api/addreview', review);
+            return $http.post('/api/review', review);
+        },
+
+        delReview: function(prodcode, id) {
+            console.log('Deleting review...');
+            return $http.delete('/api/review/' + prodcode + '/' + id);
+        },
+        editReview: function(prodcode, review) {
+            console.log('Editing review...');
+            return $http.put('/api/review/' + prodcode, review);
         }
+
+
     }
 
 }

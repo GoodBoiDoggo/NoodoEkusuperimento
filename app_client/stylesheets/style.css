@@ -48,9 +48,12 @@ div {
     background-color: #b8edcc;
 }
 
-#reviewtextarea {
+#reviewinput {
     width: 100%;
-    resize: none;
+}
+
+#revieweditinput {
+    width: 100%;
 }
 
 .reviewoptions {
@@ -62,6 +65,10 @@ div {
 }
 
 #addreview {
+    margin-top: 20%;
+}
+
+#editreview {
     margin-top: 20%;
 }
 
@@ -544,9 +551,10 @@ a[class*="item"]:hover {
 
 @media only screen and (min-width: 901px) {
     /*For Catalog/item page =====================*/
-    #bodyContainer {
+    /* #bodyContainer {
         padding: 15px !important;
-    }
+
+    } */
     #dataDisplay {
         /* float:left; */
         display: inline-block;

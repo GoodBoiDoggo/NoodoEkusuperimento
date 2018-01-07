@@ -43,11 +43,12 @@ module.exports = function(app) {
                 ratercount: 1,
                 rateavg: 5,
                 salerate: 0,
-                reviews: [{
-                    userid: '5a4b86851745841fdc4b67aa',
-                    username: 'Testu Akawntu',
-                    reviewstring: 'After using this shoe I won against Usain bolt! I give 5/5!'
-                }],
+                reviews: [],
+                // [{
+                //     userid: '5a4b86851745841fdc4b67aa',
+                //     username: 'Testu Akawntu',
+                //     reviewstring: 'After using this shoe I won against Usain bolt! I give 5/5!'
+                // }],
                 proddesc: 'Shoes with cotton surface with the Addidas mark. The shoes laces are ceramic.'
             },
             {
@@ -99,11 +100,12 @@ module.exports = function(app) {
                 ratercount: 1,
                 rateavg: 3,
                 salerate: 0,
-                reviews: [{
-                    userid: '5a4b86851745841fdc4b67aa',
-                    username: 'Testu Akawntu',
-                    reviewstring: 'It is too blue that it looks like magic.'
-                }],
+                reviews: [],
+                // [{
+                //     userid: '5a4b86851745841fdc4b67aa',
+                //     username: 'Testu Akawntu',
+                //     reviewstring: 'It is too blue that it looks like magic.'
+                // }],
                 proddesc: 'Blue shoes made from naturally blue materials to maximize aesthetics and comfort as well.'
             }, {
                 prodcode: 'I00005',
@@ -120,22 +122,23 @@ module.exports = function(app) {
                 ratercount: 3,
                 rateavg: 5,
                 salerate: 0,
-                reviews: [{
-                        userid: '5a4b86851745841fdc4b67aa',
-                        username: 'Testu Akawntu',
-                        reviewstring: 'It is too good it hurts! Pun intended'
-                    },
-                    {
-                        userid: '5a4b86851745841fdc4b67aa',
-                        username: 'Testu Akawntu',
-                        reviewstring: 'Now no one will dare step on my new shoes.'
-                    },
-                    {
-                        userid: '5a4b86851745841fdc4b67aa',
-                        username: 'Testu Akawntu',
-                        reviewstring: 'I rated this 5 becoz i love porcupines <3'
-                    }
-                ],
+                reviews: [],
+                // [{
+                //         userid: '5a4b86851745841fdc4b67aa',
+                //         username: 'Testu Akawntu',
+                //         reviewstring: 'It is too good it hurts! Pun intended'
+                //     },
+                //     {
+                //         userid: '5a4b86851745841fdc4b67aa',
+                //         username: 'Testu Akawntu',
+                //         reviewstring: 'Now no one will dare step on my new shoes.'
+                //     },
+                //     {
+                //         userid: '5a4b86851745841fdc4b67aa',
+                //         username: 'Testu Akawntu',
+                //         reviewstring: 'I rated this 5 becoz i love porcupines <3'
+                //     }
+                // ],
                 proddesc: 'A leather shoe crafted to perfection using porcupine spikes and leather. Extremely waterproof.'
             }
         ];

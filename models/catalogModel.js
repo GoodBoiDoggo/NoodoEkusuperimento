@@ -22,7 +22,7 @@ var catalogSchema = new Schema({
     rateavg: Number,
     salerate: Number,
     reviews: [{
-
+        _id: { type: String },
         userid: { type: String },
         username: { type: String },
         reviewstring: { type: String }

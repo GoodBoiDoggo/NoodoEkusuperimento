@@ -15,7 +15,7 @@
       };
 
       var updateDDA = function(user) {
-          return $http.post('/api/updateDDA', user);
+          return $http.put('/api/updateDDA', user);
       }
 
 

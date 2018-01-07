@@ -1,7 +1,7 @@
 <div class="container-fluid view-body">
     <div class="row centerizer container-fluid">
         <div id="itemPageDiv">
-            <div id="itemPageContent" ng-show="vm.loaded">
+            <div id="itemPageContent" ng-if="vm.loaded">
                 <div id="soloImage" class="itemsContainer img-thumbnail">
 
                     <h2>{{vm.itemData.prodname}}</h2>
@@ -32,8 +32,8 @@
                         </div>
                         <br>
                         <span class="price">PHP </span>
-                        <span class="price" ng-show="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
-                        <span class="price" ng-show="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
+                        <span class="price" ng-if="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
+                        <span class="price" ng-if="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
                         <br>
                     </p>
                     <h4>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn || !vm.usractive" type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData,vm.clickedSize)">Add to Cart</button>
-                    <p ng-show="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</p>
+                    <p ng-if="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</p>
 
                     <p ng-if="!vm.loggedIn && vm.itemData.isavailable" class="text-danger">You are not logged in.</p>
                     <p ng-if="vm.loggedIn && vm.itemData.isavailable && !vm.useractive" class="text-danger">Activate your account</p>
@@ -62,7 +62,7 @@
                 </div>
                 <br>
                 <br>
-                <a id="writereview" data-toggle="modal" data-target="#addreview" ng-disabled="!vm.useractive" ng-show="vm.loggedIn && vm.useractive">
+                <a id="writereview" data-toggle="modal" data-target="#addreview" ng-click="vm.clickReview()" ng-if="vm.loggedIn && vm.useractive">
                     <span class="glyphicon glyphicon-plus"></span> Write a review
                 </a>
                 <p class="text-info" ng-if="!vm.useractive && vm.loggedIn">Activate your account to submit a review.</p>
@@ -72,18 +72,18 @@
                 </div>
 
                 <div id="reviewSection" ng-if="vm.itemData.reviews.length>0">
-                    <button ng-show="vm.itemData.reviews.length" type="button" class="btn reviewbutton" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
+                    <button ng-if="vm.itemData.reviews.length" type="button" class="btn reviewbutton" ng-click="vm.toggleReview()">{{vm.showHide}} reviews ({{vm.itemData.reviews.length}})</button>
 
                     <div id="revHash" ng-hide="vm.hideReviews">
                         <div>
                             <div ng-repeat="review in vm.itemData.reviews" class="reviews container-fluid">
                                 <span class="reviewerlabel">{{review.username}}</span>
                                 <span ng-if="vm.userid==review.userid" class="reviewoptions">
-                                <a href="#">
+                                <a ng-click="vm.deleteReview(vm.itemData.prodcode,review._id)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                                 &nbsp;
-                                <a>
+                                <a data-toggle="modal" data-target="#editreview" ng-click="vm.clickEdit(review)">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </a>
                                 </span>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="modal-body">
                             <p>What can you say about this product?</p>
-                            <input id="reviewtextarea" ng-model="vm.reviewtoadd" ng-change="vm.countletters()" maxlength="160">
+                            <input id="reviewinput" ng-model="vm.reviewtoadd" ng-change="vm.countletters()" maxlength="160">
                             <p>Characters left: {{vm.reviewletters}}</p>
                         </div>
                         <div class="modal-footer">
@@ -116,12 +116,32 @@
 
                 </div>
             </div>
+            <div id="editreview" class="modal fade" role="dialog">
+                <div class="modal-dialog">
 
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit review</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>What can you say about this product?</p>
+                            <input id="revieweditinput" ng-model="vm.reviewedit" ng-change="vm.countletters2()" maxlength="160">
+                            <p>Characters left: {{vm.reviewletters}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editReview()">Submit</button>
+                        </div>
+                    </div>
 
-            <div id="loadingDiv" ng-show="!vm.loaded && vm.itemFound">
+                </div>
+            </div>
+
+            <div id="loadingDiv" ng-if="!vm.loaded && vm.itemFound">
                 Loading...
             </div>
-            <div id="itemNotFoundDiv" ng-show="!vm.itemFound">
+            <div id="itemNotFoundDiv" ng-if="!vm.itemFound">
                 <p class="lead text-center">Darn, the item failed to load.The following are the possible causes:</p>
                 <ul class="text-center">
                     <li>The item does not exist.</li>
