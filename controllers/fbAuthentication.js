@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var passport = require('passport');
-
+var mailer = require('./mailController');
 var fbLoggedIn = function(req, res) {
     console.log("Retrieving user account of: " + req.params.fbid);
 
@@ -69,10 +69,11 @@ var registerfb = function(req, res) {
 
             user.fbid = req.body.fbid;
             user.loginsession = Date().valueOf();
-
+            user.setRateDetails()
             user.setPassword(req.body.password);
-
+            user.setActivationCode(req.body.email);
             user.save(function(err) {
+                mailer.sendVerification(user.email, user.activation);
                 res.status(200);
                 res.json({ 'success': 'Register complete' });
                 console.log("REGISTER COMPLETE.")
