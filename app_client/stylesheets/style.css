@@ -72,6 +72,18 @@ div {
     margin-top: 20%;
 }
 
+#filtertoggle {}
+
+#settings {
+    margin-top: 20%;
+}
+
+#advsearch {
+    display: block;
+    width: 100%;
+    min-height: 20px;
+}
+
 
 /*fade css*/
 
@@ -221,7 +233,7 @@ div {
 }
 
 #filtersDiv {
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     background-color: #5bb79c;
     font-family: 'robotobold';

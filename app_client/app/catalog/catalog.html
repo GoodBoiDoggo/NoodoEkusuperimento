@@ -4,24 +4,29 @@
             <h1>CATALOG</h1>
 
             <input id="catalogSearch" type="search" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
-            <div id="Advanced search"></div>
-            <a ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
-            <div id="filtersDiv" ng-show="vm.showAdv">
-                <span class="filterlabel">Brand:</span>
-                <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
-                <span class="filterlabel">Type:</span>
-                <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter" placeholder="(leather,casual,running,walking)">
-                <span class="filterlabel">Color:</span>
-                <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)">
-                <span class="filterlabel">Gender:</span>
-                <select ng-change="vm.createFilter()" data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
+
+            <div id="advsearch">
+                <a data-toggle="modal" data-target="#settings">Search settings</a>
+                <div id="filtersDiv" ng-show="vm.showAdv">
+                    <span class="filterlabel">Brand:</span>
+                    <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
+                    <span class="filterlabel">Type:</span>
+                    <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.typeFilter" placeholder="(leather,casual,running,walking)">
+                    <span class="filterlabel">Color:</span>
+                    <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.colorFilter" placeholder="(e.g. blue,orange,white)">
+                    <span class="filterlabel">Gender:</span>
+                    <select ng-change="vm.createFilter()" data-ng-options="g for g in vm.gOptions" data-ng-model="vm.selectedG"></select>
+                </div>
+
+
             </div>
+
             <div id="noMatch" class="text-info" ng-hide="vm.filteredCatalogItems.length">
                 No matches found. You can search shoes according to name, type, brand or tags.
             </div>
             <div class="itemsContainer">
                 <div class="itemCenter">
-                    <div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter) | orderBy: vm.sortMode : vm.sortOrder">
+                    <div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter) | orderBy: vm.sortMode : vm.selectedSO.value">
                         <a class="item img-thumbnail" ng-href="/catalog/{{item.prodcode}}{{vm.fbParam}}">
                             <!-- ng-click="vm.viewItem(item)" -->
                             <img class="img-responsive" src="pic/{{item.imgname}}"><br>
@@ -43,6 +48,38 @@
         </div>
     </div>
 
+    <div id="settings" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sort settings</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="sortDiv">
+
+                        <select class="form-control sort-select" ng-change="vm.createFilter()" data-ng-options="s for s in vm.sOptions" data-ng-model="vm.selectedS"></select>
+                        <select class="form-control sort-select" ng-change="vm.createFilter()" data-ng-options="so.text for so in vm.sOrderOptions" data-ng-model="vm.selectedSO"></select>
+                    </div>
+                </div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Search filter settings</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="sortDiv">
+                        <a id="filtertoggle" ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div id="loadingDiv" ng-if="!vm.loaded && vm.itemFound">
         Loading...
     </div>

@@ -10,11 +10,14 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     vm.showAdv = false;
     vm.enaDis = 'Enable';
     vm.gOptions = ['Any', 'Male', 'Female'];
+    vm.sOptions = ['No. of Views', 'Price', 'Discount'];
+    vm.sOrderOptions = [{ value: true, text: 'Descending' }, { value: false, text: 'Ascending' }];
+    vm.selectedSO = vm.sOrderOptions[0];
     vm.selectedG = vm.gOptions[0];
+    vm.selectedS = vm.sOptions[0];
     vm.loaded = false;
     vm.itemFound = true;
     vm.fbParam = '';
-    vm.sortOrder = false;
     vm.fbid = $location.search().fbid;
     //Functions
     vm.pageInit = pageInit;
@@ -37,7 +40,15 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     }
 
     function sortMode(item) {
-        return item.viewcount;
+        if (vm.selectedS == 'No. of Views') {
+
+            return item.viewcount;
+        } else if (vm.selectedS == 'Price') {
+            return item.prodprice
+        } else {
+            return item.salerate;
+        }
+
     }
 
 
