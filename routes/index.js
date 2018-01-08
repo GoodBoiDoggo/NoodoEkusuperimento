@@ -29,6 +29,21 @@ module.exports = function(app) {
             console.log("Item sent");
         })
     });
+    app.put('/item/:prodcode', (req, res) => {
+
+        Catalog.findOne({ prodcode: req.params.prodcode }, (err, result) => {
+                if (err) throw err;
+                console.log(result);
+                result.set(req.body);
+                result.save((err) => {
+                    res.status(200);
+                    res.send('Item ' + req.params.prodcode + ' updated.');
+                });
+
+            }
+
+        );
+    });
     app.get('/api2/:id', function(req, res) {
         console.log(req.params.id);
         res.json({ firstname: 'John', lastname: 'Doe', ID: req.params.id });

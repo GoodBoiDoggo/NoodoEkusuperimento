@@ -26,8 +26,11 @@ function catalogService($http) {
         editReview: function(prodcode, review) {
             console.log('Editing review...');
             return $http.put('/api/review/' + prodcode, review);
+        },
+        updateItem: function(item) {
+            console.log('Updating item details...');
+            return $http.put('/item/' + item.prodcode, item);
         }
-
 
     }
 

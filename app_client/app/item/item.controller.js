@@ -25,6 +25,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     //Functions
     vm.pageInit = pageInit;
     vm.loaditem = loadItem;
+    vm.reloadItem - reloadItem;
     vm.clickEdit = clickEdit;
     vm.clickReview = clickReview;
     vm.deleteReview = deleteReview;
@@ -35,7 +36,19 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.countletters = countletters;
     vm.sizeClass = sizeClass;
     vm.sizeClick = sizeClick;
+    vm.viewUp = viewUp;
+
     pageInit();
+
+    function viewUp() {
+        vm.itemData.viewcount++;
+        Catalog.updateItem(vm.itemData)
+            .then(function(res) {
+                console.log('Views incremented by 1');
+            }, function(err) {
+                console.log('Views not incremented. Server error encountered.');
+            });
+    }
 
     function clickEdit(data) {
         vm.modreview = data;
@@ -52,7 +65,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         Catalog.delReview(prodcode, id)
             .then(function(res) {
                 console.log('Successfully deleted review.');
-                loadItem();
+                reloadItem();
             }, function(err) {
                 console.log('Server error encountered while deleting review.');
             });
@@ -86,7 +99,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             Catalog.addReview(vm.reviewcredentials)
                 .then(function() {
                     console.log('Review added');
-                    loadItem();
+                    reloadItem();
                 }, function(err) {
                     console.log('Review upload failed.');
                 });
@@ -106,13 +119,15 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
                         vm.loggedIn = true;
 
+
                     } else {
                         vm.loggedIn = false;
                     }
                     if (res.data['0'].active) {
                         vm.useractive = true;
                     }
-                    vm.authenticated = true;
+                    // vm.authenticated = true;
+
                 }, function(err) {
                     vm.loggedIn = false;
                     vm.authenticated = true;
@@ -129,6 +144,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         if (res.data.active) {
                             vm.useractive = true;
                         }
+
                     }, function(e) {
                         console.log(e);
 
@@ -145,9 +161,28 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 vm.itemFound = true;
                 vm.loaded = true;
                 vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
+                viewUp();
             } else {
                 vm.itemFound = false;
             }
+        }, function(err) {
+            console.log('Server error encountered.');
+        })
+
+    }
+
+    function reloadItem() {
+        Catalog.getItem($routeParams.id).then(function(res) {
+            vm.itemData = angular.copy(res.data[0]);
+            if (vm.itemData) {
+                vm.itemFound = true;
+                vm.loaded = true;
+                vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
+            } else {
+                vm.itemFound = false;
+            }
+        }, function(err) {
+            console.log('Server error encountered.');
         })
 
     }

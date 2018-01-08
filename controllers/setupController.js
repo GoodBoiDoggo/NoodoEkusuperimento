@@ -49,7 +49,8 @@ module.exports = function(app) {
                 //     username: 'Testu Akawntu',
                 //     reviewstring: 'After using this shoe I won against Usain bolt! I give 5/5!'
                 // }],
-                proddesc: 'Shoes with cotton surface with the Addidas mark. The shoes laces are ceramic.'
+                proddesc: 'Shoes with cotton surface with the Addidas mark. The shoes laces are ceramic.',
+                viewcount: 0
             },
             {
                 prodcode: 'I00002',
@@ -67,7 +68,8 @@ module.exports = function(app) {
                 rateavg: 0,
                 salerate: 0,
                 reviews: [],
-                proddesc: 'Allows walking at 3mps with ease.'
+                proddesc: 'Allows walking at 3mps with ease.',
+                viewcount: 0
             }, {
                 prodcode: 'I00003',
                 prodname: 'Shoes of Travel',
@@ -84,7 +86,8 @@ module.exports = function(app) {
                 rateavg: 0,
                 salerate: 0.1,
                 reviews: [],
-                proddesc: 'Teleport to any friendly buildings(imagination of kids).'
+                proddesc: 'Teleport to any friendly buildings(imagination of kids).',
+                viewcount: 0
             }, {
                 prodcode: 'I00004',
                 prodname: 'Addidas Magic Blue',
@@ -106,7 +109,8 @@ module.exports = function(app) {
                 //     username: 'Testu Akawntu',
                 //     reviewstring: 'It is too blue that it looks like magic.'
                 // }],
-                proddesc: 'Blue shoes made from naturally blue materials to maximize aesthetics and comfort as well.'
+                proddesc: 'Blue shoes made from naturally blue materials to maximize aesthetics and comfort as well.',
+                viewcount: 0
             }, {
                 prodcode: 'I00005',
                 prodname: 'Addidas Spikezxc',
@@ -139,7 +143,8 @@ module.exports = function(app) {
                 //         reviewstring: 'I rated this 5 becoz i love porcupines <3'
                 //     }
                 // ],
-                proddesc: 'A leather shoe crafted to perfection using porcupine spikes and leather. Extremely waterproof.'
+                proddesc: 'A leather shoe crafted to perfection using porcupine spikes and leather. Extremely waterproof.',
+                viewcount: 0
             }
         ];
         //

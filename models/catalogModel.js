@@ -28,7 +28,8 @@ var catalogSchema = new Schema({
         reviewstring: { type: String }
 
     }],
-    proddesc: String
+    proddesc: String,
+    viewcount: Number
 
 }, { collection: 'catalogdata' });
 

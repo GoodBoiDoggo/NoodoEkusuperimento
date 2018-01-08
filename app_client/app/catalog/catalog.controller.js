@@ -14,12 +14,14 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     vm.loaded = false;
     vm.itemFound = true;
     vm.fbParam = '';
+    vm.sortOrder = false;
     vm.fbid = $location.search().fbid;
     //Functions
     vm.pageInit = pageInit;
     vm.loaditems = loadItems;
     vm.showAdvSearch = showAdvSearch;
     vm.createFilter = createFilter;
+    vm.sortMode = sortMode;
 
     //	vm.filter = filter;
     pageInit();
@@ -33,6 +35,12 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
         createFilter();
         $anchorScroll();
     }
+
+    function sortMode(item) {
+        return item.viewcount;
+    }
+
+
 
     function createFilter() {
 

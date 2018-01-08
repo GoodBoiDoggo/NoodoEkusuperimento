@@ -21,7 +21,7 @@
             </div>
             <div class="itemsContainer">
                 <div class="itemCenter">
-                    <div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter)">
+                    <div class="item" ng-repeat="item in vm.filteredCatalogItems = (vm.catalogItems | filter:vm.customFilter) | orderBy: vm.sortMode : vm.sortOrder">
                         <a class="item img-thumbnail" ng-href="/catalog/{{item.prodcode}}{{vm.fbParam}}">
                             <!-- ng-click="vm.viewItem(item)" -->
                             <img class="img-responsive" src="pic/{{item.imgname}}"><br>
