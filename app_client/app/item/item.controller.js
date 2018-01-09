@@ -22,12 +22,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.modreview = {};
     vm.reviewcredentials = {};
     vm.reviewtoadd = '';
+    vm.starstatus = ['', '', '', '', ''];
+    vm.ratevalue = null;
     //Functions
     vm.pageInit = pageInit;
+    vm.setRate = setRate;
     vm.loaditem = loadItem;
     vm.reloadItem - reloadItem;
     vm.clickEdit = clickEdit;
     vm.clickReview = clickReview;
+    vm.clickRate = clickRate;
     vm.deleteReview = deleteReview;
     vm.editReview = editReview;
     vm.countletters2 = countletters2;
@@ -37,8 +41,28 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.sizeClass = sizeClass;
     vm.sizeClick = sizeClick;
     vm.viewUp = viewUp;
-
+    vm.submitRating = submitRating;
     pageInit();
+
+    function submitRating() {
+
+    }
+
+    function clickRate() {
+
+    }
+
+    function setRate(data) {
+        var i;
+        console.log(vm.ratevalue);
+        vm.ratevalue = data;
+        vm.starstatus = ['', '', '', '', ''];
+
+        for (i = 0; i < data; i++) {
+            vm.starstatus[i] = 'selectedstar';
+        }
+        console.log(vm.ratevalue);
+    }
 
     function viewUp() {
         vm.itemData.viewcount++;

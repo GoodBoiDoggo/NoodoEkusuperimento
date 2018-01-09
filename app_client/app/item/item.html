@@ -47,7 +47,6 @@
                     </div>
                     <button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" ng-click="vm.addToCart(vm.itemData,vm.clickedSize)">Add to Cart</button>
                     <p ng-if="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</p>
-
                     <p ng-if="!vm.loggedIn && vm.itemData.isavailable" class="text-danger">You are not logged in.</p>
                     <p ng-if="vm.loggedIn && vm.itemData.isavailable && !vm.useractive" class="text-danger">Activate your account</p>
                     <br>
@@ -57,13 +56,14 @@
                             <span class="tagSpan">{{tag}}</span>
                         </div>
                     </div>
-
-
                 </div>
                 <br>
                 <br>
                 <a id="writereview" data-toggle="modal" data-target="#addreview" ng-click="vm.clickReview()" ng-if="vm.loggedIn && vm.useractive">
                     <span class="glyphicon glyphicon-plus"></span> Write a review
+                </a>
+                <a id="rateitem" data-toggle="modal" data-target="#addrate" ng-click="vm.clickRate()" ng-if="vm.loggedIn && vm.useractive">
+                    <span class="glyphicon glyphicon-star"></span> Rate item
                 </a>
                 <p class="text-info" ng-if="!vm.useractive && vm.loggedIn">Activate your account to submit a review.</p>
                 <p class="text-info" ng-if="!vm.loggedIn">Log in to submit a review.</p>
@@ -137,7 +137,32 @@
 
                 </div>
             </div>
+            <div id="addrate" class="modal fade" role="dialog">
+                <div class="modal-dialog">
 
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Rate item</h4>
+                        </div>
+                        <div class="modal-body centerizer">
+                            <p>Click the leftmost star for the lowest score. Rightmost for the highest.</p>
+                            <div id="starcontainer">
+                                <span ng-click="vm.setRate(1)" ng-class="vm.starstatus[0]" class="glyphicon glyphicon-star star finger"></span>
+                                <span ng-click="vm.setRate(2)" ng-class="vm.starstatus[1]" class="glyphicon glyphicon-star star finger"></span>
+                                <span ng-click="vm.setRate(3)" ng-class="vm.starstatus[2]" class="glyphicon glyphicon-star star finger"></span>
+                                <span ng-click="vm.setRate(4)" ng-class="vm.starstatus[3]" class="glyphicon glyphicon-star star finger"></span>
+                                <span ng-click="vm.setRate(5)" ng-class="vm.starstatus[4]" class="glyphicon glyphicon-star star finger"></span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.submitRating()" ng-disabled="!vm.ratevalue">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             <div id="loadingDiv" ng-if="!vm.loaded && vm.itemFound">
                 Loading...
             </div>

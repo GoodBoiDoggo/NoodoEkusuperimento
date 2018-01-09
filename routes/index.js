@@ -36,6 +36,7 @@ module.exports = function(app) {
                 console.log(result);
                 result.set(req.body);
                 result.save((err) => {
+                    if (err) throw err;
                     res.status(200);
                     res.send('Item ' + req.params.prodcode + ' updated.');
                 });

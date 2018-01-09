@@ -73,7 +73,6 @@ userSchema.methods.setRateDetails = function() {
     this.ratedetails.rating = null;
 }
 
-
 userSchema.methods.setActivationCode = function(data) {
     var salter = crypto.randomBytes(16).toString('hex');
     this.activation = crypto.pbkdf2Sync(data, salter, 1000, 64, 'sha512').toString('hex');

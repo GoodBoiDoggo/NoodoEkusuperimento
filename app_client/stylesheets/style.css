@@ -72,6 +72,10 @@ div {
     margin-top: 20%;
 }
 
+#addrate {
+    margin-top: 20%;
+}
+
 #filtertoggle {}
 
 #settings {
@@ -82,6 +86,14 @@ div {
     display: block;
     width: 100%;
     min-height: 20px;
+}
+
+.selectedstar {
+    color: #5bb79c;
+}
+
+.star:hover {
+    color: #5bb79c !important;
 }
 
 
