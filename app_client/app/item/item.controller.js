@@ -24,6 +24,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.reviewtoadd = '';
     vm.starstatus = ['', '', '', '', ''];
     vm.ratevalue = null;
+    vm.newRating = {};
     //Functions
     vm.pageInit = pageInit;
     vm.setRate = setRate;
@@ -31,7 +32,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.reloadItem - reloadItem;
     vm.clickEdit = clickEdit;
     vm.clickReview = clickReview;
-    vm.clickRate = clickRate;
     vm.deleteReview = deleteReview;
     vm.editReview = editReview;
     vm.countletters2 = countletters2;
@@ -42,15 +42,23 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.sizeClick = sizeClick;
     vm.viewUp = viewUp;
     vm.submitRating = submitRating;
+
     pageInit();
 
     function submitRating() {
-
+        vm.newRating.rating = angular.copy(vm.ratevalue);
+        vm.newRating._id = angular.copy(vm.userid);
+        Catalog.updateRating(vm.itemData.prodcode, vm.newRating)
+            .then(function(res) {
+                reloadItem();
+                loadUser();
+                console.log('Rating updated');
+            }, function(err) {
+                console.log('Rating updated failed: Server error encountered.');
+            });
     }
 
-    function clickRate() {
 
-    }
 
     function setRate(data) {
         var i;
@@ -131,9 +139,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     }
 
-    function pageInit() {
-        loadItem();
-        $anchorScroll();
+    function loadUser() {
         if (vm.fbid) {
             FB.fbLoggedIn(vm.fbid)
                 .then(function(res) {
@@ -141,7 +147,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     if (res.data['0'].loginsession) {
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
+                        vm.ratedetails = res.data['0'].ratedetails;
                         vm.loggedIn = true;
+
 
 
                     } else {
@@ -150,11 +158,11 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     if (res.data['0'].active) {
                         vm.useractive = true;
                     }
-                    // vm.authenticated = true;
+
 
                 }, function(err) {
                     vm.loggedIn = false;
-                    vm.authenticated = true;
+
                 });
 
 
@@ -164,6 +172,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     .then(function(res) {
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
+                        vm.ratedetails = res.data.ratedetails;
                         vm.loggedIn = true;
                         if (res.data.active) {
                             vm.useractive = true;
@@ -176,6 +185,12 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             }
 
         }
+    }
+
+    function pageInit() {
+        loadItem();
+        $anchorScroll();
+        loadUser();
     }
 
     function loadItem() {

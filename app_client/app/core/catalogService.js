@@ -30,8 +30,11 @@ function catalogService($http) {
         updateItem: function(item) {
             console.log('Updating item details...');
             return $http.put('/item/' + item.prodcode, item);
+        },
+        updateRating: function(prodcode, rating) {
+            console.log('Submitting rating...');
+            return $http.post('/item/rate/' + prodcode, rating);
         }
-
     }
 
 }

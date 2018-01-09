@@ -62,11 +62,11 @@
                 <a id="writereview" data-toggle="modal" data-target="#addreview" ng-click="vm.clickReview()" ng-if="vm.loggedIn && vm.useractive">
                     <span class="glyphicon glyphicon-plus"></span> Write a review
                 </a>
-                <a id="rateitem" data-toggle="modal" data-target="#addrate" ng-click="vm.clickRate()" ng-if="vm.loggedIn && vm.useractive">
+                <a id="rateitem" data-toggle="modal" data-target="#addrate" ng-if="vm.loggedIn && vm.useractive">
                     <span class="glyphicon glyphicon-star"></span> Rate item
                 </a>
-                <p class="text-info" ng-if="!vm.useractive && vm.loggedIn">Activate your account to submit a review.</p>
-                <p class="text-info" ng-if="!vm.loggedIn">Log in to submit a review.</p>
+                <p class="text-info" ng-if="!vm.useractive && vm.loggedIn">Activate your account to submit a review, or rate an item.</p>
+                <p class="text-info" ng-if="!vm.loggedIn">Log in to submit a review or rate an item.</p>
                 <div id="noReview" ng-hide="vm.itemData.reviews.length">
                     This item has no user reviews yet.
                 </div>
@@ -152,7 +152,7 @@
                                 <span ng-click="vm.setRate(2)" ng-class="vm.starstatus[1]" class="glyphicon glyphicon-star star finger"></span>
                                 <span ng-click="vm.setRate(3)" ng-class="vm.starstatus[2]" class="glyphicon glyphicon-star star finger"></span>
                                 <span ng-click="vm.setRate(4)" ng-class="vm.starstatus[3]" class="glyphicon glyphicon-star star finger"></span>
-                                <span ng-click="vm.setRate(5)" ng-class="vm.starstatus[4]" class="glyphicon glyphicon-star star finger"></span>
+                                <span ng-click="vm.setRate(5)" ng-class="vm.starstatus[4]" class="glyphicon glyphicon-star star finger"></span> ({{vm.ratevalue ? vm.ratevalue : "0"}})
                             </div>
                         </div>
                         <div class="modal-footer">
