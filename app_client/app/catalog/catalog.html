@@ -32,8 +32,8 @@
                             <img class="img-responsive" src="pic/{{item.imgname}}"><br>
                             <p>
                                 <b>{{item.prodname}}</b><br>
-                                <i>{{item.prodtype}}</i><br> Php <span ng-if="item.salerate > 0"><del>{{item.prodprice}}</del> {{item.prodprice - (item.prodprice * item.salerate)}}</span>
-                                <span ng-if="item.salerate == 0">{{item.prodprice}}</span>
+                                <i>{{item.prodtype}}</i><br> Php <span ng-if="item.salerate > 0"><del>{{item.prodprice | number: 2}}</del> {{item.prodprice - (item.prodprice * item.salerate) | number:2}}</span>
+                                <span ng-if="item.salerate == 0">{{item.prodprice | number: 2}}</span>
                                 <br>
                                 <span class="available{{item.isavailable}}">
 								{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
@@ -69,8 +69,6 @@
                 <div class="modal-body">
                     <div id="sortDiv">
                         <a id="filtertoggle" ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
-
-
                     </div>
                 </div>
                 <div class="modal-footer">

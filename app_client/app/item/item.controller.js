@@ -148,6 +148,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
                         vm.ratedetails = res.data['0'].ratedetails;
+                        if (vm.ratedetails.hasRated) {
+                            setRate(vm.ratedetails.rating);
+                        }
                         vm.loggedIn = true;
 
 

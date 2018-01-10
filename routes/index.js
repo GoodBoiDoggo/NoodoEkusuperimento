@@ -50,8 +50,4 @@ module.exports = function(app) {
         });
     });
 
-
-
-
-    apiController(app);
 };

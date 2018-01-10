@@ -32,12 +32,12 @@
                         </div>
                         <br>
                         <span class="price">PHP </span>
-                        <span class="price" ng-if="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate)}}</span>
-                        <span class="price" ng-if="vm.itemData.salerate == 0">{{vm.itemData.prodprice}}</span>
+                        <span class="price" ng-if="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice | number: 2}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate) | number: 2}}</span>
+                        <span class="price" ng-if="vm.itemData.salerate == 0">{{vm.itemData.prodprice | number: 2}}</span>
                         <br>
                     </p>
                     <h4>
-                        <b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
+                        <b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg | number: 2}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
                     </h4>
                     <h4>Select a size: <small>({{vm.clickedSize}} is selected)</small></h4>
                     <div id="sizeContainer" class="container-fluid">
@@ -146,7 +146,9 @@
                             <h4 class="modal-title">Rate item</h4>
                         </div>
                         <div class="modal-body centerizer">
-                            <p>Click the leftmost star for the lowest score. Rightmost for the highest.</p>
+
+                            <p ng-if="!vm.ratedetails.hasRated">Click the leftmost star for the lowest score. Rightmost for the highest.</p>
+                            <p ng-if="vm.ratedetails.hasRated">You rated this item {{vm.ratedetails.rating}} stars. You can change your rating by submitting a new one.</p>
                             <div id="starcontainer">
                                 <span ng-click="vm.setRate(1)" ng-class="vm.starstatus[0]" class="glyphicon glyphicon-star star finger"></span>
                                 <span ng-click="vm.setRate(2)" ng-class="vm.starstatus[1]" class="glyphicon glyphicon-star star finger"></span>
