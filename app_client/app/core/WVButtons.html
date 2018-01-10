@@ -3,7 +3,7 @@
     <div ng-show="vmWv.loaded" style="display:inline-block">
         <a ng-click="vmWv.click()" ng-href="/login{{vmWv.fbParam}}"><button type="button" ng-show="!vmWv.loggedIn && vmWv.exists" class="btn btn-primary affixButton">Log in</button></a>
         <a ng-click="vmWv.click()" ng-href="/register{{vmWv.fbParam}}"><button type="button" ng-show="!vmWv.exists" class="btn btn-primary affixButton">Register</button></a>
-        <a ng-click="vmWv.click()"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Cart</button></a>
+        <a ng-click="vmWv.click()" ng-href="/cart{{vmWv.fbParam}}"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Cart</button></a>
         <a ng-click="vmWv.click()" ng-href="/profile{{vmWv.fbParam}}"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Profile</button></a>
     </div>
 </div>

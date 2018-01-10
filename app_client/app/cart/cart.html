@@ -1,0 +1,15 @@
+<div class="container-fluid view-body">
+    <div class="row centerizer container-fluid">
+        <div id="cartPageDiv">
+            <h1>YOUR CART</h1>
+            <div ng-repeat="items in vm.cartData">
+                {{items.id}}<br> {{items.customerId}}
+                <br>
+                <div ng-repeat="item in items">
+                    {{item.prodCode}}<br> {{item.itemQty}}
+                </div>
+                {{items.status}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -52,10 +52,10 @@ var userSchema = new mongoose.Schema({
         index: true,
         sparse: true
     },
-    ratedetails: {
-        hasRated: Boolean,
+    ratedetails: [{
+        itemrated: String,
         rating: Number
-    },
+    }],
     hash: String,
     salt: String,
     active: Boolean,
@@ -69,8 +69,7 @@ userSchema.statics.findByActivation = function(activation, cb) {
 };
 
 userSchema.methods.setRateDetails = function() {
-    this.ratedetails.hasRated = false;
-    this.ratedetails.rating = null;
+    this.ratedetails = [];
 }
 
 userSchema.methods.setActivationCode = function(data) {

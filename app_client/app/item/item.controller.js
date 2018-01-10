@@ -45,6 +45,13 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     pageInit();
 
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+        for (var i = 0, len = myArray.length; i < len; i++) {
+            if (myArray[i][property] === searchTerm) return i;
+        }
+        return -1;
+    }
+
     function submitRating() {
         vm.newRating.rating = angular.copy(vm.ratevalue);
         vm.newRating._id = angular.copy(vm.userid);
@@ -148,8 +155,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
                         vm.ratedetails = res.data['0'].ratedetails;
-                        if (vm.ratedetails.hasRated) {
-                            setRate(vm.ratedetails.rating);
+                        if (vm.ratedetails.length > 0) {
+                            vm.itemPosition = arrayObjectIndexOf(vm.ratedetails, $routeParams.id, 'itemrated');
+                            if (vm.itemPosition > -1) {
+                                setRate(vm.ratedetails[vm.itemPosition].rating);
+                                vm.hasRated = true;
+                            } else {
+                                vm.hasRated = false;
+                            }
+                        } else {
+                            vm.hasRated = false;
                         }
                         vm.loggedIn = true;
 
@@ -176,6 +191,18 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
                         vm.ratedetails = res.data.ratedetails;
+                        if (vm.ratedetails.length > 0) {
+                            vm.itemPosition = arrayObjectIndexOf(vm.ratedetails, $routeParams.id, 'itemrated');
+                            if (vm.itemPosition > -1) {
+                                setRate(vm.ratedetails[vm.itemPosition].rating);
+                                vm.hasRated = true;
+                            } else {
+                                vm.hasRated = false;
+                            }
+                        } else {
+                            vm.hasRated = false;
+                        }
+
                         vm.loggedIn = true;
                         if (res.data.active) {
                             vm.useractive = true;

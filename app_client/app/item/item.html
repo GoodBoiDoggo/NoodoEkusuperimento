@@ -147,8 +147,8 @@
                         </div>
                         <div class="modal-body centerizer">
 
-                            <p ng-if="!vm.ratedetails.hasRated">Click the leftmost star for the lowest score. Rightmost for the highest.</p>
-                            <p ng-if="vm.ratedetails.hasRated">You rated this item {{vm.ratedetails.rating}} stars. You can change your rating by submitting a new one.</p>
+                            <p ng-if="!vm.hasRated">Click the leftmost star for the lowest score. Rightmost for the highest.</p>
+                            <p ng-if="vm.hasRated">You rated this item {{vm.ratedetails[vm.itemPosition].rating}} stars. You can change your rating by submitting a new one.</p>
                             <div id="starcontainer">
                                 <span ng-click="vm.setRate(1)" ng-class="vm.starstatus[0]" class="glyphicon glyphicon-star star finger"></span>
                                 <span ng-click="vm.setRate(2)" ng-class="vm.starstatus[1]" class="glyphicon glyphicon-star star finger"></span>

@@ -33,33 +33,68 @@ module.exports = function(app) {
     });
     app.post('/item/rate/:prodcode', (req, res) => {
         console.log('Updating rating');
+
+        function arrayObjectIndexOf(myArray, searchTerm, property) {
+            for (var i = 0, len = myArray.length; i < len; i++) {
+                if (myArray[i][property] === searchTerm) return i;
+            }
+            return -1;
+        }
+
+
         User.findOne({ _id: req.body._id }, (err, user) => {
             if (err) throw err;
             if (user != undefined) {
                 Catalog.findOne({ prodcode: req.params.prodcode }, (err, item) => {
                     if (err) throw err;
                     if (item != undefined) {
-                        if (user.ratedetails.hasRated) {
-                            item.rateavg = ((item.rateavg * item.ratercount) - user.ratedetails.rating + req.body.rating) / item.ratercount;
-                            user.ratedetails.rating = req.body.rating;
-                            user.hasRated = true;
+                        if (user.ratedetails.length > 0) {
+                            var itemPosition = arrayObjectIndexOf(user.ratedetails, req.params.prodcode, 'itemrated');
+                            if (itemPosition > -1) {
+                                item.rateavg = ((item.rateavg * item.ratercount) - user.ratedetails[itemPosition].rating + req.body.rating) / item.ratercount;
+                                user.ratedetails[itemPosition].rating = req.body.rating;
 
-                            item.save((err) => {
-                                if (err) throw err;
 
-                                user.save(err => {
+                                item.save((err) => {
                                     if (err) throw err;
-                                    res.status(200);
-                                    res.send('Rating updated!');
+
+                                    user.save(err => {
+                                        if (err) throw err;
+                                        res.status(200);
+                                        res.send('Rating updated!');
+                                    });
+
+                                });
+                            } else {
+                                //PUSH NEW RATING
+                                item.rateavg = ((item.rateavg * item.ratercount) + req.body.rating) / (item.ratercount + 1);
+                                item.ratercount++;
+                                user.ratedetails.push({
+                                    rating: req.body.rating,
+                                    itemrated: req.params.prodcode
                                 });
 
-                            });
-                        } else {
+                                item.save((err) => {
+                                    if (err) throw err;
 
+                                    user.save(err => {
+                                        if (err) throw err;
+                                        res.status(200);
+                                        res.send('Rating updated!');
+                                    });
+
+                                });
+                            }
+
+                        } else {
+                            //PUSH NEW RATING
                             item.rateavg = ((item.rateavg * item.ratercount) + req.body.rating) / (item.ratercount + 1);
                             item.ratercount++;
-                            user.ratedetails.rating = req.body.rating;
-                            user.ratedetails.hasRated = true;
+                            user.ratedetails.push({
+                                rating: req.body.rating,
+                                itemrated: req.params.prodcode
+                            });
+
                             item.save((err) => {
                                 if (err) throw err;
 
@@ -71,6 +106,7 @@ module.exports = function(app) {
 
                             });
                         }
+
                     } else {
                         res.status(404);
                         console.log('Item not found!');
