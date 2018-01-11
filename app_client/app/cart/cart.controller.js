@@ -9,38 +9,11 @@ function cartController($location, cart) {
     vm.loaded = false;
     vm.fbid = $location.search().fbid;
     vm.userData = {};
-    vm.cartData = {};
+
+
     pageInit();
     loadCart();
-    // function loadUser() {
-    //     if (vm.fbid) {
-    //         FB.fbLoggedIn(vm.fbid)
-    //             .then(function(res) {
-    //                 if (res.data['0'].loginsession) {
-    //                     vm.userData = res.data['0'];
-    //                     vm.loggedIn = true;
-    //                 } else {
-    //                     vm.loggedIn = false;
-    //                 }
-    //             }, function(err) {
-    //                 vm.loggedIn = false;
-    //             });
-    //     } else {
-    //         if (authentication.isLoggedIn()) {
-    //             authentication.currentUser()
-    //                 .then(function(res) {
-    //                     vm.userData = res.data;
-    //                     vm.loggedIn = true;
-    //                     if (res.data.active) {
-    //                         vm.useractive = true;
-    //                     }
-    //                 }, function(e) {
-    //                     console.log(e);
-    //                 });
-    //         }
 
-    //     }
-    // }
 
     function loadCart() {
         cart.get()
@@ -53,6 +26,32 @@ function cartController($location, cart) {
     }
 
     function pageInit() {
-
+        vm.cartData = [{
+                "id": "TEST",
+                "customerId": "C0002",
+                "cartItems": [{
+                    "prodCode": "I0000207-5",
+                    "itemQty": 1
+                }],
+                "status": "OP"
+            },
+            {
+                "id": "5a5357b7fee653169409b6a3",
+                "customerId": "C0003",
+                "cartItems": [{
+                    "prodCode": "I0000407-5",
+                    "itemQty": 1
+                }],
+                "status": "OP"
+            },
+            {
+                "id": "5a53501afee653169409b68e",
+                "customerId": "C0001",
+                "cartItems": [{ "prodCode": "I0000506-0", "itemQty": 1 },
+                    { "prodCode": "I0000206-5", "itemQty": 2 }
+                ],
+                "status": "OP"
+            }
+        ];
     }
 }

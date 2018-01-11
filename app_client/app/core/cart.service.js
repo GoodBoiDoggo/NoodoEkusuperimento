@@ -11,6 +11,6 @@ function cartService($http) {
     }
 
     function getCart() {
-        return $http.get('http://184.172.241.167:31271/cart');
+        return $http.get('http://184.172.241.167:32360/cart');
     }
 }

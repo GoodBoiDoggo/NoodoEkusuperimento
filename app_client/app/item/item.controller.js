@@ -9,7 +9,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.boi = "BOIII";
     vm.hideReviews = true;
     vm.showHide = 'Show'
-    vm.clickedSize;
+    vm.clickedSize = '';
+    vm.sizeCode = '';
     vm.loaded = false;
     vm.itemFound = true;
     vm.fbid = $location.search().fbid;
@@ -42,8 +43,14 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.sizeClick = sizeClick;
     vm.viewUp = viewUp;
     vm.submitRating = submitRating;
-
+    vm.addToCart = addToCart;
     pageInit();
+
+    function addToCart() {
+
+        vm.itemCode = vm.itemData.prodcode + vm.sizeCode;
+        console.log(vm.itemCode);
+    }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {
         for (var i = 0, len = myArray.length; i < len; i++) {
@@ -96,7 +103,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function clickReview() {
-        vm.reviewtoadd = "";
+        vm.reviewtoadd = '';
         countletters();
     }
 
@@ -221,6 +228,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         loadItem();
         $anchorScroll();
         loadUser();
+
     }
 
     function loadItem() {
@@ -231,6 +239,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 vm.loaded = true;
                 vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
                 viewUp();
+                sizeClick(vm.clickedSize);
             } else {
                 vm.itemFound = false;
             }
@@ -277,6 +286,20 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function sizeClick(data) {
         vm.clickedSize = data;
+        if (vm.clickedSize < 10) {
+            vm.sizeCode = '0' + vm.clickedSize;
+        } else {
+            vm.sizeCode = '' + vm.clickedSize;
+        }
+
+        if (vm.sizeCode.indexOf('.') > -1) {
+            vm.sizeCode = vm.sizeCode.replace(/\./, '-');
+        } else {
+            vm.sizeCode = vm.sizeCode.concat('-0');
+        }
+
+
+
     }
 
 

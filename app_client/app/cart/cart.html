@@ -3,12 +3,12 @@
         <div id="cartPageDiv">
             <h1>YOUR CART</h1>
             <div ng-repeat="items in vm.cartData">
-                {{items.id}}<br> {{items.customerId}}
+                CART ENTRY ID: {{items.id}}<br> CUST ID: {{items.customerId}}
                 <br>
-                <div ng-repeat="item in items">
-                    {{item.prodCode}}<br> {{item.itemQty}}
+                <div ng-repeat="item in items.cartItems">
+                    PRODUCT ID: {{item.prodCode}}<br> QUANTITY:{{item.itemQty}}
                 </div>
-                {{items.status}}
+                ITEM STATUS: {{items.status}}
             </div>
         </div>
     </div>
