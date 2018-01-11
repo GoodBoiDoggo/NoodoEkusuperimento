@@ -61,6 +61,7 @@ var registerfb = function(req, res) {
         console.log('================================');
         if (results.length == 0) {
             console.log('No duplicates.');
+            user._id = new mongoose.Types.ObjectId();
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
             user.email = req.body.email;
@@ -75,7 +76,10 @@ var registerfb = function(req, res) {
             user.save(function(err) {
                 mailer.sendVerification(user.email, user.activation);
                 res.status(200);
-                res.json({ 'success': 'Register complete' });
+                res.json({
+                    'success': 'Register complete',
+                    'userid': user._id
+                });
                 console.log("REGISTER COMPLETE.")
             });
         } else {

@@ -1,14 +1,14 @@
 angular.module('app.register')
     .controller('registerController', register);
 
-register.$inject = ['$anchorScroll', '$location', 'authentication', '$scope', 'FB', '$animate'];
+register.$inject = ['$anchorScroll', '$location', 'authentication', '$scope', 'FB', '$animate', 'cart'];
 
-function register($anchorScroll, $location, authentication, $scope, FB, $animate) {
+function register($anchorScroll, $location, authentication, $scope, FB, $animate, cart) {
     var vm = this;
 
     vm.errorMsg = '';
     vm.credentials = {};
-
+    vm.newCart = {};
     vm.progressValue = 0;
     vm.fbid = $location.search().fbid;
     vm.onSubmit = onSubmit;
@@ -147,7 +147,17 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                         console.log("fb register request ended");
                         console.log(res.data.success);
                         $scope.$emit('FBAUTH', 'Register completion');
-                        $location.path('/profile');
+                        vm.newCart.customerId = res.data.userid;
+                        vm.newCart.cartItems = [];
+                        cart.create(vm.newCart)
+                            .then(function(res) {
+                                console.log('Cart created.');
+                                $location.path('/profile');
+                            }, function(err) {
+                                console.log('Cart creation failed.');
+                                $location.path('/profile');
+                            });
+
                     }, function(err) {
                         vm.errorMsg = err.data.error;
 
@@ -165,16 +175,25 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                     .then(function(res) {
                         console.log("local registration");
                         console.log(res);
-                        if (res) {
-                            vm.errorMsg = res;
+                        if (res.status = 'success') {
+                            vm.newCart.customerId = res.userid;
+                            vm.newCart.cartItems = [];
+                            cart.create(vm.newCart)
+                                .then(function(res) {
+                                    console.log('Cart created.');
+                                    $scope.$emit('AUTHENTICATE', 'login');
+                                    $location.path('/profile');
 
+                                }, function(err) {
+                                    console.log('Cart creation failed.');
+                                    $location.path('/profile');
+                                });
                         } else {
-                            $scope.$emit('AUTHENTICATE', 'login');
-                            $location.path('/profile');
+                            vm.errorMsg = res.msg;
                         }
 
                     }, function(err) {
-                        vm.errorMsg = err;
+                        vm.errorMsg = err.msg;
 
                     });
             }

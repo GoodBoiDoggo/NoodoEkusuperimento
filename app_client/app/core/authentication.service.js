@@ -53,13 +53,15 @@
           return $http.post('/register', user).then(function(res) {
               if (res.data.token === undefined) {
                   console.log('Token undefined');
-                  return res.data.errorMsg;
+                  return res.data.msg;
               } else {
                   saveToken(res.data.token);
                   console.log('Token saved');
+                  return res.data;
+
               }
           }, function(err) {
-              return err.data.errorMsg;
+              return err.data.msg;
           });
       };
 
