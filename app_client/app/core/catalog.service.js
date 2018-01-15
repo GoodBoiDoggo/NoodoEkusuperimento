@@ -34,6 +34,10 @@ function catalogService($http) {
         updateRating: function(prodcode, rating) {
             console.log('Submitting rating...');
             return $http.post('/item/rate/' + prodcode, rating);
+        },
+        getItems: function(items) {
+            console.log('Fetching cart item details...');
+            return $http.get('/items/' + items);
         }
     }
 

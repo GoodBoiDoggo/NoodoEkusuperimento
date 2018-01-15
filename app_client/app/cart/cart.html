@@ -2,14 +2,12 @@
     <div class="row centerizer container-fluid">
         <div id="cartPageDiv">
             <h1>YOUR CART</h1>
-            <div ng-repeat="items in vm.cartData">
-                CART ENTRY ID: {{items.id}}<br> CUST ID: {{items.customerId}}
-                <br>
-                <div ng-repeat="item in items.cartItems">
-                    PRODUCT ID: {{item.prodCode}}<br> QUANTITY:{{item.itemQty}}
-                </div>
-                ITEM STATUS: {{items.status}}
+
+            <div ng-repeat="item in vm.cartData.cartItems">
+                PRODUCT ID: {{item.prodCode}}<br> QUANTITY:{{item.itemQty}}
             </div>
+
         </div>
+
     </div>
 </div>

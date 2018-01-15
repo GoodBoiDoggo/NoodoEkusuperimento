@@ -1,9 +1,9 @@
 angular.module('app.item')
     .controller('itemController', itemController);
 
-itemController.$inject = ['$http', 'Catalog', '$routeParams', '$anchorScroll', 'FB', '$scope', 'authentication', '$location'];
+itemController.$inject = ['$http', 'Catalog', '$routeParams', '$anchorScroll', 'FB', '$scope', 'authentication', '$location', 'cart'];
 
-function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope, authentication, $location) {
+function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope, authentication, $location, cart) {
     var vm = this;
 
     vm.boi = "BOIII";
@@ -245,7 +245,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             }
         }, function(err) {
             console.log('Server error encountered.');
-        })
+        });
 
     }
 

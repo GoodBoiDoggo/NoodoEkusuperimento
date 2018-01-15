@@ -8,15 +8,20 @@ function cartService($http) {
 
     return {
         get: getCart,
-        create: createCart
+        create: createCart,
+        add: addToCart
     }
 
-    function getCart() {
-        return $http.get('http://184.172.241.167:32759/cart');
+    function getCart(customerId) {
+        return $http.get('http://184.172.241.167:32759/cart/' + customerId);
 
     }
 
     function createCart(cart) {
         return $http.post('http://184.172.241.167:32759/cart', cart);
+    }
+
+    function addToCart(item) {
+        return $http.post('', item);
     }
 }

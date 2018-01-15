@@ -26,21 +26,21 @@
        //        }
        function updateUser() {
            if (!$location.search().fbid) {
-               console.log("boi");
+
                vmNav.isLoggedIn = authentication.isLoggedIn();
                if (vmNav.isLoggedIn) {
                    authentication.currentUser()
                        .then(function(res) {
                            vmNav.currentUser = res.data;
                            vmNav.currentUser.status = true;
+
                        }, function(e) {
                            console.log(e);
                            vmNav.currentUser.status = false;
                            //lead to a page saying fetching user data failed
                        });
                }
-               console.log(vmNav.currentUser);
-               console.log(vmNav.isLoggedIn);
+
 
 
            }

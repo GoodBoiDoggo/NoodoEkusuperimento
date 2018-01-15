@@ -18,6 +18,15 @@ module.exports = function(app) {
             console.log("Item sent");
         })
     });
+    app.get('/items/:prodcode', function(req, res) {
+        var prodcodes = req.params.prodcode.split('-');
+        console.log(prodcodes);
+        Catalog.find({ prodcode: { $in: prodcodes } }, function(err, results) {
+            if (err) throw err;
+            res.send(results);
+            console.log("Item sent");
+        })
+    });
     app.put('/item/:prodcode', (req, res) => {
 
         Catalog.findOne({ prodcode: req.params.prodcode }, (err, result) => {
