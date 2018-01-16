@@ -11,27 +11,34 @@ function cartController($location, cart, authentication, Catalog) {
     vm.fbid = $location.search().fbid;
     vm.userData = {};
     vm.cartData = {};
+
     pageInit();
 
     function loadCart() {
-
+        vm.cartData.totalPrice = 1531998;
         vm.cartData.cartItems = [{
                 prodCode: "I0000108-0",
-                itemQty: 5
+                itemQty: 5,
+                subtotal: 20000
             },
             {
                 prodCode: "I0000206-0",
-                itemQty: 2
+                itemQty: 2,
+                subtotal: 11998
             },
             {
                 prodCode: "I0000510-0",
-                itemQty: 3
+                itemQty: 3,
+                subtotal: 1500000
             }
 
         ];
         //parse product codes
         for (i = 0; i < vm.cartData.cartItems.length; i++) {
             vm.itemIds = vm.itemIds.concat(vm.cartData.cartItems[i].prodCode.substring(0, 6));
+            vm.cartData.cartItems[i].displayCode = vm.cartData.cartItems[i].prodCode.substring(0, 6);
+            vm.cartData.cartItems[i].displaySize = parseFloat(vm.cartData.cartItems[i].prodCode.substring(6).replace('-', '.'));
+            vm.cartData.cartItems[i].displayName = 'Loading...';
             if (i != vm.cartData.cartItems.length - 1) {
                 vm.itemIds = vm.itemIds.concat('-');
             }
@@ -75,6 +82,9 @@ function cartController($location, cart, authentication, Catalog) {
             vm.itemData = angular.copy(res.data);
             if (vm.itemData) {
                 console.log(vm.itemData);
+                for (i = 0; i < vm.cartData.cartItems.length; i++) {
+                    vm.cartData.cartItems[i].displayName = vm.itemData[i].prodname;
+                }
             } else {
                 vm.itemFound = false;
             }

@@ -4,7 +4,9 @@
             <h1>YOUR CART</h1>
 
             <div ng-repeat="item in vm.cartData.cartItems">
-                PRODUCT ID: {{item.prodCode}}<br> QUANTITY:{{item.itemQty}}
+                PRODUCT ID: {{item.displayCode}}<br> QUANTITY:{{item.itemQty}}
+
+                <br>Product name:{{item.displayName}} Size: {{item.displaySize}}
             </div>
 
         </div>
