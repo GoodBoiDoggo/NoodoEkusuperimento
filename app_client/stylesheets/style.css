@@ -192,6 +192,10 @@ div {
 
 #registerform {}
 
+#cartPageDiv {
+    width: 100%;
+}
+
 #registerselect {
     text-align: center!important;
 }
@@ -373,6 +377,29 @@ a[class*="item"]:hover {
     color: black;
 }
 
+.cart-item {
+    text-align: left;
+    width: 100%;
+}
+
+.cart-item * {
+    overflow: auto;
+}
+
+.cart-image-container,
+.cart-list-container {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.cart-image-container {
+    width: 100px;
+}
+
+.cart-image {
+    width: 100%;
+}
+
 @media only screen and (max-width: 330px) {
     .shortNavLogo {
         display: block !important;
@@ -383,6 +410,19 @@ a[class*="item"]:hover {
 }
 
 @media only screen and (max-width: 500px) {
+    .cart-image {
+        width: 100%;
+    }
+    .cart-cost {
+        word-break: break-all;
+    }
+    .cart-image-container {
+        width: 35% !important;
+    }
+    .cart-list-container {
+        font-size: 3.5vw;
+        width: 60%;
+    }
     .doggofade {
         visibility: hidden!important;
     }

@@ -2,14 +2,26 @@
     <div class="row centerizer container-fluid">
         <div id="cartPageDiv">
             <h1>YOUR CART</h1>
-
-            <div ng-repeat="item in vm.cartData.cartItems">
-                PRODUCT ID: {{item.displayCode}}<br> QUANTITY:{{item.itemQty}}
-
-                <br>Product name:{{item.displayName}} Size: {{item.displaySize}}
+            <div class="alert alert-info text-center" ng-show="vm.message">
+                {{vm.message}}
             </div>
-
+            <div id="cartInfoDiv" ng-if="vm.cartData.cartItems.length>0">
+                <p class="lead cart-cost">Total cost:<br><strong> Php {{vm.cartData.totalPrice | number:2}}</strong></p>
+                <ul class="list-group">
+                    <div class="cart-item list-group-item" ng-repeat="item in vm.cartData.cartItems">
+                        <div class="cart-image-container">
+                            <img class="cart-image" src="pic/{{item.cartImage}}">
+                        </div>
+                        <ul class="list-unstyled cart-list-container">
+                            <li class="cart-list">ID: {{item.prodCode}}</li>
+                            <li class="cart-list">{{item.displayName}}</li>
+                            <li class="cart-list">Size: {{item.displaySize}}</li>
+                            <li class="cart-list">Qty:{{item.itemQty}}</li>
+                            <li class="cart-list"><strong>Subtotal: Php {{item.subtotal | number: 2}}</strong></li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
         </div>
-
     </div>
 </div>
