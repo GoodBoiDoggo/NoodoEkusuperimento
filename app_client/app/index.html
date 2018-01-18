@@ -21,6 +21,14 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getContext('328158877659945',function success(thread_context) {
+        	window.location.assign("https://kariteun-webview.mybluemix.net/catalog?fbid="+thread_context.psid);
+             $.post('https://https://testbotmessenger.mybluemix.net/sendOnWebviewClose', {"psid": thread_context.psid});
+        }, function error(err) {
+        });
+      };
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
@@ -49,7 +57,7 @@
     </div>
 
     <!-- angular scripts -->
-    <script src='app.module.js'></script>
+    <script src="app.module.js"></script>
     <script src="core/core.module.js"></script>
     <!--<script src='welcome/welcome.module.js'></script>-->
     <script src="item/item.module.js"></script>

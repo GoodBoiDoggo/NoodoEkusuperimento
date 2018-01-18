@@ -80,6 +80,10 @@ app.use(function(err, req, res, next) {
 });
 
 
+app.post('/sendOnWebviewClose', (req, res) => {
+	  let psid = req.body.psid;
+	  sendMessage(psid);
+	})
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
