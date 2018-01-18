@@ -400,6 +400,20 @@ a[class*="item"]:hover {
     width: 100%;
 }
 
+#addtocartImage {
+    width: 100%;
+}
+
+#addtocartQuantity {
+    width: 49%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#addtocartdiv {
+    text-align: center;
+}
+
 @media only screen and (max-width: 330px) {
     .shortNavLogo {
         display: block !important;
