@@ -45,7 +45,7 @@
                             <span ng-class="vm.sizeClass(size)" ng-click="vm.sizeClick(size)" class="sizeSpan">{{size}}</span>
                         </div>
                     </div>
-                    <button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" ng-click="vm.addToCart()" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
+                    <button ng-disabled="!vm.itemData.isavailable || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
                     <p ng-if="!vm.itemData.isavailable" class="text-danger">Item is out of stock.</p>
                     <p ng-if="!vm.loggedIn && vm.itemData.isavailable" class="text-danger">You are not logged in.</p>
                     <p ng-if="vm.loggedIn && vm.itemData.isavailable && !vm.useractive" class="text-danger">Activate your account</p>

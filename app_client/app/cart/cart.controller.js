@@ -12,7 +12,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     vm.fbid = $location.search().fbid;
     vm.userData = {};
     vm.cartData = {};
-    vm.message = 'Fetching cart...';
+
     pageInit();
     vm.addToCart = addToCart;
 
@@ -21,7 +21,8 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     }
 
     function loadCart() {
-        //1531998
+        vm.message = 'Fetching cart...';
+        //DUMMY DATA
         // vm.cartData.totalPrice = 1531998;
         // vm.cartData.cartItems = [{
         //         prodCode: "I0000108-0",
@@ -62,6 +63,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                                     }
                                 }
                                 loadItemDetails();
+                                vm.message = '';
                             } else {
                                 vm.message = 'Your cart is empty';
                             }
@@ -94,6 +96,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                                     }
                                 }
                                 loadItemDetails();
+                                vm.message = '';
                             } else {
                                 vm.message = 'Your cart is empty';
                             }

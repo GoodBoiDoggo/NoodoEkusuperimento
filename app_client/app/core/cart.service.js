@@ -13,16 +13,17 @@ function cartService($http) {
     }
 
     function getCart(customerId) {
-        return $http.get('http://184.172.241.167:31995/cart/search/cuid/' + customerId);
+        return $http.get('http://184.172.241.167:32639/cart/' + customerId);
 
     }
 
     function createCart(cart) {
-        return $http.post('http://184.172.241.167:31995/cart', cart);
+        return $http.post('http://184.172.241.167:32639/cart', cart);
     }
 
     function addToCart(customerId, item) {
-        return $http.post('http://184.172.241.167:31995/cart/' + customerId + '/add', item);
+        console.log(item.itemQty);
+        return $http.post('http://184.172.241.167:32639/cart/' + customerId + '/add', item);
     }
 
 }

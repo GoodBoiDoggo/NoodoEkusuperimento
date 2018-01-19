@@ -44,7 +44,7 @@
     </script>
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <webview-buttons data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton"></webview-buttons>
-    <div class="whitespace"></div>
+    <div ng-class="vm.whitespace()"></div>
     <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
         <div id="content" ng-view></div>

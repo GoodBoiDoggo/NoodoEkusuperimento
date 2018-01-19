@@ -301,6 +301,10 @@ a[class*="item"]:hover {
 }
 
 .whitespace {
+    height: 75px;
+}
+
+.whitespace-smaller {
     height: 50px;
 }
 

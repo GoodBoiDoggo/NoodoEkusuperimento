@@ -26,6 +26,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.starstatus = ['', '', '', '', ''];
     vm.ratevalue = null;
     vm.newRating = {};
+    vm.cartItem = {};
     //Functions
     vm.pageInit = pageInit;
     vm.setRate = setRate;
@@ -49,8 +50,17 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function addToCart() {
 
-        vm.itemCode = vm.itemData.prodcode + vm.sizeCode;
-        console.log(vm.itemCode);
+        vm.cartItem.prodCode = vm.itemData.prodcode + vm.sizeCode;
+        vm.cartItem.itemQty = vm.qtyToAdd;
+        console.log('Added' + vm.cartItem.prodCode + ' ' + vm.cartItem.itemQty + 'pcs.');
+        vm.cartItem.subtotal = vm.qtyToAdd * vm.itemData.prodprice;
+        cart.add(vm.userid, vm.cartItem)
+            .then(function(res) {
+                console.log('Cart added.');
+            }, function(err) {
+                console.log('Server error encountered while adding to cart.');
+            });
+
 
     }
 

@@ -9,7 +9,7 @@ function index($location) {
     vm.fbid = $location.search().fbid;
     vm.loggedIn = false;
     vm.initNav = initNav;
-
+    vm.whitespace = whitespace;
     initNav();
 
     function initNav() {
@@ -20,6 +20,14 @@ function index($location) {
             vm.fbParam = '?fbid=' + vm.fbid;
         } else {
             vm.showNav = true;
+        }
+    }
+
+    function whitespace() {
+        if (vm.fbid) {
+            return 'whitespace-smaller'
+        } else {
+            return 'whitespace'
         }
     }
 
