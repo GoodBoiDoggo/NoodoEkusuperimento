@@ -12,12 +12,25 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     vm.fbid = $location.search().fbid;
     vm.userData = {};
     vm.cartData = {};
-
+    vm.clickedItem = {};
+    vm.selectedAction = '0';
+    vm.clickItem = clickItem;
+    vm.updateCart = updateCart;
+    vm.changeQty = changeQty;
     pageInit();
-    vm.addToCart = addToCart;
 
-    function addToCart() {
+    function changeQty() {
+        vm.selectedAction = '1';
+        vm.newQty = angular.copy(vm.clickedItem.itemQty);
+    }
 
+    function updateCart(action) {
+
+    }
+
+    function clickItem(index) {
+        vm.clickedItem = vm.cartData.cartItems[index];
+        vm.selectedAction = '0';
     }
 
     function loadCart() {
@@ -124,6 +137,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                         if (vm.cartData.cartItems[i].displayName == 'Loading...') {
                             if (vm.cartData.cartItems[i].prodCode.substring(0, 6) == vm.itemData[ii].prodcode) {
                                 vm.cartData.cartItems[i].displayName = vm.itemData[ii].prodname;
+                                vm.cartData.cartItems[i].displayPrice = vm.itemData[ii].prodprice;
                                 vm.cartData.cartItems[i].cartImage = vm.itemData[ii].imgname;
                                 break;
                             }
