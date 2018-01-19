@@ -44,12 +44,14 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.viewUp = viewUp;
     vm.submitRating = submitRating;
     vm.addToCart = addToCart;
+    vm.qtyToAdd = 1;
     pageInit();
 
     function addToCart() {
 
         vm.itemCode = vm.itemData.prodcode + vm.sizeCode;
         console.log(vm.itemCode);
+
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {

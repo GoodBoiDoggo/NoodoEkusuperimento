@@ -1,18 +1,24 @@
 angular.module('app.cart')
     .controller('cartController', cartController);
 
-cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog'];
+cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB'];
 
-function cartController($location, $anchorScroll, cart, authentication, Catalog) {
+function cartController($location, $anchorScroll, cart, authentication, Catalog, FB) {
     var vm = this;
     vm.itemIds = '';
     vm.loggedIn = false;
+    vm.qtyToAdd = 1;
     vm.loaded = false;
     vm.fbid = $location.search().fbid;
     vm.userData = {};
     vm.cartData = {};
-    vm.message = '';
+    vm.message = 'Fetching cart...';
     pageInit();
+    vm.addToCart = addToCart;
+
+    function addToCart() {
+
+    }
 
     function loadCart() {
         //1531998
@@ -38,13 +44,35 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog)
 
 
         if (vm.fbid) {
-            cart.get()
+            FB.getFbProfile(vm.fbid)
                 .then(function(res) {
-                    console.log('Cart loaded.');
-                    vm.cartData = res.data;
+                    vm.userData = res.data[0];
+                    cart.get(vm.userData._id)
+                        .then(function(res) {
+                            console.log('Cart loaded.');
+                            vm.cartData = res.data;
+                            if (vm.cartData.cartItems.length > 0) {
+                                //parse product codes
+                                for (i = 0; i < vm.cartData.cartItems.length; i++) {
+                                    vm.itemIds = vm.itemIds.concat(vm.cartData.cartItems[i].prodCode.substring(0, 6));
+                                    vm.cartData.cartItems[i].displaySize = parseFloat(vm.cartData.cartItems[i].prodCode.substring(6).replace('-', '.'));
+                                    vm.cartData.cartItems[i].displayName = 'Loading...';
+                                    if (i != vm.cartData.cartItems.length - 1) {
+                                        vm.itemIds = vm.itemIds.concat('-');
+                                    }
+                                }
+                                loadItemDetails();
+                            } else {
+                                vm.message = 'Your cart is empty';
+                            }
+                        }, function(err) {
+                            console.log('Cart load failed: Server encountered error');
+                        });
                 }, function(err) {
-                    console.log('Cart load failed: Server encountered error');
+                    console.log('Cart load failed: Server encountered error.');
+
                 });
+
         } else {
             authentication.currentUser()
                 .then(function(res) {
