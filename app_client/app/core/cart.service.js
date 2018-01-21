@@ -9,7 +9,9 @@ function cartService($http) {
     return {
         get: getCart,
         create: createCart,
-        add: addToCart
+        add: addToCart,
+        update: updateQuantity,
+        delete: deleteCartItem
     }
 
     function getCart(customerId) {
@@ -22,8 +24,18 @@ function cartService($http) {
     }
 
     function addToCart(customerId, item) {
-        console.log(item.itemQty);
+
         return $http.post('http://184.172.241.167:32639/cart/' + customerId + '/add', item);
+    }
+
+    function updateQuantity(customerId, item) {
+
+        return $http.post('http://184.172.241.167:32639/cart/' + customerId + '/update', item);
+    }
+
+    function deleteCartItem(customerId, item) {
+
+        return $http.post('http://184.172.241.167:32639/cart/' + customerId + '/delete', item)
     }
 
 }

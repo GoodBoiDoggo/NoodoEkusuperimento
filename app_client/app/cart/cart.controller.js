@@ -25,7 +25,28 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     }
 
     function updateCart(action) {
-
+        if (action === 'QTY') {
+            vm.clickedItem.itemQty = angular.copy(vm.newQty);
+            cart.update(vm.userData._id, vm.clickedItem)
+                .then(function(res) {
+                    loadCart();
+                    vm.message = 'Quantity updated.';
+                    console.log('Item quantity updated.');
+                }, function(err) {
+                    vm.message = 'Item quantity not updated. Server error encountered';
+                    console.log('Item quantity update failed. Server error encountered');
+                });
+        } else if (action === 'DEL') {
+            cart.delete(vm.userData._id, vm.clickedItem)
+                .then(function(res) {
+                    loadCart();
+                    vm.message = 'Quantity deleted.';
+                    console.log('Item deleted from cart.');
+                }, function(err) {
+                    vm.message = 'Item not deleted. Server error encountered';
+                    console.log('Item delete failed. Server error encountered');
+                });
+        }
     }
 
     function clickItem(index) {
@@ -34,7 +55,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     }
 
     function loadCart() {
-        vm.message = 'Fetching cart...';
+
         //DUMMY DATA
         // vm.cartData.totalPrice = 1531998;
         // vm.cartData.cartItems = [{
@@ -154,6 +175,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
 
     function pageInit() {
         $anchorScroll();
+        vm.message = 'Loading cart...';
         loadCart();
     }
 }
