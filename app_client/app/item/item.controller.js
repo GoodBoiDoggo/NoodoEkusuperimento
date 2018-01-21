@@ -52,8 +52,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
         vm.cartItem.prodCode = vm.itemData.prodcode + vm.sizeCode;
         vm.cartItem.itemQty = vm.qtyToAdd;
-        console.log('Added' + vm.cartItem.prodCode + ' ' + vm.cartItem.itemQty + 'pcs.');
+        console.log('Added ' + vm.cartItem.prodCode + ' ' + vm.cartItem.itemQty + 'pcs.');
         vm.cartItem.subtotal = vm.qtyToAdd * vm.itemData.prodprice;
+
         cart.add(vm.userid, vm.cartItem)
             .then(function(res) {
                 console.log('Cart added.');
@@ -169,7 +170,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         if (vm.fbid) {
             FB.fbLoggedIn(vm.fbid)
                 .then(function(res) {
-                    console.log(res);
+
                     if (res.data['0'].loginsession) {
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
@@ -207,6 +208,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             if (authentication.isLoggedIn()) {
                 authentication.currentUser()
                     .then(function(res) {
+                        console.log(res.data);
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
                         vm.ratedetails = res.data.ratedetails;

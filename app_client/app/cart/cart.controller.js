@@ -40,7 +40,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
             cart.delete(vm.userData._id, vm.clickedItem)
                 .then(function(res) {
                     loadCart();
-                    vm.message = 'Quantity deleted.';
+                    vm.message = 'Item deleted.';
                     console.log('Item deleted from cart.');
                 }, function(err) {
                     vm.message = 'Item not deleted. Server error encountered';

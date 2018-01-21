@@ -30,12 +30,12 @@ function cartService($http) {
 
     function updateQuantity(customerId, item) {
 
-        return $http.post('http://184.172.241.167:32639/cart/' + customerId + '/update', item);
+        return $http.put('http://184.172.241.167:32639/cart/' + customerId + '/update', item);
     }
 
     function deleteCartItem(customerId, item) {
 
-        return $http.post('http://184.172.241.167:32639/cart/' + customerId + '/delete', item)
+        return $http.delete('http://184.172.241.167:32639/cart/' + customerId + '/delete/' + item.prodCode);
     }
 
 }
