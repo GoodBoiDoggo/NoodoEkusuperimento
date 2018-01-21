@@ -1,9 +1,9 @@
 angular.module('app.catalog')
     .controller('catalogController', catalogController);
 
-catalogController.$inject = ['$http', '$anchorScroll', '$location', '$filter', 'Catalog', 'FB', '$scope'];
+catalogController.$inject = ['$http', '$anchorScroll', '$location', '$filter', 'Catalog', 'FB', '$scope', 'Inventory'];
 
-function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB, $scope) {
+function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB, $scope, Inventory) {
     var vm = this;
     vm.loggedIn = false;
     vm.hideReviews = true;
@@ -31,6 +31,22 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
 
     //	vm.filter = filter;
     pageInit();
+
+    function loadAvailability() {
+        Inventory.get()
+            .then(function(res) {
+                console.log('Inventory successfully fetched.')
+            }, function(err) {
+                console.log('Server Error: Could not get the inventory.')
+            });
+    }
+
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+        for (var i = 0, len = myArray.length; i < len; i++) {
+            if (myArray[i][property] === searchTerm) return i;
+        }
+        return -1;
+    }
 
     function pageInit() {
         if (vm.fbid) {

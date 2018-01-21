@@ -21,7 +21,7 @@ var fbLoggedIn = function(req, res) {
         }
     }
     if (req.params.fbid != undefined) {
-        User.find({ fbid: req.params.fbid }, findUser);
+        User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findUser);
     } else {
         console.log('no fbid');
     }
@@ -44,7 +44,7 @@ var getProfile = function(req, res) {
             console.log('User not found.')
         }
     }
-    User.find({ fbid: req.params.fbid }, findProfile);
+    User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
 }
 
 var registerfb = function(req, res) {
