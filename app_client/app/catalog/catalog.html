@@ -35,9 +35,9 @@
                                 <i>{{item.prodtype}}</i><br> Php <span ng-if="item.salerate > 0"><del>{{item.prodprice | number: 2}}</del> {{item.prodprice - (item.prodprice * item.salerate) | number:2}}</span>
                                 <span ng-if="item.salerate == 0">{{item.prodprice | number: 2}}</span>
                                 <br>
-                                <span class="available{{item.isavailable}}">
+                                <!-- <span class="available{{item.isavailable}}">
 								{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
-							    </span>
+							    </span> -->
 
                             </p>
                         </a>

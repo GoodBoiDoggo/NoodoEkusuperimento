@@ -33,20 +33,20 @@
 
 
 
-      var currentUser = function() {
-          if (isLoggedIn()) {
-              //   var token = getToken();
-              //   var payload = token.split('.')[1];
-              //   payload = $window.atob(payload);
-              //   payload = JSON.parse(payload);
+      //   var currentUser = function() {
+      //       if (isLoggedIn()) {
+      //           //   var token = getToken();
+      //           //   var payload = token.split('.')[1];
+      //           //   payload = $window.atob(payload);
+      //           //   payload = JSON.parse(payload);
 
-              return $http.get('/api/profile', {
-                  headers: {
-                      Authorization: 'Bearer ' + getToken()
-                  }
-              });
-          }
-      };
+      //           return $http.get('/api/profile', {
+      //               headers: {
+      //                   Authorization: 'Bearer ' + getToken()
+      //               }
+      //           });
+      //       }
+      //   };
 
       register = function(user) {
 
@@ -80,7 +80,7 @@
       };
 
       return {
-          currentUser: currentUser,
+          //   currentUser: currentUser,
           saveToken: saveToken,
           getToken: getToken,
           isLoggedIn: isLoggedIn,

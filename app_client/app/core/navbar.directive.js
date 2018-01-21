@@ -9,9 +9,9 @@
            };
        });
 
-   kariteunNavbar.$inject = ['$anchorScroll', '$location', '$scope', '$timeout', 'authentication'];
+   kariteunNavbar.$inject = ['$anchorScroll', '$location', '$scope', '$timeout', 'authentication', 'profile'];
 
-   function kariteunNavbar($anchorScroll, $location, $scope, $timeout, authentication) {
+   function kariteunNavbar($anchorScroll, $location, $scope, $timeout, authentication, profile) {
 
        var vmNav = this;
        vmNav.currentUser = {};
@@ -29,7 +29,7 @@
 
                vmNav.isLoggedIn = authentication.isLoggedIn();
                if (vmNav.isLoggedIn) {
-                   authentication.currentUser()
+                   profile.getUser()
                        .then(function(res) {
                            vmNav.currentUser = res.data;
                            vmNav.currentUser.status = true;

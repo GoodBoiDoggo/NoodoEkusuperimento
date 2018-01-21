@@ -2,9 +2,9 @@
       .module('app.profile')
       .controller('profileController', profile);
 
-  profile.$inject = ['$location', 'meanData', 'FB', '$anchorScroll', '$scope', '$animate', '$http'];
+  profile.$inject = ['$location', 'profile', 'FB', '$anchorScroll', '$scope', '$animate'];
 
-  function profile($location, meanData, FB, $anchorScroll, $scope, $animate, $http) {
+  function profile($location, profile, FB, $anchorScroll, $scope, $animate) {
       var vm = this;
       vm.fbid = $location.search().fbid;
       vm.user = {};
@@ -30,7 +30,7 @@
       }
 
       function resend() {
-          $http.post('/api/resend', vm.user)
+          profile.sendActivation(vm.user)
               .then(function(res) {
                   vm.mailmessage = res.data;
                   vm.showWarning = false;
@@ -51,7 +51,7 @@
       function formSubmit() {
           console.log('DDA submitted');
           vm.message = 'Setting DDA...'
-          meanData.updateDDA(vm.user)
+          profile.updateDDA(vm.user)
               .then(function(res) {
                   vm.message = res.data;
                   vm.showForm = false;
@@ -94,7 +94,7 @@
               $scope.$emit('AUTHENTICATE', 'profile');
 
               //pc code
-              meanData.getProfile()
+              profile.getUser()
                   .then(function(res) {
                       vm.user = res.data;
                       console.log(res.data);

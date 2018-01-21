@@ -1,9 +1,9 @@
 angular.module('app.cart')
     .controller('cartController', cartController);
 
-cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB'];
+cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile'];
 
-function cartController($location, $anchorScroll, cart, authentication, Catalog, FB) {
+function cartController($location, $anchorScroll, cart, authentication, Catalog, FB, profile) {
     var vm = this;
     vm.itemIds = '';
     vm.loggedIn = false;
@@ -110,7 +110,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                 });
 
         } else {
-            authentication.currentUser()
+            profile.getUser()
                 .then(function(res) {
                     console.log(res.data);
                     vm.userData = res.data;
