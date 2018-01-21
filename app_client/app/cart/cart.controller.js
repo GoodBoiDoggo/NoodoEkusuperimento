@@ -27,6 +27,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     function updateCart(action) {
         if (action === 'QTY') {
             vm.clickedItem.itemQty = angular.copy(vm.newQty);
+            vm.clickedItem.subtotal = vm.clickedItem.itemQty * vm.clickedItem.displayPrice;
             cart.update(vm.userData._id, vm.clickedItem)
                 .then(function(res) {
                     loadCart();
@@ -55,7 +56,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     }
 
     function loadCart() {
-
+        vm.itemIds = '';
         //DUMMY DATA
         // vm.cartData.totalPrice = 1531998;
         // vm.cartData.cartItems = [{

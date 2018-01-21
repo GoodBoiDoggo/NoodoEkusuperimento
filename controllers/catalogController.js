@@ -20,9 +20,9 @@ module.exports = function(app) {
     });
     app.get('/items/:prodcode', function(req, res) {
         var prodcodes = req.params.prodcode.split('-');
-        console.log(prodcodes);
         Catalog.find({ prodcode: { $in: prodcodes } }, function(err, results) {
             if (err) throw err;
+            console.log(results);
             res.send(results);
             console.log("Item sent");
         })
