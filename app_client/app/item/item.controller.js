@@ -1,9 +1,9 @@
 angular.module('app.item')
     .controller('itemController', itemController);
 
-itemController.$inject = ['$http', 'Catalog', '$routeParams', '$anchorScroll', 'FB', '$scope', 'authentication', '$location', 'cart', 'profile'];
+itemController.$inject = ['$http', 'Catalog', '$routeParams', '$anchorScroll', 'FB', '$scope', 'authentication', '$location', 'cart', 'Inventory', '$filter'];
 
-function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope, authentication, $location, cart, profile) {
+function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope, authentication, $location, cart, Inventory, $filter) {
     var vm = this;
 
     vm.boi = "BOIII";
@@ -27,6 +27,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.ratevalue = null;
     vm.newRating = {};
     vm.cartItem = {};
+    vm.inventoryData = [];
     //Functions
     vm.pageInit = pageInit;
     vm.setRate = setRate;
@@ -46,7 +47,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.submitRating = submitRating;
     vm.addToCart = addToCart;
     vm.qtyToAdd = 1;
+    initDummyInventory();
     pageInit();
+
+
+    function initDummyInventory() {
+        vm.inventoryData = Inventory.getAll();
+
+        vm.inventoryData = $filter('filter')(vm.inventoryData, { prodCode: $routeParams.id });
+        console.log(vm.inventoryData);
+    }
 
     function addToCart() {
 
@@ -54,7 +64,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         vm.cartItem.itemQty = vm.qtyToAdd;
         console.log('Added ' + vm.cartItem.prodCode + ' ' + vm.cartItem.itemQty + 'pcs.');
         vm.cartItem.subtotal = vm.qtyToAdd * vm.itemData.prodprice;
-
         cart.add(vm.userid, vm.cartItem)
             .then(function(res) {
                 console.log('Cart added.');
@@ -170,7 +179,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         if (vm.fbid) {
             FB.fbLoggedIn(vm.fbid)
                 .then(function(res) {
-
+                    console.log(res);
                     if (res.data['0'].loginsession) {
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
@@ -206,9 +215,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
         } else {
             if (authentication.isLoggedIn()) {
-                profile.getUser()
+                authentication.currentUser()
                     .then(function(res) {
-                        console.log(res.data);
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
                         vm.ratedetails = res.data.ratedetails;
@@ -248,11 +256,15 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     function loadItem() {
         Catalog.getItem($routeParams.id).then(function(res) {
             vm.itemData = angular.copy(res.data[0]);
+            vm.itemSizeData = [];
             if (vm.itemData) {
                 vm.itemFound = true;
                 vm.loaded = true;
-                vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
+
                 viewUp();
+                vm.itemSizeData = Catalog.getSizes(vm.inventoryData);
+                vm.clickedSize = angular.copy(vm.itemSizeData[0]);
+                sizeClass(vm.clickedSize.size);
                 sizeClick(vm.clickedSize);
             } else {
                 vm.itemFound = false;
@@ -269,7 +281,10 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             if (vm.itemData) {
                 vm.itemFound = true;
                 vm.loaded = true;
-                vm.clickedSize = angular.copy(vm.itemData.prodsizes[0]);
+                vm.itemSizeData = Catalog.getSizes(vm.inventoryData);
+                vm.clickedSize = angular.copy(vm.itemSizeData[0]);
+                sizeClass(vm.clickedSize.size);
+                sizeClick(vm.clickedSize);
             } else {
                 vm.itemFound = false;
             }
@@ -299,7 +314,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function sizeClick(data) {
-        vm.clickedSize = data;
+        vm.clickedSize = data.size;
         if (vm.clickedSize < 10) {
             vm.sizeCode = '0' + vm.clickedSize;
         } else {
@@ -311,6 +326,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         } else {
             vm.sizeCode = vm.sizeCode.concat('-0');
         }
+
 
 
 

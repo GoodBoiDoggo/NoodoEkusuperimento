@@ -7,20 +7,16 @@ var catalogSchema = new Schema({
     prodname: String,
     prodtype: String,
     prodprice: Number,
-    isavailable: Boolean,
     imgname: String,
     tags: [{
         type: String
     }],
     prodcolor: String,
     prodbrand: String,
-    prodsizes: [{
-        type: Number
-    }],
     gender: String,
     ratercount: Number,
     rateavg: Number,
-    salerate: Number,
+    discountrate: Number,
     reviews: [{
         _id: { type: String },
         userid: { type: String },

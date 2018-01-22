@@ -5,6 +5,7 @@ catalogController.$inject = ['$http', '$anchorScroll', '$location', '$filter', '
 
 function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB, $scope, Inventory) {
     var vm = this;
+    vm.inventoryData = [];
     vm.loggedIn = false;
     vm.hideReviews = true;
     vm.showAdv = false;
@@ -31,14 +32,15 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
 
     //	vm.filter = filter;
     pageInit();
+    loadInventory();
 
-    function loadAvailability() {
-        Inventory.get()
-            .then(function(res) {
-                console.log('Inventory successfully fetched.')
-            }, function(err) {
-                console.log('Server Error: Could not get the inventory.')
-            });
+    function loadInventory() {
+        vm.inventoryData = Inventory.getAll();
+        // .then(function(res){
+
+        // },function(err){
+
+        // });
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -110,10 +112,11 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     function loadItems() {
         Catalog.get().then(function(res) {
             vm.catalogItems = angular.copy(res.data);
-            console.log(vm.catalogItems);
             if (vm.catalogItems) {
+                console.log(vm.catalogItems);
                 vm.itemFound = true;
                 vm.loaded = true;
+                vm.catalogItems = Catalog.checkAvailability(vm.catalogItems, vm.inventoryData);
             } else {
                 vm.itemFound = false;
             }
@@ -127,12 +130,13 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
             vm.enaDis = 'Disable';
             createFilter();
         } else {
-
             vm.showAdv = false;
             vm.enaDis = 'Enable';
             createFilter();
         }
 
     }
+
+
 
 }

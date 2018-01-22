@@ -133,13 +133,15 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                                 loadItemDetails();
                                 vm.message = '';
                             } else {
-                                vm.message = 'Your cart is empty';
+                                vm.message = 'Your cart is empty.';
                             }
                         }, function(err) {
+                            vm.message = 'Cart load failed: Server encountered error';
                             console.log('Cart load failed: Server encountered error');
                         });
                 }, function(err) {
-
+                    vm.message = 'Cart load failed: Failed to get user data.'
+                    console.log('Cart load failed: Failed to get user data.');
                 });
 
 
