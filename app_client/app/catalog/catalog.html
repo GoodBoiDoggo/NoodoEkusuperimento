@@ -83,7 +83,7 @@
         Loading...
     </div>
     <div id="itemNotFoundDiv" ng-if="!vm.itemFound">
-        <p class="lead text-center">Darn, the item catalog failed to load. Try refreshing the page. If the problem persists, please try again later.</p>
+        <p class="lead text-center">Darn, the item catalog failed to load. Try <a ng-click="vm.pageInit()" class="finger">refreshing</a> the page. If the problem persists, please try again later.</p>
     </div>
 
 </div>

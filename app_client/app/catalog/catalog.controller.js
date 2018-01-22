@@ -120,7 +120,9 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
             } else {
                 vm.itemFound = false;
             }
-        })
+        }, function(err) {
+            vm.itemFound = false;
+        });
     }
 
     function showAdvSearch() {

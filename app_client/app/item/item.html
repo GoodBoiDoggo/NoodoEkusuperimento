@@ -32,8 +32,8 @@
                         </div>
                         <br>
                         <span class="price">PHP </span>
-                        <span class="price" ng-if="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice | number: 2}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate) | number: 2}}</span>
-                        <span class="price" ng-if="vm.itemData.salerate == 0">{{vm.itemData.prodprice | number: 2}}</span>
+                        <!-- <span class="price" ng-if="vm.itemData.salerate > 0"><del>{{vm.itemData.prodprice | number: 2}}</del> {{vm.itemData.prodprice - (vm.itemData.prodprice * vm.itemData.salerate) | number: 2}}</span> -->
+                        <span class="price">{{vm.itemData.prodprice | number: 2}}</span>
                         <br>
                     </p>
                     <h4>
@@ -100,12 +100,8 @@
                 Loading...
             </div>
             <div id="itemNotFoundDiv" ng-if="!vm.itemFound">
-                <p class="lead text-center">Darn, the item failed to load.The following are the possible causes:</p>
-                <ul class="text-center">
-                    <li>The item does not exist.</li>
-                    <li>The url entered is wrong.</li>
-                    <li>Database server is down.</li>
-                </ul>
+                <p class="lead text-center">{{vm.errMessage}}</p>
+
             </div>
         </div>
     </div>

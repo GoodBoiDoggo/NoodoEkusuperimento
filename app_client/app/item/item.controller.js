@@ -197,8 +197,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         }
                         vm.loggedIn = true;
 
-
-
                     } else {
                         vm.loggedIn = false;
                     }
@@ -268,8 +266,11 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 sizeClick(vm.clickedSize);
             } else {
                 vm.itemFound = false;
+                vm.errMessage = 'The item you are trying to view does not exist. The link you are using might be incorrect';
             }
         }, function(err) {
+            vm.itemFound = false;
+            vm.errMessage = 'Server error encountered. Please try again later.';
             console.log('Server error encountered.');
         });
 
@@ -287,8 +288,11 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 sizeClick(vm.clickedSize);
             } else {
                 vm.itemFound = false;
+                vm.errMessage = 'The item you are trying to view does not exist. The link you are using might be incorrect.';
             }
         }, function(err) {
+            vm.itemFound = false;
+            vm.errMessage = 'Server error encountered. Please try again later.';
             console.log('Server error encountered.');
         })
 
