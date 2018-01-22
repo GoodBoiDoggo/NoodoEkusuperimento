@@ -1,9 +1,9 @@
 angular.module('app.item')
     .controller('itemController', itemController);
 
-itemController.$inject = ['$http', 'Catalog', '$routeParams', '$anchorScroll', 'FB', '$scope', 'authentication', '$location', 'cart', 'Inventory', '$filter'];
+itemController.$inject = ['$http', 'Catalog', '$routeParams', '$anchorScroll', 'FB', '$scope', 'authentication', '$location', 'cart', 'Inventory', '$filter', 'profile'];
 
-function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope, authentication, $location, cart, Inventory, $filter) {
+function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope, authentication, $location, cart, Inventory, $filter, profile) {
     var vm = this;
 
     vm.boi = "BOIII";
@@ -215,7 +215,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
         } else {
             if (authentication.isLoggedIn()) {
-                authentication.currentUser()
+                profile.getUser()
                     .then(function(res) {
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
