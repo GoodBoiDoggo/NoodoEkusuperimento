@@ -12,7 +12,7 @@ module.exports = function(app) {
     });
     app.get('/item/:prodcode', function(req, res) {
 
-        Catalog.find({ prodcode: req.params.prodcode }, function(err, results) {
+        Catalog.findOne({ prodcode: req.params.prodcode }, function(err, results) {
             if (err) throw err;
             res.send(results);
             console.log("Item sent");

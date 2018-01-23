@@ -7,9 +7,8 @@
             <div ng-if="vm.registertype=='0'" class="row centerizer">
                 <div id="registerselect">
                     <h1>REGISTER</h1>
-                    <h2 ng-click="vm.registertype='1'" class="finger">New account</h2>
-                    <p class="lead">or</p>
-                    <h2 ng-click="vm.registertype='2'" class="finger">Existing Kariteun Account</h2>
+                    <button ng-click="vm.registertype='1'" class="btn btn-success">New account</button>
+                    <h2 ng-click="vm.registertype='2'" class="btn btn-primary">Existing Kariteun Account</h2>
                 </div>
             </div>
             <div ng-if="vm.registertype=='1'" class="row centerizer">

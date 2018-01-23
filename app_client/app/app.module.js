@@ -22,7 +22,9 @@ var appModule =
         'app.register',
         'app.login',
         'app.profile',
-        'app.cart'
+        'app.cart',
+        'app.order',
+        'app.checkout'
     ]);
 appModule.config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode({

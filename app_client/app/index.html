@@ -20,6 +20,7 @@
 </head>
 
 <body ng-app="app" ng-controller="indexController as vm">
+
     <script>
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
@@ -42,6 +43,7 @@
         }(document,
             'script', 'Messenger'));
     </script>
+
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <webview-buttons data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton"></webview-buttons>
     <div ng-class="vm.whitespace()"></div>
@@ -66,6 +68,12 @@
     <script src="login/login.module.js"></script>
     <script src="profile/profile.module.js"></script>
     <script src="cart/cart.module.js"></script>
+    <script src="order/order.module.js"></script>
+    <script src="checkout/checkout.module.js"></script>
+    <script src="checkout/checkout.controller.js"></script>
+    <script src="checkout/checkout.route.js"></script>
+    <script src="order/order.controller.js"></script>
+    <script src="order/order.route.js"></script>
     <script src="cart/cart.controller.js"></script>
     <script src="cart/cart.route.js"></script>
     <script src="profile/profile.controller.js"></script>

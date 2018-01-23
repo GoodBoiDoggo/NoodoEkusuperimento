@@ -1,0 +1,49 @@
+<div class="container-fluid view-body">
+    <div class="row centerizer container-fluid">
+        <div id="orderPageDiv">
+            YOOOOOOOO
+        </div>
+    </div>
+</div>
+
+<!-- modals -->
+<div id="cartitemAction" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="clickedcartImage">
+                    <br>
+                    <img class="img-responsive " src="pic/{{vm.clickedItem.cartImage}}">
+                    <br>
+                </div>
+                <h4 class="text-center">{{vm.clickedItem.displayName}}
+                    <br>
+                    <small>Size: {{vm.clickedItem.displaySize}}</small>
+                </h4>
+                <!-- <h4 class="modal-title">Add to Cart</h4> -->
+            </div>
+            <div class="modal-body">
+                <div id="clickedcartdiv">
+
+                    <button type="button" class="btn btn-primary" ng-if="vm.selectedAction=='0'" ng-click="vm.changeQty()">Change quantity</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-if="vm.selectedAction=='0'" ng-click="vm.updateCart('DEL')">Remove</button>
+                    <span ng-if="vm.selectedAction=='1'">
+                            <label>Enter new quantity:</label><br>
+                            <input class="text-center" type="number" ng-model="vm.newQty" min="1">
+                    </span>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="vm.selectedAction=='1'" ng-disabled="!vm.newQty" ng-click="vm.updateCart('QTY')">Update</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>

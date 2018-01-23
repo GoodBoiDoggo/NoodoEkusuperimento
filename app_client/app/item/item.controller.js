@@ -70,8 +70,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             }, function(err) {
                 console.log('Server error encountered while adding to cart.');
             });
-
-
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -98,7 +96,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function setRate(data) {
         var i;
-        console.log(vm.ratevalue);
+
         vm.ratevalue = data;
         vm.starstatus = ['', '', '', '', ''];
 
@@ -253,7 +251,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function loadItem() {
         Catalog.getItem($routeParams.id).then(function(res) {
-            vm.itemData = angular.copy(res.data[0]);
+            vm.itemData = angular.copy(res.data);
             vm.itemSizeData = [];
             if (vm.itemData) {
                 vm.itemFound = true;
@@ -278,7 +276,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function reloadItem() {
         Catalog.getItem($routeParams.id).then(function(res) {
-            vm.itemData = angular.copy(res.data[0]);
+            vm.itemData = angular.copy(res.data);
             if (vm.itemData) {
                 vm.itemFound = true;
                 vm.loaded = true;

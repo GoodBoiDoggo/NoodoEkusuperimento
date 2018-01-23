@@ -1,9 +1,9 @@
 angular.module('app')
     .controller('indexController', index);
 
-index.$inject = ['$location'];
+index.$inject = ['$location', '$window'];
 
-function index($location) {
+function index($location, $window) {
     vm = this;
     vm.showWVButtons = false;
     vm.fbid = $location.search().fbid;
@@ -18,8 +18,11 @@ function index($location) {
             vm.showWVButtons = true;
             vm.showNav = false;
             vm.fbParam = '?fbid=' + vm.fbid;
+
         } else {
             vm.showNav = true;
+
+
         }
     }
 
