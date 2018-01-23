@@ -48,6 +48,11 @@ div {
     background-color: #b8edcc;
 }
 
+.register-mode {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 #reviewinput {
     width: 100%;
 }
@@ -65,7 +70,11 @@ div {
 }
 
 #addreview {
-    margin-top: 20%;
+    margin-top: 10%;
+}
+
+#cartitemAction {
+    margin-top: 10%
 }
 
 #editreview {

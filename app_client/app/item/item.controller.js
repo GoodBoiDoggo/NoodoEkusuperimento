@@ -118,7 +118,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function clickEdit(data) {
         vm.modreview = data;
-        vm.reviewedit = vm.modreview.reviewstring;
+        vm.reviewedit = angular.copy(vm.modreview.reviewstring);
         countletters2();
     }
 
@@ -137,7 +137,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             });
     }
 
-    function editReview(id) {
+    function editReview() {
         vm.modreview.reviewstring = angular.copy(vm.reviewedit);
         Catalog.editReview(vm.itemData.prodcode, vm.modreview)
             .then(function(res) {
@@ -163,7 +163,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             vm.reviewcredentials.prodcode = $routeParams.id;
             vm.reviewcredentials.review = angular.copy(vm.newreview);
             Catalog.addReview(vm.reviewcredentials)
-                .then(function() {
+                .then(function(res) {
                     console.log('Review added');
                     reloadItem();
                 }, function(err) {

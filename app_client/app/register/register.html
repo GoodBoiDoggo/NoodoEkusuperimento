@@ -7,13 +7,13 @@
             <div ng-if="vm.registertype=='0'" class="row centerizer">
                 <div id="registerselect">
                     <h1>REGISTER</h1>
-                    <button ng-click="vm.registertype='1'" class="btn btn-success">New account</button>
-                    <h2 ng-click="vm.registertype='2'" class="btn btn-primary">Existing Kariteun Account</h2>
+                    <button ng-click="vm.registertype='1'" class="btn btn-success register-mode">Create new account</button>
+                    <button ng-click="vm.registertype='2'" class="btn btn-primary register-mode">Register using existing Kariteun Account</button>
                 </div>
             </div>
             <div ng-if="vm.registertype=='1'" class="row centerizer">
                 <div id="registerform" class="">
-                    <a class="finger" ng-if="vm.fbid" ng-click="vm.registertype='2'">Register using existing account</a>
+                    <a class="finger" ng-if="vm.fbid" ng-click="vm.registertype='2'">Register using existing account >></a>
                     <h1>NEW ACCOUNT</h1>
                     <div ng-show="!vm.fbid">
                         <p class="lead">Already a member? Please <a href="login">log in</a> instead.</p>
@@ -88,7 +88,7 @@
             </div>
             <div ng-if="vm.registertype=='2'" class="row centerizer">
                 <div id="registerformB">
-                    <a class="finger" ng-click="vm.registertype='1'">Register new account</a>
+                    <a class="finger" ng-click="vm.registertype='1'">Register new account >></a>
                     <h1>EXISTING ACCOUNT</h1>
                     <form ng-submit="vm.merge()">
                         <div class="form-group">

@@ -18,20 +18,24 @@ function catalogService($http) {
         },
 
         addReview: function(review) {
-            console.log('Adding review...')
+            console.log('Adding review...');
+            console.log(review.review);
             return $http.post('/api/review', review);
-            //return $http.post('http://184.172.241.167:30250/item/' + review.prodcode + '/review', review.review);
+            //return $http.post('http://184.172.241.167:30250/item/' + review.prodcode + '/review', review.review); //defect
         },
 
         delReview: function(prodcode, id) {
             console.log('Deleting review...');
+            console.log('http://184.172.241.167:30250/item/' + prodcode + '/review/' + id);
             return $http.delete('/api/review/' + prodcode + '/' + id);
-            //return $http.delete('http://184.172.241.167:30250/item/' + prodcode + '/review/' + id);
+            //return $http.delete('http://184.172.241.167:30250/item/' + prodcode + '/review/' + id); //defect
         },
         editReview: function(prodcode, review) {
             console.log('Editing review...');
+            console.log(review);
+            console.log('http://184.172.241.167:30250/item/' + prodcode + '/review');
             return $http.put('/api/review/' + prodcode, review);
-            //return $http.put('http://184.172.241.167:30250/item/' + prodcode + '/review', review);
+            //return $http.put('http://184.172.241.167:30250/item/' + prodcode + '/review', review); //defect
         },
         updateItem: function(item) {
             console.log('Updating item details...');
