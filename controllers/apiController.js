@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var mailer = require('./mailController');
-
+var cors = require('cors');
 module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,10 +26,10 @@ module.exports = function(app) {
 
                 if (!account[0].fbid) {
                     res.status(200);
-                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="http://kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="https://kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
                 } else {
                     res.status(200);
-                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You can log in to the <a href="http://kariteun-shopping.mybluemix.net">Kariteun Website</a> using the email address and password for this account</p></body></html>');
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You can log in to the <a href="https://kariteun-shopping.mybluemix.net">Kariteun Website</a> using the email address and password for this account</p></body></html>');
                 }
             } else {
                 res.status(400);
@@ -40,7 +40,7 @@ module.exports = function(app) {
     });
 
 
-
+    app.options('/api/updateDDA', cors());
     app.put('/api/updateDDA', function(req, res) {
         User.findByIdAndUpdate(req.body._id, {
             address: req.body.address,
@@ -96,7 +96,7 @@ module.exports = function(app) {
         });
 
     });
-
+    app.options('/api/review/:prodcode/:id', cors());
     app.delete('/api/review/:prodcode/:id', function(req, res) {
         console.log('Deleting review');
         Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {
@@ -113,7 +113,7 @@ module.exports = function(app) {
         });
 
     });
-
+    app.options('/api/review/:prodcode', cors());
     app.put('/api/review/:prodcode', function(req, res) {
         console.log('Modifying review');
         Catalog.findOneAndUpdate({ prodcode: req.params.prodcode }, {

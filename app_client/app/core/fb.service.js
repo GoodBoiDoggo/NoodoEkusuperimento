@@ -10,7 +10,7 @@ function fbService(win, $http, $q) {
     vm.exists;
     vm.loggedIn;
     vm.deferred = $q.defer();
-    var baseUrl = 'https://kariteun-shopping.mybluemix.net'
+    var baseUrl = 'https://kariteun-shopping.mybluemix.net';
     return {
         // call to get all catalog items
         isLoggedIn: isLoggedIn,

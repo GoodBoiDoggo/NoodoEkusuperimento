@@ -10,14 +10,14 @@ function catalogService($http) {
         //http://184.172.241.167:30250
         get: function() {
             console.log('Retrieving catalog...');
-            //return $http.get(baseUrl2 + '/catalog/all');
-            return $http.get(baseUrl + '/catalog/all'); //working
+            return $http.get(baseUrl2 + '/catalog/all');
+            //return $http.get(baseUrl + '/catalog/all'); //working
         },
 
         getItem: function(prodcode) {
             console.log("Fetch item: " + prodcode);
-            // return $http.get(baseUrl2 + '/item/' + prodcode);
-            return $http.get(baseUrl + '/item/' + prodcode); //working
+            return $http.get(baseUrl2 + '/item/' + prodcode);
+            //return $http.get(baseUrl + '/item/' + prodcode); //working
         },
 
         addReview: function(review) {

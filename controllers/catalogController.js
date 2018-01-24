@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 var Catalog = require('../models/catalogModel');
 var User = mongoose.model('User');
-
+var cors = require('cors');
 module.exports = function(app) {
+
     app.get('/catalog/all', function(req, res) {
 
         Catalog.find(function(err, results) {
@@ -27,6 +28,7 @@ module.exports = function(app) {
             console.log("Item sent");
         })
     });
+    app.options('/item/:prodcode', cors());
     app.put('/item/:prodcode', (req, res) => {
 
         Catalog.findOne({ prodcode: req.params.prodcode }, (err, result) => {
