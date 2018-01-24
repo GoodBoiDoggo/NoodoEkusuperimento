@@ -13,12 +13,19 @@ var bodyParser = require('body-parser');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
+var cors = require('cors');
+
+//Enable Cors
+app.use(cors()); //Allows all origins(temporary)
+
 //[SH] Bring in the data model
 require('./models/db');
 console.log('models loaded');
+
 // [SH] Bring in the Passport config after model is defined
 require('./config/passport');
 console.log('passport config loaded');
+
 //[SH] Initialise Passport before using the route middleware
 app.use(passport.initialize());
 
@@ -81,9 +88,9 @@ app.use(function(err, req, res, next) {
 
 
 app.post('/sendOnWebviewClose', (req, res) => {
-	  let psid = req.body.psid;
-	  sendMessage(psid);
-	})
+    let psid = req.body.psid;
+    sendMessage(psid);
+})
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
