@@ -5,7 +5,7 @@
   authentication.$inject = ['$http', '$window'];
 
   function authentication($http, $window) {
-
+      var baseUrl = 'https://kariteun-shopping.mybluemix.net'
       var saveToken = function(token) {
           $window.localStorage['mean-token'] = token;
       };
@@ -50,7 +50,7 @@
 
       register = function(user) {
 
-          return $http.post('/register', user).then(function(res) {
+          return $http.post(baseUrl + '/register', user).then(function(res) {
               if (res.data.token === undefined) {
                   console.log('Token undefined');
                   return res.data.msg;
@@ -69,7 +69,7 @@
 
       login = function(user) {
           console.log('Login service reached.')
-          return $http.post('/login', user).then(function(res) {
+          return $http.post(baseUrl + '/login', user).then(function(res) {
               console.log('Login request done.')
               saveToken(res.data.token);
           });

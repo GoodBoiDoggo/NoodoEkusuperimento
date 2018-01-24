@@ -48,6 +48,15 @@ div {
     background-color: #b8edcc;
 }
 
+#cartActionDiv {
+    width: 100%;
+    text-align: right;
+}
+
+#cartActionDiv * {
+    display: inline-block;
+}
+
 .register-mode {
     margin-top: 8px;
     margin-bottom: 8px;
@@ -71,6 +80,10 @@ div {
 
 #addreview {
     margin-top: 10%;
+}
+
+#confirmClearCart {
+    margin-top: 15%;
 }
 
 #cartitemAction {

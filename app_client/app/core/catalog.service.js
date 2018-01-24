@@ -2,53 +2,54 @@ console.log('CATALOG SERVICE DETECTED!');
 angular.module('app.core').factory('Catalog', catalogService);
 
 function catalogService($http) {
+    var baseUrl2 = 'https://kariteun-shopping.mybluemix.net';
+    var baseUrl = 'http://184.172.241.167:31177';
+    //var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/7896c17f-95fd-4031-9e92-0d5c70f4feae';
     return {
         // call to get all catalog items
         //http://184.172.241.167:30250
         get: function() {
             console.log('Retrieving catalog...');
-            return $http.get('/catalog/all');
-            //return $http.get('http://184.172.241.167:30250/catalog/all'); //working
+            //return $http.get(baseUrl2 + '/catalog/all');
+            return $http.get(baseUrl + '/catalog/all'); //working
         },
 
         getItem: function(prodcode) {
             console.log("Fetch item: " + prodcode);
-            return $http.get('/item/' + prodcode);
-            //return $http.get('http://184.172.241.167:30250/item/' + prodcode); //working
+            // return $http.get(baseUrl2 + '/item/' + prodcode);
+            return $http.get(baseUrl + '/item/' + prodcode); //working
         },
 
         addReview: function(review) {
             console.log('Adding review...');
             console.log(review.review);
-            return $http.post('/api/review', review);
-            //return $http.post('http://184.172.241.167:30250/item/' + review.prodcode + '/review', review.review); //defect
+            return $http.post(baseUrl2 + '/api/review', review);
+            // return $http.post(baseUrl + '/item/' + review.prodcode + '/review', review.review); //defect
         },
 
         delReview: function(prodcode, id) {
             console.log('Deleting review...');
-            console.log('http://184.172.241.167:30250/item/' + prodcode + '/review/' + id);
-            return $http.delete('/api/review/' + prodcode + '/' + id);
-            //return $http.delete('http://184.172.241.167:30250/item/' + prodcode + '/review/' + id); //defect
+            return $http.delete(baseUrl2 + '/api/review/' + prodcode + '/' + id);
+            // return $http.delete(baseUrl + '/item/' + prodcode + '/review/' + id); //defect
         },
         editReview: function(prodcode, review) {
             console.log('Editing review...');
             console.log(review);
-            console.log('http://184.172.241.167:30250/item/' + prodcode + '/review');
-            return $http.put('/api/review/' + prodcode, review);
-            //return $http.put('http://184.172.241.167:30250/item/' + prodcode + '/review', review); //defect
+            return $http.put(baseUrl2 + '/api/review/' + prodcode, review);
+            // return $http.put(baseUrl + '/item/' + prodcode + '/review', review); //defect
         },
         updateItem: function(item) {
             console.log('Updating item details...');
-            return $http.put('/item/' + item.prodcode, item);
-            //return $http.put('http://184.172.241.167:30250/item/' + item.prodcode, item);
+            return $http.put(baseUrl2 + '/item/' + item.prodcode, item);
+            // return $http.put(baseUrl + '/item/' + item.prodcode, item);
         },
         updateRating: function(prodcode, rating) {
             console.log('Submitting rating...');
-            return $http.post('/item/rate/' + prodcode, rating);
+            return $http.post(baseUrl2 + '/item/rate/' + prodcode, rating);
         },
         getItems: function(items) {
             console.log('Fetching cart item details...');
-            return $http.get('/items/' + items);
+            return $http.get(baseUrl2 + '/items/' + items);
         },
         checkAvailability: function(catalog, inventory) {
             for (i = 0; i < catalog.length; i++) {

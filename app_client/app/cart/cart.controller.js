@@ -17,11 +17,22 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     vm.clickItem = clickItem;
     vm.updateCart = updateCart;
     vm.changeQty = changeQty;
+    vm.clearCart = clearCart;
     pageInit();
 
     function changeQty() {
         vm.selectedAction = '1';
         vm.newQty = angular.copy(vm.clickedItem.itemQty);
+    }
+
+    function clearCart() {
+        cart.clear(vm.userData._id)
+            .then(function(res) {
+                loadCart();
+                vm.message = 'Cart cleared.';
+            }, function(err) {
+                vm.message = 'Cart not cleared. Server error encountered.';
+            });
     }
 
     function updateCart(action) {

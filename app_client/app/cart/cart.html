@@ -6,6 +6,9 @@
                 {{vm.message}}
             </div>
             <div id="cartInfoDiv" ng-if="vm.cartData.cartItems.length>0">
+                <div id="cartActionDiv">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#confirmClearCart">Clear cart</button>
+                </div>
                 <p class="lead cart-cost">Total cost:<br><strong> Php {{vm.cartData.totalPrice | number:2}}</strong></p>
                 <ul class="list-group">
                     <div ng-click="vm.clickItem($index)" data-toggle="modal" data-target="#cartitemAction" class="finger cart-item list-group-item" ng-repeat="item in vm.cartData.cartItems">
@@ -61,6 +64,27 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="vm.selectedAction=='1'" ng-disabled="!vm.newQty" ng-click="vm.updateCart('QTY')">Update</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="confirmClearCart" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                Are you sure?
+            </div>
+            <div class="modal-body">
+                Click 'Yes' to remove all items from cart.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.clearCart()">Yes</button>
 
             </div>
         </div>

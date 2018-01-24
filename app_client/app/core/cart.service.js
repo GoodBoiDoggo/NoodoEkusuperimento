@@ -5,14 +5,15 @@ angular
 cartService.$inject = ['$http'];
 
 function cartService($http) {
-    var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/cabde24e-0259-49ea-9d10-e39789ed4cb8';
-    //var baseUrl = 'http://184.172.241.167:31016';
+    //var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/cabde24e-0259-49ea-9d10-e39789ed4cb8';
+    var baseUrl = 'http://184.172.241.167:31016';
     return {
         get: getCart,
         create: createCart,
         add: addToCart,
         update: updateQuantity,
-        delete: deleteCartItem
+        delete: deleteCartItem,
+        clear: clearCart
     }
 
     function getCart(customerId) {
@@ -37,6 +38,10 @@ function cartService($http) {
     function deleteCartItem(customerId, item) {
 
         return $http.delete(baseUrl + '/cart/' + customerId + '/delete/' + item.prodCode);
+    }
+
+    function clearCart(customerId) {
+        return $http.delete(baseUrl + '/cart/' + customerId + '/delete/all');
     }
 
 }

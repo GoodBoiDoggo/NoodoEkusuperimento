@@ -25,7 +25,7 @@ var verification = function(email, activation) {
         from: 'Muggy Warra',
         to: email,
         subject: 'Account Verification',
-        html: '<h1>Activate your accont</h1><p>Click on the link below to activate your kariteun account.</p><br><a href="http://kariteun-shopping.mybluemix.net/api/activate/' + activation + '">Activate account</a><br><p>Thank you!</p>'
+        html: '<h1>Activate your accont</h1><p>Click on the link below to activate your kariteun account.</p><br><a href="https://kariteun-shopping.mybluemix.net/api/activate/' + activation + '">Activate account</a><br><p>Thank you!</p>'
     }
 
     transporter.sendMail(mailOptions, function(error, info) {

@@ -10,6 +10,7 @@ function fbService(win, $http, $q) {
     vm.exists;
     vm.loggedIn;
     vm.deferred = $q.defer();
+    var baseUrl = 'https://kariteun-shopping.mybluemix.net'
     return {
         // call to get all catalog items
         isLoggedIn: isLoggedIn,
@@ -22,17 +23,17 @@ function fbService(win, $http, $q) {
 
     function merge(user) {
 
-        return $http.post('/mergeregister', user);
+        return $http.post(baseUrl + '/mergeregister', user);
     }
 
     function login(user) {
 
-        return $http.post('/fblogin', user);
+        return $http.post(baseUrl + '/fblogin', user);
 
     }
 
     function getProfile(fbid) {
-        return $http.get('/api/fbprofile/' + fbid);
+        return $http.get(baseUrl + '/api/fbprofile/' + fbid);
     };
 
     function getMode() {
@@ -45,32 +46,14 @@ function fbService(win, $http, $q) {
 
     function registerfb(user) {
 
-        return $http.post('/registerfb', user);
+        return $http.post(baseUrl + '/registerfb', user);
 
-        // .then(function(res) {
-        //     if (res.data.token === undefined) {
-        //         return res.data.errorMsg;
-        //     } else {
-        //         saveToken(res.data.token);
-        //     }
-        // });
+
     };
 
     function fbLoggedIn(fbid) {
 
-        //   return $http({
-        //       url: '/fbloggedin/' + fbid,
-        //       method: "GET"
-
-        //   });
-        return $http.get('/fbloggedin/' + fbid);
-        //   .then(function(res) {
-        //     console.log('account found');
-        //     console.log(res.data);
-        //     return res;
-        // }, function(err) {
-        //     return false;
-        // });
+        return $http.get(baseUrl + '/fbloggedin/' + fbid);
 
     }
 

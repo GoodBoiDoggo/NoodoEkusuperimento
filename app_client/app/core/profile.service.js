@@ -5,9 +5,9 @@
   profileService.$inject = ['$http', 'authentication'];
 
   function profileService($http, authentication) {
-
+      var baseUrl = 'https://kariteun-shopping.mybluemix.net'
       var getUser = function() {
-          return $http.get('/api/profile', {
+          return $http.get(baseUrl + '/api/profile', {
               headers: {
                   Authorization: 'Bearer ' + authentication.getToken()
               }
@@ -15,12 +15,11 @@
       };
 
       var updateDDA = function(user) {
-          return $http.put('/api/updateDDA', user);
+          return $http.put(baseUrl + '/api/updateDDA', user);
       }
 
       var sendActivation = function(user) {
-          return $http.post('/api/resend', user);
-
+          return $http.post(baseUrl + '/api/resend', user);
       }
 
       return {
