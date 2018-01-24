@@ -39,14 +39,17 @@
                     <h4>
                         <b>Item rating:</b> <span class="rating">{{vm.itemData.rateavg | number: 2}}</span> /5 <small> ({{vm.itemData.ratercount}} raters)</small>
                     </h4>
-                    <h4>Select a size: <small>({{vm.clickedSize}} is selected)</small></h4>
-                    <div id="sizeContainer" class="container-fluid">
-                        <div class="sizeDiv" ng-repeat="sizes in vm.itemSizeData track by sizes.id">
-                            <span ng-class="vm.sizeClass(sizes.size)" ng-click="vm.sizeClick(sizes)" class="sizeSpan">{{sizes.size}}</span>
+                    <div ng-if="vm.itemSizeData.length>0">
+                        <h4>Select a size: <small>({{vm.clickedSize}} is selected)</small></h4>
+                        <div id="sizeContainer" class="container-fluid">
+                            <div class="sizeDiv" ng-repeat="sizes in vm.itemSizeData track by sizes.size">
+                                <span ng-class="vm.sizeClass(sizes.size)" ng-click="vm.sizeClick(sizes)" class="sizeSpan">{{sizes.size}}</span>
+                            </div>
                         </div>
+                        <button ng-disabled="vm.itemSizeData.length==0 || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
                     </div>
-                    <button ng-disabled="vm.itemSizeData.length==0 || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
-                    <p ng-if="vm.itemSizeData.length==0" class="text-danger">Item is out of stock.</p>
+
+                    <p ng-if="vm.itemSizeData.length==0" class="text-danger lead">Item is out of stock.</p>
                     <p ng-if="!vm.loggedIn && vm.itemSizeData.length>0" class="text-danger">You are not logged in.</p>
                     <p ng-if="vm.loggedIn && vm.itemSizeData.length>0 && !vm.useractive" class="text-danger">Activate your account</p>
                     <br>

@@ -29,18 +29,33 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     vm.showAdvSearch = showAdvSearch;
     vm.createFilter = createFilter;
     vm.sortMode = sortMode;
-
+    vm.loadProgress = 0;
     //	vm.filter = filter;
     pageInit();
     loadInventory();
 
+    function checkAvailability() {
+        if (vm.loadProgress == 2) {
+            vm.catalogItems = Catalog.checkAvailability(vm.catalogItems, vm.inventoryData);
+
+        }
+
+    }
+
     function loadInventory() {
         vm.inventoryData = Inventory.getAll();
-        // .then(function(res){
+        vm.loadProgress++;
 
-        // },function(err){
-
-        // });
+        // Inventory.getAll()
+        //     .then(function(res) {
+        //         console.log('Inventory loaded.');
+        //         vm.inventoryData = res.data;
+        //         vm.loadProgress++;
+        //         checkAvailability();
+        //     }, function(err) {
+        //         console.log('Failed to check inventory. Server error occured.');
+        //     });
+        checkAvailability();
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -116,7 +131,9 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
                 console.log(vm.catalogItems);
                 vm.itemFound = true;
                 vm.loaded = true;
-                vm.catalogItems = Catalog.checkAvailability(vm.catalogItems, vm.inventoryData);
+                vm.loadProgress++;
+
+                checkAvailability();
             } else {
                 vm.itemFound = false;
             }

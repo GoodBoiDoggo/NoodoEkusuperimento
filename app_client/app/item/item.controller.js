@@ -28,6 +28,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.newRating = {};
     vm.cartItem = {};
     vm.inventoryData = [];
+    vm.itemSizeData = [];
+    vm.loadProgress = 0;
     //Functions
     vm.pageInit = pageInit;
     vm.setRate = setRate;
@@ -47,15 +49,46 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.submitRating = submitRating;
     vm.addToCart = addToCart;
     vm.qtyToAdd = 1;
-    initDummyInventory();
+
+    loadInventory()
     pageInit();
 
 
     function initDummyInventory() {
         vm.inventoryData = Inventory.getAll();
-
+        vm.loadProgress++;
         vm.inventoryData = $filter('filter')(vm.inventoryData, { prodCode: $routeParams.id });
         console.log(vm.inventoryData);
+        loadSizes();
+    }
+
+    function loadSizes() {
+        if (vm.loadProgress == 2) {
+            console.log('Sizes loaded');
+            vm.itemSizeData = Catalog.getSizes(vm.inventoryData);
+            if (vm.itemSizeData.length > 0) {
+                vm.clickedSize = angular.copy(vm.itemSizeData[0]);
+                sizeClass(vm.clickedSize.size);
+                sizeClick(vm.clickedSize);
+            }
+
+        }
+    }
+
+    function loadInventory() {
+        initDummyInventory();
+        // vm.inventoryData = Inventory.get($routeParams.id)
+        //     .then(function(res) {
+        //         console.log('Inventory loaded.');
+        //         vm.inventoryData = res.data;
+        //         console.log(vm.inventoryData);
+        //         vm.loadProgress++;
+        //         loadSizes();
+        //     }, function(err) {
+        //         console.log('Inventory loading failed: Server error encountered.');
+        //     });
+
+
     }
 
     function addToCart() {
@@ -256,12 +289,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             if (vm.itemData) {
                 vm.itemFound = true;
                 vm.loaded = true;
-
+                vm.loadProgress++;
                 viewUp();
-                vm.itemSizeData = Catalog.getSizes(vm.inventoryData);
-                vm.clickedSize = angular.copy(vm.itemSizeData[0]);
-                sizeClass(vm.clickedSize.size);
-                sizeClick(vm.clickedSize);
+                loadSizes();
             } else {
                 vm.itemFound = false;
                 vm.errMessage = 'The item you are trying to view does not exist. The link you are using might be incorrect';
@@ -275,15 +305,15 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function reloadItem() {
+        vm.loadProgress = 0;
+        loadInventory();
         Catalog.getItem($routeParams.id).then(function(res) {
             vm.itemData = angular.copy(res.data);
             if (vm.itemData) {
                 vm.itemFound = true;
                 vm.loaded = true;
-                vm.itemSizeData = Catalog.getSizes(vm.inventoryData);
-                vm.clickedSize = angular.copy(vm.itemSizeData[0]);
-                sizeClass(vm.clickedSize.size);
-                sizeClick(vm.clickedSize);
+                vm.loadProgress++;
+                loadSizes();
             } else {
                 vm.itemFound = false;
                 vm.errMessage = 'The item you are trying to view does not exist. The link you are using might be incorrect.';

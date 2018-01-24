@@ -36,7 +36,7 @@
                                 <!-- <span ng-if="item.salerate > 0"><del>{{item.prodprice | number: 2}}</del> {{item.prodprice - (item.prodprice * item.salerate) | number:2}}</span> -->
                                 <span>{{item.prodprice | number: 2}}</span>
                                 <br>
-                                <span class="available{{item.isavailable}}">
+                                <span ng-show="item.isavailable!=undefined" class="available{{item.isavailable}}">
 								{{item.isavailable ? "AVAILABLE" : "OUT OF STOCK"}}
 							    </span>
 

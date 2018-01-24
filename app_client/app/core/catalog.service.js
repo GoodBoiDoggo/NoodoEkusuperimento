@@ -66,7 +66,6 @@ function catalogService($http) {
             var itemSizes = [];
 
             for (i = 0; i < inventory.length; i++) {
-                itemSizeData.id = angular.copy(inventory[i]._id.$oid);
                 itemSizeData.size = angular.copy(parseFloat(inventory[i].prodCode.substring(6).replace('-', '.')));
                 itemSizeData.stock = angular.copy(parseFloat(inventory[i].qtyAvailable));
                 itemSizes.push(itemSizeData);
