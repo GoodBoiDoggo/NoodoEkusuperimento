@@ -29,7 +29,7 @@ module.exports = function(app) {
                     res.send('<html><body><h1>Account successfully activated!</h1><br><p>Click here to go to <a href="https://kariteun-shopping.mybluemix.net">Kariteun Website</a></p></body></html>');
                 } else {
                     res.status(200);
-                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You can log in to the <a href="https://kariteun-shopping.mybluemix.net">Kariteun Website</a> using the email address and password for this account</p></body></html>');
+                    res.send('<html><body><h1>Account successfully activated!</h1><br><p>You may now use the full functionality of the Kariteun Messenger Chat App. You may also visit the <a href="https://kariteun-shopping.mybluemix.net">Kariteun Website</a>to access the site outside messenger.</p></body></html>');
                 }
             } else {
                 res.status(400);

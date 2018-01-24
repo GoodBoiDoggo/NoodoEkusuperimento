@@ -13,9 +13,9 @@
                 <div id="dataDisplay">
                     <h3>Item Details
 
-                        <small class="available{{vm.itemSizeData.length>0}}">
-						{{vm.itemSizeData.length>0 ? "AVAILABLE" : "OUT OF STOCK"}}
-					</small>
+                        <small class="available{{vm.itemSizeData.length>0}}" ng-show="vm.loadProgress==2">
+						    {{vm.itemSizeData.length>0 ? "AVAILABLE" : "OUT OF STOCK"}}
+					    </small>
 
                     </h3>
                     <p>
@@ -49,7 +49,7 @@
                         <button ng-disabled="vm.itemSizeData.length==0 || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
                     </div>
 
-                    <p ng-if="vm.itemSizeData.length==0" class="text-danger lead">Item is out of stock.</p>
+                    <p ng-if="vm.itemSizeData.length==0 && vm.loadProgress==2" class="text-danger lead">Item is out of stock.</p>
                     <p ng-if="!vm.loggedIn && vm.itemSizeData.length>0" class="text-danger">You are not logged in.</p>
                     <p ng-if="vm.loggedIn && vm.itemSizeData.length>0 && !vm.useractive" class="text-danger">Activate your account</p>
                     <br>
@@ -82,7 +82,7 @@
                             <div ng-repeat="review in vm.itemData.reviews" class="reviews container-fluid">
                                 <span class="reviewerlabel">{{review.username}}</span>
                                 <span ng-if="vm.userid==review.userid" class="reviewoptions">
-                                <a ng-click="vm.deleteReview(vm.itemData.prodcode,review._id)">
+                                <a ng-click="vm.deleteReview(vm.itemData.prodcode,review)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                                 &nbsp;

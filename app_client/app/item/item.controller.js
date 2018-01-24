@@ -160,8 +160,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         countletters();
     }
 
-    function deleteReview(prodcode, id) {
-        Catalog.delReview(prodcode, id)
+    function deleteReview(prodcode, review) {
+        console.log(review);
+        Catalog.delReview(prodcode, review._id)
             .then(function(res) {
                 console.log('Successfully deleted review.');
                 reloadItem();
