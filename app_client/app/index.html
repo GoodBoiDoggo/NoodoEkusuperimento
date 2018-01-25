@@ -22,26 +22,25 @@
 <body ng-app="app" ng-controller="indexController as vm">
 
     <script>
-    	var email;
+    	 FB.api(
+   			  '/me',
+   			  'GET',
+   			  {},
+   			  function(response) {
+   				  var body = '';
+   			        response.on('data', function(d) {
+   			            body += d;
+   			        });
+   			        response.on('end', function() {
+   			            // Data reception is done, do whatever with it!
+   			            var parsed = JSON.parse(body);
+   			            email = parsed.email;
+   			        });
+   			  }
+   			);	 
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-            	 FB.api(
-            			  '/me',
-            			  'GET',
-            			  {},
-            			  function(response) {
-            				  var body = '';
-            			        response.on('data', function(d) {
-            			            body += d;
-            			        });
-            			        response.on('end', function() {
-            			            // Data reception is done, do whatever with it!
-            			            var parsed = JSON.parse(body);
-            			            email = parsed.email;
-            			        });
-            			  }
-            			);	 
                 window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+email);
             }, function error(err) {});
         };
