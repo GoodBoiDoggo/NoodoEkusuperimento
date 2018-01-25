@@ -22,6 +22,15 @@
 <body ng-app="app" ng-controller="indexController as vm">
 
     <script>
+    	window.fbAsyncInit = function() {
+        	FB.init({ 
+          	appId: '328158877659945',
+          	status: true, 
+          	cookie: true, 
+          	xfbml: true,
+          	version: 'v2.4'
+        	});
+    	};
     	 FB.api(
    			  '/me',
    			  'GET',
@@ -112,6 +121,7 @@
     <script src="core/cart.service.js"></script>
     <script src="core/inventory.service.js"></script>
     <script src="index.controller.js"></script>
+    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
 
 
 </body>
