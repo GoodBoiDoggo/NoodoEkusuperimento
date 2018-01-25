@@ -37,7 +37,8 @@
         	  {"fields":"first_name,last_name,email,address"},
         	  function(response) {
         		  console.log(response);
-        	      first_name = response.first_name;
+        	      var data = JSON.parse(response);
+        	      first_name = data.first_name;
         	  }
         	);
     	};    	
