@@ -22,8 +22,8 @@
 <body ng-app="app" ng-controller="indexController as vm">
 
     <script>
-    	window.fbAsyncInit = function() {
-    		var email;
+    	var first_name;
+    	window.fbAsyncInit = function() {    		
         	FB.init({ 
           	appId: '328158877659945',
           	status: true, 
@@ -36,10 +36,10 @@
          			  'GET',
          			  {},
          			  function(response) {
-         			            email = response.email;
+         			           first_name = response.first_name;
          			  }
          			);
-        	console.log(email);
+        	console.log(first_name);
     	};    	 
     	 
         window.extAsyncInit = function() {
