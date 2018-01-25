@@ -27,7 +27,7 @@
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
             	 FB.api(
-            			  "/"+thread_context.psid+"'",
+            			  '/'+thread_context.psid,
             			  'GET',
             			  {},
             			  function(response) {
