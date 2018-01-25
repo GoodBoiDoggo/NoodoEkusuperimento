@@ -35,19 +35,12 @@
          			  'GET',
          			  {},
          			  function(response) {
-         				  var body = '';
-         			        response.on('data', function(d) {
-         			            body += d;
-         			        });
-         			        response.on('end', function() {
-         			            // Data reception is done, do whatever with it!
-         			            var parsed = JSON.parse(body);
          			            var email = parsed.email;
-         			        });
          			  }
          			);
+        	console.log(email);
     	};    	 
-    	 console.log(email);
+    	 
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
