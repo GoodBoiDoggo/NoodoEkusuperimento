@@ -30,6 +30,49 @@ div {
     display: none;
 }
 
+.step-box {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-family: "Arial";
+    vertical-align: middle;
+    height: 50px;
+    width: 100%;
+    text-align: left;
+}
+
+#checkoutPageDiv {
+    margin: 0px !important;
+}
+
+#order-address {
+    width: calc(100% - 65px);
+    display: inline-block !important;
+}
+
+#order-pcode {
+    width: 60px;
+    display: inline-block !important;
+}
+
+.step-box-number {
+    font-size: 30px;
+    background-color: rgb(177, 177, 177);
+    line-height: 50px;
+    height: 50px;
+    display: inline-block;
+    width: 50px;
+}
+
+.step-box-text {
+    padding-left: 10px;
+    height: 50px;
+    line-height: 50px;
+    width: calc(100% - 50px);
+    float: right;
+    /* display: inline-block; */
+    background-color: rgb(230, 230, 230);
+}
+
 
 /* #bodyContainer {
     background-color: white;
@@ -464,6 +507,16 @@ a[class*="item"]:hover {
 }
 
 @media only screen and (max-width: 500px) {
+    .checkout-table {
+        text-align: center;
+        overflow-x: auto;
+        width: 80vw;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .checkout-table table {
+        display: inline-block !important;
+    }
     .cart-image {
         width: 100%;
     }

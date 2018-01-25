@@ -10,6 +10,12 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     vm.qtyToAdd = 1;
     vm.loaded = false;
     vm.fbid = $location.search().fbid;
+    if (vm.fbid) {
+        vm.fbParam = '?fbid=' + vm.fbid;
+    } else {
+        vm.fbParam = '';
+    }
+
     vm.userData = {};
     vm.cartData = {};
     vm.clickedItem = {};

@@ -7,6 +7,7 @@
             </div>
             <div id="cartInfoDiv" ng-if="vm.cartData.cartItems.length>0">
                 <div id="cartActionDiv">
+                    <a ng-href="/checkout{{vm.fbParam}}"><button class="btn btn-success">Checkout Cart</button></a>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#confirmClearCart">Clear cart</button>
                 </div>
                 <p class="lead cart-cost">Total cost:<br><strong> Php {{vm.cartData.totalPrice | number:2}}</strong></p>
