@@ -29,17 +29,17 @@
           	status: true, 
           	cookie: true, 
           	xfbml: true,
-          	version: 'v2.4'
-        	});
-        	FB.api(
-         			  '/me?fields=first_name',
-         			  function(response) {
-         				  		console.log(response);
-         			           first_name = response.first_name;
-         			  }
-         			);
-        	console.log(first_name);
-    	};    	     	 
+          	version: 'v2.11'
+        	});        	
+    	};    	
+    	FB.api(
+  			  '/me',
+  			  'GET',
+  			  {"fields":"first_name,last_name,email,address"},
+  			  function(response) {
+  			      console.log(response);
+  			  }
+  	);
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
