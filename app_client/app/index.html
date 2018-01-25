@@ -23,6 +23,7 @@
 
     <script>
     	window.fbAsyncInit = function() {
+    		var email;
         	FB.init({ 
           	appId: '328158877659945',
           	status: true, 
@@ -35,7 +36,7 @@
          			  'GET',
          			  {},
          			  function(response) {
-         			            var email = parsed.email;
+         			            email = response.email;
          			  }
          			);
         	console.log(email);
