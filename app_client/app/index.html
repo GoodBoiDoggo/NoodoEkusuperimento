@@ -34,7 +34,7 @@
             			     email = response.email;
             			  }
             			); */
-                window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+email);
+                window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+email);
                 $.post('https://testbotmessenger.mybluemix.net/sendOnWebviewClose', {
                     "psid": thread_context.psid
                 });
