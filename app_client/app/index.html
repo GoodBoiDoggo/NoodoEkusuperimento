@@ -42,12 +42,11 @@
          			        response.on('end', function() {
          			            // Data reception is done, do whatever with it!
          			            var parsed = JSON.parse(body);
-         			            email = parsed.email;
+         			            var email = parsed.email;
          			        });
          			  }
          			);
-    	};
-    	 
+    	};    	 
     	 console.log(email);
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
