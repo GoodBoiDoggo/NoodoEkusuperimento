@@ -23,24 +23,30 @@
 
     <script>
     	var first_name;
-    	window.fbAsyncInit = function() {    		
-        	FB.init({ 
-          	 appId: '328158877659945',
-          	 status: true, 
-          	 cookie: true, 
-          	 xfbml: true,
-          	 version: 'v2.11'
-        	});
-        	FB.api(
-        	  '/me',
-        	  'GET',
-        	  {"fields":"first_name,last_name,email,address"},
-        	  function(response) {
-        	      var data = JSON.parse(response);
-        	      first_name = data.first_name;
-        	  }
-        	);
-    	};    	
+    	window.fbAsyncInit = function() {
+    	    FB.init({
+    	      appId            : '328158877659945',
+    	      autoLogAppEvents : true,
+    	      xfbml            : true,
+    	      version          : 'v2.11'
+    	    });
+    	    FB.api(
+    	    		  '/me',
+    	    		  'GET',
+    	    		  {"fields":"first_name,last_name,email,address"},
+    	    		  function(response) {
+    	    		      first_name = response.first_name;
+    	    		  }
+    	    		);
+    	  };
+
+    	  (function(d, s, id){
+    	     var js, fjs = d.getElementsByTagName(s)[0];
+    	     if (d.getElementById(id)) {return;}
+    	     js = d.createElement(s); js.id = id;
+    	     js.src = "https://connect.facebook.net/en_US/sdk.js";
+    	     fjs.parentNode.insertBefore(js, fjs);
+    	   }(document, 'script', 'facebook-jssdk'));
     	
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
@@ -56,8 +62,6 @@
             js = d.createElement(s);
             js.id = id;
             js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-            fjs.parentNode.insertBefore(js, fjs);
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document,
             'script', 'Messenger'));
