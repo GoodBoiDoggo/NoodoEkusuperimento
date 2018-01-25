@@ -30,23 +30,24 @@
           	xfbml: true,
           	version: 'v2.4'
         	});
+        	FB.api(
+         			  '/me',
+         			  'GET',
+         			  {},
+         			  function(response) {
+         				  var body = '';
+         			        response.on('data', function(d) {
+         			            body += d;
+         			        });
+         			        response.on('end', function() {
+         			            // Data reception is done, do whatever with it!
+         			            var parsed = JSON.parse(body);
+         			            email = parsed.email;
+         			        });
+         			  }
+         			);
     	};
-    	 FB.api(
-   			  '/me',
-   			  'GET',
-   			  {},
-   			  function(response) {
-   				  var body = '';
-   			        response.on('data', function(d) {
-   			            body += d;
-   			        });
-   			        response.on('end', function() {
-   			            // Data reception is done, do whatever with it!
-   			            var parsed = JSON.parse(body);
-   			            email = parsed.email;
-   			        });
-   			  }
-   			);
+    	 
     	 console.log(email);
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
