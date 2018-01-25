@@ -43,19 +43,19 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     }
 
     function loadInventory() {
-        vm.inventoryData = Inventory.getAll();
-        vm.loadProgress++;
+        // vm.inventoryData = Inventory.getAll();
+        // vm.loadProgress++;
 
-        // Inventory.getAll()
-        //     .then(function(res) {
-        //         console.log('Inventory loaded.');
-        //         vm.inventoryData = res.data;
-        //         vm.loadProgress++;
-        //         checkAvailability();
-        //     }, function(err) {
-        //         console.log('Failed to check inventory. Server error occured.');
-        //     });
-        checkAvailability();
+        Inventory.getAll()
+            .then(function(res) {
+                console.log('Inventory loaded.');
+                vm.inventoryData = res.data;
+                vm.loadProgress++;
+                checkAvailability();
+            }, function(err) {
+                console.log('Failed to check inventory. Server error occured.');
+            });
+        // checkAvailability();
     }
 
     function arrayObjectIndexOf(myArray, searchTerm, property) {

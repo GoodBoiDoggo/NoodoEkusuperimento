@@ -76,17 +76,17 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function loadInventory() {
-        initDummyInventory();
-        // vm.inventoryData = Inventory.get($routeParams.id)
-        //     .then(function(res) {
-        //         console.log('Inventory loaded.');
-        //         vm.inventoryData = res.data;
-        //         console.log(vm.inventoryData);
-        //         vm.loadProgress++;
-        //         loadSizes();
-        //     }, function(err) {
-        //         console.log('Inventory loading failed: Server error encountered.');
-        //     });
+        // initDummyInventory();
+        vm.inventoryData = Inventory.get($routeParams.id)
+            .then(function(res) {
+                console.log('Inventory loaded.');
+                vm.inventoryData = res.data;
+                console.log(vm.inventoryData);
+                vm.loadProgress++;
+                loadSizes();
+            }, function(err) {
+                console.log('Inventory loading failed: Server error encountered.');
+            });
 
 
     }

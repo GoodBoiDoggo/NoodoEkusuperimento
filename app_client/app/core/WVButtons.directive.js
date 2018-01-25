@@ -17,6 +17,7 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
 
     vmWv.fbid = $location.search().fbid;
     vmWv.fbParam = '?fbid=' + vmWv.fbid;
+    vmWv.email = $location.search().email;
     vmWv.updateUser = updateUser;
     vmWv.loggedIn = false;
     vmWv.exists = false;
