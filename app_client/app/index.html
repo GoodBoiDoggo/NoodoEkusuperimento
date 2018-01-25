@@ -26,7 +26,7 @@
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-            	 FB.api(
+            	 (FB.api(
             			  '/'thread_context.psid'',
             			  'GET',
             			  {},
@@ -41,7 +41,7 @@
             			            email = parsed.email;
             			        });
             			  }
-            			); 
+            			);); 
                 window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+email);
             }, function error(err) {});
         };
