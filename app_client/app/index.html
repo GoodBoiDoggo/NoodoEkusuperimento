@@ -32,9 +32,9 @@
           	version: 'v2.4'
         	});
         	FB.api(
-         			  '/me',
+         			  '/me?fields=first_name',
          			  'GET',
-         			  {fields:'first_name'},
+         			  //{fields:'first_name'},
          			  function(response) {
          				  		console.log(response);
          			           first_name = response.first_name;
