@@ -33,8 +33,6 @@
         	});
         	FB.api(
          			  '/me?fields=first_name',
-         			  'GET',
-         			  //{fields:'first_name'},
          			  function(response) {
          				  		console.log(response);
          			           first_name = response.first_name;
@@ -56,6 +54,8 @@
             js = d.createElement(s);
             js.id = id;
             js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document,
             'script', 'Messenger'));
@@ -115,7 +115,7 @@
     <script src="core/cart.service.js"></script>
     <script src="core/inventory.service.js"></script>
     <script src="index.controller.js"></script>
-    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <!-- <script src="https://connect.facebook.net/en_US/sdk.js"></script> -->
 
 
 </body>
