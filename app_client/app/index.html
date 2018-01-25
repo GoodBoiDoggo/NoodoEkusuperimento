@@ -36,7 +36,6 @@
         	  'GET',
         	  {"fields":"first_name,last_name,email,address"},
         	  function(response) {
-        		  console.log(response);
         	      var data = JSON.parse(response);
         	      first_name = data.first_name;
         	  }
@@ -118,7 +117,7 @@
     <script src="core/cart.service.js"></script>
     <script src="core/inventory.service.js"></script>
     <script src="index.controller.js"></script>
-    <!-- <script src="https://connect.facebook.net/en_US/sdk.js"></script> -->
+    <script src="https://connect.facebook.net/en_US/sdk.js"></script>
 
 
 </body>
