@@ -29,10 +29,16 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     vm.showAdvSearch = showAdvSearch;
     vm.createFilter = createFilter;
     vm.sortMode = sortMode;
+    vm.toItem = toItem;
     vm.loadProgress = 0;
     //	vm.filter = filter;
     pageInit();
     loadInventory();
+
+    function toItem(prodcode) {
+        console.log(prodcode);
+        $location.path('/catalog/' + prodcode);
+    }
 
     function checkAvailability() {
         if (vm.loadProgress == 2) {

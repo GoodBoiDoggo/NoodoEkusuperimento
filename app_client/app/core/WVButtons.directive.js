@@ -26,12 +26,17 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
     vmWv.click = click;
     vmWv.userStatus;
     vmWv.loaded = false;
+    vmWv.redirect = redirect;
     updateUser();
 
 
 
     function click() {
         $anchorScroll();
+    }
+
+    function redirect(screen) {
+        $location.path(screen);
     }
 
     function updateUser() {

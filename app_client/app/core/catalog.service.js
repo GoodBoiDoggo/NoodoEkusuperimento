@@ -3,8 +3,8 @@ angular.module('app.core').factory('Catalog', catalogService);
 
 function catalogService($http) {
     var baseUrl2 = '';
-    var baseUrl = 'http://184.172.241.167:31177';
-    //var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/7896c17f-95fd-4031-9e92-0d5c70f4feae';
+    //var baseUrl = 'http://184.172.241.167:31177';
+    var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/7896c17f-95fd-4031-9e92-0d5c70f4feae';
     return {
 
         get: function() {
@@ -49,6 +49,7 @@ function catalogService($http) {
         getItems: function(items) {
             console.log('Fetching cart item details...');
             return $http.get(baseUrl2 + '/items/' + items);
+            // return $http.get(baseUrl + '/items/' + items);
         },
         checkAvailability: function(catalog, inventory) {
             for (i = 0; i < catalog.length; i++) {

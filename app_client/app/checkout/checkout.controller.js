@@ -30,77 +30,69 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         vm.selectedAction = '0';
     }
 
-    function loadCart() {
-        vm.itemIds = '';
-
+    function loadUser() {
         if (vm.fbid) {
             FB.getFbProfile(vm.fbid)
                 .then(function(res) {
                     vm.userData = res.data[0];
-                    cart.get(vm.userData._id)
-                        .then(function(res) {
-                            console.log('Cart loaded.');
-                            vm.cartData = res.data;
-                            if (vm.cartData.cartItems.length > 0) {
-                                //parse product codes
-                                for (i = 0; i < vm.cartData.cartItems.length; i++) {
-                                    vm.itemIds = vm.itemIds.concat(vm.cartData.cartItems[i].prodCode.substring(0, 6));
-                                    vm.cartData.cartItems[i].displaySize = parseFloat(vm.cartData.cartItems[i].prodCode.substring(6).replace('-', '.'));
-                                    vm.cartData.cartItems[i].displayName = 'Loading...';
-                                    if (i != vm.cartData.cartItems.length - 1) {
-                                        vm.itemIds = vm.itemIds.concat('-');
-                                    }
-                                }
-                                loadItemDetails();
-                                vm.message = '';
-                            } else {
-                                vm.message = 'Your cart is empty';
-                            }
-                        }, function(err) {
-                            console.log('Cart load failed: Server encountered error');
-                        });
+                    loadCart();
                 }, function(err) {
-                    console.log('Cart load failed: Server encountered error.');
+                    console.log('Cart load failed: User data not available.');
 
                 });
 
         } else {
-            profile.getUser()
-                .then(function(res) {
-                    console.log(res.data);
-                    vm.userData = res.data;
-                    cart.get(vm.userData._id)
-                        .then(function(res) {
-                            console.log('Cart loaded.');
+            if (profile.isLoaded()) {
+                vm.userData = profile.getUser();
+                loadCart();
+            } else {
+                profile.loadUser()
+                    .then(function(res) {
+                        console.log(res.data);
+                        vm.userData = res.data;
+                        profile.setUser(vm.userData);
+                        loadCart();
+                    }, function(err) {
+                        vm.message = 'Cart load failed: Failed to get user data.';
+                        console.log('Cart load failed: Failed to get user data.');
+                    });
+            }
 
-                            vm.cartData = res.data;
-                            if (vm.cartData.cartItems.length > 0) {
-                                //parse product codes
-                                for (i = 0; i < vm.cartData.cartItems.length; i++) {
-                                    vm.itemIds = vm.itemIds.concat(vm.cartData.cartItems[i].prodCode.substring(0, 6));
-                                    vm.cartData.cartItems[i].displaySize = parseFloat(vm.cartData.cartItems[i].prodCode.substring(6).replace('-', '.'));
-                                    vm.cartData.cartItems[i].displayName = 'Loading...';
-                                    if (i != vm.cartData.cartItems.length - 1) {
-                                        vm.itemIds = vm.itemIds.concat('-');
-                                    }
-                                }
-                                loadItemDetails();
-                                vm.message = '';
-                            } else {
-                                vm.message = 'Your cart is empty.';
-                            }
-                        }, function(err) {
-                            vm.message = 'Cart load failed: Server encountered error';
-                            console.log('Cart load failed: Server encountered error');
-                        });
-                }, function(err) {
-                    vm.message = 'Cart load failed: Failed to get user data.'
-                    console.log('Cart load failed: Failed to get user data.');
-                });
 
 
 
         }
+    }
+
+    function loadCart() {
+        vm.itemIds = '';
+
+        cart.get(vm.userData._id)
+            .then(function(res) {
+                console.log('Cart loaded.');
+                vm.cartData = res.data;
+                if (vm.cartData.cartItems.length > 0) {
+                    //parse product codes
+                    for (i = 0; i < vm.cartData.cartItems.length; i++) {
+                        vm.itemIds = vm.itemIds.concat(vm.cartData.cartItems[i].prodCode.substring(0, 6));
+                        vm.cartData.cartItems[i].displaySize = parseFloat(vm.cartData.cartItems[i].prodCode.substring(6).replace('-', '.'));
+                        vm.cartData.cartItems[i].displayName = 'Loading...';
+                        if (i != vm.cartData.cartItems.length - 1) {
+                            vm.itemIds = vm.itemIds.concat('-');
+                        }
+                    }
+                    loadItemDetails();
+                    vm.message = '';
+                } else {
+                    vm.message = 'Your cart is empty';
+                }
+            }, function(err) {
+                vm.message = 'Cart load failed: Server encountered error';
+                console.log('Cart load failed: Server encountered error');
+            });
+
+
+
 
     }
 
@@ -133,7 +125,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     function pageInit() {
         $anchorScroll();
         vm.message = 'Loading cart...';
-        loadCart();
+        loadUser();
     }
 
 }

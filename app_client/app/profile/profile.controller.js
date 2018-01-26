@@ -54,11 +54,13 @@
           profile.updateDDA(vm.user)
               .then(function(res) {
                   vm.message = res.data;
+                  profile.setUser(vm.user);
+
                   vm.showForm = false;
                   console.log(vm.message);
               }, function(err) {
                   vm.message = "DDA not set. (Server error)";
-                  console.log(vm.message);
+
               });
 
       }
@@ -94,19 +96,32 @@
               $scope.$emit('AUTHENTICATE', 'profile');
 
               //pc code
-              profile.getUser()
-                  .then(function(res) {
-                      vm.user = res.data;
-                      console.log(res.data);
-                      vm.message = '';
-                      vm.loaded = true;
-                      if (vm.user.active) {
-                          vm.active = true;
-                      }
-                  }, function(e) {
-                      console.log(e);
-                      vm.message = 'Loading failed.'
-                  });
+              if (profile.isLoaded()) {
+                  vm.user = profile.getUser();
+                  console.log('PROFILE(get):')
+                  console.log(vm.user);
+                  vm.message = '';
+                  vm.loaded = true;
+                  if (vm.user.active) {
+                      vm.active = true;
+                  }
+              } else {
+                  profile.loadUser()
+                      .then(function(res) {
+                          vm.user = res.data;
+                          profile.setUser(vm.user);
+                          console.log(res.data);
+                          vm.message = '';
+                          vm.loaded = true;
+                          if (vm.user.active) {
+                              vm.active = true;
+                          }
+                      }, function(e) {
+                          console.log(e);
+                          vm.message = 'Loading failed.'
+                      });
+              }
+
           }
       }
 

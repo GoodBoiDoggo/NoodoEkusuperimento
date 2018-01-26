@@ -5,8 +5,8 @@ angular
 cartService.$inject = ['$http'];
 
 function cartService($http) {
-    //var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/cabde24e-0259-49ea-9d10-e39789ed4cb8';
-    var baseUrl = 'http://184.172.241.167:32692';
+    var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/e21a0bb1-5f8a-4886-ac81-fa58ed400f2f';
+    //var baseUrl = 'http://184.172.241.167:32692';
     return {
         get: getCart,
         create: createCart,

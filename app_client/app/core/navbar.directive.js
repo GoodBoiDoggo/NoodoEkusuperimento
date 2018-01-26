@@ -21,24 +21,33 @@
        updateUser();
        //        function login(){
        //        	User.setUser("NIPPON STEEL");
-       //  		  	//$scope.$emit('AUTHENTICATE',User.getUser());
-       //  		  	$scope.$broadcast('AUTHENTICATE',User.getUser());
+       //  		  	//$scope.$emit('AUTHENTICATE',User.loadUser());
+       //  		  	$scope.$broadcast('AUTHENTICATE',User.loadUser());
        //        }
        function updateUser() {
            if (!$location.search().fbid) {
 
                vmNav.isLoggedIn = authentication.isLoggedIn();
                if (vmNav.isLoggedIn) {
-                   profile.getUser()
-                       .then(function(res) {
-                           vmNav.currentUser = res.data;
-                           vmNav.currentUser.status = true;
+                   if (profile.isLoaded()) {
+                       vmNav.currentUser = profile.getUser();
+                       vmNav.currentUser.status = true;
+                   } else {
 
-                       }, function(e) {
-                           console.log(e);
-                           vmNav.currentUser.status = false;
-                           //lead to a page saying fetching user data failed
-                       });
+                       profile.loadUser()
+                           .then(function(res) {
+                               vmNav.currentUser = res.data;
+                               profile.setUser(vmNav.currentUser);
+                               vmNav.currentUser.status = true;
+                               console.log('NAVBAR(load):');
+                               console.log(vmNav.currentUser);
+                           }, function(e) {
+                               console.log(e);
+                               vmNav.currentUser.status = false;
+                               //lead to a page saying fetching user data failed
+                           });
+                   }
+
                }
 
 

@@ -15,8 +15,8 @@ angular.module('app.core').factory('Inventory', inventoryService);
 // http://localhost:8080/stocks/{prodcode}
 
 function inventoryService($http) {
-    //var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/d8133564-74ef-4ef6-a0bf-793f5b1a8043';
-    var baseUrl = 'http://184.172.241.167:32173';
+    var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/d8133564-74ef-4ef6-a0bf-793f5b1a8043';
+    //var baseUrl = 'http://184.172.241.167:32173';
     return {
         // call to get all catalog items
         //http://184.172.241.167:32173
@@ -34,20 +34,20 @@ function inventoryService($http) {
         },
 
         add: function(item) {
-            console.log('Adding review...')
+            console.log('Adding review...');
 
-            //return $http.post(baseUrl + '/stocks, item);
+            return $http.post(baseUrl + '/stocks', item);
         },
 
         delete: function(prodCode) {
             console.log('Deleting invetory item...');
 
-            //return $http.delete(baseUrl + '/stocks/' + prodCode);
+            return $http.delete(baseUrl + '/stocks/' + prodCode);
         },
         update: function(item) {
             console.log('Updating item quantity...');
 
-            //return $http.put(baseUrl + '/stocks/' + item.prodcode, item);
+            return $http.put(baseUrl + '/stocks/' + item.prodcode, item);
         }
     }
 
