@@ -9,14 +9,14 @@ function catalogService($http) {
 
         get: function() {
             console.log('Retrieving catalog...');
-            return $http.get(baseUrl2 + '/catalog/all');
-            // return $http.get(baseUrl + '/catalog/all'); //working
+            // return $http.get(baseUrl2 + '/catalog/all');
+            return $http.get(baseUrl + '/catalog/all'); //working
         },
 
         getItem: function(prodcode) {
             console.log("Fetch item: " + prodcode);
-            return $http.get(baseUrl2 + '/item/' + prodcode);
-            // return $http.get(baseUrl + '/item/' + prodcode); //defect
+            // return $http.get(baseUrl2 + '/item/' + prodcode);
+            return $http.get(baseUrl + '/item/' + prodcode); //defect
         },
 
         addReview: function(review) {
@@ -48,8 +48,8 @@ function catalogService($http) {
         },
         getItems: function(items) {
             console.log('Fetching cart item details...');
-            return $http.get(baseUrl2 + '/items/' + items);
-            // return $http.get(baseUrl + '/items/' + items);
+            // return $http.get(baseUrl2 + '/items/' + items);
+            return $http.get(baseUrl + '/items/' + items);
         },
         checkAvailability: function(catalog, inventory) {
             for (i = 0; i < catalog.length; i++) {
