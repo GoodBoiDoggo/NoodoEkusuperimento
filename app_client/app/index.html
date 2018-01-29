@@ -33,8 +33,8 @@
             FB.api(
                 '/me',
                 'GET', {
-                    "fields": "first_name,last_name,email,address",
-                    "access_token": "EAAEqdXFVMykBAGbFKOR3JDGlj8OIorZB81ZCsrgsSbEQnE0yTxjlyEJzTWITV7JvbEJRTy5nZBqvMEfzW1BN0ajRnxB9Gb7thHVrPgdBZBGjJC15Uhx9IQCVMEZAUwO1ZBWxgtgpvfaEQAHe0Nx3uKj1b1Uy4PAtYhewBuieIQCAZDZD"
+                    'fields': 'first_name',
+                    'access_token': 'EAAEqdXFVMykBAGbFKOR3JDGlj8OIorZB81ZCsrgsSbEQnE0yTxjlyEJzTWITV7JvbEJRTy5nZBqvMEfzW1BN0ajRnxB9Gb7thHVrPgdBZBGjJC15Uhx9IQCVMEZAUwO1ZBWxgtgpvfaEQAHe0Nx3uKj1b1Uy4PAtYhewBuieIQCAZDZD'
                 },
                 function(response) {
                     console.log('not error');
@@ -101,7 +101,6 @@
     <div ng-class="vm.whitespace()"></div>
     <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
-        <button onclick="FB.login()">TEST</button>
         <div id="content" ng-view></div>
     </div>
     <div id="rightArea"></div>
