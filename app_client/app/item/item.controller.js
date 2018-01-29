@@ -34,7 +34,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.pageInit = pageInit;
     vm.setRate = setRate;
     vm.loaditem = loadItem;
-    vm.reloadItem - reloadItem;
     vm.clickEdit = clickEdit;
     vm.clickReview = clickReview;
     vm.deleteReview = deleteReview;
@@ -50,7 +49,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.addToCart = addToCart;
     vm.qtyToAdd = 1;
 
-    loadInventory()
+
     pageInit();
 
 
@@ -117,8 +116,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         vm.newRating._id = angular.copy(vm.userid);
         Catalog.updateRating(vm.itemData.prodcode, vm.newRating)
             .then(function(res) {
-                reloadItem();
-                loadUser();
+                loadItem('2');
+                loadUser('2');
                 console.log('Rating updated');
             }, function(err) {
                 console.log('Rating updated failed: Server error encountered.');
@@ -165,7 +164,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         Catalog.delReview(prodcode, review._id)
             .then(function(res) {
                 console.log('Successfully deleted review.');
-                reloadItem();
+                loadItem('2');
             }, function(err) {
                 console.log('Server error encountered while deleting review.');
             });
@@ -199,7 +198,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             Catalog.addReview(vm.reviewcredentials)
                 .then(function(res) {
                     console.log('Review added');
-                    reloadItem();
+                    loadItem('2');
                 }, function(err) {
                     console.log('Review upload failed.');
                 });
@@ -207,7 +206,21 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     }
 
-    function loadUser() {
+    function loadItemRating() {
+        if (vm.ratedetails.length > 0) {
+            vm.itemPosition = arrayObjectIndexOf(vm.ratedetails, $routeParams.id, 'itemrated');
+            if (vm.itemPosition > -1) {
+                setRate(vm.ratedetails[vm.itemPosition].rating);
+                vm.hasRated = true;
+            } else {
+                vm.hasRated = false;
+            }
+        } else {
+            vm.hasRated = false;
+        }
+    }
+
+    function loadUser(mode) { //Mode 1 - Normal load; Mode 2 - Hard reload
         if (vm.fbid) {
             FB.fbLoggedIn(vm.fbid)
                 .then(function(res) {
@@ -216,17 +229,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
                         vm.ratedetails = res.data['0'].ratedetails;
-                        if (vm.ratedetails.length > 0) {
-                            vm.itemPosition = arrayObjectIndexOf(vm.ratedetails, $routeParams.id, 'itemrated');
-                            if (vm.itemPosition > -1) {
-                                setRate(vm.ratedetails[vm.itemPosition].rating);
-                                vm.hasRated = true;
-                            } else {
-                                vm.hasRated = false;
-                            }
-                        } else {
-                            vm.hasRated = false;
-                        }
+                        loadItemRating();
                         vm.loggedIn = true;
 
                     } else {
@@ -244,46 +247,57 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
 
         } else {
+
             if (authentication.isLoggedIn()) {
-                profile.getUser()
-                    .then(function(res) {
-                        vm.userid = res.data._id;
-                        vm.username = res.data.firstname + ' ' + res.data.lastname;
-                        vm.ratedetails = res.data.ratedetails;
-                        if (vm.ratedetails.length > 0) {
-                            vm.itemPosition = arrayObjectIndexOf(vm.ratedetails, $routeParams.id, 'itemrated');
-                            if (vm.itemPosition > -1) {
-                                setRate(vm.ratedetails[vm.itemPosition].rating);
-                                vm.hasRated = true;
-                            } else {
-                                vm.hasRated = false;
+                if (profile.isLoaded() && mode === '1') {
+                    vm.userid = profile.getUser()._id;
+                    vm.username = profile.getUser().firstname + ' ' + profile.getUser().lastname;
+                    vm.ratedetails = profile.getUser().ratedetails;
+
+                    loadItemRating();
+
+                    vm.loggedIn = true;
+                    if (profile.getUser().active) {
+                        vm.useractive = true;
+                    }
+                } else {
+                    profile.loadUser()
+                        .then(function(res) {
+                            profile.setUser(res.data);
+                            vm.userid = res.data._id;
+                            vm.username = res.data.firstname + ' ' + res.data.lastname;
+                            vm.ratedetails = res.data.ratedetails;
+                            loadItemRating();
+
+                            vm.loggedIn = true;
+                            if (res.data.active) {
+                                vm.useractive = true;
                             }
-                        } else {
-                            vm.hasRated = false;
-                        }
 
-                        vm.loggedIn = true;
-                        if (res.data.active) {
-                            vm.useractive = true;
-                        }
+                        }, function(e) {
+                            console.log(e);
 
-                    }, function(e) {
-                        console.log(e);
+                        });
+                }
 
-                    });
             }
 
         }
     }
 
     function pageInit() {
-        loadItem();
         $anchorScroll();
-        loadUser();
-
+        loadInventory();
+        loadItem('1');
+        loadUser('1');
     }
 
-    function loadItem() {
+    function loadItem(mode) { //Mode 1 - Normal load; Mode 2 - Hard reload
+        if (mode === '2') {
+            vm.loadProgress = 0;
+            loadInventory();
+        }
+
         Catalog.getItem($routeParams.id).then(function(res) {
             vm.itemData = angular.copy(res.data);
             vm.itemSizeData = [];
@@ -291,7 +305,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 vm.itemFound = true;
                 vm.loaded = true;
                 vm.loadProgress++;
-                viewUp();
+                if (mode === '1') viewUp();
                 loadSizes();
             } else {
                 vm.itemFound = false;
@@ -305,27 +319,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     }
 
-    function reloadItem() {
-        vm.loadProgress = 0;
-        loadInventory();
-        Catalog.getItem($routeParams.id).then(function(res) {
-            vm.itemData = angular.copy(res.data);
-            if (vm.itemData) {
-                vm.itemFound = true;
-                vm.loaded = true;
-                vm.loadProgress++;
-                loadSizes();
-            } else {
-                vm.itemFound = false;
-                vm.errMessage = 'The item you are trying to view does not exist. The link you are using might be incorrect.';
-            }
-        }, function(err) {
-            vm.itemFound = false;
-            vm.errMessage = 'Server error encountered. Please try again later.';
-            console.log('Server error encountered.');
-        })
-
-    }
 
     function toggleReview() {
         if (vm.hideReviews) {
