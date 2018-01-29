@@ -51,7 +51,7 @@
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-            	if(window.location() == document.getElementById('https://kariteun-shopping.mybluemix.net/catalog?fbid='))
+            	if(window.location() != document.getElementById('https://kariteun-shopping.mybluemix.net/catalog?fbid='))
             		{
             		window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
             		}
