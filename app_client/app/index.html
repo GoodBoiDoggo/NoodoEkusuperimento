@@ -55,10 +55,19 @@
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
+<<<<<<< HEAD
                 //if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
                 if (window.location.pathname == "/catalog") {
                     window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email=" + first_name);
                 }
+=======
+            	//if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
+            		var pathname = window.location.pathname;
+            	 if(pathname === '/catalog')
+            		{
+            		window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
+            		} 
+>>>>>>> e23f37d4ca8d2a869bf59d80f26d6c3dc339f0b1
                 //window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
                 //document.getElementById('yourLink').href += id;
             }, function error(err) {});
