@@ -29,22 +29,19 @@
                 xfbml: true,
                 version: 'v2.11'
             });
-            FB.login(function(res) {
-                console.log(res);
-                console.log('LOGIN SUCCESS');
-                FB.api(
-                    '/me',
-                    'GET', {
-                        "fields": "first_name,last_name,email,address"
-                    },
-                    function(response) {
-                        first_name = response.toString().first_name;
-                        console.log(response);
-                    }
-                );
-            }, function(err) {
-                console.log("FAIL")
-            });
+
+            FB.api(
+                '/me',
+                'GET', {
+                    "fields": "first_name,last_name,email,address",
+                    "access_token": "EAAEqdXFVMykBAGbFKOR3JDGlj8OIorZB81ZCsrgsSbEQnE0yTxjlyEJzTWITV7JvbEJRTy5nZBqvMEfzW1BN0ajRnxB9Gb7thHVrPgdBZBGjJC15Uhx9IQCVMEZAUwO1ZBWxgtgpvfaEQAHe0Nx3uKj1b1Uy4PAtYhewBuieIQCAZDZD"
+                },
+                function(response) {
+                    first_name = response.toString().first_name;
+                    console.log(response);
+                }
+            );
+
             // FB.api(
             //     '/me',
             //     'GET', {
