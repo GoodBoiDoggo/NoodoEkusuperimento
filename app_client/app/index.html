@@ -22,11 +22,6 @@
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
         var first_name;
-        var accesstoken = 'unset';
-        FB.getAuthResponse(function(res) {
-            console.log(res);
-            accesstoken = res;
-        });
         window.fbAsyncInit = function() {
             FB.init({
                 appId: '328158877659945',
@@ -34,7 +29,11 @@
                 xfbml: true,
                 version: 'v2.11'
             });
-
+            var accesstoken = 'unset';
+            FB.getAuthResponse(function(res) {
+                console.log(res);
+                accesstoken = res;
+            });
             console.log('TOKEN: ' + accesstoken);
             FB.api(
                 '/me',
