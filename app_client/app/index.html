@@ -29,13 +29,9 @@
                 xfbml: true,
                 version: 'v2.11'
             });
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    console.log('Logged in.');
-                } else {
-                    console.log('initiate FB login...');
-                    FB.login();
-                }
+            FB.login(function(res) {
+                console.log(res);
+                console.log('LOGIN SUCCESS');
                 FB.api(
                     '/me',
                     'GET', {
@@ -46,6 +42,8 @@
                         console.log(response);
                     }
                 );
+            }, function(err) {
+                console.log("FAIL")
             });
             // FB.api(
             //     '/me',
