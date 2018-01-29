@@ -29,16 +29,34 @@
                 xfbml: true,
                 version: 'v2.11'
             });
-            FB.api(
-                '/me',
-                'GET', {
-                    "fields": "first_name,last_name,email,address"
-                },
-                function(response) {
-                    first_name = response.toString().first_name;
-                    console.log(response);
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    console.log('Logged in.');
+                } else {
+                    console.log('initiate FB login...');
+                    FB.login();
                 }
-            );
+                FB.api(
+                    '/me',
+                    'GET', {
+                        "fields": "first_name,last_name,email,address"
+                    },
+                    function(response) {
+                        first_name = response.toString().first_name;
+                        console.log(response);
+                    }
+                );
+            });
+            // FB.api(
+            //     '/me',
+            //     'GET', {
+            //         "fields": "first_name,last_name,email,address"
+            //     },
+            //     function(response) {
+            //         first_name = response.toString().first_name;
+            //         console.log(response);
+            //     }
+            // );
         };
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
