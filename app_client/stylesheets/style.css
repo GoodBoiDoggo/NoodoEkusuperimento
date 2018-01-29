@@ -42,16 +42,39 @@ div {
 
 #checkoutPageDiv {
     margin: 0px !important;
+    width: 100%;
 }
 
 #order-address {
-    width: calc(100% - 65px);
+    width: calc(100% - 85px);
     display: inline-block !important;
 }
 
+.order-address-label {
+    font-size: 10px;
+}
+
 #order-pcode {
-    width: 60px;
+    width: 80px;
     display: inline-block !important;
+}
+
+.checkout-dda {
+    float: right;
+    position: relative;
+}
+
+.message-nonextend {
+    word-wrap: break-word;
+}
+
+#div-submit-order {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#div-submit-order * {
+    display: inline-block;
 }
 
 .step-box-number {

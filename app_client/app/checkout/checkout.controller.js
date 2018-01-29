@@ -18,7 +18,18 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     vm.selectedAction = '0';
     vm.clickItem = clickItem;
     vm.viewItem = viewItem;
+    vm.loadDDA = loadDDA;
+    vm.submitOrder = submitOrder;
     pageInit();
+
+    function submitOrder() {
+
+    }
+
+    function loadDDA() {
+        vm.orderAddress = angular.copy(vm.userData.address);
+        vm.orderPostal = angular.copy(vm.userData.postalcode);
+    }
 
     function viewItem() {
 

@@ -45,10 +45,37 @@
 
             <div id="checkout-address">
                 Address: <br>
-                <input id="order-address" type="text" class="form-control" ng-model="vm.orderAddress"> <input id="order-pcode" type="text" placeholder="postal code" class="form-control"> <button type="button" class="btn btn-primary">Use default</button>
+                <div id="order-address">
+                    <input type="text" class="form-control" ng-model="vm.orderAddress">
+                    <span class="order-address-label">(Address)</span>
+                </div>
+                <div id="order-pcode">
+                    <input type="text" class="form-control" ng-model="vm.orderPostal">
+                    <span class="order-address-label">(Postal Code)</span>
+                </div>
+                <br>
+                <button ng-show="(vm.orderAddress || vm.orderPostal) && (vm.userData.address.toUpperCase() != vm.orderAddress.toUpperCase() || vm.userData.postalcode.toUpperCase() != vm.orderPostal.toUpperCase())" type="button" class="btn btn-success checkout-dda">Save as Default</button>
+                <button ng-if="vm.userData.address || vm.userData.postalcode" type="button" class="btn btn-primary checkout-dda" ng-click="vm.loadDDA()">Use default</button>
 
             </div>
+            <div class="whitespace-smaller"></div>
+            <div class="step-box">
+                <div class="step-box-number text-center">
+                    <strong>3</strong>
+                </div>
+                <div class="step-box-text">
+                    <span>Submit your order!</span>
+                </div>
+            </div>
+            <div id="div-submit-order">
 
+                <button ng-show="vm.orderAddress && vm.orderPostal" class="btn btn-success" ng-click="vm.submitOrder()">Submit Order</button>
+
+                <div ng-if="!(vm.orderAddress && vm.orderPostal)" class="alert alert-info">
+
+                    <p class="message-nonextend">Please enter your address and postal code above so that we can deliver the item to you :)</p>
+                </div>
+            </div>
 
         </div>
     </div>

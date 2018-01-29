@@ -22,36 +22,46 @@
 <body ng-app="app" ng-controller="indexController as vm">
 
     <script>
-    	var first_name;
-    	window.fbAsyncInit = function() {
-    	    FB.init({
-    	      appId            : '328158877659945',
-    	      autoLogAppEvents : true,
-    	      xfbml            : true,
-    	      version          : 'v2.11'
-    	    });
-    	    FB.api(
-    	    		  '/me',
-    	    		  'GET',
-    	    		  {"fields":"first_name,last_name,email,address"},
-    	    		  function(response) {
-    	    		      first_name = response.toString().first_name;
-    	    		  }
-    	    		);
-    	  };
+        var first_name;
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '328158877659945',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.11'
+            });
+            FB.api(
+                '/me',
+                'GET', {
+                    "fields": "first_name,last_name,email,address"
+                },
+                function(response) {
+                    first_name = response.toString().first_name;
+                }
+            );
+        };
 
-    	  (function(d, s, id){
-    	     var js, fjs = d.getElementsByTagName(s)[0];
-    	     if (d.getElementById(id)) {return;}
-    	     js = d.createElement(s); js.id = id;
-    	     js.src = "https://connect.facebook.net/en_US/sdk.js";
-    	     fjs.parentNode.insertBefore(js, fjs);
-    	   }(document, 'script', 'facebook-jssdk'));
-    	
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
             	var pathname = window.location.pathname;
+                //if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
+                if (window.location.pathname == "/catalog") {
+                    window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email=" + first_name);
+                }
+            	//if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
+            		var pathname = window.location.pathname;
             	 if(pathname === '/catalog')
             		{
             		window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
@@ -118,6 +128,7 @@
     <script src="item/item.controller.js"></script>
     <script src="item/item.route.js"></script>
     <script src="core/catalog.service.js"></script>
+    <script src="core/order.service.js"></script>
     <script src="core/fb.service.js"></script>
     <script src="core/navbar.directive.js"></script>
     <script src="core/WVButtons.directive.js"></script>
