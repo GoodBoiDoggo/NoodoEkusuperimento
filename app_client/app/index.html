@@ -51,14 +51,12 @@
         window.extAsyncInit = function() {
             // the Messenger Extensions JS SDK is done loading
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-            	//if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
-            		var pathname = window.location.pathname;
+            	var pathname = window.location.pathname;
             	 if(pathname === '/catalog')
             		{
             		window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
             		} 
                 //window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
-            	//document.getElementById('yourLink').href += id;
             }, function error(err) {});
         };
         (function(d, s, id) {
