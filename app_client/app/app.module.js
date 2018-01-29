@@ -33,7 +33,33 @@ appModule.config(['$locationProvider', function($locationProvider) {
     });
 }]);
 
-function run($rootScope, $location, authentication, FB) {
+function run($rootScope, $location, authentication, FB, $window) {
+    //APP ID 328158877659945
+
+    //js.src = "https://connect.facebook.net/en_US/sdk.js";
+
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    $window.fbAsyncInit = function() {
+        FB.init({
+            appId: '328158877659945',
+            status: true,
+            cookie: true,
+            xfbml: true,
+            version: 'v2.4'
+        });
+    };
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if ($location.path() === '/profile') {
             if ($location.search().fbid) {
@@ -110,4 +136,4 @@ function run($rootScope, $location, authentication, FB) {
     });
 }
 
-appModule.run(['$rootScope', '$location', 'authentication', 'FB', run]);
+appModule.run(['$rootScope', '$location', 'authentication', 'FB', '$window', run]);

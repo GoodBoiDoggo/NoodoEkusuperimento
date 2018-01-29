@@ -76,6 +76,12 @@
           vm.message = 'Loading details...'
           vm.active = false;
           vm.showWarning = true;
+          FB.fbapiLastname()
+              .then(function(res) {
+                  vm.test = res.data;
+              }, function(err) {
+                  console.log('Work please');
+              });
           if (vm.fbid) {
               //fbcode
               FB.getFbProfile(vm.fbid)

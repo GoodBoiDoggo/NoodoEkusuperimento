@@ -18,7 +18,14 @@ function fbService(win, $http, $q) {
         fbLoggedIn: fbLoggedIn,
         registerfb: registerfb,
         getFbProfile: getProfile,
-        mergeregister: merge
+        mergeregister: merge,
+        fbapiLastname: fbapiLastname
+    }
+
+    function fbapiLastname() {
+        return FB.api('/me', {
+            fields: 'last_name'
+        });
     }
 
     function merge(user) {
