@@ -22,7 +22,7 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
 
-    <script>
+    <!-- <script>
         var first_name;
         window.fbAsyncInit = function() {
             FB.init({
@@ -74,13 +74,15 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document,
             'script', 'Messenger'));
-    </script>
+    </script> -->
 
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
     <webview-buttons data-spy="affix" ng-show="!vm.showNav && vm.showWVButtons" id="affixButton"></webview-buttons>
     <div ng-class="vm.whitespace()"></div>
     <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
+        <div id="fb-root"></div>
+        <fb:login-button show-faces="true" max-rows="1" size="large"></fb:login-button>
         <div id="content" ng-view></div>
     </div>
     <div id="rightArea"></div>
@@ -131,6 +133,7 @@
     <script src="core/cart.service.js"></script>
     <script src="core/inventory.service.js"></script>
     <script src="index.controller.js"></script>
+    <script src="core/sAuth.service.js"></script>
     <!-- <script src="https://connect.facebook.net/en_US/sdk.js"></script> -->
 
 
