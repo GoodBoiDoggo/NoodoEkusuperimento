@@ -21,89 +21,9 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
-        var first_name;
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId: '328158877659945',
-                autoLogAppEvents: true,
-                xfbml: true,
-                version: 'v2.11'
-            });
-            var accesstoken = 'unset';
-            FB.getLoginStatus(function(response) {
-                console.log('GETLOGIN RESPONSE');
-                console.log(response);
-                if (response.status === 'connected') {
-                    // the user is logged in and has authenticated your
-                    // app, and response.authResponse supplies
-                    // the user's ID, a valid access token, a signed
-                    // request, and the time the access token 
-                    // and signed request each expire
-                    // var uid = response.authResponse.userID;
-                    // var accessToken = response.authResponse.accessToken;
-                } else if (response.status === 'not_authorized') {
-                    // the user is logged in to Facebook, 
-                    // but has not authenticated your app
-                } else {
-                    // the user isn't logged in to Facebook.
-                }
-            });
-            FB.getAuthResponse(function(res) {
-                console.log(res);
-                accesstoken = res;
-            });
-            console.log('TOKEN: ' + accesstoken);
-            FB.api(
-                '/me',
-                'GET', {
-                    fields: 'first_name,last_name,email,address',
-                    'access_token': accesstoken
-
-                },
-                function(response) {
-                    console.log('not error');
-                    first_name = response.toString().first_name;
-                    console.log(response);
-                },
-                function(err) {
-                    console.log(err);
-                }
-            );
-
-            // FB.api(
-            //     '/me',
-            //     'GET', {
-            //         "fields": "first_name,last_name,email,address"
-            //     },
-            //     function(response) {
-            //         first_name = response.toString().first_name;
-            //         console.log(response);
-            //     }
-            // );
-        };
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
         window.extAsyncInit = function() {
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-                window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
-                console.log('THREAD CONTEXT');
-                console.log(thread_context);
-                //if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
-                var pathname = window.location.pathname;
-                console.log('THREAD CONTEXT: ' + thread_context.psid);
-                console.log('FIRST_NAME: ' + first_name);
-                if (pathname === '/catalog') {
-                    window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email=" + first_name);
-                }
+                window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
             }, function error(err) {});
         };
         (function(d, s, id) {
