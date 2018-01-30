@@ -15,7 +15,7 @@ function orderService($http) {
     }
 
     function getOrder(customerId) {
-        return $http.get(baseUrl + '/order/' + customerId);
+        return $http.get(baseUrl + '/order/user/' + customerId);
 
     }
 

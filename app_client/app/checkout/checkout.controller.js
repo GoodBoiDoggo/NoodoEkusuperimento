@@ -23,11 +23,14 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     pageInit();
 
     function submitOrder() {
-        for (i = 0; i < vm.order.cartItems.length; i++)
-            delete vm.order.cartItems[i].subtotal;
-        vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
+
         vm.order.orderItems = angular.copy(vm.order.cartItems);
         delete vm.order.cartItems;
+        delete vm.order.id;
+        delete vm.order.status;
+        delete vm.order.class;
+        //console.log(vm.order);
+        vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
         order.create(vm.order)
             .then(function(res) {
                 console.log(vm.order);
