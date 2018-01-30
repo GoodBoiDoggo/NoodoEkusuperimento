@@ -23,7 +23,17 @@
     <script>
         window.extAsyncInit = function() {
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-                window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
+                console.log('THREAD CONTEXT');
+                console.log(thread_context);
+                //if(window.location.href == "https://kariteun-shopping.mybluemix.net/catalog?")
+                var pathname = window.location.pathname;
+                console.log('THREAD CONTEXT: ' + thread_context.psid);
+                console.log('FIRST_NAME: ' + first_name);
+                if (pathname === '/catalog') {
+                    window.location.assign("https://kariteun-shopping.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email=" + first_name);
+                }
+                //window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid + "&email="+first_name);
+                //document.getElementById('yourLink').href += id;
             }, function error(err) {});
             MessengerExtensions.requestCloseBrowser(function success() {
             	xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);

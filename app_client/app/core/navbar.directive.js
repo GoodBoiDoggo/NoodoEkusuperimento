@@ -18,12 +18,17 @@
        vmNav.updateUser = updateUser;
        vmNav.login = login;
        vmNav.logout = logout;
+       vmNav.redirect = redirect;
        updateUser();
        //        function login(){
        //        	User.setUser("NIPPON STEEL");
        //  		  	//$scope.$emit('AUTHENTICATE',User.loadUser());
        //  		  	$scope.$broadcast('AUTHENTICATE',User.loadUser());
        //        }
+       function redirect(screen) {
+           $location.path(screen);
+       }
+
        function updateUser() {
            if (!$location.search().fbid) {
 
@@ -39,8 +44,7 @@
                                vmNav.currentUser = res.data;
                                profile.setUser(vmNav.currentUser);
                                vmNav.currentUser.status = true;
-                               console.log('NAVBAR(load):');
-                               console.log(vmNav.currentUser);
+
                            }, function(e) {
                                console.log(e);
                                vmNav.currentUser.status = false;

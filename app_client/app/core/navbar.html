@@ -2,7 +2,7 @@
 
     <div class="navbar-header">
 
-        <a class="" href="/">
+        <a class="" ng-click="vmNav.redirect('/catalog')">
             <div id="logo">
                 <img class="navLogo" src=pic/kariteun-logo-nav.png>
                 <img class="shortNavLogo" src="pic/kariteun-logo.png">
@@ -16,11 +16,11 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-            <li><a ng-show="vmNav.isLoggedIn" href="/cart">View cart</a></li>
-            <li><a ng-hide="vmNav.isLoggedIn" href="/register">Register</a></li>
-            <li><a ng-hide="vmNav.isLoggedIn" href="/login">Log in</a></li>
+            <li><a ng-show="vmNav.isLoggedIn" ng-click="vmNav.redirect('/cart')">View cart</a></li>
+            <li><a ng-hide="vmNav.isLoggedIn" ng-click="vmNav.redirect('/register')">Register</a></li>
+            <li><a ng-hide="vmNav.isLoggedIn" ng-click="vmNav.redirect('/login')">Log in</a></li>
             <li>
-                <a ng-show="vmNav.isLoggedIn && vmNav.currentUser" href="/profile">{{ vmNav.currentUser.firstname }} {{vmNav.currentUser.lastname }}</a>
+                <a ng-show="vmNav.isLoggedIn && vmNav.currentUser" ng-click="vmNav.redirect('/profile')">{{ vmNav.currentUser.firstname }} {{vmNav.currentUser.lastname }}</a>
                 <a ng-show="vmNav.isLoggedIn && !vmNav.currentUser">Fetching profile...</a>
             </li>
             <li><a ng-show="vmNav.isLoggedIn" href="/logout" ng-click="vmNav.logout()">Logout</a></li>
