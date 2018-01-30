@@ -21,6 +21,16 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document,'script', 'Messenger'));
         window.extAsyncInit = function() {
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
             	//console.log(thread_context);
@@ -33,17 +43,6 @@
 				console.log("failed to send confirmation message");
             }); */
         };
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document,
-            'script', 'Messenger'));
     </script>
 
 
