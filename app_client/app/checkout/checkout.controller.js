@@ -1,9 +1,9 @@
 angular.module('app.checkout')
     .controller('checkoutController', checkoutController);
 
-checkoutController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile'];
+checkoutController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile', 'order'];
 
-function checkoutController($location, $anchorScroll, cart, authentication, Catalog, FB, profile) {
+function checkoutController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order) {
     var vm = this;
     vm.itemIds = '';
     vm.loggedIn = false;
@@ -23,7 +23,25 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     pageInit();
 
     function submitOrder() {
+        for (i = 0; i < vm.order.cartItems.length; i++)
+            delete vm.order.cartItems[i].subtotal;
+        vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
+        vm.order.orderItems = angular.copy(vm.order.cartItems);
+        delete vm.order.cartItems;
+        order.create(vm.order)
+            .then(function(res) {
+                console.log(vm.order);
+                console.log('Order successful');
+                cart.clear(vm.userData._id)
+                    .then(function(res) {
+                        $location.path('/order')
 
+                    }, function(err) {
+                        vm.message = 'Cart not cleared. Server error encountered.';
+                    });
+            }, function(err) {
+                console.log('Order failed. Server error encountered.');
+            });
     }
 
     function loadDDA() {
@@ -81,6 +99,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         cart.get(vm.userData._id)
             .then(function(res) {
                 console.log('Cart loaded.');
+                vm.order = angular.copy(res.data);
                 vm.cartData = res.data;
                 if (vm.cartData.cartItems.length > 0) {
                     //parse product codes

@@ -104,10 +104,6 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                         console.log('Cart load failed: Failed to get user data.');
                     });
             }
-
-
-
-
         }
     }
 
