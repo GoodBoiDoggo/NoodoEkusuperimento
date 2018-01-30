@@ -5,24 +5,7 @@ catalogController.$inject = ['$http', '$anchorScroll', '$location', '$filter', '
 
 function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB, $scope, Inventory) {
     var vm = this;
-    vm.inventoryData = [];
-    vm.loggedIn = false;
-    vm.hideReviews = true;
-    vm.showAdv = false;
-    vm.enaDis = 'Enable';
-    vm.gOptions = ['Any', 'Male', 'Female'];
-    vm.sOptions = ['No. of Views', 'Price', 'Discount'];
-    vm.sOrderOptions = [
-        { value: true, text: 'Descending' },
-        { value: false, text: 'Ascending' }
-    ];
-    vm.selectedSO = vm.sOrderOptions[0];
-    vm.selectedG = vm.gOptions[0];
-    vm.selectedS = vm.sOptions[0];
-    vm.loaded = false;
-    vm.itemFound = true;
-    vm.fbParam = '';
-    vm.fbid = $location.search().fbid;
+
     //Functions
     vm.pageInit = pageInit;
     vm.loaditems = loadItems;
@@ -33,7 +16,7 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     vm.loadProgress = 0;
     //	vm.filter = filter;
     pageInit();
-    loadInventory();
+
 
     function toItem(prodcode) {
         console.log(prodcode);
@@ -72,10 +55,33 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
     }
 
     function pageInit() {
-        if (vm.fbid) {
-            vm.fbParam = '?fbid=' + vm.fbid;
-            console.log('PARAM: ' + vm.fbParam);
+        vm.inventoryData = [];
+        vm.loggedIn = false;
+        vm.hideReviews = true;
+        vm.showAdv = false; //false by default
+        vm.enaDis = 'Enable';
+        vm.gOptions = ['Any', 'Male', 'Female'];
+        vm.sOptions = ['No. of Views', 'Price', 'Discount'];
+        vm.sOrderOptions = [
+            { value: true, text: 'Descending' },
+            { value: false, text: 'Ascending' }
+        ];
+        vm.selectedSO = vm.sOrderOptions[0];
+        vm.selectedG = vm.gOptions[0];
+        vm.selectedS = vm.sOptions[0];
+        vm.loaded = false;
+        vm.itemFound = true;
+        vm.fbParam = '';
+        vm.fbid = $location.search().fbid;
+        vm.brandFilter = $location.search().brand;
+        vm.colorFilter = $location.search().color;
+        vm.typeFilter = $location.search().type;
+        vm.genderFilter = $location.search().gender;
+        if (vm.brandFilter || vm.colorFilter || vm.typeFilter || vm.genderFilter) {
+            vm.showAdv = true;
+            vm.enaDis = 'Disable'
         }
+        loadInventory();
         loadItems();
         createFilter();
         $anchorScroll();
