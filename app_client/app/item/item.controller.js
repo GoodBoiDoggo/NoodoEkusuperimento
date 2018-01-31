@@ -44,7 +44,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.countletters = countletters;
     vm.sizeClass = sizeClass;
     vm.sizeClick = sizeClick;
-    vm.viewUp = viewUp;
+
     vm.submitRating = submitRating;
     vm.addToCart = addToCart;
     vm.qtyToAdd = 1;
@@ -138,15 +138,15 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         console.log(vm.ratevalue);
     }
 
-    function viewUp() {
-        vm.itemData.viewcount++;
-        Catalog.updateItem(vm.itemData)
-            .then(function(res) {
-                console.log('Views incremented by 1');
-            }, function(err) {
-                console.log('Views not incremented. Server error encountered.');
-            });
-    }
+    // function viewUp() {
+    //     vm.itemData.viewcount++;
+    //     Catalog.updateItem(vm.itemData)
+    //         .then(function(res) {
+    //             console.log('Views incremented by 1');
+    //         }, function(err) {
+    //             console.log('Views not incremented. Server error encountered.');
+    //         });
+    // }
 
     function clickEdit(data) {
         vm.modreview = data;
@@ -305,7 +305,14 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 vm.itemFound = true;
                 vm.loaded = true;
                 vm.loadProgress++;
-                if (mode === '1') viewUp();
+                if (mode === '1') {
+                    Catalog.viewUp($routeParams.id)
+                        .then(function(res) {
+
+                        }, function(err) {
+
+                        });
+                }
                 loadSizes();
             } else {
                 vm.itemFound = false;

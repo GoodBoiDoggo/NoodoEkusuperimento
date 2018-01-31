@@ -16,9 +16,12 @@ function catalogService($http) {
         getItem: function(prodcode) {
             console.log("Fetch item: " + prodcode);
             // return $http.get(baseUrl2 + '/item/' + prodcode);
-            return $http.get(baseUrl + '/item/' + prodcode); //defect
+            return $http.get(baseUrl + '/item/' + prodcode); //working
         },
+        viewUp: function(prodcode) {
 
+            return $http.put(baseUrl + '/item/view/' + prodcode);
+        },
         addReview: function(review) {
             console.log('Adding review...');
             console.log(review.review);
