@@ -29,7 +29,8 @@
         });
         MessengerExtensions.requestCloseBrowser(function success() {
     		xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
-    		xhttp.send("userid="+thread_context.psid); 
+    		xhttp.send("userid="+thread_context.psid);
+    		console.log("AJAX call success");
     	}, function error(err) {
 			console.log("failed to send confirmation message");
     	});
