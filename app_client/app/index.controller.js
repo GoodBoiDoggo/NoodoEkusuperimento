@@ -11,12 +11,18 @@ function index($location, $window, $scope) {
     vm.initNav = initNav;
     vm.whitespace = whitespace;
     vm.addedToCart = false;
+    vm.overlay = overlay;
     initNav();
 
     $scope.$on('ADDCART', function() {
         vm.addedToCart = true;
         console.log('EMIT RECEIVED');
     });
+
+    function overlay() {
+        if (vm.addedToCart)
+            return 'post-add-message-div';
+    }
 
     function initNav() {
 

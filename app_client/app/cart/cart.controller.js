@@ -130,8 +130,10 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
         // ];
         cart.get(vm.userData._id)
             .then(function(res) {
+                console.log(res);
                 console.log('Cart loaded.');
                 vm.cartData = res.data;
+
                 if (vm.cartData.cartItems.length > 0) {
                     //parse product codes
                     for (i = 0; i < vm.cartData.cartItems.length; i++) {

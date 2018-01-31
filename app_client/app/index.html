@@ -52,8 +52,8 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'Messenger'));
     </script>
-    <div ng-show="vm.addedToCart" id="post-add-message-div">
-        <button class="btn btn-success" ng-show="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br>
+    <div ng-if="vm.addedToCart" ng-class="vm.overlay()">
+        <button class="btn btn-success" ng-show="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
         <button class="btn btn-primary" ng-show="vm.addedToCart" onclick="window['closeFunction']()">Return to Chat</button>
     </div>
 
