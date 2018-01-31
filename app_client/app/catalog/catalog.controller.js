@@ -76,7 +76,16 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
         vm.brandFilter = $location.search().brand;
         vm.colorFilter = $location.search().color;
         vm.typeFilter = $location.search().type;
-        vm.genderFilter = $location.search().gender;
+        vm.genderFilter = $location.search().gender;;
+        if (vm.genderFilter) {
+            vm.genderFilter = vm.genderFilter.toLowerCase();
+            if (vm.genderFilter === 'male') {
+                vm.selectedG = vm.gOptions[1];
+            } else if (vm.genderFilter === 'female') {
+                vm.selectedG = vm.gOptions[2];
+            }
+
+        }
         if (vm.brandFilter || vm.colorFilter || vm.typeFilter || vm.genderFilter) {
             vm.showAdv = true;
             vm.enaDis = 'Disable'
@@ -93,7 +102,7 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
         } else if (vm.selectedS == 'Price') {
             return item.prodprice
         } else {
-            return item.salerate;
+            return item.discountrate;
         }
 
     }

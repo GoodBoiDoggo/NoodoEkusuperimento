@@ -21,29 +21,32 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
-    window.extAsyncInit = function() {
-        MessengerExtensions.getContext('328158877659945',function success(thread_context) {
-        	console.log(thread_context);
-        	window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid="+thread_context.psid);
-        }, function error(err) {
-        });
-        function closeView(){
-        	MessengerExtensions.requestCloseBrowser(function success() {
-        		xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
-        		xhttp.send("userid="+thread_context.psid); 
-        		console.log("AJAX call success");
-        	}, function error(err) {
-    			console.log("failed to send confirmation message");
-        	});
-        }        
-      };
-      (function(d, s, id){
-    	  var js, fjs = d.getElementsByTagName(s)[0];
-    	  if (d.getElementById(id)) {return;}
-    	  js = d.createElement(s); js.id = id;
-    	  js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
-    	  fjs.parentNode.insertBefore(js, fjs);
-    	}(document, 'script', 'Messenger'));            
+        window.extAsyncInit = function() {
+            MessengerExtensions.getContext('328158877659945', function success(thread_context) {
+                console.log(thread_context);
+                window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
+            }, function error(err) {});
+
+            function closeView() {
+                MessengerExtensions.requestCloseBrowser(function success() {
+                    xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
+                    xhttp.send("userid=" + thread_context.psid);
+                    console.log("AJAX call success");
+                }, function error(err) {
+                    console.log("failed to send confirmation message");
+                });
+            }
+        };
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'Messenger'));
     </script>
 
 
@@ -52,12 +55,13 @@
     <div ng-class="vm.whitespace()"></div>
     <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
+        <button ng-show="vm.addedToCart">Return to Chat</button>
         <div id="content" ng-view></div>
     </div>
     <div id="rightArea"></div>
     <div class="fillerDiv"></div>
     <div class="container-fluid">
-        <div class="row bottomCon">
+        <div class="row bottomCon" onclick="closeView()">
             <span id="footMsg">Contact us on: (+63)9420789019</span>
         </div>
     </div>

@@ -20,7 +20,15 @@ function catalogService($http) {
         },
         viewUp: function(prodcode) {
 
-            return $http.put(baseUrl + '/item/view/' + prodcode);
+            //return $http.patch(baseUrl + '/item/view/' + prodcode);
+            return $http({
+                method: 'PATCH',
+                url: baseUrl + '/item/view/' + prodcode,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: []
+            });
         },
         addReview: function(review) {
             console.log('Adding review...');
