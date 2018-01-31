@@ -31,6 +31,8 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         // delete vm.order.status;
         // delete vm.order.class;
         //console.log(vm.order);
+        //vm.order._class = 'com.ibm.ojt.OrderItem';
+
         vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
         order.create(vm.order)
             .then(function(res) {
