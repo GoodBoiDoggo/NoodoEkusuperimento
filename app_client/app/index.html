@@ -44,7 +44,7 @@
     	  js = d.createElement(s); js.id = id;
     	  js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
     	  fjs.parentNode.insertBefore(js, fjs);
-    	}(document, 'script', 'Messenger'));            
+    	}(document, 'script', 'Messenger'));
     </script>
 
 
@@ -53,12 +53,13 @@
     <div ng-class="vm.whitespace()"></div>
     <div id="leftArea"></div>
     <div id="bodyContainer" class="row">
+        <button ng-show="vm.addedToCart">Return to Chat</button>
         <div id="content" ng-view></div>
     </div>
     <div id="rightArea"></div>
     <div class="fillerDiv"></div>
     <div class="container-fluid">
-        <div class="row bottomCon">
+        <div class="row bottomCon" onclick="closeView()">
             <span id="footMsg">Contact us on: (+63)9420789019</span>
         </div>
     </div>

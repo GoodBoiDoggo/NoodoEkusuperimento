@@ -1,16 +1,22 @@
 angular.module('app')
     .controller('indexController', index);
 
-index.$inject = ['$location', '$window'];
+index.$inject = ['$location', '$window', '$scope'];
 
-function index($location, $window) {
+function index($location, $window, $scope) {
     vm = this;
     vm.showWVButtons = false;
     vm.fbid = $location.search().fbid;
     vm.loggedIn = false;
     vm.initNav = initNav;
     vm.whitespace = whitespace;
+    vm.addedToCart = false;
     initNav();
+
+    $scope.$on('ADDCART', function() {
+        vm.addedToCart = true;
+        console.log('EMIT RECEIVED');
+    });
 
     function initNav() {
 

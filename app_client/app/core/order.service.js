@@ -20,7 +20,16 @@ function orderService($http) {
     }
 
     function createOrder(order) {
-        return $http.post(baseUrl + '/order', order);
+        //return $http.post(baseUrl + '/order', order);
+        console.log(order);
+        return $http({
+            method: 'POST',
+            url: baseUrl + '/order',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: order
+        });
     }
 
     function addToOrder(customerId, item) {

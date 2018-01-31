@@ -20,15 +20,16 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     vm.viewItem = viewItem;
     vm.loadDDA = loadDDA;
     vm.submitOrder = submitOrder;
+    vm.order = {};
     pageInit();
 
     function submitOrder() {
 
-        vm.order.orderItems = angular.copy(vm.order.cartItems);
-        delete vm.order.cartItems;
-        delete vm.order.id;
-        delete vm.order.status;
-        delete vm.order.class;
+        // vm.order.orderItems = angular.copy(vm.order.cartItems);
+        // delete vm.order.cartItems;
+        // delete vm.order.id;
+        // delete vm.order.status;
+        // delete vm.order.class;
         //console.log(vm.order);
         vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
         order.create(vm.order)
@@ -102,8 +103,11 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         cart.get(vm.userData._id)
             .then(function(res) {
                 console.log('Cart loaded.');
-                vm.order = angular.copy(res.data);
+
                 vm.cartData = res.data;
+                vm.order.address = '';
+                vm.order.orderItems = angular.copy(vm.cartData.cartItems);
+                vm.order.totalPrice = vm.cartData.totalPrice;
                 if (vm.cartData.cartItems.length > 0) {
                     //parse product codes
                     for (i = 0; i < vm.cartData.cartItems.length; i++) {
