@@ -21,6 +21,13 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
+    window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading
+        MessengerExtensions.getContext('328158877659945',function success(thread_context) {
+        	window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid="+thread_context.psid);
+        }, function error(err) {
+        });
+      };
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {
@@ -31,13 +38,6 @@
             js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document,'script', 'Messenger'));
-        window.extAsyncInit = function() {
-            MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-            	//console.log(thread_context);
-                window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
-            }, function error(err) {
-            	console.log("error");
-            });
             /* MessengerExtensions.requestCloseBrowser(function success() {
             	xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
             	xhttp.send("userid="+thread_context.psid); 
