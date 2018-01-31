@@ -100,7 +100,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             .then(function(res) {
                 console.log('Cart added.');
                 $scope.$emit('ADDCART');
-                $location.path('/catalog');
             }, function(err) {
                 console.log('Server error encountered while adding to cart.');
             });

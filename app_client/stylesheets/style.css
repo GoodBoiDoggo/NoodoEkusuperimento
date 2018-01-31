@@ -25,6 +25,22 @@ div {
     height: 50px;
 }
 
+#post-add-message-div {
+    padding-top: 40%;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    position: fixed;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#post-add-message-div * {
+    /* opacity: 1.0 !important; */
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
 .shortNavLogo {
     height: 50px;
     display: none;
@@ -232,7 +248,7 @@ div {
 .affix {
     top: 0;
     width: 100%;
-    z-index: 9999 !important;
+    z-index: 9998 !important;
 }
 
 #affixButtons {
