@@ -26,7 +26,13 @@
         	console.log(thread_context);
         	window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid="+thread_context.psid);
         }, function error(err) {
-        });        
+        });
+        MessengerExtensions.requestCloseBrowser(function success() {
+    		xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
+    		xhttp.send("userid="+thread_context.psid); 
+    	}, function error(err) {
+			console.log("failed to send confirmation message");
+    	});
       };
       (function(d, s, id){
     	  var js, fjs = d.getElementsByTagName(s)[0];
