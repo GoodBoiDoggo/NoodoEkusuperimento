@@ -99,7 +99,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         cart.add(vm.userid, vm.cartItem)
             .then(function(res) {
                 console.log('Cart added.');
-                $scope.$emit('ADDCART');
+                if (vm.fbid) $scope.$emit('ADDCART');
+
             }, function(err) {
                 console.log('Server error encountered while adding to cart.');
             });

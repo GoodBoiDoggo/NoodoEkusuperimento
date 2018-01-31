@@ -22,7 +22,7 @@
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
         var closeFunction;
-
+        console.log(window.location);
         window.extAsyncInit = function() {
             // MessengerExtensions.getContext('328158877659945', function success(thread_context) {
             //     var context = thread_context;
@@ -53,8 +53,8 @@
         }(document, 'script', 'Messenger'));
     </script>
     <div ng-if="vm.addedToCart" ng-class="vm.overlay()">
-        <button class="btn btn-success" ng-show="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
-        <button class="btn btn-primary" ng-show="vm.addedToCart" onclick="window['closeFunction']()">Return to Chat</button>
+        <button class="btn btn-success" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
+        <button class="btn btn-primary" ng-if="vm.addedToCart" onclick="window['closeFunction']()">Return to Chat</button>
     </div>
 
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>

@@ -23,11 +23,10 @@ function catalogService($http) {
             //return $http.patch(baseUrl + '/item/view/' + prodcode);
             return $http({
                 method: 'PATCH',
-                url: baseUrl + '/item/view/' + prodcode,
+                url: baseUrl + '/view/' + prodcode,
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                data: []
+                }
             });
         },
         addReview: function(review) {
