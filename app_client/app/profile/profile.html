@@ -13,6 +13,7 @@
             <p class="text-danger" ng-if="!vm.active && vm.showWarning">
                 Your account is not yet activated. Please check your email for the activation link. Click <a class="finger" ng-click="vm.resend()">here</a> to resend activation email.</a>
             </p>
+            <a class="finger" ng-click="vm.gotoOrder()" ng-if="vm.active">View orders</a>
             <p class="text-info" ng-show="vm.mailmessage">{{vm.mailmessage}}. <a ng-click="vm.pageInit()" class="redified finger">Click here to reload</a> the page after activating.</p>
             <div class="whitespace"></div>
             <div id="DDADiv" ng-click="vm.addDDA()" ng-class="vm.clickMode()" ng-show="vm.user" ng-mouseover="vm.showFloats = true" ng-mouseleave="vm.showFloats=false">

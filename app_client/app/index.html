@@ -21,6 +21,9 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
+        $(document).ready(function() {
+            $(".hideBeforeLoad").removeClass("hideElement");
+        });
         var closeFunction;
         console.log(window.location);
         window.extAsyncInit = function() {
@@ -52,7 +55,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'Messenger'));
     </script>
-    <div ng-if="vm.addedToCart" ng-class="vm.overlay()">
+    <div ng-if="vm.addedToCart" ng-class="vm.overlay()" class="hideBeforeLoad">
         <button class="btn btn-success" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
         <button class="btn btn-primary" ng-if="vm.addedToCart" onclick="window['closeFunction']()">Return to Chat</button>
     </div>

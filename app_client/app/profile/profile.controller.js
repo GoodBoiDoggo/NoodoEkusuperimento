@@ -18,8 +18,14 @@
       vm.resend = resend;
       vm.checkActive = checkActive;
       vm.clickMode = clickMode;
+      vm.gotoOrder = gotoOrder;
+
       $anchorScroll();
       pageInit();
+
+      function gotoOrder() {
+          $location.path('/order');
+      }
 
       function clickMode() {
           if (vm.showForm) {

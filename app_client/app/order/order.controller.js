@@ -5,13 +5,29 @@ orderController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication
 
 function orderController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order) {
     var vm = this;
-    vm.userData = {};
-    vm.orderData = {};
 
-
+    vm.orderStatus = orderStatus;
+    vm.cancelOrder = cancelOrder;
     pageInit();
 
+    function cancelOrder(orderId) {
+        order.cancel(orderId)
+            .then(function(res) {
+                pageInit();
+                console.log('Cancel success');
+            }, function(err) {
+                console.log('Cancel failed');
+            });
+    }
+
+    function orderStatus(status) {
+        if (status == 'CL') return 'Order issued';
+        else if (status == 'CA') return 'Order cancelled';
+    }
+
     function pageInit() {
+        vm.userData = {};
+        vm.orderData = {};
         loadUser();
     }
 

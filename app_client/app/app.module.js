@@ -105,7 +105,33 @@ function run($rootScope, $location, authentication, FB) {
             } else {
                 $location.path('/login')
             }
+        } else if ($location.path() === '/order') {
+            if ($location.search().fbid) {
+                console.log($location.search().fbid);
+                //fbcode
+
+                console.log('messenger auth process');
+                FB.fbLoggedIn($location.search().fbid)
+                    .then(function(res) {
+                        console.log(res.data[0]);
+                        if (res.data[0].loginsession) {
+                            console.log(res.data[0].loginsession);
+                            $location.path('/order');
+
+                        } else {
+                            $location.path('/login')
+                        }
+                    }, function(err) {
+                        console.log('Fbid not registered.');
+                        $location.path('/register');
+                    });
+            } else if (authentication.isLoggedIn()) {
+                $location.path('/order');
+            } else {
+                $location.path('/login')
+            }
         }
+
 
     });
 }

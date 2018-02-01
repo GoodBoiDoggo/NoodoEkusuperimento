@@ -35,9 +35,24 @@ div {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+
+/* .hideBeforeLoad {
+    display: none;
+} */
+
+.hideElement {
+    display: none !important;
+}
+
 .post-add-message-div * {
     /* opacity: 1.0 !important; */
     display: inline-block;
+}
+
+.div-order {
+    padding: 5px;
+    margin: 5px;
+    background-color: rgb(162, 204, 162);
 }
 
 .shortNavLogo {

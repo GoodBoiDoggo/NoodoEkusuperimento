@@ -1,10 +1,14 @@
 <div class="container-fluid view-body">
     <div class="row centerizer container-fluid">
         <div id="orderPageDiv">
-            HEYYYY
+            <h1>
+                ORDER LIST
+            </h1>
 
-            <div ng-repeat="order in vm.orderData">
-                {{order.orderDate}}
+            <div class="div-order" ng-repeat="order in vm.orderData">
+                <p>Order ID: {{order.orderId}}
+                    <br> Status: {{vm.orderStatus(order.status)}}</p>
+                <button class="btn btn-primary" ng-click="vm.cancelOrder(order.orderId)">Cancel Order</button>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ function orderService($http) {
     return {
         get: getOrder,
         create: createOrder,
+        cancel: cancelOrder,
         add: addToOrder,
         update: updateQuantity
     }
@@ -30,6 +31,10 @@ function orderService($http) {
             },
             data: order
         });
+    }
+
+    function cancelOrder(orderId) {
+        return $http.put(baseUrl + '/order/' + orderId, {});
     }
 
     function addToOrder(customerId, item) {

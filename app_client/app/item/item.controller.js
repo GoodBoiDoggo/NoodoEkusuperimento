@@ -126,8 +126,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             });
     }
 
-
-
     function setRate(data) {
         var i;
 
@@ -240,7 +238,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     if (res.data['0'].active) {
                         vm.useractive = true;
                     }
-
 
                 }, function(err) {
                     vm.loggedIn = false;
