@@ -24,11 +24,11 @@
         var closeFunction;
         console.log(window.location);
         window.extAsyncInit = function() {
-            // MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-            //     var context = thread_context;
+            MessengerExtensions.getContext('328158877659945', function success(thread_context) {
+                 var context = thread_context;
             //     console.log(context);
             //     window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
-            // }, function error(err) {});
+            }, function error(err) {});
 
             closeFunction = function() {
                 console.log('called');
