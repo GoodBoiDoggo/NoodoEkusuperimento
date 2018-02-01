@@ -34,10 +34,13 @@
             closeFunction = function() {
             	console.log('called');
                 console.log(context);
+                xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
+                xhttp.send("userid=" + context);
+                console.log("AJAX call success");
                 MessengerExtensions.requestCloseBrowser(function success() {
-                    xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
+                    /* xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
                     xhttp.send("userid=" + context);
-                    console.log("AJAX call success");
+                    console.log("AJAX call success"); */
                 }, function error(err) {
                     console.log("failed to send confirmation message");
                 });
