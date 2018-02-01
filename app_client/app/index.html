@@ -7,8 +7,8 @@
     <base href="/">
     <title>Kariteun</title>
     <!-- CSS and Some scripts -->
-    <link rel=icon href=pic/kariteun-logo.png>
     <link rel="stylesheet" href="/style.css">
+    <link rel=icon href=pic/kariteun-logo.png>
     <link rel="stylesheet" href="/fonts.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
@@ -21,28 +21,24 @@
 
 <body ng-app="app" ng-controller="indexController as vm">
     <script>
-        $(document).ready(function() {
-            $(".hideBeforeLoad").removeClass("hideElement");
-        });
         var closeFunction;
         var context;
         console.log(window.location);
         window.extAsyncInit = function() {
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-                 context = thread_context.psid;
-                 console.log(context);
-            //     window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
+                context = thread_context.psid;
+                console.log(context);
+                //     window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
             }, function error(err) {});
 
             closeFunction = function() {
-            	console.log('called');
+                console.log('called');
                 console.log(context);
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
                 xhttp.send("userid=" + context);
                 console.log("AJAX call success");
-                MessengerExtensions.requestCloseBrowser(function success() {
-                }, function error(err) {
+                MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
                     console.log("failed to send confirmation message");
                 });
             }
@@ -79,7 +75,11 @@
             <span id="footMsg">Contact us on: (+63)9420789019</span>
         </div>
     </div>
-
+    <script>
+        $(document).ready(function() {
+            $(".hideBeforeLoad").removeClass("hideElement");
+        });
+    </script>
     <!-- angular scripts -->
     <script src="app.module.js"></script>
     <script src="core/core.module.js"></script>

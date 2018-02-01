@@ -44,6 +44,10 @@ div {
     display: none !important;
 }
 
+.hideElement * {
+    display: none !important;
+}
+
 .post-add-message-div * {
     /* opacity: 1.0 !important; */
     display: inline-block;
