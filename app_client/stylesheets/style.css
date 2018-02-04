@@ -26,6 +26,7 @@ div {
 }
 
 .post-add-message-div {
+    display: inline-block !important;
     padding-top: 45%;
     height: 100%;
     width: 100%;
@@ -41,12 +42,13 @@ div {
 } */
 
 .hideElement {
-    display: none !important;
+    display: none;
 }
 
-.hideElement * {
-    display: none !important;
-}
+
+/* .hideElement * {
+    display: none;
+} */
 
 .post-add-message-div * {
     /* opacity: 1.0 !important; */
