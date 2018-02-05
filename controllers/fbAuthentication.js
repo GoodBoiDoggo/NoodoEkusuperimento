@@ -8,11 +8,11 @@ var fbLoggedIn = function(req, res) {
     function findUser(err, results) {
         console.log('Search complete!');
         if (err) throw err;
-        if (results.length != 0) {
+        if (results) {
             console.log("User found:");
             console.log(results);
             console.log('================================');
-            if (results.loginsession == "" || results.loginsession == undefined) {
+            if (results.loginsession == "" || results.loginsession == undefined || results.loginsession == null) {
                 res.status(200);
                 res.send(false)
             } else {
@@ -27,7 +27,7 @@ var fbLoggedIn = function(req, res) {
         }
     }
     if (req.params.fbid != undefined) {
-        User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findUser);
+        User.findOne({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findUser);
     } else {
         console.log('no fbid');
     }

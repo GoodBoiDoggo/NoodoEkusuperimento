@@ -86,7 +86,7 @@
               //fbcode
               FB.getFbProfile(vm.fbid)
                   .then(function(res) {
-                      vm.user = res.data[0];
+                      vm.user = res.data;
                       vm.message = '';
                       vm.loaded = true;
                       if (vm.user.active) {

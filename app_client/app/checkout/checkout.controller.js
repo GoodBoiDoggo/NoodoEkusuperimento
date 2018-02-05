@@ -69,7 +69,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         if (vm.fbid) {
             FB.getFbProfile(vm.fbid)
                 .then(function(res) {
-                    vm.userData = res.data[0];
+                    vm.userData = res.data;
                     loadCart();
                 }, function(err) {
                     console.log('Cart load failed: User data not available.');

@@ -35,7 +35,7 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
         if (vm.fbid) {
             FB.getFbProfile(vm.fbid)
                 .then(function(res) {
-                    vm.userData = res.data[0];
+                    vm.userData = res.data;
                     loadOrder();
                 }, function(err) {
                     console.log('Cart load failed: User data not available.');
