@@ -4,7 +4,7 @@ fbService.$inject = ['$window', '$http', '$q'];
 
 function fbService(win, $http, $q) {
     var vm = this;
-    vm.user;
+    vm.user = {};
     vm.loaded = false;
     vm.loggedIn = false;
     vm.loginMode;
@@ -19,7 +19,8 @@ function fbService(win, $http, $q) {
         fbLoggedIn: fbLoggedIn,
         registerfb: registerfb,
         getFbProfile: getProfile,
-        mergeregister: merge
+        mergeregister: merge,
+        isLoaded: isLoaded
     }
 
     function merge(user) {
@@ -51,6 +52,10 @@ function fbService(win, $http, $q) {
 
 
     };
+
+    function isLoaded() {
+
+    }
 
     function fbLoggedIn(fbid) {
 
