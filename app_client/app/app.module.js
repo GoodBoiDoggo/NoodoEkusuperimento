@@ -43,9 +43,9 @@ function run($rootScope, $location, authentication, FB) {
                 console.log('messenger auth process');
                 FB.fbLoggedIn($location.search().fbid)
                     .then(function(res) {
-                        console.log(res.data[0]);
-                        if (!res.data[0].loginsession) {
-                            console.log(res.data[0].loginsession);
+                        console.log(res.data);
+                        if (!res.data) {
+                            console.log(res.data);
                             $location.path('/login');
 
                         }
@@ -65,9 +65,9 @@ function run($rootScope, $location, authentication, FB) {
                 console.log('messenger auth process');
                 FB.fbLoggedIn($location.search().fbid)
                     .then(function(res) {
-                        console.log(res.data[0]);
-                        if (res.data[0].loginsession) {
-                            console.log(res.data[0].loginsession);
+                        console.log(res.data);
+                        if (res.data) {
+                            console.log(res.data);
                             $location.path('/profile');
 
                         } else {
@@ -88,9 +88,9 @@ function run($rootScope, $location, authentication, FB) {
                 console.log('messenger auth process');
                 FB.fbLoggedIn($location.search().fbid)
                     .then(function(res) {
-                        console.log(res.data[0]);
-                        if (res.data[0].loginsession) {
-                            console.log(res.data[0].loginsession);
+                        console.log(res.data);
+                        if (res.data) {
+                            console.log(res.data);
                             $location.path('/cart');
 
                         } else {
@@ -113,9 +113,9 @@ function run($rootScope, $location, authentication, FB) {
                 console.log('messenger auth process');
                 FB.fbLoggedIn($location.search().fbid)
                     .then(function(res) {
-                        console.log(res.data[0]);
-                        if (res.data[0].loginsession) {
-                            console.log(res.data[0].loginsession);
+                        console.log(res);
+                        if (res.data) {
+                            console.log(res.data);
                             $location.path('/order');
 
                         } else {

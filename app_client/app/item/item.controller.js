@@ -255,18 +255,18 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function loadUser(mode) { //Mode 1 - Normal load; Mode 2 - Hard reload
         if (vm.fbid) {
-            FB.fbLoggedIn(vm.fbid)
+            FB.getProfile(vm.fbid)
                 .then(function(res) {
                     console.log(res);
-                    if (res.data['0'].loginsession) {
-                        vm.userid = res.data['0']._id;
-                        vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
+                    if (res.data.loginsession) {
+                        vm.userid = res.data._id;
+                        vm.username = res.data.firstname + ' ' + res.data.lastname;
                         vm.loggedIn = true;
                         loadItemRating();
                     } else {
                         vm.loggedIn = false;
                     }
-                    if (res.data['0'].active) {
+                    if (res.data.active) {
                         vm.useractive = true;
                     }
 

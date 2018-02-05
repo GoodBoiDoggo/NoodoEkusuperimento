@@ -65,7 +65,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     function checkFields() {
         vm.pass = true;
         ///^[A-Za-z\u00C0-\u017F]+(['\.-]?[\s]?[A-Za-z\u00C0-\u017F]+)*$/
-        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length < 30) {
+        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length <= 30) {
             vm.passed.firstname = true;
         } else {
 
@@ -74,7 +74,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
             vm.pass = false;
         }
 
-        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length < 30) {
+        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length <= 30) {
             vm.passed.lastname = true;
         } else {
 

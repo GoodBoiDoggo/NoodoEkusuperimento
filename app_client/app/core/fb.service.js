@@ -4,6 +4,7 @@ fbService.$inject = ['$window', '$http', '$q'];
 
 function fbService(win, $http, $q) {
     var vm = this;
+    vm.user;
     vm.loaded = false;
     vm.loggedIn = false;
     vm.loginMode;

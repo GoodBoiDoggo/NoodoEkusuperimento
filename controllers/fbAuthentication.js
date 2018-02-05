@@ -12,8 +12,14 @@ var fbLoggedIn = function(req, res) {
             console.log("User found:");
             console.log(results);
             console.log('================================');
-            res.status(200);
-            res.send(results);
+            if (results.loginsession == "" || results.loginsession == undefined) {
+                res.status(200);
+                res.send(false)
+            } else {
+                res.status(200);
+                res.send(true);
+            }
+
         } else {
             console.log('User not found.');
             res.status(404);
@@ -33,10 +39,10 @@ var getProfile = function(req, res) {
     function findProfile(err, results) {
         console.log('Fetching profile...' + req.params.fbid);
         if (err) throw err;
-        if (results.length != 0) {
-            res.status(200);
+        if (results) {
             console.log(results);
             console.log('================================');
+            res.status(200);
             res.send(results);
         } else {
             res.status(404);
@@ -44,7 +50,7 @@ var getProfile = function(req, res) {
             console.log('User not found.')
         }
     }
-    User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
+    User.findOne({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
 }
 
 var registerfb = function(req, res) {

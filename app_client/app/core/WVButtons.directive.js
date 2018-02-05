@@ -41,9 +41,11 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
 
     function updateUser() {
         if (vmWv.fbid) {
-            FB.fbLoggedIn(vmWv.fbid)
+            FB.getFbProfile(vmWv.fbid)
                 .then(function(res) {
-                    if (res.data['0'].loginsession) {
+                    console.log('BOI: ' + res.data.loginsession)
+                    if (res.data.loginsession) {
+
                         console.log('Logged In');
                         vmWv.loggedIn = true;
                         vmWv.exists = true;
