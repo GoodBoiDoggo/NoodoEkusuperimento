@@ -28,8 +28,11 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.newRating = {};
     vm.cartItem = {};
     vm.inventoryData = [];
+    vm.rating = {};
+    vm.itemData = {};
     vm.itemSizeData = [];
     vm.loadProgress = 0;
+    vm.rateave = null;
     //Functions
     vm.pageInit = pageInit;
     vm.setRate = setRate;
@@ -114,16 +117,32 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function submitRating() {
-        vm.newRating.rating = angular.copy(vm.ratevalue);
-        vm.newRating._id = angular.copy(vm.userid);
-        Catalog.updateRating(vm.itemData.prodcode, vm.newRating)
-            .then(function(res) {
-                loadItem('2');
-                loadUser('2');
-                console.log('Rating updated');
-            }, function(err) {
-                console.log('Rating updated failed: Server error encountered.');
-            });
+        if (vm.rating == undefined || vm.rating == null || vm.rating == "" || vm.rating == 0) {
+            vm.newRating.customerId = angular.copy(vm.userid);
+            vm.newRating.prodcode = $routeParams.id;
+            vm.newRating.rate = angular.copy(vm.ratevalue);
+            Catalog.saveRating(vm.newRating)
+                .then(function(res) {
+                    loadItem('2');
+                    loadUser('2');
+                    console.log('Rating updated');
+                }, function(err) {
+                    console.log('Rating updated failed: Server error encountered.');
+                });
+        } else {
+            vm.newRating = angular.copy(vm.rating);
+            vm.newRating.rate = angular.copy(vm.ratevalue);
+            Catalog.updateRating(vm.newRating)
+                .then(function(res) {
+                    loadItem('2');
+                    loadUser('2');
+                    console.log('Rating updated');
+                }, function(err) {
+                    console.log(vm.newRating)
+                    console.log('Rating updated failed: Server error encountered.');
+                });
+        }
+
     }
 
     function setRate(data) {
@@ -207,16 +226,30 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function loadItemRating() {
-        if (vm.ratedetails.length > 0) {
-            vm.itemPosition = arrayObjectIndexOf(vm.ratedetails, $routeParams.id, 'itemrated');
-            if (vm.itemPosition > -1) {
-                setRate(vm.ratedetails[vm.itemPosition].rating);
-                vm.hasRated = true;
-            } else {
-                vm.hasRated = false;
-            }
-        } else {
-            vm.hasRated = false;
+        if (vm.userid) {
+            Catalog.getRatingAve($routeParams.id)
+                .then(function(res) {
+                    console.log(res);
+                    vm.rateavg = res.data;
+                }, function(err) {
+                    console.log('Rating average load failed. Server error encountered');
+                });
+            Catalog.getRatingCount($routeParams.id)
+                .then(function(res) {
+                    console.log(res);
+                    vm.ratercount = res.data;
+                }, function(err) {
+                    console.log('Rating count load failed. Server error encountered');
+                });
+            Catalog.getRating($routeParams.id, vm.userid)
+                .then(function(res) {
+                    console.log(res);
+                    vm.rating = res.data;
+                    vm.ratevalue = vm.rating.rate;
+                    setRate(vm.ratevalue);
+                }, function(err) {
+                    console.log('User rating load failed. Server error encountered');
+                });
         }
     }
 
@@ -228,10 +261,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     if (res.data['0'].loginsession) {
                         vm.userid = res.data['0']._id;
                         vm.username = res.data['0'].firstname + ' ' + res.data['0'].lastname;
-                        vm.ratedetails = res.data['0'].ratedetails;
-                        loadItemRating();
                         vm.loggedIn = true;
-
+                        loadItemRating();
                     } else {
                         vm.loggedIn = false;
                     }
@@ -251,10 +282,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 if (profile.isLoaded() && mode === '1') {
                     vm.userid = profile.getUser()._id;
                     vm.username = profile.getUser().firstname + ' ' + profile.getUser().lastname;
-                    vm.ratedetails = profile.getUser().ratedetails;
-
                     loadItemRating();
-
                     vm.loggedIn = true;
                     if (profile.getUser().active) {
                         vm.useractive = true;
@@ -265,7 +293,6 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                             profile.setUser(res.data);
                             vm.userid = res.data._id;
                             vm.username = res.data.firstname + ' ' + res.data.lastname;
-                            vm.ratedetails = res.data.ratedetails;
                             loadItemRating();
 
                             vm.loggedIn = true;
@@ -307,7 +334,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                 if (mode === '1') {
                     Catalog.viewUp($routeParams.id)
                         .then(function(res) {
-
+                            vm.itemData.viewcount++;
                         }, function(err) {
 
                         });
