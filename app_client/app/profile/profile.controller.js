@@ -84,20 +84,32 @@
           vm.showWarning = true;
           if (vm.fbid) {
               //fbcode
-              FB.getFbProfile(vm.fbid)
-                  .then(function(res) {
-                      vm.user = res.data;
-                      vm.message = '';
-                      vm.loaded = true;
-                      if (vm.user.active) {
-                          vm.active = true;
-                      }
+              if (FB.isLoaded()) {
+
+                  vm.user = FB.getFbProfile();
+                  vm.message = '';
+                  vm.loaded = true;
+                  if (FB.getFbProfile().active) {
+                      vm.active = true;
+                  }
+              } else {
+                  FB.loadFbProfile(vm.fbid)
+                      .then(function(res) {
+                          vm.user = res.data;
+                          FB.setFbProfile(vm.user);
+                          vm.message = '';
+                          vm.loaded = true;
+                          if (vm.user.active) {
+                              vm.active = true;
+                          }
 
 
-                  }, function(e) {
-                      console.log(e.data);
-                      vm.message = 'Loading failed. Please try again.';
-                  });
+                      }, function(e) {
+                          console.log(e.data);
+                          vm.message = 'Loading failed. Please try again.';
+                      });
+              }
+
           } else {
               $scope.$emit('AUTHENTICATE', 'profile');
 

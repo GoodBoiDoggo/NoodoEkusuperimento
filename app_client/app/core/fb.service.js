@@ -20,7 +20,18 @@ function fbService(win, $http, $q) {
         registerfb: registerfb,
         getFbProfile: getProfile,
         mergeregister: merge,
-        isLoaded: isLoaded
+        isLoaded: isLoaded,
+        loadFbProfile: loadFbProfile,
+        setFbProfile: setFbProfile
+    }
+
+    function loadFbProfile(fbid) {
+        return $http.get(baseUrl + '/api/fbprofile/' + fbid);
+    }
+
+    function setFbProfile(data) {
+        vm.loaded = true;
+        vm.user = data;
     }
 
     function merge(user) {
@@ -34,27 +45,20 @@ function fbService(win, $http, $q) {
 
     }
 
-    function getProfile(fbid) {
-        return $http.get(baseUrl + '/api/fbprofile/' + fbid);
+    function getProfile() {
+        return vm.user;
     };
-
-    function getMode() {
-        return vm.loginMode;
-    }
 
     function isLoggedIn() { //LOGIN
         return vm.loggedIn;
     }
 
     function registerfb(user) {
-
         return $http.post(baseUrl + '/registerfb', user);
-
-
     };
 
     function isLoaded() {
-
+        return vm.loaded;
     }
 
     function fbLoggedIn(fbid) {

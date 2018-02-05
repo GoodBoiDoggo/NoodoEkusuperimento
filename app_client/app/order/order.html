@@ -7,7 +7,10 @@
 
             <div class="div-order" ng-repeat="order in vm.orderData">
                 <p>Order ID: {{order.orderId}}
-                    <br> Status: {{vm.orderStatus(order.status)}}</p>
+                    <br> Status: {{vm.orderStatus(order.status)}}
+                    <br> Sent to: {{order.address}}
+                </p>
+
                 <button class="btn btn-primary" ng-click="vm.cancelOrder(order.orderId)">Cancel Order</button>
             </div>
         </div>

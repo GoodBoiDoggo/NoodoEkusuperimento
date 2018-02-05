@@ -255,7 +255,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function loadUser(mode) { //Mode 1 - Normal load; Mode 2 - Hard reload
         if (vm.fbid) {
-            FB.getFbProfile(vm.fbid)
+            FB.loadFbProfile(vm.fbid)
                 .then(function(res) {
                     console.log(res);
                     if (res.data.loginsession) {

@@ -79,7 +79,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
 
     function loadUser() {
         if (vm.fbid) {
-            FB.getFbProfile(vm.fbid)
+            FB.loadFbProfile(vm.fbid)
                 .then(function(res) {
                     vm.userData = res.data;
                     loadCart();

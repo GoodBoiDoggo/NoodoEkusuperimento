@@ -8,6 +8,7 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
 
     vm.orderStatus = orderStatus;
     vm.cancelOrder = cancelOrder;
+    vm.fbid = $location.search().fbid;
     pageInit();
 
     function cancelOrder(orderId) {
@@ -33,17 +34,25 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
 
     function loadUser() {
         if (vm.fbid) {
-            FB.getFbProfile(vm.fbid)
-                .then(function(res) {
-                    vm.userData = res.data;
-                    loadOrder();
-                }, function(err) {
-                    console.log('Cart load failed: User data not available.');
+            if (FB.isLoaded()) {
+                vm.userData = FB.getFbProfile();
+                loadOrder();
+            } else {
+                FB.loadFbProfile(vm.fbid)
+                    .then(function(res) {
+                        vm.userData = res.data;
+                        FB.setFbProfile(vm.userData);
+                        loadOrder();
+                    }, function(err) {
+                        console.log('Cart load failed: User data not available.');
 
-                });
+                    });
+            }
+
 
         } else {
             if (profile.isLoaded()) {
+                console.log('preloaded');
                 vm.userData = profile.getUser();
                 loadOrder();
             } else {
