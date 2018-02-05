@@ -3,6 +3,7 @@ angular.module('app.core').factory('Catalog', catalogService);
 
 function catalogService($http) {
     var baseUrl2 = '';
+    var rateUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/a539c54d-ef13-498b-9f48-2927e21a43e2';
     //var baseUrl = 'http://184.172.241.167:31177';
     var baseUrl = 'https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/aededed07eef2a58ce7aa924bcaf8c04f47e57bf75360845b3145d6f902b01d0/7896c17f-95fd-4031-9e92-0d5c70f4feae';
     return {
@@ -52,10 +53,7 @@ function catalogService($http) {
             //return $http.put(baseUrl2 + '/item/' + item.prodcode, item); //obsolete
             return $http.put(baseUrl + '/item/' + item.prodcode, item); //working
         },
-        updateRating: function(prodcode, rating) {
-            console.log('Submitting rating...');
-            return $http.post(baseUrl2 + '/item/rate/' + prodcode, rating);
-        },
+
         getItems: function(items) {
             console.log('Fetching cart item details...');
             // return $http.get(baseUrl2 + '/items/' + items);
@@ -83,6 +81,26 @@ function catalogService($http) {
                 itemSizeData = {};
             }
             return itemSizes;
+        },
+        getRating: function(prodcode, customerId) {
+            console.log('Retrieving rating...');
+            return $http.get(rateUrl + '/rate/' + prodcode + '/' + customerId);
+        },
+        saveRating: function(rating) {
+            console.log('Submitting rating...');
+            return $http.post(rateUrl + '/rate', rating);
+        },
+        updateRating: function(rating) {
+            console.log('Updating rating...');
+            return $http.put(rateUrl + '/rate/', rating);
+        },
+        getRatingAve: function(prodcode) {
+            console.log('Getting average rating...');
+            return $http.get(rateUrl + '/rate/avg/' + prodcode);
+        },
+        getRatingCount: function(prodcode) {
+            console.log('Retrieving number of raters...');
+            return $http.get(rateUrl + '/rate/count/' + prodcode);
         }
     }
 
