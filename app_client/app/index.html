@@ -35,7 +35,7 @@
                 console.log('called');
                 console.log(context);
                 var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
+                xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
                 xhttp.send("userid=" + context);
                 console.log("AJAX call success");
                 MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
