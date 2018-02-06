@@ -8,6 +8,7 @@ function fbService(win, $http, $q) {
     vm.loaded = false;
     vm.loggedIn = false;
     vm.loginMode;
+    vm.path;
     vm.exists;
     vm.loggedIn;
     vm.deferred = $q.defer();
@@ -22,7 +23,18 @@ function fbService(win, $http, $q) {
         mergeregister: merge,
         isLoaded: isLoaded,
         loadFbProfile: loadFbProfile,
-        setFbProfile: setFbProfile
+        setFbProfile: setFbProfile,
+        logout: logout,
+        setPath: setPath,
+        getPath: getPath
+    }
+
+    function setPath(data) {
+        vm.path = data;
+    }
+
+    function getPath() {
+        return vm.path;
     }
 
     function loadFbProfile(fbid) {
@@ -69,4 +81,7 @@ function fbService(win, $http, $q) {
 
     }
 
+    function logout(fbid) {
+        return $http.get(baseUrl + '/fblogout/' + fbid);
+    }
 }

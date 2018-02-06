@@ -21,5 +21,5 @@ module.exports = function(app) {
         //fb authentication
     app.get('/fbloggedin/:fbid', ctrlFbAuth.isLoggedIn);
     app.post('/fblogin', ctrlFbAuth.fblogin);
-
+    app.get('/fblogout/:fbid', ctrlFbAuth.fblogout);
 };

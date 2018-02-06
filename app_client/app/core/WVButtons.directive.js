@@ -42,6 +42,8 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
     function updateUser() {
         if (vmWv.fbid) {
             if (FB.isLoaded()) {
+                console.log('CHECKPPOINT:');
+                console.log(FB.getFbProfile());
                 if (FB.getFbProfile().loginsession) {
 
                     console.log('Logged In');
@@ -85,7 +87,14 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
 
     $scope.$on('FBAUTH', function(event, args) {
         console.log('Event caught: ' + args);
-        updateUser();
+        FB.loadFbProfile(vmWv.fbid)
+            .then(function(res) {
+                FB.setFbProfile(res.data);
+                updateUser();
+            }, function(err) {
+                console.log('Load user failed. Server error encountered.');
+            });
+
     });
 
     function logout() {

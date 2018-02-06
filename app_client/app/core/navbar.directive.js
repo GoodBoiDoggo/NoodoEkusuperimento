@@ -53,22 +53,18 @@
                    }
 
                }
-
-
-
            }
        }
        $scope.$on('AUTHENTICATE', function(event, args) {
            if (args === 'login') {
                updateUser();
            }
-
        });
 
        function logout() {
 
            authentication.logout();
-
+           profile.logout();
            updateUser();
        }
 

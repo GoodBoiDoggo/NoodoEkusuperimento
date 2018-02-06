@@ -29,7 +29,11 @@ function login($location, authentication, $scope, FB) {
                 .then(function(res) {
                     vm.error = res.data;
                     $scope.$emit('FBAUTH', 'login');
-                    $location.path('/profile');
+                    if (FB.getPath() == '')
+                        $location.path('/profile');
+                    else {
+                        $location.path(FB.getPath());
+                    }
 
                 }, function(err) {
                     vm.error = err.data;

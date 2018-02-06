@@ -196,8 +196,27 @@ var fblogin = function(req, res) {
 
 
 }
+
+var fblogout = function(req, res) {
+    console.log('USER: ' + req.params.fbid + ' Logging out...');
+    User.findOne({ fbid: req.params.fbid }, (err, result) => {
+        if (err) throw err;
+        if (result) {
+            console.log('USER: ' + req.params.fbid + ' exists.');
+            result.loginsession = "";
+            result.save((err) => {
+                if (err) throw err;
+                console.log('USER: ' + req.params.fbid + ' Logged out.');
+                res.status(200).send('Logout successful');
+            });
+        } else {
+            res.status(404).send('USER: ' + req.params.fbid + ' Does not exist.');
+        }
+    });
+}
 module.exports.fblogin = fblogin;
 module.exports.isLoggedIn = fbLoggedIn;
 module.exports.profileRead = getProfile;
 module.exports.registerfb = registerfb;
 module.exports.mergeregister = mergeregister;
+module.exports.fblogout = fblogout;

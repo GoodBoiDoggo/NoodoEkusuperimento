@@ -8,7 +8,7 @@
       var vm = this;
       vm.user = {};
       vm.loaded = false;
-      var baseUrl = 'https://kariteun-shopping.mybluemix.net'
+      var baseUrl = 'https://kariteun-shopping.mybluemix.net';
       var getUser = function() {
           return vm.user;
       };
@@ -37,12 +37,17 @@
           return $http.post(baseUrl + '/api/resend', user);
       }
 
+      var logout = function() {
+          vm.user = {};
+          vm.loaded = false;
+      }
       return {
           getUser: getUser,
           updateDDA: updateDDA,
           sendActivation: sendActivation,
           isLoaded: isLoaded,
           loadUser: loadUser,
-          setUser: setUser
+          setUser: setUser,
+          logout: logout
       };
   }

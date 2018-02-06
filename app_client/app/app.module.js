@@ -35,6 +35,7 @@ appModule.config(['$locationProvider', function($locationProvider) {
 
 function run($rootScope, $location, authentication, FB) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+        console.log($location);
         if ($location.path() === '/profile') {
             if ($location.search().fbid) {
                 console.log($location.search().fbid);
@@ -45,12 +46,18 @@ function run($rootScope, $location, authentication, FB) {
                     .then(function(res) {
                         console.log(res.data);
                         if (!res.data) {
-                            console.log(res.data);
+                            FB.setPath($location.$$path);
+                            console.log('Saved original path:');
+                            console.log(FB.getPath());
+
                             $location.path('/login');
 
                         }
                     }, function(err) {
                         console.log('Fbid not registered.');
+                        FB.setPath($location.$$path);
+                        console.log('Saved original path:');
+                        console.log(FB.getPath());
                         $location.path('/register');
                     });
 
@@ -91,13 +98,23 @@ function run($rootScope, $location, authentication, FB) {
                         console.log(res.data);
                         if (res.data) {
                             console.log(res.data);
+                            FB.setPath($location.$$path);
+                            console.log('Saved original path:');
+                            console.log(FB.getPath());
                             $location.path('/cart');
 
                         } else {
+                            FB.setPath($location.$$path);
+                            console.log('Saved original path:');
+                            console.log(FB.getPath());
                             $location.path('/login')
                         }
                     }, function(err) {
+
                         console.log('Fbid not registered.');
+                        FB.setPath($location.$$path);
+                        console.log('Saved original path:');
+                        console.log(FB.getPath());
                         $location.path('/register');
                     });
             } else if (authentication.isLoggedIn()) {
@@ -116,13 +133,22 @@ function run($rootScope, $location, authentication, FB) {
                         console.log(res);
                         if (res.data) {
                             console.log(res.data);
+                            FB.setPath($location.$$path);
+                            console.log('Saved original path:');
+                            console.log(FB.getPath());
                             $location.path('/order');
 
                         } else {
+                            FB.setPath($location.$$path);
+                            console.log('Saved original path:');
+                            console.log(FB.getPath());
                             $location.path('/login')
                         }
                     }, function(err) {
                         console.log('Fbid not registered.');
+                        FB.setPath($location.$$path);
+                        console.log('Saved original path:');
+                        console.log(FB.getPath());
                         $location.path('/register');
                     });
             } else if (authentication.isLoggedIn()) {
