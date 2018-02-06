@@ -26,18 +26,18 @@
         console.log(window.location);
         window.extAsyncInit = function() {
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
-                context = thread_context.psid;
-                console.log(context);
+                context = thread_context;
+                console.log(context.psid);
                 //     window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
             }, function error(err) {});
 
             closeFunction = function() {
                 console.log('called');
-                console.log(context);
+                //console.log(JSON.stringify(context));
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
-                //xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send("userid=" + context);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send(context);
                 xhttp.timeout = 4000;
                 xhttp.onload = function () {
                     console.log("AJAX call success");
