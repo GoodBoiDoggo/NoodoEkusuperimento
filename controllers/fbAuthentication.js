@@ -70,7 +70,6 @@ var registerfb = function(req, res) {
 
             user.fbid = req.body.fbid;
             user.loginsession = Date().valueOf();
-            user.setRateDetails()
             user.setPassword(req.body.password);
             user.setActivationCode(req.body.email);
             user.save(function(err) {
@@ -142,42 +141,51 @@ var fblogin = function(req, res) {
 
         if (result != undefined) {
             console.log('fbid is registered!');
-            req.body.email = result.email; //SET email for passport
+            if (result.validPassword(req.body.password)) {
+                result.loginsession = Date().valueOf();
+                result.save((err) => {
+                    if (err) throw err;
+                    res.status(200).send('Login successful')
+                });
+            } else {
+                res.status(401.1).send('Invalid login credentials.');
+            }
+            // req.body.email = result.email; //SET email for passport
 
-            passport.authenticate('local', function(err, user, info) {
-                console.log('Entering passport..');
-                // If Passport throws/catches an error
-                if (err) {
-                    console.log('Passport error!!!')
-                    res.status(404).send('Server validation error.');
-                    return;
-                }
+            // passport.authenticate('local', function(err, user, info) {
+            //     console.log('Entering passport..');
+            //     // If Passport throws/catches an error
+            //     if (err) {
+            //         console.log('Passport error!!!')
+            //         res.status(404).send('Server validation error.');
+            //         return;
+            //     }
 
-                // If a user is found
-                if (user) {
-                    //UPDATE THE LOGIN SESSION
-                    console.log('Now logging in: ' + user.email);
-                    console.log(user);
-                    console.log('================================');
-                    User.findByIdAndUpdate(user._id, {
-                        loginsession: Date().valueOf()
-                    }, function(err) {
-                        res.status(200);
-                        console.log('Login successful.')
-                        res.send('Login successful.');
-                    });
+            //     // If a user is found
+            //     if (user) {
+            //         //UPDATE THE LOGIN SESSION
+            //         console.log('Now logging in: ' + user.email);
+            //         console.log(user);
+            //         console.log('================================');
+            //         User.findByIdAndUpdate(user._id, {
+            //             loginsession: Date().valueOf()
+            //         }, function(err) {
+            //             res.status(200);
+            //             console.log('Login successful.')
+            //             res.send('Login successful.');
+            //         });
 
-                } else {
-                    // If user is not found
-                    console.log('Login failed: Invalid fbid/password');
-                    res.status(401).send('Invalid password.');
-                }
-            })(req, res);
+            //     } else {
+            //         // If user is not found
+            //         console.log('Login failed: Invalid fbid/password');
+            //         res.status(401).send('Invalid password.');
+            //     }
+            // })(req, res);
 
 
         } else {
             console.log('User not registered.');
-            res.status(400).send('Invalid password.');
+            res.status(401).send('Invalid password.');
         }
     });
 

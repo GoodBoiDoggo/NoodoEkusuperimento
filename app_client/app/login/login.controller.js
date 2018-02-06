@@ -6,10 +6,7 @@ login.$inject = ['$location', 'authentication', '$scope', 'FB'];
 function login($location, authentication, $scope, FB) {
     var vm = this;
     vm.error = '';
-    vm.credentials = {
-        email: "",
-        password: ""
-    };
+    vm.credentials = {};
     vm.fbid = $location.search().fbid;
     vm.pageInit = pageInit;
     vm.onSubmit = onSubmit;
