@@ -9,17 +9,41 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     vm.errorMsg = '';
     vm.credentials = {};
     vm.newCart = {};
+    vm.showPass = false;
     vm.progressValue = 0;
     vm.fbid = $location.search().fbid;
     vm.onSubmit = onSubmit;
     vm.checkFields = checkFields;
     vm.updateProgress = updateProgress;
     vm.validatePw = validatePw;
+    vm.passwordField = passwordField;
     vm.merge = merge;
     vm.pageInit = pageInit;
+    vm.clickShowhide = clickShowhide;
     vm.passed = {};
     vm.isValidatedPw = false;
+    vm.showhide = 'Show';
     pageInit();
+
+    function clickShowhide() {
+        if (vm.showPass == false) {
+            vm.showhide = 'Hide';
+            vm.showPass = true;
+        } else {
+            vm.showhide = 'Show';
+            vm.showPass = false;
+        }
+    }
+
+    function passwordField() {
+
+        if (vm.showPass) {
+            return 'text';
+        } else {
+            return 'password';
+        }
+
+    }
 
     function pageInit() {
         $animate.enabled(false);

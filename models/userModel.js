@@ -29,7 +29,8 @@ var userSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        required: true
+        index: true,
+        sparse: true
     },
     firstname: {
         type: String,

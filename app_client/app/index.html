@@ -32,24 +32,15 @@
             }, function error(err) {});
 
             closeFunction = function() {
-            	var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
+                console.log('called');
+                console.log(context);
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
                 xhttp.send("userid=" + context);
                 console.log("AJAX call success");
-                xhttp.timeout = 4000;
-                xhttp.onload = function() {
-                	MessengerExtensions.requestCloseBrowser(function success(){},function error(err){});
-                }
-                /* MessengerExtensions.requestCloseBrowser(function success() {
-                	 console.log('called');
-                     console.log(context);
-                     var xhttp = new XMLHttpRequest();
-                     xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
-                     xhttp.send("userid=" + context);
-                     console.log("AJAX call success");
-                }, function error(err) {
+                MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
                     console.log("failed to send confirmation message");
-                }); */
+                });
             }
         };
         (function(d, s, id) {
@@ -63,7 +54,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'Messenger'));
     </script>
-    <div ng-if="vm.addedToCart" ng-class="vm.overlay()" class="hideBeforeLoad hideElement">
+    <div ng-if="vm.addedToCart" ng-class="vm.overlay()" class="hideElement">
         <button class="btn btn-success" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
         <button class="btn btn-primary" ng-if="vm.addedToCart" onclick="window['closeFunction']()">Return to Chat</button>
     </div>
@@ -84,11 +75,7 @@
             <span id="footMsg">Contact us on: (+63)9420789019</span>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $(".hideBeforeLoad").removeClass("hideElement");
-        });
-    </script>
+
     <!-- angular scripts -->
     <script src="app.module.js"></script>
     <script src="core/core.module.js"></script>

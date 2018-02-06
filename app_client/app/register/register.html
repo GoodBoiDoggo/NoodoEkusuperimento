@@ -40,9 +40,10 @@
                             <label for="email">Email address <span class="redified">*</span></label>
                             <input type="text" class="form-control" id="email" placeholder="e.g. JDoe@gmail.com" ng-model="vm.credentials.email" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group password-div">
                             <label for="password">Password <span class="redified">*</span></label>
-                            <input type="password" class="form-control" ng-change="vm.updateProgress()" id="password" placeholder="Password" ng-model="vm.credentials.password" required>
+                            <input type="{{vm.passwordField()}}" class="form-control" ng-change="vm.updateProgress()" id="password" placeholder="Password" ng-model="vm.credentials.password" required>
+                            <a class="password-show" ng-click="vm.clickShowhide()">{{vm.showhide}}</a>
                         </div>
                         <div class="progress">
                             <div ng-show="!vm.isValidatedPw" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
@@ -53,9 +54,10 @@
                         <p>
                             <span class="text-warning" ng-show="!vm.isValidatedPw">The password must be at least 8 characters. With at least one uppercase and lowercase character,a number and a special character(!@#$%^&amp;)</span>
                         </p>
-                        <div class="form-group">
+                        <div class="form-group password-div">
                             <label for="password">Confirm Password <span class="redified">*</span></label>
-                            <input ng-disabled="!vm.isValidatedPw" type="password" class="form-control" ng-change="vm.updateProgress()" id="confirmpassword" placeholder="Confirm Password" ng-model="vm.confirmpassword" required>
+                            <input ng-disabled="!vm.isValidatedPw" type="{{vm.passwordField()}}" class="form-control" ng-change="vm.updateProgress()" id="confirmpassword" placeholder="Confirm Password" ng-model="vm.confirmpassword" required>
+                            <a class="password-show" ng-click="vm.clickShowhide()">{{vm.showhide}}</a>
                         </div>
                         <div ng-show="vm.isValidatedPw" class="progress">
                             <div ng-show="vm.passwordMatch" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">

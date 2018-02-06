@@ -8,18 +8,12 @@ var fbLoggedIn = function(req, res) {
     function findUser(err, results) {
         console.log('Search complete!');
         if (err) throw err;
-        if (results) {
+        if (results.length != 0) {
             console.log("User found:");
             console.log(results);
             console.log('================================');
-            if (results.loginsession == "" || results.loginsession == undefined || results.loginsession == null) {
-                res.status(200);
-                res.send(false)
-            } else {
-                res.status(200);
-                res.send(true);
-            }
-
+            res.status(200);
+            res.send(results);
         } else {
             console.log('User not found.');
             res.status(404);
@@ -27,7 +21,7 @@ var fbLoggedIn = function(req, res) {
         }
     }
     if (req.params.fbid != undefined) {
-        User.findOne({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findUser);
+        User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findUser);
     } else {
         console.log('no fbid');
     }
@@ -39,10 +33,10 @@ var getProfile = function(req, res) {
     function findProfile(err, results) {
         console.log('Fetching profile...' + req.params.fbid);
         if (err) throw err;
-        if (results) {
+        if (results.length != 0) {
+            res.status(200);
             console.log(results);
             console.log('================================');
-            res.status(200);
             res.send(results);
         } else {
             res.status(404);
@@ -50,7 +44,7 @@ var getProfile = function(req, res) {
             console.log('User not found.')
         }
     }
-    User.findOne({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
+    User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
 }
 
 var registerfb = function(req, res) {
@@ -70,7 +64,7 @@ var registerfb = function(req, res) {
             user._id = new mongoose.Types.ObjectId();
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
-            user.email = req.body.email;
+            // user.email = req.body.email;
             user.address = req.body.address;
             user.postalcode = req.body.postalcode;
 

@@ -25,6 +25,16 @@ div {
     height: 50px;
 }
 
+.password-div {
+    position: relative;
+}
+
+.password-show {
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
 .post-add-message-div {
     display: inline-block !important;
     padding-top: 45%;
