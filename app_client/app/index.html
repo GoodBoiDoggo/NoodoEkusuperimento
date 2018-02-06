@@ -36,8 +36,8 @@
                 console.log(context);
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
-                //xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send("userid=" + context);
+                xhttp.setRequestHeader("Content-type", "text/json");
+                xhttp.send(context);
                 xhttp.timeout = 4000;
                 xhttp.onload = function () {
                     console.log("AJAX call success");
