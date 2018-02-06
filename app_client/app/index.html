@@ -38,9 +38,13 @@
                 xhttp.open("POST", "https://testBotMessenger.mybluemix.net/update", true);
                 xhttp.send("userid=" + context);
                 console.log("AJAX call success");
-                MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
+                xhttp.timeout = 4000;
+                xhr.onload = function () { 
+                	MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
                     console.log("failed to send confirmation message");
-                });
+                	});
+                };
+               
             }
         };
         (function(d, s, id) {
