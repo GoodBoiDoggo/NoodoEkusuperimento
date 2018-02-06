@@ -44,7 +44,7 @@ var getProfile = function(req, res) {
             console.log('User not found.')
         }
     }
-    User.find({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
+    User.findOne({ fbid: req.params.fbid }, { hash: 0, salt: 0 }, findProfile);
 }
 
 var registerfb = function(req, res) {

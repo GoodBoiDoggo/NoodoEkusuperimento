@@ -30,6 +30,8 @@ function fbService(win, $http, $q) {
     }
 
     function setFbProfile(data) {
+        console.log('BOIIII: ');
+        console.log(data);
         vm.loaded = true;
         vm.user = data;
     }
