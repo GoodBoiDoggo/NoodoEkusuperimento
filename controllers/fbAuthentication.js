@@ -12,7 +12,7 @@ var fbLoggedIn = function(req, res) {
             console.log("User found:");
             console.log(results);
             console.log('================================');
-            if (results.loginsession != "" || !results.loginsession) {
+            if (results.loginsession != "" || results.loginsession != undefined) {
                 res.status(200);
                 res.send(true);
             } else {
