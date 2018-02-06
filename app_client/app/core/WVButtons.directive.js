@@ -59,7 +59,7 @@ function webviewButtons($anchorScroll, $location, $scope, $timeout, FB) {
                     .then(function(res) {
                         FB.setFbProfile(res.data);
                         console.log('BOI: ' + res.data.loginsession)
-                        if (res.data.loginsession != "" || res.data.loginsession != undefined) {
+                        if (res.data.loginsession != "") {
 
                             console.log('Logged In');
                             vmWv.loggedIn = true;
