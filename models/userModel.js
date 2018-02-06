@@ -53,10 +53,6 @@ var userSchema = new mongoose.Schema({
         index: true,
         sparse: true
     },
-    ratedetails: [{
-        itemrated: String,
-        rating: Number
-    }],
     hash: String,
     salt: String,
     active: Boolean,
