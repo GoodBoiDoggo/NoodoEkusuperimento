@@ -39,7 +39,7 @@
                 xhttp.send("userid=" + context);
                 console.log("AJAX call success");
                 xhttp.timeout = 4000;
-                xhr.onload = function () { 
+                xhttp.onload = function () { 
                 	MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
                     console.log("failed to send confirmation message");
                 	});
