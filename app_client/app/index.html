@@ -33,10 +33,10 @@
 
             closeFunction = function() {
                 console.log('called');
-                console.log(JSON.stringify(context));
+                //console.log(JSON.stringify(context));
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
-                xhttp.setRequestHeader("Content-type", "application/json");
+                //xhttp.setRequestHeader("Content-type", "application/json");
                 xhttp.send(context);
                 xhttp.timeout = 4000;
                 xhttp.onload = function () {
