@@ -4,18 +4,18 @@
             <div ng-show="vm.errorMsg" class="alert alert-danger">
                 {{vm.errorMsg}}
             </div>
-            <div ng-if="vm.registertype=='0'" class="row centerizer">
+            <!-- <div ng-if="vm.registertype=='0'" class="row centerizer">
                 <div id="registerselect">
                     <h1>REGISTER</h1>
                     <button ng-click="vm.registertype='1'" class="btn btn-success register-mode">Create new account</button>
                     <button ng-click="vm.registertype='2'" class="btn btn-primary register-mode">Register using existing Kariteun Account</button>
                 </div>
-            </div>
-            <div ng-if="vm.registertype=='1'" class="row centerizer">
+            </div> -->
+            <div class="row centerizer">
                 <div id="registerform" class="">
-                    <a class="finger" ng-if="vm.fbid" ng-click="vm.registertype='2'">Register using existing account >></a>
-                    <h1>NEW ACCOUNT</h1>
-                    <div ng-show="!vm.fbid">
+                    <h1 ng-if="vm.registertype=='1'">NEW ACCOUNT</h1>
+                    <h3 ng-if="vm.registertype=='0'">Welcome to Kariteun<br>{{vm.firstname}} {{vm.lastname}}</h3>
+                    <div ng-if="vm.registertype=='1'" ng-show="!vm.fbid">
                         <p class="lead">Already a member? Please <a href="login">log in</a> instead.</p>
                     </div>
                     <div>
@@ -25,18 +25,18 @@
 
 
                     <form ng-submit="vm.onSubmit()">
-                        <h4>Personal Information</h4>
-                        <p class="text-info">Name fields are limited to 30 characters each.</p>
-                        <div class="form-group">
+                        <h4 ng-if="vm.registertype=='1'">Personal Information</h4>
+                        <p ng-if="vm.registertype=='1'" class="text-info">Name fields are limited to 30 characters each.</p>
+                        <div ng-if="vm.registertype=='1'" class="form-group">
                             <label for="name">First name <span class="redified">*</span></label>
                             <input type="text" class="form-control" id="firstname" placeholder="e.g. John" ng-model="vm.credentials.firstname" required maxlength="30">
                         </div>
-                        <div class="form-group">
+                        <div ng-if="vm.registertype=='1'" class="form-group">
                             <label for="name">Last name <span class="redified">*</span></label>
                             <input type="text" class="form-control" id="lastname" placeholder="e.g. Doe" ng-model="vm.credentials.lastname" required maxlength="30">
                         </div>
-                        <h4>Login Credentials</h4>
-                        <div class="form-group">
+                        <h4 ng-if="vm.registertype=='1'">Login Credentials</h4>
+                        <div ng-if="vm.registertype=='1'" class="form-group">
                             <label for="email">Email address <span class="redified">*</span></label>
                             <input type="text" class="form-control" id="email" placeholder="e.g. JDoe@gmail.com" ng-model="vm.credentials.email" required>
                         </div>
@@ -88,7 +88,7 @@
                     </form>
                 </div>
             </div>
-            <div ng-if="vm.registertype=='2'" class="row centerizer">
+            <!-- <div ng-if="vm.registertype=='2'" class="row centerizer">
                 <div id="registerformB">
                     <a class="finger" ng-click="vm.registertype='1'">Register new account >></a>
                     <h1>EXISTING ACCOUNT</h1>
@@ -105,7 +105,7 @@
                     </form>
 
                 </div>
-            </div>
+            </div> -->
 
         </div>
 

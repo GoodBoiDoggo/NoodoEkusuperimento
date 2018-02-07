@@ -54,7 +54,7 @@
                     <span class="order-address-label">(Postal Code)</span>
                 </div>
                 <br>
-                <button ng-show="(vm.orderAddress || vm.orderPostal) && (vm.userData.address.toUpperCase() != vm.orderAddress.toUpperCase() || vm.userData.postalcode.toUpperCase() != vm.orderPostal.toUpperCase())" type="button" class="btn btn-success checkout-dda">Save as Default</button>
+                <button ng-show="(vm.orderAddress || vm.orderPostal) && (vm.userData.address.toUpperCase() != vm.orderAddress.toUpperCase() || vm.userData.postalcode.toUpperCase() != vm.orderPostal.toUpperCase())" type="button" class="btn btn-success checkout-dda" ng-click="vm.saveAddress()">Save as Default</button>
                 <button ng-if="vm.userData.address || vm.userData.postalcode" type="button" class="btn btn-primary checkout-dda" ng-click="vm.loadDDA()">Use default</button>
 
             </div>

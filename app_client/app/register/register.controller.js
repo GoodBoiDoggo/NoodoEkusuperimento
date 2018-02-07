@@ -7,6 +7,8 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     var vm = this;
 
     vm.errorMsg = '';
+    vm.firstname = $location.search().fname;
+    vm.lastname = $location.search().lname;
     vm.credentials = {};
     vm.newCart = {};
     vm.showPass = false;
@@ -89,32 +91,35 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     function checkFields() {
         vm.pass = true;
         ///^[A-Za-z\u00C0-\u017F]+(['\.-]?[\s]?[A-Za-z\u00C0-\u017F]+)*$/
-        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length <= 30) {
-            vm.passed.firstname = true;
-        } else {
+        if (vm.registertype == '1') {
+            if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length <= 30) {
+                vm.passed.firstname = true;
+            } else {
 
-            console.log('did not pass first name');
-            vm.passed.firstname = false;
-            vm.pass = false;
+                console.log('did not pass first name');
+                vm.passed.firstname = false;
+                vm.pass = false;
+            }
+
+            if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length <= 30) {
+                vm.passed.lastname = true;
+            } else {
+
+                console.log('did not pass last name');
+                vm.passed.lastname = false;
+                vm.pass = false;
+            }
+
+            if (/^[\w\u00C0-\u017F]+([#!'\.-]?[\w\u00C0-\u017F]+)*@[\w\u00C0-\u017F]+([\.-]?[\w\u00C0-\u017F]+)*(\.\w{2,3})+$/.test(vm.credentials.email)) {
+                vm.passed.email = true;
+            } else {
+
+                console.log('did not pass email');
+                vm.passed.email = false;
+                vm.pass = false;
+            }
         }
 
-        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length <= 30) {
-            vm.passed.lastname = true;
-        } else {
-
-            console.log('did not pass last name');
-            vm.passed.lastname = false;
-            vm.pass = false;
-        }
-
-        if (/^[\w\u00C0-\u017F]+([#!'\.-]?[\w\u00C0-\u017F]+)*@[\w\u00C0-\u017F]+([\.-]?[\w\u00C0-\u017F]+)*(\.\w{2,3})+$/.test(vm.credentials.email)) {
-            vm.passed.email = true;
-        } else {
-
-            console.log('did not pass email');
-            vm.passed.email = false;
-            vm.pass = false;
-        }
 
         if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/.test(vm.credentials.password) && vm.credentials.password.length >= 8) {
             vm.passed.password = true;
@@ -165,6 +170,9 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                     vm.credentials.postalcode = '';
                 }
                 vm.credentials.fbid = angular.copy(vm.fbid);
+                vm.credentials.firstname = vm.firstname;
+                vm.credentials.lastname = vm.lastname;
+
                 FB
                     .registerfb(vm.credentials)
                     .then(function(res) {
@@ -199,7 +207,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                     .then(function(res) {
                         console.log("local registration");
                         console.log(res);
-                        if (res.status = 'success') {
+                        if (res.status == 'success') {
                             vm.newCart.customerId = res.userid;
                             vm.newCart.cartItems = [];
                             cart.create(vm.newCart)

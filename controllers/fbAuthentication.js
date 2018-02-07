@@ -2,13 +2,15 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var passport = require('passport');
 var mailer = require('./mailController');
+
+
 var fbLoggedIn = function(req, res) {
     console.log("Retrieving user account of: " + req.params.fbid);
 
     function findUser(err, results) {
         console.log('Search complete!');
         if (err) throw err;
-        if (results.length != 0) {
+        if (results) {
             console.log("User found:");
             console.log(results);
             console.log('================================');
@@ -38,7 +40,7 @@ var getProfile = function(req, res) {
     function findProfile(err, results) {
         console.log('Fetching profile...' + req.params.fbid);
         if (err) throw err;
-        if (results.length != 0) {
+        if (results) {
             res.status(200);
             console.log(results);
             console.log('================================');
@@ -56,29 +58,30 @@ var registerfb = function(req, res) {
 
 
     var user = new User();
-    console.log('Registering profile: ' + req.body.email);
+
 
     function register(err, results) {
-        console.log('Checking for duplicate emails...');
+        console.log('BODY');
+        console.log(req.body);
+        console.log('Checking for duplicate fbid...');
         if (err) throw err;
-        console.log('duplicate emails:');
+        console.log('duplicate fbids:');
         console.log(results);
         console.log('================================');
-        if (results.length == 0) {
+        if (!results) {
             console.log('No duplicates.');
             user._id = new mongoose.Types.ObjectId();
             user.firstname = req.body.firstname;
             user.lastname = req.body.lastname;
-            // user.email = req.body.email;
             user.address = req.body.address;
             user.postalcode = req.body.postalcode;
-
+            user.active = true;
             user.fbid = req.body.fbid;
             user.loginsession = Date().valueOf();
             user.setPassword(req.body.password);
-            user.setActivationCode(req.body.email);
+            user.setActivationCode(req.body.fbid);
             user.save(function(err) {
-                mailer.sendVerification(user.email, user.activation);
+                if (err) throw err;
                 res.status(200);
                 res.json({
                     'success': 'Register complete',
@@ -93,7 +96,7 @@ var registerfb = function(req, res) {
         }
     }
 
-    User.find({ $or: [{ email: req.body.email }, { fbid: req.body.fbid }] }, register);
+    User.findOne({ fbid: req.body.fbid }, register);
 
 
 };

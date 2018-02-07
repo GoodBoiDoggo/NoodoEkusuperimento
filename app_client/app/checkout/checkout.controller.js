@@ -20,8 +20,40 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     vm.viewItem = viewItem;
     vm.loadDDA = loadDDA;
     vm.submitOrder = submitOrder;
+    vm.saveAddress = saveAddress;
     vm.order = {};
     pageInit();
+
+    function saveAddress() {
+        vm.userData.address = vm.orderAddress;
+        vm.userData.postalcode = vm.orderPostal;
+        profile.updateDDA(vm.userData)
+            .then(function(res) {
+                vm.message = res.data;
+                if (vm.fbid) {
+                    FB.loadFbProfile(vm.fbid)
+                        .then(function(res) {
+                            vm.userData = res.data;
+                            FB.setFbProfile(vm.userData);
+                        }, function(err) {
+                            vm.message = 'DDA update failed. Server error encountered.';
+                            console.log('DDA update failed. Server error encountered.');
+                        });
+                } else {
+                    profile.loadUser(vm.fbid)
+                        .then(function(res) {
+                            vm.userData = res.data;
+                            profile.setUser(vm.userData);
+                        }, function(err) {
+                            vm.message = 'DDA update failed. Server error encountered.';
+                            console.log('DDA update failed. Server error encountered.');
+                        });
+                }
+            }, function(err) {
+                vm.message = 'DDA update failed. Server error encountered.';
+                console.log('DDA update failed. Server error encountered.');
+            });
+    }
 
     function submitOrder() {
 
