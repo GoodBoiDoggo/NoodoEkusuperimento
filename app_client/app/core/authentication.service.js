@@ -5,7 +5,7 @@
   authentication.$inject = ['$http', '$window'];
 
   function authentication($http, $window) {
-      var baseUrl = 'https://kariteun-shopping.mybluemix.net'
+      var baseUrl = ''
       var saveToken = function(token) {
           $window.localStorage['mean-token'] = token;
       };

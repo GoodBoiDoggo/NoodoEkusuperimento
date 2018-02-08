@@ -9,7 +9,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     vm.errorMsg = '';
     vm.firstname = $location.search().fname;
     vm.lastname = $location.search().lname;
-    vm.credentials = {};
+    vm.credentials = { firstname: '', lastname: '', password: '' };
     vm.newCart = {};
     vm.showPass = false;
     vm.progressValue = 0;
@@ -91,24 +91,25 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     function checkFields() {
         vm.pass = true;
         ///^[A-Za-z\u00C0-\u017F]+(['\.-]?[\s]?[A-Za-z\u00C0-\u017F]+)*$/
+        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length <= 30 && vm.credentials.firstname.length != 0) {
+            vm.passed.firstname = true;
+        } else {
+
+            console.log('did not pass first name');
+            vm.passed.firstname = false;
+            vm.pass = false;
+        }
+
+        if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length <= 30 && vm.credentials.lastname.length != 0) {
+            vm.passed.lastname = true;
+        } else {
+
+            console.log('did not pass last name');
+            vm.passed.lastname = false;
+            vm.pass = false;
+        }
         if (vm.registertype == '1') {
-            if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.firstname) && vm.credentials.firstname.length <= 30) {
-                vm.passed.firstname = true;
-            } else {
 
-                console.log('did not pass first name');
-                vm.passed.firstname = false;
-                vm.pass = false;
-            }
-
-            if (/^(?!.*[!@#$%^&*_+={}\[\]\:])/.test(vm.credentials.lastname) && vm.credentials.lastname.length <= 30) {
-                vm.passed.lastname = true;
-            } else {
-
-                console.log('did not pass last name');
-                vm.passed.lastname = false;
-                vm.pass = false;
-            }
 
             if (/^[\w\u00C0-\u017F]+([#!'\.-]?[\w\u00C0-\u017F]+)*@[\w\u00C0-\u017F]+([\.-]?[\w\u00C0-\u017F]+)*(\.\w{2,3})+$/.test(vm.credentials.email)) {
                 vm.passed.email = true;
@@ -191,7 +192,8 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                             });
 
                     }, function(err) {
-                        vm.errorMsg = err.data.error;
+                        //console.log(err);
+                        vm.errorMsg = 'Register failed! Server error encountered. Please try again after a while.';
 
                     });
                 console.log('fb register process');
@@ -206,7 +208,7 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                     .register(vm.credentials)
                     .then(function(res) {
                         console.log("local registration");
-                        console.log(res);
+
                         if (res.status == 'success') {
                             vm.newCart.customerId = res.userid;
                             vm.newCart.cartItems = [];
@@ -221,10 +223,11 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                                     $location.path('/profile');
                                 });
                         } else {
-                            vm.errorMsg = res.msg;
+                            vm.errorMsg = res;
                         }
 
                     }, function(err) {
+                        console.log(err);
                         vm.errorMsg = err.msg;
 
                     });
@@ -232,9 +235,9 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
         } else {
 
             if (!vm.passed.firstname || !vm.passed.lastname) {
-                vm.errorMsg = vm.errorMsg + 'Invalid name. ';
+                vm.errorMsg = vm.errorMsg + 'Invalid/Incomplete name.';
             }
-            if (!vm.passed.email) {
+            if (!vm.passed.email && !vm.fbid) {
                 vm.errorMsg = vm.errorMsg + 'Invalid email. ';
             }
             if (!vm.passed.password) {

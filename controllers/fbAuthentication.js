@@ -90,8 +90,8 @@ var registerfb = function(req, res) {
                 console.log("REGISTER COMPLETE.")
             });
         } else {
-            res.status(400);
-            res.json({ "error": "User already exists!" });
+            res.status(400).json({ "error": "User already exists!" });
+
             console.log('Registration failed: User already exists.');
         }
     }

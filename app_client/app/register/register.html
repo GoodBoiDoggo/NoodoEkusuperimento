@@ -1,7 +1,7 @@
 <div class="container-fluid view-body">
     <div class="container-fluid">
         <div id="registerPageDiv">
-            <div ng-show="vm.errorMsg" class="alert alert-danger">
+            <div ng-show="vm.errorMsg" class="alert alert-danger text-center">
                 {{vm.errorMsg}}
             </div>
             <!-- <div ng-if="vm.registertype=='0'" class="row centerizer">
@@ -14,7 +14,7 @@
             <div class="row centerizer">
                 <div id="registerform" class="">
                     <h1 ng-if="vm.registertype=='1'">NEW ACCOUNT</h1>
-                    <h3 ng-if="vm.registertype=='0'">Welcome to Kariteun<br>{{vm.firstname}} {{vm.lastname}}</h3>
+                    <h3 ng-if="vm.registertype=='0'" class="text-center">Welcome to Kariteun<br>{{vm.firstname}} {{vm.lastname}}</h3>
                     <div ng-if="vm.registertype=='1'" ng-show="!vm.fbid">
                         <p class="lead">Already a member? Please <a href="login">log in</a> instead.</p>
                     </div>
