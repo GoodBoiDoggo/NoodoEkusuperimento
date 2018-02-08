@@ -159,7 +159,11 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
 
     function onSubmit() {
         console.log('Submitting registration');
-
+        if (vm.fbid) {
+            vm.credentials.fbid = angular.copy(vm.fbid);
+            vm.credentials.firstname = vm.firstname || '';
+            vm.credentials.lastname = vm.lastname || '';
+        }
         vm.errorMsg = '';
         if (checkFields()) {
             if (vm.fbid) {
