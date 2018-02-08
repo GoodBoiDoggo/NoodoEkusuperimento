@@ -4,54 +4,65 @@
             <h1>
                 ORDER LIST
             </h1>
+            <div class="alert alert-info text-center" ng-show="vm.message">
+                {{vm.message}}
+            </div>
+            <div class="div-order-wrapper finger" ng-repeat="order in vm.orderData" ng-click="vm.orderClick(order)" data-target="#orderitemAction" data-toggle="modal">
+                <div class="div-order-header text-center">
+                    <span><strong>Order ID: {{order.orderId}}</strong></span>
 
-            <div class="div-order" ng-repeat="order in vm.orderData">
-                <p>Order ID: {{order.orderId}}
-                    <br> Status: {{vm.orderStatus(order.status)}}
-                    <br> Sent to: {{order.address}}
-                </p>
+                </div>
+                <div class="div-order">
+                    <ul class="list-unstyled">
+                        <!-- <li></li> -->
+                        <li>Status: {{vm.orderStatus(order.status)}}</li>
+                        <li>Date issued: {{order.orderDate.substring(0,10)}}</li>
+                        <li>Sent to: {{order.address}}</li>
+                    </ul>
 
-                <button class="btn btn-primary" ng-click="vm.cancelOrder(order.orderId)">Cancel Order</button>
+                    <!-- <button class="btn btn-primary" ng-click="vm.cancelOrder(order.orderId)">Cancel Order</button> -->
+                </div>
+                <div class="div-order-total text-right">
+                    <ul class="list-unstyled">
+                        <li class="order-total">Order cost: Php {{order.totalPrice | number:2}}</li>
+                    </ul>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <!-- modals -->
-<div id="cartitemAction" class="modal fade" role="dialog">
+<div id="orderitemAction" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <div id="clickedcartImage">
-                    <br>
-                    <img class="img-responsive " src="pic/{{vm.clickedItem.cartImage}}">
-                    <br>
-                </div>
-                <h4 class="text-center">{{vm.clickedItem.displayName}}
-                    <br>
-                    <small>Size: {{vm.clickedItem.displaySize}}</small>
-                </h4>
-                <!-- <h4 class="modal-title">Add to Cart</h4> -->
+                <h4 style="position:absolute">Order items</h4>
+                <button class="btn btn-primary" style="float:right" ng-click="vm.cancelClicked = true">Cancel Order</button>
+
             </div>
             <div class="modal-body">
-                <div id="clickedcartdiv">
-
-                    <button type="button" class="btn btn-primary" ng-if="vm.selectedAction=='0'" ng-click="vm.changeQty()">Change quantity</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-if="vm.selectedAction=='0'" ng-click="vm.updateCart('DEL')">Remove</button>
-                    <span ng-if="vm.selectedAction=='1'">
-                            <label>Enter new quantity:</label><br>
-                            <input class="text-center" type="number" ng-model="vm.newQty" min="1">
-                    </span>
+                <div id="orderItemsDiv" ng-show="!vm.cancelClicked">
+                    <div class="div-orderitem" ng-repeat="orderItem in vm.clickedOrder.orderItems">
+                        <ul class="list-unstyled cart-list-container">
+                            <li class="cart-list">Product Code: {{orderItem.prodCode}}</li>
+                            <li class="cart-list">Qty:{{orderItem.itemQty}}</li>
+                            <li class="cart-list"><strong>Subtotal: Php {{orderItem.subtotal | number: 2}}</strong></li>
+                        </ul>
+                    </div>
 
                 </div>
-
-
+                <div id="confirmCancel" class="text-center" ng-show="vm.cancelClicked">
+                    Are you sure? This action cannot be taken back.<br><br>
+                    <button class="btn btn-danger" ng-click="vm.cancelOrder(vm.clickedOrder.orderId)" data-dismiss="modal">Yes</button>
+                    <button class="btn btn-primary" ng-click="vm.cancelClicked = false">No</button>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-if="vm.selectedAction=='1'" ng-disabled="!vm.newQty" ng-click="vm.updateCart('QTY')">Update</button>
 
             </div>
         </div>

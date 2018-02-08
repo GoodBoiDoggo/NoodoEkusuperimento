@@ -5,18 +5,28 @@ orderController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication
 
 function orderController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order) {
     var vm = this;
-
+    vm.clickedOrder = {};
     vm.orderStatus = orderStatus;
     vm.cancelOrder = cancelOrder;
     vm.fbid = $location.search().fbid;
+    vm.cancelClicked = false;
+    vm.orderClick = orderClick;
+
     pageInit();
+
+    function orderClick(data) {
+        vm.cancelClicked = false;
+        vm.clickedOrder = angular.copy(data);
+    }
 
     function cancelOrder(orderId) {
         order.cancel(orderId)
             .then(function(res) {
-                pageInit();
+                loadUser();
+                vm.message = 'Order ' + orderId + ' successfully cancelled.';
                 console.log('Cancel success');
             }, function(err) {
+                vm.message = 'Order cancellation failed. Server error encountered.';
                 console.log('Cancel failed');
             });
     }
@@ -29,6 +39,7 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
     function pageInit() {
         vm.userData = {};
         vm.orderData = {};
+
         loadUser();
     }
 
@@ -75,6 +86,10 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
             .then(function(res) {
                 console.log('Success');
                 vm.orderData = res.data;
+                console.log(vm.orderData);
+                if (vm.orderData.length == 0) {
+                    vm.message = 'You have no order history.';
+                }
             }, function(err) {
                 console.log('Success, please');
             });
