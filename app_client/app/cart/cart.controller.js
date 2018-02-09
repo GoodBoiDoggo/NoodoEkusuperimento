@@ -1,9 +1,9 @@
 angular.module('app.cart')
     .controller('cartController', cartController);
 
-cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile'];
+cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile', 'Inventory'];
 
-function cartController($location, $anchorScroll, cart, authentication, Catalog, FB, profile) {
+function cartController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, Inventory) {
     var vm = this;
     vm.itemIds = '';
     vm.loggedIn = false;
@@ -15,17 +15,115 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     } else {
         vm.fbParam = '';
     }
-
+    vm.loadFailCount = 0;
+    vm.minQty = 0;
+    vm.stock = 0;
     vm.userData = {};
     vm.cartData = {};
     vm.clickedItem = {};
+    vm.stocksArray = [];
+    vm.refresh = false;
+    vm.loadCount = 0;
     vm.selectedAction = '0';
     vm.clickItem = clickItem;
     vm.updateCart = updateCart;
     vm.changeQty = changeQty;
     vm.clearCart = clearCart;
     vm.toCheckout = toCheckout;
+    vm.stockAvailable = stockAvailable;
+    vm.refreshStock = refreshStock;
+    vm.refreshAllStocks = refreshAllStocks;
+    vm.loadItemStocks = loadItemStocks;
+    vm.getStockStatus = getStockStatus;
     pageInit();
+
+    function refreshAllStocks() {
+        loadAllStocks();
+    }
+
+    function getStockStatus(dataIn) {
+        if (vm.stocksArray[dataIn] == -1) {
+            return 'LOADING FAILED';
+        } else if (vm.cartData.cartItems[dataIn].itemQty > vm.stocksArray[dataIn]) {
+            return 'NOT ENOUGH STOCK';
+        } else {
+            return '';
+        }
+    }
+
+    function refreshStock() {
+        vm.refresh = true;
+        loadItemStocks(vm.clickedItem.prodCode, vm.clickedIndex);
+
+    }
+
+    function stockAvailable(ind) {
+        console.log('EVALUATED');
+        if (vm.loadCount == vm.cartData.cartItems.length || vm.refresh) {
+            if (vm.stocksArray[ind] == -1)
+                return 'notloaded';
+            else if (vm.cartData.cartItems[ind].itemQty > vm.stocksArray[ind]) {
+                return 'notenough'
+            } else return '';
+        } else {
+            return '';
+        }
+
+    }
+
+    function evaluateLoad() {
+        if (vm.loadFailCount > 0) {
+            vm.message = 'Some item stocks failed to load (yellow mark). Please refresh.';
+        }
+
+    }
+
+    function loadAllStocks() {
+        vm.loadCount = 0;
+        vm.loadFailCount = 0;
+        for (itemIndex = 0; itemIndex < vm.cartData.cartItems.length; itemIndex++) {
+            loadItemStocks(vm.cartData.cartItems[itemIndex].prodCode, itemIndex);
+        }
+
+    }
+
+    function loadItemStocks(data, dataIndex) {
+
+        Inventory.get(data)
+            .then(function(res) {
+
+                vm.stocksArray[dataIndex] = res.data[0].qtyAvailable;
+                // if (dataIndex == 0) { //TESTING PURPOSES
+                //     vm.stocksArray[dataIndex] = -1;
+                //     vm.loadFailCount++;
+                // }
+                if (!vm.refresh) {
+                    vm.loadCount++;
+                    if (vm.loadCount == vm.cartData.cartItems.length) {
+                        vm.message = ''
+                        evaluateLoad();
+                    }
+
+                }
+                if (vm.refresh) {
+                    clickItem(vm.clickedIndex);
+                    vm.refresh = false;
+                }
+
+            }, function(err) {
+
+                vm.stocksArray[dataIndex] = -1;
+                vm.loadFailCount++;
+                if (!vm.refresh) {
+                    vm.loadCount++;
+                    if (vm.loadCount == vm.cartData.cartItems.length) {
+                        vm.message = ''
+                        evaluateLoad();
+                    }
+                }
+
+            });
+    }
 
     function toCheckout() {
         $location.path('/checkout');
@@ -34,6 +132,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     function changeQty() {
         vm.selectedAction = '1';
         vm.newQty = angular.copy(vm.clickedItem.itemQty);
+
     }
 
     function clearCart() {
@@ -73,7 +172,11 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     }
 
     function clickItem(index) {
+        vm.clickedIndex = index;
         vm.clickedItem = vm.cartData.cartItems[index];
+        vm.stock = vm.stocksArray[index];
+        if (vm.stock >= 1)
+            vm.minQty = 1;
         vm.selectedAction = '0';
     }
 
@@ -145,7 +248,9 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                         }
                     }
                     loadItemDetails();
-                    vm.message = '';
+                    // vm.cartData.cartItems[0].itemQty = 100;
+                    vm.message = 'Loading stocks...';
+                    loadAllStocks();
                 } else {
                     vm.message = 'Your cart is empty';
                 }

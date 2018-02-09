@@ -160,7 +160,8 @@
 
                     <div id="addtocartQuantity" class="text-center">
                         <label class="">Quantity: </label>
-                        <input type="number" min="1" class="text-center" ng-model="vm.qtyToAdd">
+                        <input type="number" min="{{vm.minAdd}}" max="{{vm.stock}}" class="text-center" ng-model="vm.qtyToAdd">
+                        <p>In stock: {{vm.stock}}</p>
                     </div>
 
                 </div>

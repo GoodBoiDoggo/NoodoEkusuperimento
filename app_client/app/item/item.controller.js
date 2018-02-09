@@ -10,6 +10,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.hideReviews = true;
     vm.showHide = 'Show'
     vm.clickedSize = '';
+    vm.stock = 0;
+    vm.minAdd = 0;
     vm.sizeCode = '';
     vm.loaded = false;
     vm.itemFound = true;
@@ -374,6 +376,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     function sizeClick(data) {
         vm.clickedSize = data.size;
+        vm.minAdd = 1;
+        vm.stock = data.stock;
         if (vm.clickedSize < 10) {
             vm.sizeCode = '0' + vm.clickedSize;
         } else {
