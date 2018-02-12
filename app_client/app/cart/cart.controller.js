@@ -93,7 +93,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
             .then(function(res) {
 
                 vm.stocksArray[dataIndex] = res.data[0].qtyAvailable;
-                // if (dataIndex == 0) { //TESTING PURPOSES
+                // if (dataIndex == 3) { //TESTING PURPOSES
                 //     vm.stocksArray[dataIndex] = -1;
                 //     vm.loadFailCount++;
                 // }
@@ -126,7 +126,23 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
     }
 
     function toCheckout() {
-        $location.path('/checkout');
+        vm.validItems = 0;
+        for (i = 0; i < vm.stocksArray.length; i++) {
+            if (vm.stocksArray[i] == -1) {
+                $anchorScroll();
+                vm.message = 'Some item stocks failed to load(marked yellow), please refresh the stocks.';
+                break;
+            } else if (vm.stocksArray[i] - vm.cartData.cartItems[i].itemQty < 0) {
+                $anchorScroll();
+                vm.message = 'Some item stocks are not enough for you requested amount(marked red), please reduce the quantity or remove the item.';
+                break;
+            } else {
+                vm.validItems++;
+            }
+        }
+        if (vm.validItems == vm.cartData.cartItems.length)
+            $location.path('/checkout');
+
     }
 
     function changeQty() {

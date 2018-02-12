@@ -1,17 +1,19 @@
 angular.module('app.checkout')
     .controller('checkoutController', checkoutController);
 
-checkoutController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile', 'order'];
+checkoutController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile', 'order', 'Inventory'];
 
-function checkoutController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order) {
+function checkoutController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order, Inventory) {
     var vm = this;
     vm.itemIds = '';
     vm.loggedIn = false;
     vm.qtyToAdd = 1;
     vm.loaded = false;
-
+    vm.loadCount = 0;
+    vm.loadFailCount = 0;
+    vm.invalidQtyCount = 0;
     vm.fbid = $location.search().fbid;
-
+    vm.stocksArray = [];
     vm.userData = {};
     vm.cartData = {};
     vm.clickedItem = {};
@@ -21,8 +23,103 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     vm.loadDDA = loadDDA;
     vm.submitOrder = submitOrder;
     vm.saveAddress = saveAddress;
+    vm.stockAvailable = stockAvailable;
     vm.order = {};
     pageInit();
+
+    function refreshAllStocks() {
+        loadAllStocks();
+    }
+
+    function getStockStatus(dataIn) {
+        if (vm.stocksArray[dataIn] == -1) {
+            return 'LOADING FAILED';
+        } else if (vm.cartData.cartItems[dataIn].itemQty > vm.stocksArray[dataIn]) {
+            return 'NOT ENOUGH STOCK';
+        } else {
+            return '';
+        }
+    }
+
+    function refreshStock() {
+        vm.refresh = true;
+        loadItemStocks(vm.clickedItem.prodCode, vm.clickedIndex);
+
+    }
+
+    function stockAvailable(ind) {
+        console.log('EVALUATED');
+        if (vm.loadCount == vm.cartData.cartItems.length || vm.refresh) {
+            if (vm.stocksArray[ind] == -1)
+                return 'notloaded2';
+            else if (vm.cartData.cartItems[ind].itemQty > vm.stocksArray[ind]) {
+                return 'notenough2'
+            } else return '';
+        } else {
+            return '';
+        }
+
+    }
+
+    function evaluateLoad() {
+
+        if (vm.loadFailCount > 0) {
+            vm.message = 'The item(s) highlighted yellow failed to load its stocks. Please refresh.';
+            $anchorScroll();
+        }
+
+    }
+
+    function loadAllStocks() {
+        vm.loadCount = 0;
+        vm.loadFailCount = 0;
+        vm.invalidQtyCount = 0;
+        for (itemIndex = 0; itemIndex < vm.cartData.cartItems.length; itemIndex++) {
+            loadItemStocks(vm.cartData.cartItems[itemIndex].prodCode, itemIndex);
+        }
+
+    }
+
+    function loadItemStocks(data, dataIndex) {
+
+        Inventory.get(data)
+            .then(function(res) {
+
+                vm.stocksArray[dataIndex] = res.data[0].qtyAvailable;
+                if (dataIndex == 1) { //TESTING PURPOSES
+                    vm.stocksArray[dataIndex] = -1;
+                    vm.loadFailCount++;
+                }
+                if (vm.stocksArray[dataIndex] == 0) {
+                    vm.invalidQtyCount++;
+                }
+                if (!vm.refresh) {
+                    vm.loadCount++;
+                    if (vm.loadCount == vm.cartData.cartItems.length) {
+                        vm.message = ''
+                        evaluateLoad();
+                    }
+
+                }
+                if (vm.refresh) {
+                    clickItem(vm.clickedIndex);
+                    vm.refresh = false;
+                }
+
+            }, function(err) {
+
+                vm.stocksArray[dataIndex] = -1;
+                vm.loadFailCount++;
+                if (!vm.refresh) {
+                    vm.loadCount++;
+                    if (vm.loadCount == vm.cartData.cartItems.length) {
+                        vm.message = ''
+                        evaluateLoad();
+                    }
+                }
+
+            });
+    }
 
     function saveAddress() {
         vm.userData.address = vm.orderAddress;
@@ -75,9 +172,10 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                         $location.path('/order')
 
                     }, function(err) {
-                        vm.message = 'Cart not cleared. Server error encountered.';
+                        vm.message = 'Cart not cleared. Server error encountered. Please clear cart manually.';
                     });
             }, function(err) {
+                vm.message = "Order failed. Server error encountered.";
                 console.log('Order failed. Server error encountered.');
             });
     }
@@ -153,7 +251,8 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                         }
                     }
                     loadItemDetails();
-                    vm.message = '';
+                    vm.message = 'Loading stocks...';
+                    loadAllStocks();
                 } else {
                     vm.message = 'Your cart is empty';
                 }

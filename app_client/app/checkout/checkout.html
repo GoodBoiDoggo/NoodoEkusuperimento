@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div ng-if="vm.cartData.cartItems.length>0" class="checkout-table">
-                <table class="table table-hover">
+                <table class="table ">
                     <thead>
                         <tr>
                             <th>Product Code</th>
@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in vm.cartData.cartItems" data-toggle="modal" ng-click="vm.clickItem($index)" data-target="#cartitemAction">
+                        <tr ng-class="vm.stockAvailable($index)" ng-repeat="item in vm.cartData.cartItems" data-toggle="modal" ng-click="vm.clickItem($index)" data-target="#cartitemAction">
                             <td>{{item.prodCode}}</td>
                             <td>{{item.displayPrice}}</td>
                             <td>{{item.itemQty}}</td>
@@ -34,6 +34,7 @@
                     </tbody>
                 </table>
             </div>
+            <span class="text-danger text-center" ng-show="vm.invalidQtyCount>0">The items with red highlight doesn't have enough stock for the quantity you require. Please go back to Cart page to remove or change quantity.</span>
             <p ng-if="vm.cartData.cartItems.length > 0" class="lead text-right"><strong>Total Price: </strong>Php {{vm.cartData.totalPrice | number:2}}</p>
             <div class="step-box">
                 <div class="step-box-number text-center">

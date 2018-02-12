@@ -196,7 +196,12 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
                         cart.create(vm.newCart)
                             .then(function(res) {
                                 console.log('Cart created.');
-                                $location.path('/profile');
+                                if (FB.getPath() == '')
+                                    $location.path('/profile');
+                                else {
+                                    $location.path(FB.getPath());
+                                }
+                                // $location.path('/profile');
                             }, function(err) {
                                 console.log('Cart creation failed.');
                                 $location.path('/profile');

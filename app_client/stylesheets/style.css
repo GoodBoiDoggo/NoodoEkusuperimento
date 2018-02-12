@@ -21,6 +21,14 @@ div {
     word-wrap: break-word;
 }
 
+.modal-backdrop {
+    z-index: 9995!important;
+}
+
+.modal {
+    z-index: 9996!important;
+}
+
 .navLogo {
     height: 50px;
 }
@@ -40,7 +48,7 @@ div {
     padding-top: 45%;
     height: 100%;
     width: 100%;
-    z-index: 9999;
+    z-index: 9995;
     position: fixed;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.7);
@@ -81,12 +89,20 @@ div {
     border-right: 6px solid yellow;
 }
 
+.notloaded2 {
+    background-color: rgb(255, 255, 163);
+}
+
 .notenough {
     /* color: rgb(168, 2, 2); */
     /* background-color: red; */
     /* width: 100%; */
     display: inline-block;
     border-right: 6px solid red;
+}
+
+.notenough2 {
+    background-color: rgb(255, 128, 128);
 }
 
 .div-order-header span {
@@ -342,7 +358,7 @@ div {
 .affix {
     top: 0;
     width: 100%;
-    z-index: 9998 !important;
+    z-index: 9994 !important;
 }
 
 #affixButtons {
@@ -438,7 +454,7 @@ div {
     margin-left: 1em;
     width: 50px;
     float: left;
-    z-index: 9999 !important;
+    z-index: 9994 !important;
 }
 
 #itemNotFoundDiv {

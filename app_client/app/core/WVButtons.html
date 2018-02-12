@@ -1,10 +1,9 @@
 <div id="affixButtons">
-    <a ng-click="vmWv.redirect('/catalog')"><button type="button" class="btn btn-primary affixButton">Catalog</button></a>
+    <a data-dismiss="modal" ng-click="vmWv.redirect('/catalog')"><button type="button" class="btn btn-primary affixButton">Catalog</button></a>
     <div ng-show="vmWv.loaded" style="display:inline-block">
-        <a ng-click="vmWv.redirect('/login')"><button type="button" ng-show="!vmWv.loggedIn && vmWv.exists" class="btn btn-primary affixButton">Log in</button></a>
-        <a ng-click="vmWv.redirect('/register')"><button type="button" ng-show="!vmWv.exists" class="btn btn-primary affixButton">Register</button></a>
-        <a ng-click="vmWv.redirect('/cart')"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Cart</button></a>
-        <a ng-click="vmWv.redirect('/profile')"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Profile</button></a>
+        <a data-dismiss="modal" ng-click="vmWv.redirect('/login')"><button type="button" ng-show="!vmWv.loggedIn && vmWv.exists" class="btn btn-primary affixButton">Log in</button></a>
+        <a data-dismiss="modal" ng-click="vmWv.redirect('/register')"><button type="button" ng-show="!vmWv.exists" class="btn btn-primary affixButton">Register</button></a>
+        <a data-dismiss="modal" ng-click="vmWv.redirect('/cart')"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Cart</button></a>
+        <a data-dismiss="modal" ng-click="vmWv.redirect('/profile')"><button type="button" ng-show="vmWv.loggedIn" class="btn btn-success affixButton">Profile</button></a>
     </div>
-    {{vmWv.email}}
 </div>
