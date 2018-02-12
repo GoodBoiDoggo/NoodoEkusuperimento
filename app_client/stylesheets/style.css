@@ -118,6 +118,10 @@ div {
     border-radius: 5px;
 }
 
+.number-textbox {
+    width: 100px;
+}
+
 .div-order ul {
     vertical-align: middle;
     margin: 10px !important;
@@ -346,7 +350,7 @@ div {
 }
 
 .redified {
-    color: red;
+    color: red !important;
 }
 
 .DDAFloat {
@@ -650,13 +654,13 @@ a[class*="item"]:hover {
     .checkout-table {
         text-align: center;
         overflow-x: auto;
-        width: 80vw;
+        width: 85vw;
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    .checkout-table table {
+    /* .checkout-table table {
         display: inline-block !important;
-    }
+    } */
     .cart-image {
         width: 100%;
     }

@@ -43,12 +43,12 @@
                         <h4>Select a size: <small>({{vm.clickedSize}} is selected)</small></h4>
                         <div id="sizeContainer" class="container-fluid">
                             <div class="sizeDiv" ng-repeat="sizes in vm.itemSizeData track by sizes.size">
-                                <span ng-class="vm.sizeClass(sizes.size)" ng-click="vm.sizeClick(sizes)" class="sizeSpan">{{sizes.size}}</span>
+                                <span ng-class="vm.sizeClass(sizes)" ng-click="vm.sizeClick(sizes)" class="sizeSpan">{{sizes.size}}</span>
                             </div>
                         </div>
-                        <button ng-disabled="vm.itemSizeData.length==0 || !vm.loggedIn || !vm.useractive" type="button" class="btn btn-success" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
+                        <button ng-disabled="vm.itemSizeData.length==0 || !vm.loggedIn || !vm.useractive || vm.stock<=0" type="button" class="btn btn-success" data-toggle="modal" data-target="#addtocart">Add to Cart</button>
                     </div>
-
+                    <p ng-if="vm.loggedIn && vm.itemSizeData.length>0 && vm.useractive && vm.stock<=0" class="text-danger lead">This size is out of stock.</p>
                     <p ng-if="vm.itemSizeData.length==0 && vm.loadProgress==2" class="text-danger lead">Item is out of stock.</p>
                     <p ng-if="!vm.loggedIn && vm.itemSizeData.length>0" class="text-danger">You are not logged in.</p>
                     <p ng-if="vm.loggedIn && vm.itemSizeData.length>0 && !vm.useractive" class="text-danger">Activate your account</p>
@@ -159,9 +159,10 @@
                     </h2>
 
                     <div id="addtocartQuantity" class="text-center">
-                        <label class="">Quantity: </label>
-                        <input type="number" min="{{vm.minAdd}}" max="{{vm.stock}}" class="text-center" ng-model="vm.qtyToAdd">
-                        <p>In stock: {{vm.stock}}</p>
+                        <label ng-show="vm.stock<=0">This size is out of stock. :(</label>
+                        <label ng-show="vm.stock>0" class="">Quantity: </label>
+                        <input ng-show="vm.stock>0" type="number" min="{{vm.minAdd}}" max="{{vm.stock}}" class="text-center number-textbox" ng-model="vm.qtyToAdd">
+                        <p ng-show="vm.stock>0">In stock: {{vm.stock}}</p>
                     </div>
 
                 </div>
@@ -169,7 +170,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="!vm.useractive">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-disabled="vm.qtyToAdd ==0 || !vm.qtyToAdd" ng-click="vm.addToCart()">Add to cart</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-show="vm.stock>0" ng-disabled="vm.qtyToAdd ==0 || !vm.qtyToAdd" ng-click="vm.addToCart()">Add to cart</button>
             </div>
         </div>
 

@@ -72,8 +72,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             vm.itemSizeData = Catalog.getSizes(vm.inventoryData);
             if (vm.itemSizeData.length > 0) {
                 vm.clickedSize = angular.copy(vm.itemSizeData[0]);
-                sizeClass(vm.clickedSize.size);
                 sizeClick(vm.clickedSize);
+                sizeClass(vm.clickedSize);
+
             }
 
         }
@@ -367,11 +368,16 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function sizeClass(data) {
-        if (data == vm.clickedSize) {
-            return 'clkSize';
+        vm.classString = '';
+        if (data.size == vm.clickedSize) {
+            vm.classString += 'clkSize';
         } else {
-            return 'defSize';
+            vm.classString += 'defSize';
         }
+        if (data.stock <= 0) {
+            vm.classString += ' redified'
+        }
+        return vm.classString;
     }
 
     function sizeClick(data) {

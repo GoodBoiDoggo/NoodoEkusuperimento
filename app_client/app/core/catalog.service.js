@@ -64,7 +64,10 @@ function catalogService($http) {
                 catalog[i].isavailable = false;
                 for (ii = 0; ii < inventory.length; ii++) {
                     if (catalog[i].prodcode === inventory[ii].prodCode.substring(0, 6)) {
-                        catalog[i].isavailable = true;
+                        if (inventory[ii].qtyAvailable > 0) {
+                            catalog[i].isavailable = true;
+                        }
+
                     }
                 }
             }

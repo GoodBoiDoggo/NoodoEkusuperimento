@@ -22,10 +22,17 @@ function register($anchorScroll, $location, authentication, $scope, FB, $animate
     vm.merge = merge;
     vm.pageInit = pageInit;
     vm.clickShowhide = clickShowhide;
+    vm.clearFields = clearFields;
     vm.passed = {};
     vm.isValidatedPw = false;
     vm.showhide = 'Show';
     pageInit();
+
+    function clearFields() {
+        vm.credentials = { firstname: '', lastname: '', password: '' };
+        vm.confirmpassword = '';
+        updateProgress();
+    }
 
     function clickShowhide() {
         if (vm.showPass == false) {
