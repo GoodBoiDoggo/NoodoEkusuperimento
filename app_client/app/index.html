@@ -32,7 +32,7 @@
             }, function error(err) {});
 
             closeFunction = function() {
-               /*  console.log('called');
+                console.log('called');
                 console.log(context);
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
@@ -45,14 +45,14 @@
   	                	}); 
   					}
   				};
-                xhttp.send(JSON.stringify(context)); */
-            	 return $.post("https://newBotMessenger.mybluemix.net/update", context, { headers: {'Content-Type': 'application/json'} })
+                xhttp.send(JSON.stringify(context)); 
+            	 /* return $.post("https://newBotMessenger.mybluemix.net/update", context, { headers: {'Content-Type': 'application/json'} })
                  .then(function (data) {
                      console.log('Message sent');
                      return data;
                  })
                  .catch(function (msg) {
-             });
+             }); */
             }
         };
         (function(d, s, id) {
