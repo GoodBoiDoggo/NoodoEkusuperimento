@@ -29,11 +29,11 @@
                         <p ng-if="vm.registertype=='1'" class="text-info">Name fields are limited to 30 characters each.</p>
                         <div ng-if="vm.registertype=='1'" class="form-group">
                             <label for="name">First name <span class="redified">*</span></label>
-                            <input type="text" class="form-control" id="firstname" placeholder="e.g. John" ng-model="vm.credentials.firstname" required maxlength="30">
+                            <input type="text" autocomplete="off" class="form-control" id="firstname" placeholder="e.g. John" ng-model="vm.credentials.firstname" required maxlength="30">
                         </div>
                         <div ng-if="vm.registertype=='1'" class="form-group">
                             <label for="name">Last name <span class="redified">*</span></label>
-                            <input type="text" class="form-control" id="lastname" placeholder="e.g. Doe" ng-model="vm.credentials.lastname" required maxlength="30">
+                            <input type="text" autocomplete="off" class="form-control" id="lastname" placeholder="e.g. Doe" ng-model="vm.credentials.lastname" required maxlength="30">
                         </div>
                         <h4 ng-if="vm.registertype=='1'">Login Credentials</h4>
                         <div ng-if="vm.registertype=='1'" class="form-group">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group password-div">
                             <label for="password">Password <span class="redified">*</span></label>
-                            <input type="{{vm.passwordField()}}" class="form-control" ng-change="vm.updateProgress()" id="password" placeholder="Password" ng-model="vm.credentials.password" required>
+                            <input type="{{vm.passwordField()}}" autocomplete="off" class="form-control" ng-change="vm.updateProgress()" id="password" placeholder="Password" ng-model="vm.credentials.password" required>
                             <a class="password-show" ng-click="vm.clickShowhide()">{{vm.showhide}}</a>
                         </div>
                         <div class="progress">
@@ -56,7 +56,7 @@
                         </p>
                         <div class="form-group password-div">
                             <label for="password">Confirm Password <span class="redified">*</span></label>
-                            <input ng-disabled="!vm.isValidatedPw" type="{{vm.passwordField()}}" class="form-control" ng-change="vm.updateProgress()" id="confirmpassword" placeholder="Confirm Password" ng-model="vm.confirmpassword" required>
+                            <input ng-disabled="!vm.isValidatedPw" autocomplete="off" type="{{vm.passwordField()}}" class="form-control" ng-change="vm.updateProgress()" id="confirmpassword" placeholder="Confirm Password" ng-model="vm.confirmpassword" required>
                             <a class="password-show" ng-click="vm.clickShowhide()">{{vm.showhide}}</a>
                         </div>
                         <div ng-show="vm.isValidatedPw" class="progress">
@@ -84,7 +84,7 @@
                             <input type="text" class="form-control" id="postalcode" placeholder="e.g. 6000; M1 1AA" ng-model="vm.credentials.postalcode">
                         </div>
                         <button type="submit" class="btn btn-success">Register!</button>
-                        <button type="reset" class="btn btn-default">Clear</button>
+                        <button type="reset" ng-click="vm.clearFields()" class="btn btn-default">Clear</button>
                     </form>
                 </div>
             </div>
