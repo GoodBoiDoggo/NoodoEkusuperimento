@@ -32,7 +32,7 @@
             }, function error(err) {});
 
             closeFunction = function() {
-                console.log('called');
+               /*  console.log('called');
                 console.log(context);
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
@@ -40,12 +40,20 @@
                 xhttp.onreadystatechange = function () {
   					if(xhttp.readyState === 4 && xhttp.status === 200) {
   						console.log("AJAX call success");
-  	                	/* MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
+  	                	MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
   	                    console.log("failed to send confirmation message");
-  	                	}); */
+  	                	}); 
   					}
   				};
-                xhttp.send(JSON.stringify(context));         
+                xhttp.send(JSON.stringify(context)); */
+            	 return $http.post("https://newBotMessenger.mybluemix.net/update", context, { headers: {'Content-Type': 'application/json'} })
+                 .then(function (data) {
+                     console.log('Message sent');
+                     return data;
+                 })
+                 .catch(function (msg) {
+                     $log.error(msg);
+             });
             }
         };
         (function(d, s, id) {
