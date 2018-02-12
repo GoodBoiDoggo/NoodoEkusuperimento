@@ -46,7 +46,7 @@
   					}
   				};
                 xhttp.send(JSON.stringify(context)); */
-            	 return $.post("https://newBotMessenger.mybluemix.net/update", context, { headers: {'Content-Type': 'application/json'} })
+            	 return $.post("https://newBotMessenger.mybluemix.net/update", JSON.stringify(context), { headers: {'Content-Type': 'application/json'} })
                  .then(function (data) {
                      console.log('Message sent');
                      return data;
