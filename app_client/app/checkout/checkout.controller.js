@@ -86,10 +86,10 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
             .then(function(res) {
 
                 vm.stocksArray[dataIndex] = res.data[0].qtyAvailable;
-                if (dataIndex == 1) { //TESTING PURPOSES
-                    vm.stocksArray[dataIndex] = -1;
-                    vm.loadFailCount++;
-                }
+                // if (dataIndex == 1) { //TESTING PURPOSES
+                //     vm.stocksArray[dataIndex] = -1;
+                //     vm.loadFailCount++;
+                // }
                 if (vm.stocksArray[dataIndex] == 0) {
                     vm.invalidQtyCount++;
                 }
