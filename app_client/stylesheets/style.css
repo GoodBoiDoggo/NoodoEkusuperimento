@@ -296,14 +296,12 @@ div {
 } */
 
 .modal-dialog {
-    margin-top: 10%!important;
+    margin-top: 15%!important;
 }
 
 #filtertoggle {}
 
-#settings {
-    margin-top: 20%;
-}
+#settings {}
 
 #advsearch {
     display: block;

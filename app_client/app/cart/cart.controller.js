@@ -39,6 +39,9 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
 
     function refreshAllStocks() {
         loadAllStocks();
+        vm.message = 'Refreshing stocks...';
+        $anchorScroll();
+        vm.cartData = angular.copy(vm.cartData);
     }
 
     function getStockStatus(dataIn) {

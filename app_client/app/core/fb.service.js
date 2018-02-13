@@ -8,7 +8,7 @@ function fbService(win, $http, $q) {
     vm.loaded = false;
     vm.loggedIn = false;
     vm.loginMode;
-    vm.path;
+    vm.path = '';
     vm.exists;
     vm.loggedIn;
     vm.deferred = $q.defer();

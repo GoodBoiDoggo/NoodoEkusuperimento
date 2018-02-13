@@ -77,7 +77,7 @@
                     <button type="button" class="btn btn-danger" data-dismiss="modal" ng-if="vm.selectedAction=='0'" ng-click="vm.updateCart('DEL')">Remove</button>
                     <span ng-if="vm.selectedAction=='1'">
                             <label>Enter new quantity:</label><br>
-                            <input class="text-center" type="number" ng-model="vm.newQty" min="{{vm.minQty}}" max="{{vm.stock}}">
+                            <input class="text-center number-textbox" type="number" ng-model="vm.newQty" min="{{vm.minQty}}" max="{{vm.stock}}">
                     </span>
 
                 </div>
