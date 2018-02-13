@@ -76,8 +76,8 @@ div {
 .div-order-header {
     width: 100%;
     display: inline-block;
-    background-color: #5bb79c;
-    border-bottom: 1px solid #5bb79c;
+    background-color: #a6ebd6;
+    border-bottom: 1px solid #a6ebd6;
     border-radius: 5px 5px 0px 0px;
 }
 
@@ -112,8 +112,8 @@ div {
 .div-order-total {
     width: 100%;
     display: inline-block;
-    background-color: #5bb79c;
-    border-top: 1px solid #5bb79c;
+    background-color: rgb(208, 255, 208);
+    border-top: 1px solid rgb(208, 255, 208);
     border-radius: 0px 0px 5px 5px;
     word-break: break-all;
     padding-right: 5px;

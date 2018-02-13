@@ -17,6 +17,8 @@
                 <button id="button-refresh-all" ng-click="vm.refreshAllStocks()" type="button" class="btn btn-default btn-sm">
                         <span class="glyphicon glyphicon-refresh"></span> Refresh stocks
                 </button>
+                <a ng-show="vm.cartData.cartItems" class="finger" data-target="#refreshGuide" data-toggle="modal">[?]</a>
+
                 <ul class="list-group">
                     <div ng-click="vm.clickItem($index)" data-toggle="modal" data-target="#cartitemAction" class="finger cart-item list-group-item" ng-repeat="item in vm.cartData.cartItems">
                         <div class="cart-image-container">
@@ -112,5 +114,27 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<div id="refreshGuide" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Refresh Stocks</h1>
+
+            </div>
+            <div class="modal-body text-center">
+                Clicking this button will recheck the item stocks for the items you are trying to purchase. <br>
+                <br> Press this button if some of the items stocks failed to load(yellow highlight). You might also want to check your internet connection when this happens.<br>
+                <br> If an item is highlighted red, it means the we no longer have enough stock for the quantity demanded.
+                <br> Click the cart item you wish to remove from cart or reduce quantity.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>

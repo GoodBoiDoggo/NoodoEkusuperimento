@@ -11,8 +11,13 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
     vm.fbid = $location.search().fbid;
     vm.cancelClicked = false;
     vm.orderClick = orderClick;
+    vm.viewInCatalog = viewInCatalog;
 
     pageInit();
+
+    function viewInCatalog(data) {
+        $location.path('/catalog/' + data);
+    }
 
     function orderClick(data) {
         vm.cancelClicked = false;

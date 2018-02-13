@@ -24,11 +24,25 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     vm.submitOrder = submitOrder;
     vm.saveAddress = saveAddress;
     vm.stockAvailable = stockAvailable;
+    vm.checkAllStocks = checkAllStocks;
+    vm.refreshAllStocks = refreshAllStocks;
+    vm.submit = false;
     vm.order = {};
     pageInit();
 
+    function checkAllStocks() {
+        vm.submit = true;
+        vm.message = 'Checking stocks...';
+        loadAllStocks();
+        $anchorScroll();
+        vm.cartData = angular.copy(vm.cartData);
+    }
+
     function refreshAllStocks() {
         loadAllStocks();
+        vm.message = 'Refreshing stocks...';
+        $anchorScroll();
+
     }
 
     function getStockStatus(dataIn) {
@@ -48,7 +62,6 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     }
 
     function stockAvailable(ind) {
-        console.log('EVALUATED');
         if (vm.loadCount == vm.cartData.cartItems.length || vm.refresh) {
             if (vm.stocksArray[ind] == -1)
                 return 'notloaded2';
@@ -64,9 +77,13 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     function evaluateLoad() {
 
         if (vm.loadFailCount > 0) {
-            vm.message = 'The item(s) highlighted yellow failed to load its stocks. Please refresh.';
+            if (vm.submit) {
+                vm.message = 'Item stock validation failed for the yellow highlighted items. Please try again.';
+            } else
+                vm.message = 'The item(s) highlighted yellow failed to load its stocks. Please refresh.';
             $anchorScroll();
         }
+        vm.submit = false;
 
     }
 
@@ -90,33 +107,68 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                 //     vm.stocksArray[dataIndex] = -1;
                 //     vm.loadFailCount++;
                 // }
-                if (vm.stocksArray[dataIndex] == 0) {
+                if (vm.stocksArray[dataIndex] < vm.cartData.cartItems[dataIndex].itemQty) {
                     vm.invalidQtyCount++;
                 }
-                if (!vm.refresh) {
-                    vm.loadCount++;
-                    if (vm.loadCount == vm.cartData.cartItems.length) {
-                        vm.message = ''
-                        evaluateLoad();
-                    }
 
+                vm.loadCount++;
+                if (vm.loadCount == vm.cartData.cartItems.length) {
+                    vm.cartData = angular.copy(vm.cartData);
+                    if (vm.submit) {
+                        vm.validItems = 0;
+                        for (i = 0; i < vm.stocksArray.length; i++) {
+                            if (vm.stocksArray[i] == -1) {
+                                $anchorScroll();
+                                vm.message = 'Some item stocks failed to load(yellow highlight), please refresh the stocks.';
+                                break;
+                            } else if (vm.stocksArray[i] < vm.cartData.cartItems[i].itemQty) {
+                                $anchorScroll();
+                                vm.message = 'Some item stocks are not enough for you requested amount(red highlight), please reduce the quantity or remove the item.';
+                                break;
+                            } else {
+                                vm.validItems++;
+                            }
+                        }
+                        if (vm.validItems == vm.cartData.cartItems.length) submitOrder();
+                    }
+                    vm.message = ''
+                    evaluateLoad();
                 }
-                if (vm.refresh) {
-                    clickItem(vm.clickedIndex);
-                    vm.refresh = false;
-                }
+
+
+
 
             }, function(err) {
 
                 vm.stocksArray[dataIndex] = -1;
                 vm.loadFailCount++;
-                if (!vm.refresh) {
-                    vm.loadCount++;
-                    if (vm.loadCount == vm.cartData.cartItems.length) {
-                        vm.message = ''
-                        evaluateLoad();
+
+                vm.loadCount++;
+                if (vm.loadCount == vm.cartData.cartItems.length) {
+                    vm.cartData = angular.copy(vm.cartData);
+                    if (vm.submit) {
+                        vm.validItems = 0;
+                        for (i = 0; i < vm.stocksArray.length; i++) {
+                            if (vm.stocksArray[i] == -1) {
+                                $anchorScroll();
+                                vm.message = 'Some item stocks failed to load(yellow highlight), please refresh the stocks.';
+                                break;
+                            } else if (vm.stocksArray[i] - vm.cartData.cartItems[i].itemQty < 0) {
+                                $anchorScroll();
+                                vm.message = 'Some item stocks are not enough for your requested amount(red highlight), please reduce the quantity or remove the item.';
+                                break;
+                            } else {
+                                vm.validItems++;
+                            }
+
+                        }
+
                     }
+
+                    vm.message = ''
+                    evaluateLoad();
                 }
+
 
             });
     }
@@ -154,6 +206,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
 
     function submitOrder() {
 
+
         // vm.order.orderItems = angular.copy(vm.order.cartItems);
         // delete vm.order.cartItems;
         // delete vm.order.id;
@@ -169,8 +222,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                 console.log('Order successful');
                 cart.clear(vm.userData._id)
                     .then(function(res) {
-                        $location.path('/order')
-
+                        $location.path('/order');
                     }, function(err) {
                         vm.message = 'Cart not cleared. Server error encountered. Please clear cart manually.';
                     });
@@ -202,6 +254,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                     vm.userData = res.data;
                     loadCart();
                 }, function(err) {
+                    vm.message = 'Cart load failed: User data could not be fetched.';
                     console.log('Cart load failed: User data not available.');
 
                 });

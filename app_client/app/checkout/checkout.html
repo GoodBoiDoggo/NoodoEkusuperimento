@@ -14,6 +14,10 @@
                     Review your cart.
                 </div>
             </div>
+            <button id="button-refresh-all" ng-click="vm.refreshAllStocks()" type="button" ng-show="vm.cartData.cartItems" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-refresh"></span> Refresh stocks
+            </button>
+            <a ng-show="vm.cartData.cartItems" class="finger" data-target="#refreshGuide" data-toggle="modal">[?]</a>
             <div ng-if="vm.cartData.cartItems.length>0" class="checkout-table">
                 <table class="table ">
                     <thead>
@@ -71,7 +75,7 @@
             </div>
             <div id="div-submit-order">
 
-                <button ng-show="vm.orderAddress && vm.orderPostal" class="btn btn-success" ng-click="vm.submitOrder()">Submit Order</button>
+                <button ng-show="vm.orderAddress && vm.orderPostal" class="btn btn-success" ng-click="vm.checkAllStocks()">Submit Order</button>
 
                 <div ng-if="!(vm.orderAddress && vm.orderPostal)" class="alert alert-info">
 
@@ -102,6 +106,28 @@
                 <a class="" ng-click="vm.viewItem()" data-dismiss="modal">
                     <span class="glyphicon glyphicon-new-window"></span> View in catalog
                 </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="refreshGuide" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Refresh Stocks</h1>
+
+            </div>
+            <div class="modal-body text-center">
+                Clicking this button will recheck the item stocks for the items you are trying to purchase. <br>
+                <br> Press this button if some of the items stocks failed to load(yellow highlight). You might also want to check your internet connection when this happens.<br>
+                <br> If an item is highlighted red, it means the we no longer have enough stock for the quantity demanded.
+                <br> Please go to Cart Page to reduce the quantity/remove the item.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
