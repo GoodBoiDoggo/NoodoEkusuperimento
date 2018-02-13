@@ -266,7 +266,8 @@ div {
     text-decoration: none !important;
 }
 
-#addreview {
+
+/* #addreview {
     margin-top: 10%;
 }
 
@@ -292,6 +293,10 @@ div {
 
 #addtocart {
     margin-top: 5%;
+} */
+
+.modal-dialog {
+    margin-top: 10%!important;
 }
 
 #filtertoggle {}
