@@ -33,21 +33,16 @@ function inventoryService($http) {
             return $http.get(baseUrl + '/stocks/' + prodCode); //working
         },
 
-        add: function(item) {
-            console.log('Adding review...');
+        buy: function(item) {
+            console.log('Consuming stock...');
 
-            return $http.post(baseUrl + '/stocks', item);
+            return $http.put(baseUrl + '/stocks/buy/' + item.prodCode, item);
         },
 
-        delete: function(prodCode) {
-            console.log('Deleting invetory item...');
+        replenish: function(item) {
+            console.log('Restoring stock...');
 
-            return $http.delete(baseUrl + '/stocks/' + prodCode);
-        },
-        update: function(item) {
-            console.log('Updating item quantity...');
-
-            return $http.put(baseUrl + '/stocks/' + item.prodcode, item);
+            return $http.put(baseUrl + '/stocks/replenish/' + item.prodCode, item);
         }
     }
 

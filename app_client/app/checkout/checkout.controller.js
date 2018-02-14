@@ -214,6 +214,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         // delete vm.order.class;
         //console.log(vm.order);
         //vm.order._class = 'com.ibm.ojt.OrderItem';
+
         vm.order.customerId = vm.userData._id;
         vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
         order.create(vm.order)
@@ -222,6 +223,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                 console.log('Order successful');
                 cart.clear(vm.userData._id)
                     .then(function(res) {
+                        consumeAllInventory();
                         $location.path('/order');
                     }, function(err) {
                         vm.message = 'Cart not cleared. Server error encountered. Please clear cart manually.';
@@ -349,6 +351,24 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         $anchorScroll();
         vm.message = 'Loading cart...';
         loadUser();
+    }
+
+    function consumeAllInventory() {
+        for (c = 0; c < vm.cartData.cartItems.length; c++) {
+            consumeInventory(vm.cartData.cartItems[c]);
+        }
+    }
+
+    function consumeInventory(data) {
+        vm.consume = {};
+        vm.consume.prodCode = angular.copy(data.prodCode);
+        vm.consume.qtyAvailable = angular.copy(data.itemQty);
+        Inventory.buy(vm.consume)
+            .then(function(res) {
+                console.log(data.prodCode + ' consumption success (-' + data.itemQty + ')');
+            }, function(err) {
+                console.log(data.prodCode + ' consumption failed (-' + data.itemQty + ')');
+            });
     }
 
 }
