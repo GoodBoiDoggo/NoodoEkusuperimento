@@ -1,9 +1,9 @@
 angular.module('app.order')
     .controller('orderController', orderController);
 
-orderController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile', 'order'];
+orderController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication', 'Catalog', 'FB', 'profile', 'order', 'Inventory'];
 
-function orderController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order) {
+function orderController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, order, Inventory) {
     var vm = this;
     vm.clickedOrder = {};
     vm.orderStatus = orderStatus;
@@ -25,11 +25,13 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
     }
 
     function cancelOrder(orderId) {
+
         order.cancel(orderId)
             .then(function(res) {
                 loadUser();
                 vm.message = 'Order ' + orderId + ' successfully cancelled.';
                 console.log('Cancel success');
+                restoreAllInventory();
             }, function(err) {
                 vm.message = 'Order cancellation failed. Server error encountered.';
                 console.log('Cancel failed');
@@ -97,6 +99,25 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
                 }
             }, function(err) {
                 console.log('Success, please');
+            });
+    }
+
+    function restoreAllInventory() {
+        console.log(vm.orderData);
+        for (c = 0; c < vm.clickedOrder.orderItems.length; c++) {
+            restoreInventory(vm.clickedOrder.orderItems[c]);
+        }
+    }
+
+    function restoreInventory(data) {
+        vm.restore = {};
+        vm.restore.prodCode = angular.copy(data.prodCode);
+        vm.restore.qtyAvailable = angular.copy(data.itemQty);
+        Inventory.replenish(vm.restore)
+            .then(function(res) {
+                console.log(data.prodCode + ' replenishment success (+' + data.itemQty + ')');
+            }, function(err) {
+                console.log(data.prodCode + ' replenishment failed (+' + data.itemQty + ')');
             });
     }
 }
