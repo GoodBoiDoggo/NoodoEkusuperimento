@@ -35,6 +35,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.itemSizeData = [];
     vm.loadProgress = 0;
     vm.rateave = null;
+    vm.addingToCart = false;
     //Functions
     vm.pageInit = pageInit;
     vm.setRate = setRate;
@@ -53,6 +54,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.submitRating = submitRating;
     vm.addToCart = addToCart;
     vm.qtyToAdd = 1;
+
 
 
     pageInit();
@@ -100,7 +102,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     }
 
     function addToCart() {
-
+        vm.addingToCart = true;
         vm.cartItem.prodCode = vm.itemData.prodcode + vm.sizeCode;
         vm.cartItem.itemQty = vm.qtyToAdd;
         console.log('Added ' + vm.cartItem.prodCode + ' ' + vm.cartItem.itemQty + 'pcs.');
@@ -109,8 +111,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             .then(function(res) {
                 console.log('Cart added.');
                 if (vm.fbid) $scope.$emit('ADDCART');
-
+                vm.addingToCart = false;
             }, function(err) {
+                vm.addingToCart = false;
                 console.log('Server error encountered while adding to cart.');
             });
     }
