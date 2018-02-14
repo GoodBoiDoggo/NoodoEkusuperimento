@@ -30,7 +30,8 @@
                 console.log(context.psid);
                 //     window.location.assign("https://kariteun-shopping.alt.mybluemix.net/catalog?fbid=" + thread_context.psid);
             }, function error(err) {});
-            var ts = Math.round((new Date()).getTime() / 1000);
+            /* var ts = Math.round((new Date()).getTime() / 1000); */
+            var ts = Date.now();
             console.log(ts);
             closeFunction = function() {
                 console.log('called');
