@@ -39,7 +39,7 @@
                 console.log(JSON.stringify(context));
                 var xhttp = new XMLHttpRequest();                
                 /* xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true); */
-                xhttp.open("POST", "https://newBotMessenger.mybluemix.net/facebook/receive", true);
+                xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
                 xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
                 xhttp.onreadystatechange = function () {
   					if(xhttp.readyState === 4 && xhttp.status === 200) {
