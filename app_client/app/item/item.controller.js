@@ -49,7 +49,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.countletters = countletters;
     vm.sizeClass = sizeClass;
     vm.sizeClick = sizeClick;
-
+    vm.selectReview = selectReview;
     vm.submitRating = submitRating;
     vm.addToCart = addToCart;
     vm.qtyToAdd = 1;
@@ -57,6 +57,9 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     pageInit();
 
+    function selectReview(data) {
+        vm.clickedReview = data;
+    }
 
     function initDummyInventory() {
         vm.inventoryData = Inventory.getAll();
@@ -181,9 +184,8 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
         countletters();
     }
 
-    function deleteReview(prodcode, review) {
-        console.log(review);
-        Catalog.delReview(prodcode, review._id)
+    function deleteReview() {
+        Catalog.delReview(vm.itemData.prodcode, vm.clickedReview._id)
             .then(function(res) {
                 console.log('Successfully deleted review.');
                 loadItem('2');
