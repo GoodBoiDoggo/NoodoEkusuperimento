@@ -84,7 +84,7 @@
                             <input class="text-center number-textbox" type="number" ng-model="vm.newQty" min="{{vm.minQty}}" max="{{vm.stock}}">
                     </span>
                     </div>
-                    <div ng-if="vm.confirmDelete">
+                    <div ng-show="vm.confirmDelete">
                         <h4 class="text-center">Are you sure?</h4>
                         <button class="btn btn-primary" data-dismiss="modal" ng-click="vm.updateCart('DEL')">Yes</button>
                         <button class="btn btn-default" ng-click="vm.confirmDelete=false">No</button>
