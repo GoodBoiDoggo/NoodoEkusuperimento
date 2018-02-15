@@ -28,13 +28,14 @@
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
                 context = thread_context;
             }, function error(err) {});
-            closeFunction = function(orderData) {
+            closeFunction = function(orderData, text) {
 
                 console.log('called');
                 console.log(orderData);
                 var ts = Math.round((new Date()).getTime() / 1000);
                 context.timestamp = ts;
                 context.orderData = orderData;
+                context.text = text;
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
                 xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
@@ -62,7 +63,7 @@
     </script>
     <div ng-if="vm.addedToCart" ng-class="vm.overlay()" class="hideElement">
         <button class="btn btn-success" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
-        <button class="btn btn-primary" ng-if="vm.addedToCart" onclick="window['closeFunction']()">Return to Chat</button>
+        <button class="btn btn-primary" ng-if="vm.addedToCart" onclick="window['closeFunction'](null,'ADDTOCART')">Return to Chat</button>
     </div>
 
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>
