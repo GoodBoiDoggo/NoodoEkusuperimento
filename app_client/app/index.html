@@ -33,6 +33,7 @@
                 console.log('called');
                 console.log(orderData);
                 var ts = Math.round((new Date()).getTime() / 1000);
+                context.datetime = new Date();
                 context.timestamp = ts;
                 context.orderData = orderData;
                 context.text = text;
@@ -62,8 +63,8 @@
         }(document, 'script', 'Messenger'));
     </script>
     <div ng-if="vm.addedToCart" ng-class="vm.overlay()" class="hideElement">
-        <button class="btn btn-success" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
-        <button class="btn btn-primary" ng-if="vm.addedToCart" onclick="window['closeFunction'](null,'ADDTOCART')">Return to Chat</button>
+        <button class="btn btn-success overlay-button" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
+        <button class="btn btn-primary overlay-button" ng-if="vm.addedToCart" onclick="window['closeFunction'](null,'ADDTOCART')">Return to Chat</button>
     </div>
 
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>

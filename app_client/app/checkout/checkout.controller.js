@@ -220,13 +220,13 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
         vm.orderClone = angular.copy(vm.order);
         order.create(vm.order)
             .then(function(res) {
-                console.log(vm.order);
+                vm.orderClone.orderId = res.data.orderId;
                 console.log('Order successful');
                 cart.clear(vm.userData._id)
                     .then(function(res) {
                         consumeAllInventory();
                         if (vm.fbid) {
-                            closeFunction(JSON.stringify(vm.orderClone, 'CHECKOUT'));
+                            closeFunction(JSON.stringify(vm.orderClone), 'CHECKOUT');
                             console.log(JSON.stringify(vm.orderClone));
                         } else
                             $location.path('/order');

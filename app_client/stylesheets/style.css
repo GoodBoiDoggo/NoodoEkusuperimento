@@ -85,6 +85,11 @@ div {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.overlay-button {
+    width: 200px;
+    height: 40px;
+}
+
 
 /* .hideBeforeLoad {
     display: none;
