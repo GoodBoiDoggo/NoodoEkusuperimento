@@ -23,11 +23,9 @@
     <script>
         var closeFunction;
         var context = {};
-        console.log(window.location);
         window.extAsyncInit = function() {
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
                 context = thread_context;
-                console.log(context.psid);
             }, function error(err) {});
             closeFunction = function() {
                 console.log('called');
