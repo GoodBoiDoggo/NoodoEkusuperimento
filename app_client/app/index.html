@@ -29,7 +29,9 @@
                 context = thread_context;
             }, function error(err) {});
             closeFunction = function(orderData) {
+
                 console.log('called');
+                console.log(orderData);
                 var ts = Math.round((new Date()).getTime() / 1000);
                 context.timestamp = ts;
                 context.orderData = orderData;

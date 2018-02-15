@@ -217,7 +217,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
 
         vm.order.customerId = vm.userData._id;
         vm.order.address = vm.orderAddress + ',' + vm.orderPostal;
-        vm.orderDataClone = angular.copy(vm.orderData);
+        vm.orderClone = angular.copy(vm.order);
         order.create(vm.order)
             .then(function(res) {
                 console.log(vm.order);
@@ -226,8 +226,8 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                     .then(function(res) {
                         consumeAllInventory();
                         if (vm.fbid) {
-                            closeFunction(vm.orderDataClone);
-
+                            closeFunction(vm.orderClone);
+                            console.log(vm.orderClone);
                         } else
                             $location.path('/order');
                     }, function(err) {
