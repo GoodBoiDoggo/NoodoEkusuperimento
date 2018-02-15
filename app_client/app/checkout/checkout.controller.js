@@ -224,7 +224,10 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                 cart.clear(vm.userData._id)
                     .then(function(res) {
                         consumeAllInventory();
-                        $location.path('/order');
+                        if (vm.fbid) {
+                            closeFunction();
+                        } else
+                            $location.path('/order');
                     }, function(err) {
                         vm.message = 'Cart not cleared. Server error encountered. Please clear cart manually.';
                     });
