@@ -226,8 +226,8 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                     .then(function(res) {
                         consumeAllInventory();
                         if (vm.fbid) {
-                            closeFunction(vm.orderClone);
-                            console.log(vm.orderClone);
+                            closeFunction(JSON.stringify(vm.orderClone));
+                            console.log(JSON.stringify(vm.orderClone));
                         } else
                             $location.path('/order');
                     }, function(err) {
