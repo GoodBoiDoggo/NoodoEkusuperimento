@@ -6,6 +6,7 @@ cartController.$inject = ['$location', '$anchorScroll', 'cart', 'authentication'
 function cartController($location, $anchorScroll, cart, authentication, Catalog, FB, profile, Inventory) {
     var vm = this;
     vm.itemIds = '';
+    vm.confirmDelete = false;
     vm.loggedIn = false;
     vm.qtyToAdd = 1;
     vm.loaded = false;
@@ -187,6 +188,7 @@ function cartController($location, $anchorScroll, cart, authentication, Catalog,
                     console.log('Item quantity update failed. Server error encountered');
                 });
         } else if (action === 'DEL') {
+            vm.confirmDelete = false;
             cart.delete(vm.userData._id, vm.clickedItem)
                 .then(function(res) {
                     loadCart();

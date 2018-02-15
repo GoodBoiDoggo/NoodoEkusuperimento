@@ -21,7 +21,7 @@ function index($location, $window, $scope) {
 
     function overlay() {
         if (vm.addedToCart)
-            return 'post-add-message-div';
+            return 'dark-overlay-div';
     }
 
     function initNav() {

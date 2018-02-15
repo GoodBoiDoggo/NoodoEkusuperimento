@@ -17,6 +17,37 @@ body {
     font-family: 'robotobold';
 }
 
+.loader {
+    display: inline-block;
+    vertical-align: middle;
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid rgb(81, 141, 70);
+    /* border-bottom: 3px solid rgb(81, 141, 70); */
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 0.3s linear infinite;
+    animation: spin 0.3s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 div {
     word-wrap: break-word;
 }
@@ -43,7 +74,7 @@ div {
     top: 1px;
 }
 
-.post-add-message-div {
+.dark-overlay-div {
     display: inline-block !important;
     padding-top: 45%;
     height: 100%;
