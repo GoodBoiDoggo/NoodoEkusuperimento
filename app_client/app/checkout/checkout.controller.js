@@ -223,7 +223,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                 console.log('Order successful');
                 cart.clear(vm.userData._id)
                     .then(function(res) {
-                        consumeAllInventory();
+                        consumeAllInventory(vm.orderData);
                         if (vm.fbid) {
                             closeFunction();
                         } else

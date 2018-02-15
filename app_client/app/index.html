@@ -28,21 +28,22 @@
             MessengerExtensions.getContext('328158877659945', function success(thread_context) {
                 context = thread_context;
             }, function error(err) {});
-            closeFunction = function() {
+            closeFunction = function(orderData) {
                 console.log('called');
-                var ts = Math.round((new Date()).getTime() / 1000); 
+                var ts = Math.round((new Date()).getTime() / 1000);
                 context.timestamp = ts;
-                var xhttp = new XMLHttpRequest();                
+                context.orderData = orderData;
+                var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
                 xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
-                xhttp.onreadystatechange = function () {
-  					if(xhttp.readyState === 4 && xhttp.status === 200) {
-  						console.log("AJAX call success");
-  	                	MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
-  	                    console.log("failed to send confirmation message");
-  	                	});
-  					}
-  				};
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState === 4 && xhttp.status === 200) {
+                        console.log("AJAX call success");
+                        MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
+                            console.log("failed to send confirmation message");
+                        });
+                    }
+                };
                 xhttp.send(JSON.stringify(context));
             }
         };
