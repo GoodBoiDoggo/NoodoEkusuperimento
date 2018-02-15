@@ -37,9 +37,9 @@
                 xhttp.onreadystatechange = function () {
   					if(xhttp.readyState === 4 && xhttp.status === 200) {
   						console.log("AJAX call success");
-  	                	/* MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
+  	                	MessengerExtensions.requestCloseBrowser(function success() {}, function error(err) {
   	                    console.log("failed to send confirmation message");
-  	                	});  */
+  	                	});
   					}
   				};
                 xhttp.send(JSON.stringify(context));
