@@ -36,7 +36,9 @@ appModule.config(['$locationProvider', function($locationProvider) {
 function run($rootScope, $location, authentication, FB) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         console.log($location);
+
         if ($location.path() === '/profile') {
+            FB.setPath($location.$$path);
             if ($location.search().fbid) {
                 console.log($location.search().fbid);
                 //fbcode
@@ -88,6 +90,7 @@ function run($rootScope, $location, authentication, FB) {
                 $location.path('/profile');
             }
         } else if ($location.path() === '/cart') {
+            FB.setPath($location.$$path);
             if ($location.search().fbid) {
                 console.log($location.search().fbid);
                 //fbcode
@@ -123,6 +126,7 @@ function run($rootScope, $location, authentication, FB) {
                 $location.path('/login')
             }
         } else if ($location.path() === '/order') {
+            FB.setPath($location.$$path);
             if ($location.search().fbid) {
                 console.log($location.search().fbid);
                 //fbcode
@@ -156,6 +160,8 @@ function run($rootScope, $location, authentication, FB) {
             } else {
                 $location.path('/login')
             }
+        } else {
+            FB.setPath($location.$$path);
         }
 
 
