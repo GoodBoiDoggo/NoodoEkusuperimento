@@ -10,6 +10,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.hideReviews = true;
     vm.showHide = 'Show'
     vm.clickedSize = '';
+    vm.userexists = true;
     vm.stock = 0;
     vm.minAdd = 0;
     vm.sizeCode = '';
@@ -266,6 +267,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             FB.loadFbProfile(vm.fbid)
                 .then(function(res) {
                     console.log(res);
+                    vm.userexists = true;
                     if (res.data.loginsession) {
                         vm.userid = res.data._id;
                         vm.username = res.data.firstname + ' ' + res.data.lastname;
@@ -279,6 +281,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
                     }
 
                 }, function(err) {
+                    vm.userexists = false;
                     vm.loggedIn = false;
 
                 });
