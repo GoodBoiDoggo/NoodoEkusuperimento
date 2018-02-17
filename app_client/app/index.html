@@ -63,8 +63,12 @@
         }(document, 'script', 'Messenger'));
     </script>
     <div ng-if="vm.addedToCart" ng-class="vm.overlay()" class="hideElement">
-        <button class="btn btn-success overlay-button" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
-        <button class="btn btn-primary overlay-button" ng-if="vm.addedToCart" onclick="window['closeFunction'](null,'ADDTOCART')">Return to Chat</button>
+        <div class="overlay-content">
+            <h3>Item added to cart!</h3>
+            <button class="btn btn-success overlay-button" ng-if="vm.addedToCart" ng-click="vm.addedToCart=false">Continue shopping</button><br><br>
+            <button class="btn btn-primary overlay-button" ng-if="vm.addedToCart" onclick="window['closeFunction'](null,'ADDTOCART')">Return to Chat</button>
+
+        </div>
     </div>
 
     <kariteun-navbar ng-show="vm.showNav" data-spy="affix"></kariteun-navbar>

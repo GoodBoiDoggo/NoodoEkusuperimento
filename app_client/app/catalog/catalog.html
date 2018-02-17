@@ -6,7 +6,7 @@
             <input id="catalogSearch" type="search" class="form-control" ng-model="vm.searchParam" placeholder="Search product">
 
             <div id="advsearch">
-                <a data-toggle="modal" data-target="#settings">Search settings</a>
+                <button data-toggle="modal" class="btn btn-primary full-width" data-target="#settings"><span class="glyphicon">&#xe019;</span> Search settings</button>
                 <div id="filtersDiv" ng-show="vm.showAdv">
                     <span class="filterlabel">Brand:</span>
                     <input type="search" class="form-control" ng-change="vm.createFilter()" ng-model="vm.brandFilter" placeholder="(Nike, Adidas, Moose Gear)">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="sortDiv">
-                        <a id="filtertoggle" ng-click="vm.showAdvSearch()">{{vm.enaDis}} filters</a>
+                        <a id="filtertoggle" ng-click="vm.showAdvSearch()">{{vm.enaDis}} search filters</a>
                     </div>
                 </div>
                 <div class="modal-footer">

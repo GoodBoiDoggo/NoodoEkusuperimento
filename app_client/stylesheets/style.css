@@ -76,7 +76,7 @@ div {
 
 .dark-overlay-div {
     display: inline-block !important;
-    padding-top: 45%;
+    padding-top: 20%;
     height: 100%;
     width: 100%;
     z-index: 9995;
@@ -85,9 +85,23 @@ div {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.overlay-content {
+    padding-top: 30px;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+    width: 80%;
+    height: 250px;
+}
+
 .overlay-button {
     width: 200px;
     height: 40px;
+}
+
+.full-width {
+    width: 100%;
 }
 
 

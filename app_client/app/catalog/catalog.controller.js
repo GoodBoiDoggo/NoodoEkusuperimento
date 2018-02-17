@@ -61,7 +61,7 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
         vm.showAdv = false; //false by default
         vm.enaDis = 'Enable';
         vm.gOptions = ['Any', 'Male', 'Female'];
-        vm.sOptions = ['No. of Views', 'Price', 'Discount'];
+        vm.sOptions = ['No. of Views', 'Price']; //REMOVED Discount
         vm.sOrderOptions = [
             { value: true, text: 'Descending' },
             { value: false, text: 'Ascending' }
@@ -101,9 +101,10 @@ function catalogController($http, $anchorScroll, $location, $filter, Catalog, FB
             return item.viewcount;
         } else if (vm.selectedS == 'Price') {
             return item.prodprice
-        } else {
-            return item.discountrate;
         }
+        // else {
+        //     return item.discountrate;
+        // }
 
     }
 
