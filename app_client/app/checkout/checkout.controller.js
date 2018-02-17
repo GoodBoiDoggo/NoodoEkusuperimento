@@ -17,6 +17,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     vm.userData = {};
     vm.cartData = {};
     vm.clickedItem = {};
+    vm.submittingOrder = false;
     vm.selectedAction = '0';
     vm.clickItem = clickItem;
     vm.viewItem = viewItem;
@@ -31,6 +32,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
     pageInit();
 
     function checkAllStocks() {
+        vm.submittingOrder = true;
         vm.submit = true;
         vm.message = 'Checking stocks...';
         loadAllStocks();
@@ -119,10 +121,12 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                         for (i = 0; i < vm.stocksArray.length; i++) {
                             if (vm.stocksArray[i] == -1) {
                                 $anchorScroll();
+                                vm.submittingOrder = false;
                                 vm.message = 'Some item stocks failed to load(yellow highlight), please refresh the stocks.';
                                 break;
                             } else if (vm.stocksArray[i] < vm.cartData.cartItems[i].itemQty) {
                                 $anchorScroll();
+                                vm.submittingOrder = false;
                                 vm.message = 'Some item stocks are not enough for you requested amount(red highlight), please reduce the quantity or remove the item.';
                                 break;
                             } else {
@@ -151,10 +155,12 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                         for (i = 0; i < vm.stocksArray.length; i++) {
                             if (vm.stocksArray[i] == -1) {
                                 $anchorScroll();
+                                vm.submittingOrder = false;
                                 vm.message = 'Some item stocks failed to load(yellow highlight), please refresh the stocks.';
                                 break;
                             } else if (vm.stocksArray[i] - vm.cartData.cartItems[i].itemQty < 0) {
                                 $anchorScroll();
+                                vm.submittingOrder = false;
                                 vm.message = 'Some item stocks are not enough for your requested amount(red highlight), please reduce the quantity or remove the item.';
                                 break;
                             } else {
@@ -225,15 +231,18 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                 cart.clear(vm.userData._id)
                     .then(function(res) {
                         consumeAllInventory();
+                        vm.submittingOrder = false;
                         if (vm.fbid) {
                             closeFunction(JSON.stringify(vm.orderClone), 'CHECKOUT');
                             console.log(JSON.stringify(vm.orderClone));
                         } else
                             $location.path('/order');
                     }, function(err) {
+                        vm.submittingOrder = false;
                         vm.message = 'Cart not cleared. Server error encountered. Please clear cart manually.';
                     });
             }, function(err) {
+                vm.submittingOrder = false;
                 vm.message = "Order failed. Server error encountered.";
                 console.log('Order failed. Server error encountered.');
             });

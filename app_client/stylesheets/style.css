@@ -30,6 +30,12 @@ body {
     animation: spin 0.3s linear infinite;
 }
 
+.fbloader {
+    position: fixed;
+    top: 3px;
+    right: 10px;
+}
+
 @-webkit-keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);
@@ -46,6 +52,10 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.checkout-table tr td {
+    white-space: nowrap !important;
 }
 
 div {
@@ -101,7 +111,8 @@ div {
 }
 
 .full-width {
-    width: 100%;
+    width: 100% !important;
+    clear: both;
 }
 
 
@@ -346,7 +357,7 @@ div {
 } */
 
 .modal-dialog {
-    margin-top: 15%!important;
+    margin-top: 50px!important;
 }
 
 #filtertoggle {}
@@ -707,6 +718,9 @@ a[class*="item"]:hover {
 }
 
 @media only screen and (max-width: 330px) {
+    .full-width-small {
+        width: 100% !important;
+    }
     .shortNavLogo {
         display: block !important;
     }
@@ -716,6 +730,9 @@ a[class*="item"]:hover {
 }
 
 @media only screen and (max-width: 500px) {
+    .full-width-small {
+        width: 100% !important;
+    }
     .div-order {
         font-size: 3vw;
         /* background-color: rgb(162, 204, 162); */

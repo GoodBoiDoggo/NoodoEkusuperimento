@@ -75,8 +75,8 @@
             </div>
             <div id="div-submit-order">
 
-                <button ng-show="vm.orderAddress && vm.orderPostal" class="btn btn-success" ng-click="vm.checkAllStocks()">Submit Order</button>
-
+                <button ng-show="vm.orderAddress && vm.orderPostal" class="btn btn-success" ng-if="!vm.submittingOrder" ng-click="vm.checkAllStocks()">Submit Order</button>
+                <div ng-show="vm.submittingOrder" ng-class="vm.loaderType()" class="loader"></div>
                 <div ng-if="!(vm.orderAddress && vm.orderPostal)" class="alert alert-info">
 
                     <p class="message-nonextend">Please enter your address and postal code above so that we can deliver the item to you :)</p>

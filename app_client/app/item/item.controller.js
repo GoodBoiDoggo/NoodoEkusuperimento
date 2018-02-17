@@ -8,6 +8,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
 
     vm.boi = "BOIII";
     vm.hideReviews = true;
+    vm.showPopup = false;
     vm.showHide = 'Show'
     vm.clickedSize = '';
     vm.userexists = true;
@@ -53,12 +54,30 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
     vm.sizeClick = sizeClick;
     vm.selectReview = selectReview;
     vm.submitRating = submitRating;
+    vm.loaderType = loaderType;
     vm.addToCart = addToCart;
+    vm.buttonType = buttonType;
+    vm.displayType = displayType;
     vm.qtyToAdd = 1;
 
 
 
     pageInit();
+
+    function displayType() {
+        if (vm.fbid) return 'full-width';
+        else return '';
+    }
+
+    function buttonType() {
+        if (vm.fbid) return 'full-width';
+        else return '';
+    }
+
+    function loaderType() {
+        if (vm.fbid) return 'fbloader';
+        else '';
+    }
 
     function selectReview(data) {
         vm.clickedReview = data;
@@ -112,6 +131,7 @@ function itemController($http, Catalog, $routeParams, $anchorScroll, FB, $scope,
             .then(function(res) {
                 console.log('Cart added.');
                 if (vm.fbid) $scope.$emit('ADDCART');
+                else vm.showPopup = true;
                 vm.addingToCart = false;
             }, function(err) {
                 vm.addingToCart = false;
