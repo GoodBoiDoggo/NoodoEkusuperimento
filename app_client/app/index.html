@@ -36,9 +36,9 @@
                 context.datetime = new Date();
                 context.timestamp = ts;
                 context.orderData = {};
-                context.orderData.orderId = orderData.orderId;
-                context.orderData.totalPrice = orderData.totalPrice;
-                context.orderData.address = orderData.address;
+                context.orderData.orderId = JSON.stringify(orderData.orderId);
+                context.orderData.totalPrice =  JSON.stringify(orderData.totalPrice);
+                context.orderData.address =  JSON.stringify(orderData.address);
                 context.text = text;
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
