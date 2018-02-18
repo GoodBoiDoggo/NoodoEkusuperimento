@@ -233,7 +233,7 @@ function checkoutController($location, $anchorScroll, cart, authentication, Cata
                         consumeAllInventory();
                         vm.submittingOrder = false;
                         if (vm.fbid) {
-                            closeFunction(JSON.stringify(vm.orderClone), 'CHECKOUT');
+                            closeFunction(vm.orderClone, 'CHECKOUT');
                             console.log(JSON.stringify(vm.orderClone));
                         } else
                             $location.path('/order');
