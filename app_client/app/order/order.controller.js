@@ -20,8 +20,38 @@ function orderController($location, $anchorScroll, cart, authentication, Catalog
     }
 
     function orderClick(data) {
+        vm.itemIds = '';
         vm.cancelClicked = false;
         vm.clickedOrder = angular.copy(data);
+        for (i = 0; i < vm.clickedOrder.orderItems.length; i++) {
+            vm.itemIds = vm.itemIds.concat(vm.clickedOrder.orderItems[i].prodCode.substring(0, 6));
+            vm.clickedOrder.orderItems[i].displaySize = parseFloat(vm.clickedOrder.orderItems[i].prodCode.substring(6).replace('-', '.'));
+            vm.clickedOrder.orderItems[i].displayName = 'Loading name...';
+            if (i != vm.clickedOrder.length - 1) {
+                vm.itemIds = vm.itemIds.concat('-');
+            }
+        }
+        Catalog.getItems(vm.itemIds).then(function(res) {
+            vm.itemData = angular.copy(res.data);
+            if (vm.itemData) {
+                console.log(vm.itemData);
+                for (i = 0; i < vm.clickedOrder.orderItems.length; i++) {
+                    for (ii = 0; ii < vm.itemData.length; ii++) {
+                        if (vm.clickedOrder.orderItems[i].displayName == 'Loading name...') {
+                            if (vm.clickedOrder.orderItems[i].prodCode.substring(0, 6) == vm.itemData[ii].prodcode) {
+                                vm.clickedOrder.orderItems[i].displayName = vm.itemData[ii].prodname;
+                                vm.clickedOrder.orderItems[i].displayPrice = vm.itemData[ii].prodprice;
+                                break;
+                            }
+                        }
+                    }
+                }
+            } else {
+                vm.itemFound = false;
+            }
+        }, function(err) {
+            console.log('Server error encountered.');
+        });
     }
 
     function cancelOrder(orderId) {

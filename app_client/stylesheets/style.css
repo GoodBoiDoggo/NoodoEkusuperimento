@@ -674,6 +674,13 @@ a[class*="item"]:hover {
 
 #button-refresh-all {}
 
+.order-list-container {
+    width: 100%;
+    word-break: break-all;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .cart-image-container,
 .cart-list-container {
     display: inline-block;

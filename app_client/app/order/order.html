@@ -46,11 +46,14 @@
             <div class="modal-body">
                 <div id="orderItemsDiv" ng-show="!vm.cancelClicked">
                     Click on the item product code to view in catalog.
-                    <div class="div-orderitem" ng-repeat="orderItem in vm.clickedOrder.orderItems">
-                        <ul class="list-unstyled cart-list-container">
-                            <li class="cart-list">Product Code: <a class="finger" ng-click="vm.viewInCatalog(orderItem.prodCode.substring(0,6))" data-dismiss="modal">{{orderItem.prodCode}}</a></li>
-                            <li class="cart-list">Qty:{{orderItem.itemQty}}</li>
-                            <li class="cart-list"><strong>Subtotal: Php {{orderItem.subtotal | number: 2}}</strong></li>
+                    <div class="div-orderitem list-group-item" ng-repeat="orderItem in vm.clickedOrder.orderItems">
+                        <ul class="list-unstyled order-list-container">
+                            <li class="order-list">Product Code: <a class="finger" ng-click="vm.viewInCatalog(orderItem.prodCode.substring(0,6))" data-dismiss="modal">{{orderItem.prodCode}}</a></li>
+                            <li class="order-list">Product Name: {{orderItem.displayName}}</li>
+                            <li class="order-list">Product Size: {{orderItem.displaySize}}</li>
+                            <li class="order-list">Product Price: {{orderItem.displayPrice}}</li>
+                            <li class="order-list">Qty. Ordered:{{orderItem.itemQty}}</li>
+                            <li class="order-list"><strong>Subtotal: Php {{orderItem.subtotal | number: 2}}</strong></li>
                         </ul>
                     </div>
 
