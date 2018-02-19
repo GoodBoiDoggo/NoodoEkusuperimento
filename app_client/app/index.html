@@ -35,10 +35,9 @@
                 var ts = Math.round((new Date()).getTime() / 1000);
                 context.datetime = new Date();
                 context.timestamp = ts;
-                context.orderData = {};
-                context.orderData.orderId = orderData.orderId;
-                context.orderData.totalPrice =  orderData.totalPrice;
-                context.orderData.address =  orderData.address;
+                context.orderId = orderData.orderId;
+                context.totalPrice =  orderData.totalPrice;
+                context.address =  orderData.address;
                 console.log(context);
                 context.text = text;
                 var xhttp = new XMLHttpRequest();
