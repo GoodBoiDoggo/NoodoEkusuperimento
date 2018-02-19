@@ -33,9 +33,11 @@
                 var ts = Math.round((new Date()).getTime() / 1000);
                 context.datetime = new Date();
                 context.timestamp = ts;
-                context.orderId = orderData.orderId;
-                context.totalPrice =  orderData.totalPrice;
-                context.address =  orderData.address;
+                if(orderData){
+                	context.orderId = orderData.orderId;
+                    context.totalPrice =  orderData.totalPrice;
+                    context.address =  orderData.address;
+                }                
                 context.text = text;
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", "https://newBotMessenger.mybluemix.net/update", true);
